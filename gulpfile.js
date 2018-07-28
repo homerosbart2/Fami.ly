@@ -16,7 +16,7 @@ var autoprefixer = require('gulp-autoprefixer'),
 
 
 // paths
-var styleSrc = 'source/sass/**/*.sass',
+var styleSrc = 'source/sass/**/*.scss',
     styleDest = 'build/assets/css/',
     htmlSrc = 'source/',
     htmlDest = 'build/',
@@ -34,7 +34,7 @@ var styleSrc = 'source/sass/**/*.sass',
 
 // Compiles all SASS files
 gulp.task('sass', function() {
-    gulp.src('source/sass/**/*.sass')
+    gulp.src('source/sass/**/*.scss')
         .pipe(plumber())
         .pipe(sass({
             style: 'compressed'
