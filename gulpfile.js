@@ -21,8 +21,10 @@ var styleSrc = 'source/sass/**/*.scss',
     htmlSrc = 'source/',
     htmlDest = 'build/',
     vendorSrc = 'source/js/vendors/',
+    actionSrc = 'source/js/actions/',
     vendorDest = 'build/assets/js/',
     scriptSrc = 'source/js/*.js',
+    backEndSrc = 'source/php/**/*.php',
     scriptDest = 'build/assets/js/';
 
 
@@ -45,6 +47,11 @@ gulp.task('sass', function() {
           }))
 
         .pipe(gulp.dest('build/assets/css'));
+});
+
+gulp.task('php', function(){
+    gulp.src('source/php/**/*.php')
+        .pipe(gulp.dest('build/assets/php'));
 });
 
 gulp.task('images', function() {
@@ -74,26 +81,27 @@ gulp.task('vendors', function() {
         .pipe(gulp.dest('build/assets/js'));
 });
 
-
+//Concat and Compress Actions .js files
+gulp.task('actions', function() {
+    gulp.src(
+            [
+                'source/js/actions/*.js'
+            ])
+        .pipe(plumber())
+        .pipe(concat('actions.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('build/assets/js'));
+});
 
 // Watch for changes
 gulp.task('watch', function(){
-
-    // Serve files from the root of this project
-    browserSync.init({
-        server: {
-            baseDir: "./build"
-        },
-        notify: false
-    });
-
     gulp.watch(styleSrc,['sass']);
     gulp.watch(scriptSrc,['scripts']);
     gulp.watch(vendorSrc,['vendors']);
-    gulp.watch(['build/*.html', 'build/assets/css/*.css', 'build/assets/js/*.js', 'build/assets/js/vendors/*.js']).on('change', browserSync.reload);
-
+    gulp.watch(actionSrc,['actions']);
+    gulp.watch(backEndSrc,['php']);
 });
 
 
 // use default task to launch Browsersync and watch JS files
-gulp.task('default', [ 'sass', 'scripts', 'vendors', 'watch'], function () {});
+gulp.task('default', [ 'sass', 'scripts', 'vendors', 'actions', 'php', 'watch'], function () {});
