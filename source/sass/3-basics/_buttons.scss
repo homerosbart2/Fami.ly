@@ -1,0 +1,85 @@
+%btn{   
+    display: inline-block;
+    padding: 5px 10px;
+    color: black;
+    text-align: center;
+    font-size: 13px;
+    height: 22px;
+    line-height: 22px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: white;
+    border-radius: 3px;
+    border: 1px solid;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    &:hover,
+    &:active,
+    &:focus{
+        outline: 0;
+    }
+}
+
+.btn-register{
+    @extend %btn;
+    color: white;
+    background: $main;
+    border-color: $main;
+    &:hover,
+    &:active,
+    &:focus{
+        transform: scale(1.01);
+        transform: translateY(-2px);
+        color: white !important;
+        box-shadow:  0 7px 25px 0 rgba(0,0,0,0.24);
+    }
+}
+
+
+.btn-cancel{
+    @extend %btn;
+    margin-right: auto;
+    color: $main;
+    background: none;
+    border: none;
+    &:hover,
+    &:active,
+    &:focus{
+        color: $main;
+    }
+}
+
+
+
+.btn-login{
+    @extend %btn;
+    color: $white;
+    background: none;
+    border-color: $white;
+    &:hover,
+    &:active,
+    &:focus{
+        background: white;
+        color: black;
+        text-decoration: none !important;
+    }
+}
+
+.btn-menu{
+    @extend %btn;
+    color: $purple;
+    border-color: $purple;
+    &:hover,
+    &:active,
+    &:focus{
+        background: $purple;
+        border-color: $purple;
+        color: white;
+    }
+}
+  
+
+
+
+    
