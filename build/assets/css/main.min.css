@@ -528,6 +528,27 @@ nav {
   padding-bottom: 10px;
   color: white; }
 
+.central-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 0 10px;
+  width: 100%;
+  max-width: 700px;
+  height: 85vh; }
+
+.half-container {
+  width: 48%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column; }
+  .half-container.plus {
+    width: 58%; }
+  .half-container.minus {
+    width: 38%; }
+
 .flex-video {
   height: 0;
   margin-bottom: 0.88889rem;
@@ -544,6 +565,55 @@ nav {
   top: 0;
   width: 100%;
   left: 0; }
+
+.group-card {
+  position: relative;
+  display: flex;
+  width: 80%;
+  padding-top: 80%;
+  background: #555555;
+  transition: 0.2s ease;
+  overflow: hidden; }
+  .group-card:hover, .group-card:active, .group-card:focus {
+    transform: scale(1.05); }
+    .group-card:hover .image, .group-card:active .image, .group-card:focus .image {
+      filter: blur(5px) brightness(0.5); }
+    .group-card:hover .information .name, .group-card:active .information .name, .group-card:focus .information .name {
+      opacity: 1; }
+  .group-card .image {
+    position: absolute;
+    width: 50%;
+    transition: 0.2s ease; }
+    .group-card .image.top-left {
+      top: 0;
+      left: 0; }
+    .group-card .image.top-right {
+      top: 0;
+      right: 0; }
+    .group-card .image.bottom-left {
+      bottom: 0;
+      left: 0; }
+    .group-card .image.bottom-right {
+      bottom: 0;
+      right: 0; }
+  .group-card .information {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    color: white; }
+    .group-card .information .name {
+      text-transform: uppercase;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      font-weight: 600;
+      opacity: 0;
+      transition: 0.3s ease; }
 
 #header-login {
   background: url("../img/bg.jpg") no-repeat;
@@ -586,3 +656,10 @@ nav {
   .login-register .form-container {
     width: 100%;
     max-width: 300px; }
+
+.groups-section {
+  margin: 18px 0 0 0;
+  padding: 0 0;
+  width: 100%;
+  display: flex;
+  justify-content: center; }
