@@ -1,0 +1,137 @@
+nav{
+    width: 100%;
+}
+
+
+.main-nav{
+    position: fixed;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0;
+    background: $main-contrast;
+    box-shadow:  0 7px 10px 0 rgba(0,0,0,0.15); 
+    z-index: 2000;
+    li{
+        list-style: none;
+        margin: 0 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    a{
+        text-decoration: none;
+        color: white;
+        padding: 15px 15px;
+        display: flex;
+        transition: all 0.2s ease;
+    }
+    .options-division{
+        display: flex;
+        flex-wrap: nowrap;
+        .option-icon{
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        @include media-max(550px){
+            .nav-user{
+                display: none;
+            }
+        }
+
+    }
+    .nav-option{
+        overflow: hidden;
+        .option-icon.notification{
+            transition: 0.2s ease;
+            color: white;
+        }
+        &:hover:not(.notification){
+            transform: scale(1.1);
+            .option-icon.notification{
+                transform: translateY(-200%);
+            }
+            .counter{
+                background: white;
+                color: $main-contrast;
+                transform: translateX(-14px);
+            }
+        }
+    }
+    .nav-user{
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        border-right: 2px solid white;
+        padding-right: 10px;
+        b{
+            margin-right: 3px;
+        }
+        a{
+            padding: 15px 15px;
+        }
+        .user-alias{
+            transition: 0.2s ease;
+            z-index: 1;
+        }
+        .profile-link{
+            cursor: pointer;
+            color: $main;
+            transition: 0.3s ease;
+            position: absolute;
+            font-size: 12px;
+            padding-top: 28px; 
+            opacity: 0;
+        }
+        &:hover,
+        &:active,
+        &:focus{
+            .user-alias{
+                transform: translateY(-8px);
+            }
+            .profile-link{
+                opacity: 1;
+                transform: translateY(-4px);
+            }
+        }
+    }
+    .nav-logo{
+        font-family: $family-font;
+        padding: 0 15px;
+        padding-bottom: 5px;
+        &:hover{
+            color: $main;
+            transform: scale(1.1);
+        }
+    }
+
+    
+    @include media-max(380px){
+        .logo-division{
+            display: none;
+        }
+        .options-division{
+            width: 100%;
+            justify-content: space-around;
+        }
+    }
+    
+}
+
+#header{
+    height: 50px;
+}
+
+.counter{
+    background: $main;
+    border-radius: 100px;
+    padding: 0 7px;
+    margin-left: 3px;
+    color: white;
+    transition: 0.2s ease;
+}
