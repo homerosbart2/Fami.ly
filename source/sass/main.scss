@@ -23,11 +23,14 @@
 // 4 - LAYOUT
 @import '4-layout/nav';
 @import '4-layout/footer';
+@import '4-layout/containers';
 
 
 // 5 - MODULES
 @import '5-modules/flex-video';
+@import '5-modules/group-card';
 
 
 // 6 - PAGES
 @import '6-pages/page-home';
+@import '6-pages/page-groups-home';
