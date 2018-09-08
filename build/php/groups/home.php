@@ -1,6 +1,9 @@
 <html>
 <head>
     <title>Inicio</title>
+    <?php
+        include '../modules/links.php';
+    ?>
 </head>
 <?php
     include '../modules/nav.php';
@@ -17,6 +20,15 @@
                     <span class="information">
                         <span class="name flexFont">
                             Hogar
+                        </span>
+                    </span>
+                    <span class="counter">1</span>
+                    <span class="counter-information">
+                        <span class="notification-title">
+                            Hay una nueva encuesta de <b>Alex Campos</b>:
+                        </span>
+                        <span class="notification-text">
+                            ¿Qué quieren almorzar?
                         </span>
                     </span>
                 </span>
@@ -41,6 +53,15 @@
                     <span class="information">
                         <span class="name flexFont">
                             Ogáldez
+                        </span>
+                    </span>
+                    <span class="counter">1</span>
+                    <span class="counter-information">
+                        <span class="notification-title">
+                            Hay un nuevo mensaje de <b>Vilma Ogáldez</b>:
+                        </span>
+                        <span class="notification-text">
+                            Hola a todos!!!
                         </span>
                     </span>
                 </span>
