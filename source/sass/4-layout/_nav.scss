@@ -85,6 +85,7 @@ nav{
         font-size: 16px;
         border-right: 2px solid white;
         padding-right: 10px;
+        cursor: pointer;
         b{
             margin-right: 3px;
         }
@@ -96,7 +97,6 @@ nav{
             z-index: 1;
         }
         .profile-link{
-            cursor: pointer;
             color: $main;
             transition: 0.3s ease;
             position: absolute;

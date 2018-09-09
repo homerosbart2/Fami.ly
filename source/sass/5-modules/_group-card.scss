@@ -68,6 +68,7 @@
         right: 5px;
         background: $white;
         color: $main;
+        font-weight: 600;
         &:hover + .counter-information,
         &:active + .counter-information,
         &:focus + .counter-information{

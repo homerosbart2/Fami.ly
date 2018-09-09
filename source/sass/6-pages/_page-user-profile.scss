@@ -1,0 +1,97 @@
+.profile-section{
+    padding: 65px 0 0 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .central-container{
+        display: flex;
+        flex-direction: column;
+        .profile-title{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            background-image: linear-gradient(-45deg, $main, $secondary);
+            .profile-img{
+                position: relative;
+                width: 20%;
+                padding-top: 20%;
+                border-radius: 200px;
+                border: 5px solid white;
+                margin: 10px 10px;
+                overflow: hidden;
+                cursor: pointer;
+                &:hover,
+                &:active,
+                &:focus{
+                    img{
+                        filter: blur(5px) brightness(0.5);
+                    }
+                    .img-update{
+                        opacity: 1;
+                    }
+                }
+                img{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    transition: 0.2s ease;
+                }
+                .img-update{
+                    color: white;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    opacity: 0;
+                    transition: 0.2s ease;
+                    i{
+                        margin-right: 5px;
+                    }
+                }
+            }
+            .name-container{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin: 10px 10px;
+                color: white;
+                .user-names, .user-lastnames{
+                    font-size: 26px;
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+                .user-lastnames{
+                    font-weight: 600;
+                }
+                .user-alias{
+                    font-size: 16px;
+                    b{
+                        margin-right: 3px;
+                    }
+                }
+                .button-section{
+                    margin-top: 10px;
+                    .btn-login{
+                        padding: 5px 15px;
+                        &:hover{
+                            color: $main-contrast;
+                        }
+                    }
+                }
+                @include media-max(650px){
+                    .user-names, .user-lastnames{
+                        font-size: 20px;
+                    }
+                    .user-alias{
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
