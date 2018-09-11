@@ -75,9 +75,14 @@
                     }
                 }
                 .button-section{
+                    display: flex;
+                    flex-direction: row;
                     margin-top: 10px;
                     .btn-login{
                         padding: 5px 15px;
+                        display: flex;
+                        align-items: center;
+                        margin-right: 6px;
                         &:hover{
                             color: $main-contrast;
                         }
@@ -89,6 +94,51 @@
                     }
                     .user-alias{
                         font-size: 12px;
+                    }
+                }
+            }
+        }
+        .profile{
+            padding: 8px 3px;
+            display: flex;
+            flex-direction: column;
+            .info-title{
+                font-size: 16px;
+                font-weight: bold;
+                color: $main-contrast;
+                width: 100%;
+                display: flex;
+            }
+            .profile-information{
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+            }
+            .groups-information{
+                margin-bottom: 10px;
+                .groups-container{
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    .group-card{
+                        width: 19%;
+                        padding-top: 19%;
+                        margin-left: 0;
+                        margin-right: 1%;
+                    }
+                }
+            }
+            .family-information{
+                display: flex;
+                flex-direction: column;
+                .users-container{
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    margin: 10px 10px;
+                    .users-lastname{
+                        width: 100%;
+                        display: flex;
                     }
                 }
             }

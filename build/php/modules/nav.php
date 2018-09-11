@@ -15,6 +15,7 @@
                         </a>
                         <span class="profile-link">Ver más</span>
                     </li>
+                    <li><a id="search" class="nav-option"><span class="option-icon"><i class="fas fa-search"></i></span></a></li>
                     <li><a href="../groups/home.php" class="nav-option"><span class="option-icon"><i class="fas fa-home"></i></span></a></li>
                     <!-- En el span .counter se debe colocar el tamaño del detalle. -->
                     <li><a href="../shop/shopping_cart.php" class="nav-option"><span class="option-icon notification"><i class="fas fa-bell"></i></span><span class="counter">2</span></a></li>
@@ -28,6 +29,9 @@
 <script>
 $(document).ready(function(){
     $('.nav-user').click(function(){
+        window.location.href = "../users/profile.php";
+    });
+    $('.profile-img-preview').click(function(){
         window.location.href = "../users/profile.php";
     });
 });

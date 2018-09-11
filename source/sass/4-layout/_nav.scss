@@ -39,11 +39,23 @@ nav{
             overflow: hidden;
             border-radius: 40px;
             border: 2px solid white;
+            cursor: pointer;
             img{
                 position: absolute;
                 width: 100%;
                 top: 0;
                 left: 0;
+            }
+            &:hover + .nav-user,
+            &:active + .nav-user,
+            &:focus + .nav-user{
+                .user-alias{
+                    transform: translateY(-8px);
+                }
+                .profile-link{
+                    opacity: 1;
+                    transform: translateY(-4px);
+                }
             }
         }
         .option-icon{
@@ -60,6 +72,7 @@ nav{
 
     }
     .nav-option{
+        cursor: pointer;
         overflow: hidden;
         .option-icon.notification{
             transition: 0.2s ease;
