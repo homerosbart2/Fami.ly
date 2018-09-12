@@ -72,7 +72,7 @@ nav{
             }
         }
 
-        @include media-max(550px){
+        @include media-max(640px){
             .nav-user{
                 display: none;
             }

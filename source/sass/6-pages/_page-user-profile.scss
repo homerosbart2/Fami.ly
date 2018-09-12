@@ -67,6 +67,7 @@
                 }
                 .user-lastnames{
                     font-weight: 600;
+                    text-transform: uppercase;
                 }
                 .user-alias{
                     font-size: 16px;
@@ -134,9 +135,12 @@
                             padding-top: 32%;
                         }
                         @include media-max(370px){
-                            width: 49%;
-                            padding-top: 49%;
+                            width: 48%;
+                            padding-top: 48%;
                         }
+                    }
+                    @include media-max(370px){
+                        justify-content: space-between
                     }
                 }
             }
