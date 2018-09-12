@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     .central-container{
+        height: 100%;
         @include media-max(550px){
             flex-direction: column;
             .half-container{
