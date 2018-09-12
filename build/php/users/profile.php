@@ -38,6 +38,7 @@
                     <span class="info-title">Información</span>
                     <span class="birthday"><i class="far fa-calendar"></i> 27/03/1998</span>
                     <span class="gender"><i class="fas fa-mars"></i> Hombre</span>
+                    <span class="country"><i class="fas fa-globe-americas"></i> Guatemala</span>
                 </span>
                 <span class="groups-information">
                     <span class="info-title">Grupos en Común</span>
