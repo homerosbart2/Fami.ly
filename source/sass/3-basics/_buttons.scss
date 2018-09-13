@@ -36,6 +36,28 @@
     }
 }
 
+.btn-chat{
+    @extend %btn;
+    font-size: 14px;
+    width: 40.03px;
+    height: 36.5px;
+    background: white;
+    color: $main-contrast;
+    padding: 0 0;
+    margin: 0 0 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    &:hover,
+    &:active,
+    &:focus{
+        border: 1px solid white;
+        transform: scale(1.05);
+        color: $main-contrast;
+    }
+}
+
 
 .btn-cancel{
     @extend %btn;

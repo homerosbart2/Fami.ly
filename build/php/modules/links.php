@@ -5,4 +5,4 @@
 <link href="../../assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
 <link href="../../assets/css/bootstrap.css" media="all" rel="stylesheet" type="text/css" />    
 <link rel="stylesheet" href="../../assets/css/main.min.css" />
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<link rel="stylesheet" href="../../assets/fontawesome-free-5.3.1-web/css/all.min.css">

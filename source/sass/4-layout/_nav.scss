@@ -2,10 +2,21 @@ nav{
     width: 100%;
 }
 
+.the-line{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 4px;
+    display: flex;
+    background-image: linear-gradient(45deg, $main, $secondary);
+    z-index: 2000;
+    transition: 0.3s ease;
+}
 
 .main-nav{
     position: fixed;
     display: flex;
+    top: 4px;
     width: 100%;
     height: 55px;
     align-items: center;
@@ -14,6 +25,7 @@ nav{
     background: $main-contrast;
     box-shadow:  0 7px 10px 0 rgba(0,0,0,0.15); 
     z-index: 2000;
+    transition: 0.3s ease;
     li{
         list-style: none;
         margin: 0 5px;
@@ -67,12 +79,16 @@ nav{
             font-size: 20px;
         }
         .in-searchbox{
-            @include media-max(820px){
+            @include media-max(600px){
                 display: none;
+            }
+
+            @include media-max(780px){
+                margin-left: 10px;
             }
         }
 
-        @include media-max(640px){
+        @include media-max(780px){
             .nav-user{
                 display: none;
             }
@@ -98,19 +114,19 @@ nav{
             }
         }
         &.search-option{
-            @include media-min(821px){
+            @include media-min(601px){
                 display: none;
             }
         }
     }
     .nav-user{
         position: relative;
+        height: 55px;
         display: flex;
         justify-content: center;
         align-items: center;
         font-size: 16px;
         border-right: 2px solid white;
-        padding-right: 10px;
         cursor: pointer;
         b{
             margin-right: 3px;
@@ -176,7 +192,7 @@ nav{
 
 .searchbox{
     position: fixed;
-    top: 0;
+    top: 4px;
     width: 100%;
     height: 55px;
     opacity: 0;

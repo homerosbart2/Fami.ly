@@ -1,6 +1,7 @@
 <html>
     <body>
         <span class="mask"></span>
+        <span class="the-line"></span>
         <section id="header">
             <ul class="main-nav">
                 <span class="logo-division">
@@ -93,5 +94,43 @@ $(document).ready(function(){
             $(this).trigger("enterKey");
         }
     });
+
+    // Hide Header on on scroll down
+    var didScroll;
+    var lastScrollTop = 0;
+    var delta = 5;
+    var navbarHeight = $('.main-nav').outerHeight();
+
+    $(window).scroll(function(event){
+        didScroll = true;
+    });
+
+    setInterval(function() {
+        if (didScroll) {
+            hasScrolled();
+            didScroll = false;
+        }
+    }, 250);
+
+    function hasScrolled() {
+        var st = $(this).scrollTop();
+        
+        // Make sure they scroll more than delta
+        if(Math.abs(lastScrollTop - st) <= delta)
+            return;
+        
+        // If they scrolled down and are past the navbar, add class .nav-up.
+        // This is necessary so you never see what is "behind" the navbar.
+        if (st > lastScrollTop && st > navbarHeight){
+            // Scroll Down
+            $('.the-line').css('top', '-55px');
+            $('.main-nav').css('top', '-59px');
+        } else {
+            $('.the-line').css('top', '0');
+            $('.main-nav').css('top', '4px');
+        }
+        
+        lastScrollTop = st;
+    }
 });
 </script>
