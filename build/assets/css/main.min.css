@@ -676,7 +676,8 @@ nav {
   z-index: -1;
   background: black;
   opacity: 0;
-  transition: 0.2s ease; }
+  transition: 0.2s ease;
+  background: pink; }
 
 .flex-video {
   height: 0;
@@ -879,6 +880,7 @@ nav {
     .profile-section .central-container .profile-title {
       display: flex;
       align-items: center;
+      justify-content: flex-start;
       width: 100%;
       background-image: linear-gradient(-45deg, #FF6040, #203E99); }
       .profile-section .central-container .profile-title .profile-img {
@@ -918,6 +920,7 @@ nav {
         display: flex;
         flex-direction: column;
         justify-content: center;
+        align-items: flex-start;
         margin: 10px 10px;
         color: white; }
         .profile-section .central-container .profile-title .name-container .user-names, .profile-section .central-container .profile-title .name-container .user-lastnames {
@@ -1008,7 +1011,8 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #000B2B; }
+  background: #000B2B;
+  z-index: 1999; }
   .chatbox-container .chatbox {
     height: 100%;
     width: 100%;
@@ -1016,7 +1020,8 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 15px; }
+    margin: 0 15px;
+    z-index: 2000; }
     .chatbox-container .chatbox .chatbox-input {
       width: 100%;
       border-radius: 100px;
@@ -1026,6 +1031,19 @@ nav {
       height: 35px;
       background: white;
       color: #000B2B; }
+  .chatbox-container .questionbox {
+    position: absolute;
+    width: 100%;
+    height: 35px;
+    max-width: 700px;
+    background: #000B2B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 20px;
+    color: white;
+    z-index: 1998;
+    transition: 0.2s ease; }
 
 .wall {
   width: 100%;
@@ -1033,13 +1051,13 @@ nav {
   justify-content: center; }
   .wall .central-container {
     padding-top: 67px;
+    padding-bottom: 67px;
     flex-direction: column; }
     .wall .central-container .group-title {
       display: flex;
       width: 100%;
       justify-content: flex-start;
-      margin-bottom: 10px;
-      border-bottom: 4px solid #000B2B; }
+      margin-bottom: 10px; }
       .wall .central-container .group-title .information {
         display: flex;
         flex-direction: column;
@@ -1070,13 +1088,15 @@ nav {
           margin-left: 20px; }
       .wall .central-container .post-container .post {
         position: relative;
-        min-width: 100px;
+        min-width: 120px;
         border-radius: 3px;
-        padding: 36px 12px 22px 12px;
+        padding: 34px 12px 22px 12px;
         margin-right: 20px;
         background: #e9eeff;
         color: #000B2B;
-        overflow: hidden; }
+        overflow: hidden;
+        display: flex;
+        flex-direction: column; }
         .wall .central-container .post-container .post .time {
           color: #aaa;
           font-size: 11px;
@@ -1085,7 +1105,7 @@ nav {
           top: 3px;
           right: 12px;
           bottom: 4px;
-          left: 3px;
+          left: 12px;
           justify-content: flex-end;
           align-items: flex-end; }
         .wall .central-container .post-container .post .user-name {
@@ -1096,5 +1116,59 @@ nav {
           top: 3px;
           height: 24px;
           padding-left: 12px;
-          border-bottom: 3px solid white;
+          border-bottom: 3px solid #000B2B;
           font-weight: 700; }
+        .wall .central-container .post-container .post .type {
+          color: #aaa;
+          font-size: 11px;
+          position: absolute;
+          display: flex;
+          top: 3px;
+          right: 12px;
+          bottom: 4px;
+          left: 12px;
+          justify-content: flex-start;
+          align-items: flex-end; }
+          .wall .central-container .post-container .post .type .fa-circle {
+            margin-bottom: 5px;
+            margin-right: 3px;
+            font-size: 8px; }
+        .wall .central-container .post-container .post .text .search-result {
+          background: #ffffce;
+          color: #000B2B; }
+        .wall .central-container .post-container .post.question .text {
+          background: #000B2B;
+          color: white;
+          padding: 2px 6px; }
+        .wall .central-container .post-container .post.question .type::after {
+          content: "Pregunta"; }
+        .wall .central-container .post-container .post.question .answers {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 3px;
+          overflow: hidden;
+          height: 0; }
+          .wall .central-container .post-container .post.question .answers .answer {
+            display: flex;
+            flex-direction: column;
+            border-radius: 3px;
+            border-left: 6px solid white;
+            margin: 3px 0;
+            padding: 0 6px; }
+            .wall .central-container .post-container .post.question .answers .answer .user {
+              font-weight: 700; }
+            .wall .central-container .post-container .post.question .answers .answer.me {
+              background: #ffebe7;
+              border-left: 6px solid #000B2B; }
+        .wall .central-container .post-container .post.message .type::after {
+          content: "Mensaje"; }
+        .wall .central-container .post-container .post .options {
+          display: flex;
+          justify-content: flex-end;
+          margin-top: 3px; }
+          .wall .central-container .post-container .post .options a {
+            cursor: pointer !important;
+            color: #FF6040;
+            font-weight: 700;
+            z-index: 1;
+            margin-left: 12px; }
