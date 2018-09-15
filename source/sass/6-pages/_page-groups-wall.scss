@@ -8,6 +8,7 @@
     justify-content: center;
     align-items: center;
     background: $main-contrast;
+    z-index: 1999;
     .chatbox{
         height: 100%;
         width: 100%;
@@ -16,6 +17,7 @@
         justify-content: center;
         align-items: center;
         margin: 0 15px;
+        z-index: 2000;
         .chatbox-input{
             width: 100%;
             border-radius: 100px;
@@ -27,6 +29,26 @@
             color: $main-contrast;
         }
     }
+    .questionbox-container{
+        position: absolute;
+        height: 35px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: $main-contrast;
+        bottom: 20px;
+        z-index: 1998;
+        transition: 0.2s ease;
+        .questionbox{
+            width: 100%;
+            height: 100%;
+            max-width: 700px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+    }
 }
 
 .wall{
@@ -35,13 +57,13 @@
     justify-content: center;
     .central-container{
         padding-top: 67px;
+        padding-bottom: 67px;
         flex-direction: column;
         .group-title{
             display: flex;
             width: 100%;
             justify-content: flex-start;
             margin-bottom: 10px;
-            border-bottom: 4px solid $main-contrast;
             .information{
                 display: flex;
                 flex-direction: column;
@@ -82,13 +104,15 @@
             }
             .post{
                 position: relative;
-                min-width: 100px;
+                min-width: 120px;
                 border-radius: 3px;
-                padding: 36px 12px 22px 12px;
+                padding: 34px 12px 22px 12px;
                 margin-right: 20px;
                 background: $light-secondary;
                 color: $main-contrast;
                 overflow: hidden;
+                display: flex;
+                flex-direction: column;
                 .time{
                     color: $gray;
                     font-size: 11px;
@@ -97,7 +121,7 @@
                     top: 3px;
                     right: 12px;
                     bottom: 4px;
-                    left: 3px;
+                    left: 12px;
                     justify-content: flex-end;
                     align-items: flex-end;
                 }
@@ -109,8 +133,80 @@
                     top: 3px;
                     height: 24px;
                     padding-left: 12px;
-                    border-bottom: 3px solid white;
+                    border-bottom: 3px solid $main-contrast;
                     font-weight: 700;
+                }
+                .type{
+                    color: $gray;
+                    font-size: 11px;
+                    position: absolute;
+                    display: flex;
+                    top: 3px;
+                    right: 12px;
+                    bottom: 4px;
+                    left: 12px;
+                    justify-content: flex-start;
+                    align-items: flex-end;
+                    .fa-circle{
+                        margin-bottom: 5px;
+                        margin-right: 3px;
+                        font-size: 8px;
+                    }
+                }
+                .text{
+                    .search-result{
+                        background: rgb(255, 255, 206);
+                        color: $main-contrast;
+                    }
+                }
+                &.question{
+                    .text{
+                        background: $main-contrast;
+                        color: white;
+                        padding: 2px 6px;
+                    }
+                    .type::after{
+                        content: "Pregunta";
+                    }
+                    .answers{
+                        display: flex;
+                        flex-direction: column;
+                        margin-bottom: 3px;
+                        overflow: hidden;
+                        height: 0;
+                        .answer{
+                            display: flex;
+                            flex-direction: column;
+                            border-radius: 3px;
+                            border-left: 6px solid white;
+                            margin: 3px 0;
+                            padding: 0 6px;
+                            .user{
+                                font-weight: 700;
+                            }
+                            &.me{
+                                background: $light-main;
+                                border-left: 6px solid $main-contrast;
+                            }
+                        }
+                    }
+                }
+                &.message{
+                    .type::after{
+                        content: "Mensaje";
+                    }
+                }
+                .options{
+                    display: flex;
+                    justify-content: flex-end;
+                    margin-top: 3px;
+                    a{
+                        cursor: pointer !important;
+                        color: $main;
+                        font-weight: 700;
+                        z-index: 1;
+                        margin-left: 12px;
+                    }
                 }
             }
         }
