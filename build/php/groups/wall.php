@@ -59,6 +59,30 @@
                     <span class="type"><i class="fas fa-circle"></i></span>
                 </span>   
             </span>
+            <span class="post-container">
+                <span id="5" class="post message">
+                    <span class="user-name">Vilma</span>
+                    <span class="text">Adiós ): </span>
+                    <span class="time">3:15 PM</span>
+                    <span class="type"><i class="fas fa-circle"></i></span>
+                </span>   
+            </span>
+            <span class="post-container">
+                <span id="6" class="post message">
+                    <span class="user-name">Vilma</span>
+                    <span class="text">Adiós ): </span>
+                    <span class="time">3:15 PM</span>
+                    <span class="type"><i class="fas fa-circle"></i></span>
+                </span>   
+            </span>
+            <span class="post-container">
+                <span id="7" class="post message">
+                    <span class="user-name">Vilma</span>
+                    <span class="text">Adiós ): </span>
+                    <span class="time">3:15 PM</span>
+                    <span class="type"><i class="fas fa-circle"></i></span>
+                </span>   
+            </span>
         </span>
     </span>
     <span class="chatbox-container">
@@ -66,7 +90,9 @@
             <input type="text" class="chatbox-input" placeholder="Escribe un mensaje">
             <a class="btn-chat"><i class="fas fa-paperclip"></i></a>
         </span>
-        <span class="questionbox">Pregunta</span>
+        <span class="questionbox-container">
+            <span class="questionbox">Pregunta</span>
+        </span>
     </span>
 </body>
 </html>
@@ -86,7 +112,7 @@
             question = $(this).parent().parent().children('.text').html();
             postId = $(this).parent().parent().prop('id');
             $('.questionbox').html(question);
-            $('.questionbox').css('bottom', '55px');
+            $('.questionbox-container').css('bottom', '55px');
             $('.chatbox-input').prop('placeholder', 'Responde la pregunta');
             $('.chatbox-input').prop('id', postId);
             triggerMask('questionbox');
@@ -110,6 +136,7 @@
                     postId = $(this).prop('id');
                     console.log('Pregunta: ' + postId);
                     console.log('Respuesta: ' + text);
+                    $('#' + postId).children('.answers').prepend('<span class="answer me">' + text + '</span>');
                     //Se esconde la pregunta.
                     $('.questionbox').css('bottom', '20px');
                     $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');

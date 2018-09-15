@@ -69,9 +69,11 @@ $(document).ready(function(){
     var text2;
     var searchArray = [];
     var searchIndex;
+    var size;
 
     function removeSearchResult(){
-        for(i = 0; i <= searchArray.length; i++){
+        size = searchArray.length;
+        for(i = 0; i < size; i++){
             object = $('#' + searchArray.pop()).children('.text');
             text2 = object.text();
             object.html(text2);
@@ -102,7 +104,7 @@ $(document).ready(function(){
                 removeSearchResult(searchArray);
             }
         }else if($(this).prop('id') == 'questionbox'){
-            $('.questionbox').css('bottom', '20px');
+            $('.questionbox-container').css('bottom', '20px');
             $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');
             $('.chatbox-input').removeAttr('id');
             deactivateMask();
