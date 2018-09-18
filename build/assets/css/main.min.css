@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize * */
 @import url("https://fonts.googleapis.com/css?family=Roboto|Vampiro+One");
 html {
@@ -1091,6 +1092,8 @@ nav {
           padding-top: 6px;
           margin-right: 0;
           margin-left: 20px; }
+          .wall .central-container .post-container.me .post.poll .answers .answer .percent-container {
+            background: #e9eeff; }
       .wall .central-container .post-container .post {
         position: relative;
         min-width: 120px;
@@ -1167,6 +1170,68 @@ nav {
               border-left: 6px solid #000B2B; }
         .wall .central-container .post-container .post.message .type::after {
           content: "Mensaje"; }
+        .wall .central-container .post-container .post.poll .text {
+          background: #000B2B;
+          color: white;
+          padding: 2px 6px; }
+        .wall .central-container .post-container .post.poll .answers {
+          margin-top: 3px;
+          margin-bottom: 3px;
+          z-index: 1; }
+          .wall .central-container .post-container .post.poll .answers .answer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-radius: 3px;
+            margin: 3px 0;
+            padding: 0 6px; }
+            .wall .central-container .post-container .post.poll .answers .answer .radio-container {
+              display: flex;
+              align-items: center; }
+              .wall .central-container .post-container .post.poll .answers .answer .radio-container input {
+                display: none; }
+                .wall .central-container .post-container .post.poll .answers .answer .radio-container input:checked + label {
+                  background: #000B2B;
+                  width: 15px;
+                  height: 15px;
+                  margin-right: 4px; }
+                  .wall .central-container .post-container .post.poll .answers .answer .radio-container input:checked + label i {
+                    font-size: 19px;
+                    opacity: 1; }
+              .wall .central-container .post-container .post.poll .answers .answer .radio-container label {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 12px;
+                height: 12px;
+                border: 1px solid #000B2B;
+                border-radius: 20px;
+                margin: 0 3px 3px 0;
+                transition: 0.2s ease; }
+                .wall .central-container .post-container .post.poll .answers .answer .radio-container label i {
+                  font-size: 1px;
+                  color: white;
+                  opacity: 0;
+                  transition: 0.2s ease; }
+            .wall .central-container .post-container .post.poll .answers .answer .quantity {
+              font-weight: 700;
+              margin-left: 12px; }
+            .wall .central-container .post-container .post.poll .answers .answer .percent-container {
+              display: flex;
+              width: 100%;
+              height: 6px;
+              background: #ffebe7;
+              margin-bottom: 6px; }
+              .wall .central-container .post-container .post.poll .answers .answer .percent-container .percent {
+                display: flex;
+                height: 100%;
+                width: 50%;
+                background: #000B2B;
+                transition: 0.2s ease; }
+        .wall .central-container .post-container .post.poll .type::after {
+          content: "Votación"; }
         .wall .central-container .post-container .post .options {
           display: flex;
           justify-content: flex-end;
@@ -1177,3 +1242,5 @@ nav {
             font-weight: 700;
             z-index: 1;
             margin-left: 12px; }
+            .wall .central-container .post-container .post .options a.see-more {
+              z-index: 11; }

@@ -100,6 +100,15 @@
                     padding-top: 6px;
                     margin-right: 0;
                     margin-left: 20px;
+                    &.poll{
+                        .answers{
+                            .answer{
+                                .percent-container{
+                                    background: $light-secondary;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             .post{
@@ -196,6 +205,83 @@
                         content: "Mensaje";
                     }
                 }
+                &.poll{
+                    .text{
+                        background: $main-contrast;
+                        color: white;
+                        padding: 2px 6px;
+                    }
+                    .answers{
+                        margin-top: 3px;
+                        margin-bottom: 3px;
+                        z-index: 1;
+                        .answer{
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            align-items: center;
+                            flex-wrap: wrap;
+                            border-radius: 3px;
+                            margin: 3px 0;
+                            padding: 0 6px;
+                            .radio-container{
+                                display: flex;
+                                align-items: center;
+                                input{
+                                    display: none;
+                                    &:checked + label{
+                                        background: $main-contrast;
+                                        width: 15px;
+                                        height: 15px;
+                                        margin-right: 4px;
+                                        i{
+                                            font-size: 19px;
+                                            opacity: 1;
+                                        }
+                                    }
+                                }
+                                label{
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    width: 12px;
+                                    height: 12px;
+                                    border: 1px solid $main-contrast;
+                                    border-radius: 20px;
+                                    margin: 0 3px 3px 0;
+                                    transition: 0.2s ease;
+                                    i{
+                                        font-size: 1px;
+                                        color: white;
+                                        opacity: 0;
+                                        transition: 0.2s ease;
+                                    }
+                                }
+                            }
+                            .quantity{
+                                font-weight: 700;
+                                margin-left: 12px;
+                            }
+                            .percent-container{
+                                display: flex;
+                                width: 100%;
+                                height: 6px;
+                                background: $light-main;
+                                margin-bottom: 6px;
+                                .percent{
+                                    display: flex;
+                                    height: 100%;
+                                    width: 50%;
+                                    background: $main-contrast;
+                                    transition: 0.2s ease;
+                                }
+                            }
+                        }
+                    }
+                    .type::after{
+                        content: "Votación";
+                    }
+                }
                 .options{
                     display: flex;
                     justify-content: flex-end;
@@ -206,6 +292,9 @@
                         font-weight: 700;
                         z-index: 1;
                         margin-left: 12px;
+                        &.see-more{
+                            z-index: 11;
+                        }
                     }
                 }
             }

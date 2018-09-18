@@ -51,6 +51,7 @@
 
 <script>
 var wall = 0;
+var size;
 
 //Funciones para activar y desactivar la máscara.
 function triggerMask(lmnt){
@@ -69,7 +70,6 @@ $(document).ready(function(){
     var text2;
     var searchArray = [];
     var searchIndex;
-    var size;
 
     function removeSearchResult(){
         size = searchArray.length;
