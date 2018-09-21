@@ -1,0 +1,303 @@
+.chatbox-container{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $main-contrast;
+    z-index: 1999;
+    .chatbox{
+        height: 100%;
+        width: 100%;
+        max-width: 700px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 15px;
+        z-index: 2000;
+        .chatbox-input{
+            width: 100%;
+            border-radius: 100px;
+            padding-left: 15px;
+            padding-right: 15px;
+            text-align: left;
+            height: 35px;
+            background: white;
+            color: $main-contrast;
+        }
+    }
+    .questionbox-container{
+        position: absolute;
+        height: 35px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        background: $main-contrast;
+        bottom: 20px;
+        z-index: 1998;
+        transition: 0.2s ease;
+        .questionbox{
+            width: 100%;
+            height: 100%;
+            max-width: 700px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+    }
+}
+
+.wall{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .central-container{
+        padding-top: 67px;
+        padding-bottom: 67px;
+        flex-direction: column;
+        .group-title{
+            display: flex;
+            width: 100%;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+            .information{
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                .name{
+                    font-size: 20px;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                }
+            }
+            .group-card{
+                width: 50px;
+                padding-top: 50px;
+                margin-left: 0;
+                &:hover,
+                &:active,
+                &:focus{
+                    cursor: default;
+                    transform: none;
+                    img{
+                        filter: none;
+                    }
+                }
+            }
+        }
+        .post-container{
+            display: flex;
+            width: 100%;
+            margin: 4px 0;
+            &.me{
+                justify-content: flex-end;
+                .post{
+                    background: $light-main;
+                    padding-top: 6px;
+                    margin-right: 0;
+                    margin-left: 20px;
+                    &.poll{
+                        .answers{
+                            .answer{
+                                .percent-container{
+                                    background: $light-secondary;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .post{
+                position: relative;
+                min-width: 120px;
+                border-radius: 3px;
+                padding: 34px 12px 22px 12px;
+                margin-right: 20px;
+                background: $light-secondary;
+                color: $main-contrast;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                .time{
+                    color: $gray;
+                    font-size: 11px;
+                    position: absolute;
+                    display: flex;
+                    top: 3px;
+                    right: 12px;
+                    bottom: 4px;
+                    left: 12px;
+                    justify-content: flex-end;
+                    align-items: flex-end;
+                }
+                .user-name{
+                    position: absolute;
+                    display: flex;
+                    left: 0;
+                    right: 0;
+                    top: 3px;
+                    height: 24px;
+                    padding-left: 12px;
+                    border-bottom: 3px solid $main-contrast;
+                    font-weight: 700;
+                }
+                .type{
+                    color: $gray;
+                    font-size: 11px;
+                    position: absolute;
+                    display: flex;
+                    top: 3px;
+                    right: 12px;
+                    bottom: 4px;
+                    left: 12px;
+                    justify-content: flex-start;
+                    align-items: flex-end;
+                    .fa-circle{
+                        margin-bottom: 5px;
+                        margin-right: 3px;
+                        font-size: 8px;
+                    }
+                }
+                .text{
+                    .search-result{
+                        background: rgb(255, 255, 206);
+                        color: $main-contrast;
+                    }
+                }
+                &.question{
+                    .text{
+                        background: $main-contrast;
+                        color: white;
+                        padding: 2px 6px;
+                    }
+                    .type::after{
+                        content: "Pregunta";
+                    }
+                    .answers{
+                        display: flex;
+                        flex-direction: column;
+                        margin-bottom: 3px;
+                        overflow: hidden;
+                        height: 0;
+                        .answer{
+                            display: flex;
+                            flex-direction: column;
+                            border-radius: 3px;
+                            border-left: 6px solid white;
+                            margin: 3px 0;
+                            padding: 0 6px;
+                            .user{
+                                font-weight: 700;
+                            }
+                            &.me{
+                                background: $light-main;
+                                border-left: 6px solid $main-contrast;
+                            }
+                        }
+                    }
+                }
+                &.message{
+                    .type::after{
+                        content: "Mensaje";
+                    }
+                }
+                &.poll{
+                    .text{
+                        background: $main-contrast;
+                        color: white;
+                        padding: 2px 6px;
+                    }
+                    .answers{
+                        margin-top: 3px;
+                        margin-bottom: 3px;
+                        z-index: 1;
+                        .answer{
+                            display: flex;
+                            flex-direction: row;
+                            justify-content: space-between;
+                            align-items: center;
+                            flex-wrap: wrap;
+                            border-radius: 3px;
+                            margin: 3px 0;
+                            padding: 0 6px;
+                            .radio-container{
+                                display: flex;
+                                align-items: center;
+                                input{
+                                    display: none;
+                                    &:checked + label{
+                                        background: $main-contrast;
+                                        width: 15px;
+                                        height: 15px;
+                                        margin-right: 4px;
+                                        i{
+                                            font-size: 19px;
+                                            opacity: 1;
+                                        }
+                                    }
+                                }
+                                label{
+                                    display: flex;
+                                    justify-content: center;
+                                    align-items: center;
+                                    width: 12px;
+                                    height: 12px;
+                                    border: 1px solid $main-contrast;
+                                    border-radius: 20px;
+                                    margin: 0 3px 3px 0;
+                                    transition: 0.2s ease;
+                                    i{
+                                        font-size: 1px;
+                                        color: white;
+                                        opacity: 0;
+                                        transition: 0.2s ease;
+                                    }
+                                }
+                            }
+                            .quantity{
+                                font-weight: 700;
+                                margin-left: 12px;
+                            }
+                            .percent-container{
+                                display: flex;
+                                width: 100%;
+                                height: 6px;
+                                background: $light-main;
+                                margin-bottom: 6px;
+                                .percent{
+                                    display: flex;
+                                    height: 100%;
+                                    width: 50%;
+                                    background: $main-contrast;
+                                    transition: 0.2s ease;
+                                }
+                            }
+                        }
+                    }
+                    .type::after{
+                        content: "Votación";
+                    }
+                }
+                .options{
+                    display: flex;
+                    justify-content: flex-end;
+                    margin-top: 3px;
+                    a{
+                        cursor: pointer !important;
+                        color: $main;
+                        font-weight: 700;
+                        z-index: 1;
+                        margin-left: 12px;
+                        &.see-more{
+                            z-index: 11;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
