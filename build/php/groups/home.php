@@ -1,6 +1,3 @@
-<html>
-<head>
-    <title>Inicio</title>
     <?php
         include '../modules/links.php';
     ?>

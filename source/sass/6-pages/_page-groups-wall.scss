@@ -101,10 +101,40 @@
                     margin-right: 0;
                     margin-left: 20px;
                     &.poll{
+                        .text{
+                            margin-top: 6px;
+                        }
                         .answers{
                             .answer{
                                 .percent-container{
                                     background: $light-secondary;
+                                }
+                            }
+                        }
+                    }
+                    &.question{
+                        .text{
+                            margin-top: 6px;
+                        }
+                        .answers{
+                            .answer{
+                                background: $light-secondary;
+                                &.me{
+                                    background: white;
+                                    border-left: 6px solid $main;
+                                }
+                            }
+                        }
+                    }
+                    &.event{
+                        .event-date{
+                            margin-top: 3px;
+                        }
+                        .confirmed-users{
+                            .user-container.me{
+                                .name{
+                                    background: white;
+                                    border-left: 6px solid $main;
                                 }
                             }
                         }
@@ -168,6 +198,97 @@
                         color: $main-contrast;
                     }
                 }
+                &.event{
+                    &.im-in{
+                        .confirmed-users{
+                            .user-container.me{
+                                display: flex;
+                            }
+                        }
+                    }
+                    .event-date{
+                        display: flex;
+                        width: 100%;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 18px;
+                        margin-bottom: 6px;
+                        i{
+                            margin-right: 3px;
+                        }
+                    }
+                    .text{
+                        font-size: 15px;
+                        background: $main-contrast;
+                        color: white;
+                        padding: 2px 6px;
+                        text-align: center;
+                    }
+                    .extra-information{
+                        padding-top: 6px;
+                        display: flex;
+                        width: 100%;
+                        flex-direction: column;
+                        .description{
+                            border-radius: 3px;
+                            border-left: 6px solid $main-contrast;
+                            padding: 0 6px;
+                            background: white;
+                            margin-bottom: 6px;
+                        }
+                    }
+                    .confirmed-users{
+                        margin-bottom: 6px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        z-index: 1;
+                        justify-content: flex-end;
+                        .user-container{
+                            position: relative;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            .user{
+                                border-radius: 100px;
+                                width: 20px;
+                                height: 20px;
+                                margin: 1px 1px;
+                            }
+                            &.me{
+                                display:none;
+                                .user{
+                                    width: 20px;
+                                    height: 20px;
+                                    margin-left: 12px;
+                                }
+                                .name{
+                                    font-size: 13px;
+                                    background: $light-main;
+                                    padding: 0 6px;
+                                    border-left: 6px solid $main-contrast;
+                                    border-radius: 3px;
+                                }
+                            }
+                            .name{
+                                position: absolute;
+                                top: 0;
+                                bottom: 0;
+                                left: 65px;
+                                right: 0;
+                                display: none;
+                                align-items: center;
+                                margin-left: 6px;
+                            }
+                            i{
+                                display: none;
+                                margin-right: 6px;
+                            }
+                        }
+                    }
+                    .type::after{
+                        content: "Evento";
+                    }
+                }
                 &.question{
                     .text{
                         background: $main-contrast;
@@ -224,6 +345,13 @@
                             border-radius: 3px;
                             margin: 3px 0;
                             padding: 0 6px;
+                            &.selected{
+                                .radio-container{
+                                    label{
+                                        cursor: default;
+                                    }
+                                }
+                            }
                             .radio-container{
                                 display: flex;
                                 align-items: center;
@@ -250,6 +378,7 @@
                                     border-radius: 20px;
                                     margin: 0 3px 3px 0;
                                     transition: 0.2s ease;
+                                    cursor: pointer;
                                     i{
                                         font-size: 1px;
                                         color: white;
@@ -285,6 +414,7 @@
                 .options{
                     display: flex;
                     justify-content: flex-end;
+                    flex-wrap: wrap;
                     margin-top: 3px;
                     a{
                         cursor: pointer !important;

@@ -465,6 +465,9 @@ nav {
   box-shadow: 0 7px 10px 0 rgba(0, 0, 0, 0.15);
   z-index: 2000;
   transition: 0.3s ease; }
+  .main-nav.notification-expanded {
+    box-shadow: none;
+    border-bottom: 1px solid white; }
   .main-nav li {
     list-style: none;
     margin: 0 5px;
@@ -522,6 +525,15 @@ nav {
   .main-nav .nav-option {
     cursor: pointer;
     overflow: hidden; }
+    .main-nav .nav-option.expanded {
+      cursor: default;
+      transform: scale(1.1); }
+      .main-nav .nav-option.expanded .option-icon.notification {
+        transform: translateY(-200%); }
+      .main-nav .nav-option.expanded .counter {
+        background: white;
+        color: #000B2B;
+        transform: translateX(-14px); }
     .main-nav .nav-option .option-icon.notification {
       transition: 0.2s ease;
       color: white; }
@@ -669,6 +681,11 @@ nav {
     width: 58%; }
   .half-container.minus {
     width: 38%; }
+
+.wide-central-container {
+  display: flex;
+  width: 100%;
+  justify-content: center; }
 
 .mask {
   position: fixed;
@@ -1092,8 +1109,22 @@ nav {
           padding-top: 6px;
           margin-right: 0;
           margin-left: 20px; }
+          .wall .central-container .post-container.me .post.poll .text {
+            margin-top: 6px; }
           .wall .central-container .post-container.me .post.poll .answers .answer .percent-container {
             background: #e9eeff; }
+          .wall .central-container .post-container.me .post.question .text {
+            margin-top: 6px; }
+          .wall .central-container .post-container.me .post.question .answers .answer {
+            background: #e9eeff; }
+            .wall .central-container .post-container.me .post.question .answers .answer.me {
+              background: white;
+              border-left: 6px solid #FF6040; }
+          .wall .central-container .post-container.me .post.event .event-date {
+            margin-top: 3px; }
+          .wall .central-container .post-container.me .post.event .confirmed-users .user-container.me .name {
+            background: white;
+            border-left: 6px solid #FF6040; }
       .wall .central-container .post-container .post {
         position: relative;
         min-width: 120px;
@@ -1144,6 +1175,76 @@ nav {
         .wall .central-container .post-container .post .text .search-result {
           background: #ffffce;
           color: #000B2B; }
+        .wall .central-container .post-container .post.event.im-in .confirmed-users .user-container.me {
+          display: flex; }
+        .wall .central-container .post-container .post.event .event-date {
+          display: flex;
+          width: 100%;
+          justify-content: center;
+          align-items: center;
+          font-size: 18px;
+          margin-bottom: 6px; }
+          .wall .central-container .post-container .post.event .event-date i {
+            margin-right: 3px; }
+        .wall .central-container .post-container .post.event .text {
+          font-size: 15px;
+          background: #000B2B;
+          color: white;
+          padding: 2px 6px;
+          text-align: center; }
+        .wall .central-container .post-container .post.event .extra-information {
+          padding-top: 6px;
+          display: flex;
+          width: 100%;
+          flex-direction: column; }
+          .wall .central-container .post-container .post.event .extra-information .description {
+            border-radius: 3px;
+            border-left: 6px solid #000B2B;
+            padding: 0 6px;
+            background: white;
+            margin-bottom: 6px; }
+        .wall .central-container .post-container .post.event .confirmed-users {
+          margin-bottom: 6px;
+          display: flex;
+          flex-wrap: wrap;
+          z-index: 1;
+          justify-content: flex-end; }
+          .wall .central-container .post-container .post.event .confirmed-users .user-container {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center; }
+            .wall .central-container .post-container .post.event .confirmed-users .user-container .user {
+              border-radius: 100px;
+              width: 20px;
+              height: 20px;
+              margin: 1px 1px; }
+            .wall .central-container .post-container .post.event .confirmed-users .user-container.me {
+              display: none; }
+              .wall .central-container .post-container .post.event .confirmed-users .user-container.me .user {
+                width: 20px;
+                height: 20px;
+                margin-left: 12px; }
+              .wall .central-container .post-container .post.event .confirmed-users .user-container.me .name {
+                font-size: 13px;
+                background: #ffebe7;
+                padding: 0 6px;
+                border-left: 6px solid #000B2B;
+                border-radius: 3px; }
+            .wall .central-container .post-container .post.event .confirmed-users .user-container .name {
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 65px;
+              right: 0;
+              display: none;
+              align-items: center;
+              margin-left: 6px; }
+            .wall .central-container .post-container .post.event .confirmed-users .user-container i {
+              display: none;
+              margin-right: 6px; }
+        .wall .central-container .post-container .post.event .type::after {
+          content: "Evento"; }
         .wall .central-container .post-container .post.question .text {
           background: #000B2B;
           color: white;
@@ -1187,6 +1288,8 @@ nav {
             border-radius: 3px;
             margin: 3px 0;
             padding: 0 6px; }
+            .wall .central-container .post-container .post.poll .answers .answer.selected .radio-container label {
+              cursor: default; }
             .wall .central-container .post-container .post.poll .answers .answer .radio-container {
               display: flex;
               align-items: center; }
@@ -1209,7 +1312,8 @@ nav {
                 border: 1px solid #000B2B;
                 border-radius: 20px;
                 margin: 0 3px 3px 0;
-                transition: 0.2s ease; }
+                transition: 0.2s ease;
+                cursor: pointer; }
                 .wall .central-container .post-container .post.poll .answers .answer .radio-container label i {
                   font-size: 1px;
                   color: white;
@@ -1235,6 +1339,7 @@ nav {
         .wall .central-container .post-container .post .options {
           display: flex;
           justify-content: flex-end;
+          flex-wrap: wrap;
           margin-top: 3px; }
           .wall .central-container .post-container .post .options a {
             cursor: pointer !important;
@@ -1244,3 +1349,79 @@ nav {
             margin-left: 12px; }
             .wall .central-container .post-container .post .options a.see-more {
               z-index: 11; }
+
+.notification-wall-container {
+  color: white;
+  position: fixed;
+  background: #000B2B;
+  display: flex;
+  justify-content: center;
+  min-width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  top: -100vh;
+  overflow: hidden; }
+  .notification-wall-container.expanded {
+    top: 0; }
+  .notification-wall-container .central-container {
+    position: relative;
+    min-height: 100vh;
+    margin: 0 0; }
+    .notification-wall-container .central-container .notifications-container {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      height: 100px;
+      margin: 0 15px;
+      margin-top: 70px; }
+      .notification-wall-container .central-container .notifications-container .title {
+        width: 100%;
+        display: flex;
+        font-size: 16px;
+        margin-bottom: 12px; }
+      .notification-wall-container .central-container .notifications-container .group-notification {
+        display: flex;
+        flex-direction: column;
+        width: 45%;
+        border-top: 6px solid white;
+        border-radius: 3px;
+        margin-bottom: 18px;
+        overflow: hidden; }
+        .notification-wall-container .central-container .notifications-container .group-notification .group-name {
+          width: 100%;
+          padding: 6px 6px;
+          text-transform: uppercase;
+          font-weight: 700;
+          border-bottom: 2px solid white;
+          margin-bottom: 6px;
+          display: flex;
+          flex-direction: column; }
+          .notification-wall-container .central-container .notifications-container .group-notification .group-name .number {
+            font-size: 12px;
+            font-weight: 500;
+            color: #FF6040; }
+        .notification-wall-container .central-container .notifications-container .group-notification .notification {
+          position: relative;
+          background: #e9eeff;
+          margin: 6px 6px;
+          padding: 20px 6px;
+          color: #000B2B; }
+          .notification-wall-container .central-container .notifications-container .group-notification .notification .user-name {
+            position: absolute;
+            top: 2px;
+            left: 6px;
+            font-weight: 700; }
+    .notification-wall-container .central-container .wide-central-container {
+      position: absolute;
+      bottom: 30px; }
+      .notification-wall-container .central-container .wide-central-container .btn-login {
+        border-radius: 60px;
+        padding: 7px 7px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        border: none; }
+        .notification-wall-container .central-container .wide-central-container .btn-login:hover, .notification-wall-container .central-container .wide-central-container .btn-login:active, .notification-wall-container .central-container .wide-central-container .btn-login:focus {
+          transform: scale(1.05); }

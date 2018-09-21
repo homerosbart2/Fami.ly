@@ -1,10 +1,6 @@
 <html>
 <head>
     <title>Inicio</title>
-    <?php
-        include '../modules/links.php';
-    ?>
-</head>
 <?php
     include '../modules/nav.php';
 ?>
@@ -19,13 +15,137 @@
                 
             </span>
             <span class="post-container me">
+                <span id="11" class="post event">
+                    <span class="event-date">
+                        <i class="far fa-calendar"></i> 20 de marzo
+                    </span>
+                    <span class="text">¡Cumpleaños de Fernando!</span>
+                    <span class="extra-information">
+                        <span class="description">
+                            Va a estar muy alegre, vengan todos!!
+                        </span>
+                        <span class="event-place">
+                            <i class="fas fa-map-marker-alt"></i> Villas de Fátima
+                        </span>
+                        <span class="event-time">
+                            <i class="far fa-clock"></i> 1:00 PM
+                        </span>
+                    </span>
+                    <span class="options">
+                        <a class="confirmed">Confirmados <i class="fas fa-angle-down"></i></a>
+                        <a class="assist">Asistiré</a>
+                    </span>
+                    <span class="confirmed-users">
+                        <!-- Lista de respuestas de la pregunta -->
+                        <span class="user-container">
+                            <i class="far fa-check-square"></i>
+                            <img class="user" src="../../assets/img/users/face8.png">
+                            <span class="name">Lilly</span>
+                        </span>
+                        <span class="user-container">
+                            <i class="far fa-check-square"></i>
+                            <img class="user" src="../../assets/img/users/face1.png">
+                            <span class="name">Alex</span>
+                        </span>
+                        <span class="user-container">
+                            <i class="far fa-check-square"></i>
+                            <img class="user" src="../../assets/img/users/face2.png">
+                            <span class="name">Vilma</span>
+                        </span>
+                        <span class="user-container">
+                            <i class="far fa-check-square"></i>
+                            <img class="user" src="../../assets/img/users/face9.png">
+                            <span class="name">Jhonathan</span>
+                        </span>
+                        <span class="user-container me">
+                            <i class="far fa-check-square"></i>
+                            <img class="user" src="../../assets/img/users/profile.png">
+                            <span class="name">Has indicado que asistirás a este evento.</span>
+                        </span>
+                    </span>
+                    <span class="time">10:27 AM</span>
+                    <span class="type"><i class="fas fa-circle"></i></span>
+                </span>   
+            </span>
+            <span class="post-container">
+                <span id="10" class="post event im-in">
+                    <span class="user-name">Marco</span>
+                    <span class="event-date">
+                        <i class="far fa-calendar"></i> 20 de marzo
+                    </span>
+                    <span class="text">¡Cumpleaños de Fernando!</span>
+                    <span class="extra-information">
+                        <span class="description">
+                            Va a estar muy alegre, vengan todos!!
+                        </span>
+                        <span class="event-place">
+                            <i class="fas fa-map-marker-alt"></i> Villas de Fátima
+                        </span>
+                        <span class="event-time">
+                            <i class="far fa-clock"></i> 1:00 PM
+                        </span>
+                    </span>
+                    <span class="options">
+                        <a class="confirmed">Confirmados <i class="fas fa-angle-down"></i></a>
+                        <a class="assist">No Asistiré</a>
+                    </span>
+                    <span class="confirmed-users">
+                        <!-- Lista de respuestas de la pregunta -->
+                        <span class="user-container">
+                            <i class="far fa-check-square"></i>
+                            <img class="user" src="../../assets/img/users/face8.png">
+                            <span class="name">Lilly</span>
+                        </span>
+                        <span class="user-container">
+                            <i class="far fa-check-square"></i>
+                            <img class="user" src="../../assets/img/users/face1.png">
+                            <span class="name">Alex</span>
+                        </span>
+                        <span class="user-container">
+                            <i class="far fa-check-square"></i>
+                            <img class="user" src="../../assets/img/users/face2.png">
+                            <span class="name">Vilma</span>
+                        </span>
+                        <span class="user-container">
+                            <i class="far fa-check-square"></i>
+                            <img class="user" src="../../assets/img/users/face9.png">
+                            <span class="name">Jhonathan</span>
+                        </span>
+                        <span class="user-container me">
+                            <i class="far fa-check-square"></i>
+                            <img class="user" src="../../assets/img/users/profile.png">
+                            <span class="name">Has indicado que asistirás a este evento.</span>
+                        </span>
+                    </span>
+                    <span class="time">10:27 AM</span>
+                    <span class="type"><i class="fas fa-circle"></i></span>
+                </span>   
+            </span>
+            <span class="post-container me">
+                <span id="9" class="post question">
+                    <span class="text">¿A dónde quieren salir en la noche?</span>
+                    <span class="options">
+                        <a class="see-more">Respuestas</a>
+                        <a class="answer">Responder</a>
+                    </span>
+                    <span class="answers">
+                        <!-- Lista de respuestas de la pregunta -->
+                        <span class="answer"><span class="user">Alex</span> A Nais!!!</span>
+                        <span class="answer me"> No sé de qué tengo ganas jajaja</span>
+                        <span class="answer"><span class="user">Vilma</span> Mejor a Pollo Campero, más barato.</span>
+                    </span>
+                    <span class="time">10:27 AM</span>
+                    <span class="type"><i class="fas fa-circle"></i></span>
+                </span>   
+            </span>
+            <span class="post-container me">
                 <span id="8" class="post poll">
                     <span class="text">¿A dónde quieren salir en la noche?</span>
                     <form class="answers">
                         <span class="answer">
                             <span class="radio-container">
-                                <input id="poll-0" type="radio" name="poll" value="0">
-                                <label for="poll-0" class="radio-button" >
+                                <input id="poll8-0" type="radio" name="poll" value="0">
+                                <label for="poll8-0" class="radio-button" >
                                     <i class="fas fa-check-circle"></i>
                                 </label>
                                 Pollo Campero 
@@ -37,8 +157,8 @@
                         </span>
                         <span class="answer">
                             <span class="radio-container">
-                                <input id="poll-1" type="radio" name="poll" value="1"> 
-                                <label for="poll-1" class="radio-button" >
+                                <input id="poll8-1" type="radio" name="poll" value="1"> 
+                                <label for="poll8-1" class="radio-button" >
                                     <i class="fas fa-check-circle"></i>
                                 </label>
                                 Nais 
@@ -50,8 +170,8 @@
                         </span>
                         <span class="answer">
                             <span class="radio-container">
-                                <input id="poll-2" type="radio" name="poll" value="2"> 
-                                <label for="poll-2" class="radio-button" >
+                                <input id="poll8-2" type="radio" name="poll" value="2"> 
+                                <label for="poll8-2" class="radio-button" >
                                     <i class="fas fa-check-circle"></i>
                                 </label>
                                 La Estancia 
@@ -67,14 +187,14 @@
                 </span>   
             </span>
             <span class="post-container">
-                <span id="9" class="post poll">
+                <span id="20" class="post poll">
                     <span class="user-name">Henry</span>
                     <span class="text">¿A dónde quieren salir en la noche?</span>
                     <form class="answers">
                         <span class="answer">
                             <span class="radio-container">
-                                <input id="poll-6" type="radio" name="poll" value="0">
-                                <label for="poll-6" class="radio-button" >
+                                <input id="poll20-0" type="radio" name="poll" value="0">
+                                <label for="poll20-0" class="radio-button" >
                                     <i class="fas fa-check-circle"></i>
                                 </label>
                                 Pollo Campero 
@@ -86,8 +206,8 @@
                         </span>
                         <span class="answer">
                             <span class="radio-container">
-                                <input id="poll-5" type="radio" name="poll" value="1"> 
-                                <label for="poll-5" class="radio-button" >
+                                <input id="poll20-1" type="radio" name="poll" value="1"> 
+                                <label for="poll20-1" class="radio-button" >
                                     <i class="fas fa-check-circle"></i>
                                 </label>
                                 Nais 
@@ -99,8 +219,8 @@
                         </span>
                         <span class="answer">
                             <span class="radio-container">
-                                <input id="poll-4" type="radio" name="poll" value="2"> 
-                                <label for="poll-4" class="radio-button" >
+                                <input id="poll20-2" type="radio" name="poll" value="2"> 
+                                <label for="poll20-2" class="radio-button" >
                                     <i class="fas fa-check-circle"></i>
                                 </label>
                                 La Estancia 
@@ -152,29 +272,8 @@
                 <span id="1" class="post message">
                     <span class="user-name">Vilma</span>
                     <span class="text">Adiós ): </span>
-                    <span class="time">3:15 PM</span>
-                    <span class="type"><i class="fas fa-circle"></i></span>
-                </span>   
-            </span>
-            <span class="post-container">
-                <span id="5" class="post message">
-                    <span class="user-name">Vilma</span>
                     <span class="text">Adiós ): </span>
-                    <span class="time">3:15 PM</span>
-                    <span class="type"><i class="fas fa-circle"></i></span>
-                </span>   
-            </span>
-            <span class="post-container">
-                <span id="6" class="post message">
-                    <span class="user-name">Vilma</span>
                     <span class="text">Adiós ): </span>
-                    <span class="time">3:15 PM</span>
-                    <span class="type"><i class="fas fa-circle"></i></span>
-                </span>   
-            </span>
-            <span class="post-container">
-                <span id="7" class="post message">
-                    <span class="user-name">Vilma</span>
                     <span class="text">Adiós ): </span>
                     <span class="time">3:15 PM</span>
                     <span class="type"><i class="fas fa-circle"></i></span>
@@ -213,6 +312,7 @@
             quantity = $(this).children('.quantity').text();
             quantity = Math.round((quantity / sum) * 100);
             $(this).children('.percent-container').children('.percent').css('width', quantity + '%');
+            
         });
     }
     
@@ -285,6 +385,50 @@
             }
             sum = 0;
             updatePercents(postId);
+        });
+
+        $('.confirmed').click(function(){
+            if(!$(this).hasClass('expanded')){
+                $(this).html('Confirmados <i class="fas fa-angle-up"></i>');
+                $(this).parent().parent().children('.confirmed-users').css('flex-direction','column-reverse');
+                $(this).parent().parent().children('.confirmed-users').find('.user-container').each(function(){
+                    $(this).children('.user').css('width', '40px');
+                    $(this).children('.user').css('height', '40px');
+                    $(this).children('.user').css('margin-top', '3px');
+                    $(this).children('.user').css('margin-bottom', '3px');
+                    $(this).children('.user').css('margin-left', '1px');
+                    $(this).children('.name').css('display', 'flex');
+                    $(this).children('i').css('display', 'flex');
+                });
+                $(this).addClass('expanded');
+            }else{
+                $(this).html('Confirmados <i class="fas fa-angle-down"></i>');
+                $(this).parent().parent().children('.confirmed-users').css('flex-direction','row');
+                $(this).parent().parent().children('.confirmed-users').find('.user-container').each(function(){
+                    object = $(this).children('.user');
+                    if($(this).hasClass('me')){
+                        object.css('margin-left', '12px');
+                    }
+                    object.css('width', '20px');
+                    object.css('height', '20px');
+                    object.css('margin-top', '1px');
+                    object.css('margin-bottom', '1px');
+                    $(this).children('.name').css('display', 'none');
+                    $(this).children('i').css('display', 'none');
+                });
+                $(this).removeClass('expanded');
+            }
+        });
+
+        $('.assist').click(function(){
+            object = $(this).parent().parent();
+            if(object.hasClass('im-in')){
+                object.removeClass('im-in');
+                $(this).html('Asisitiré');
+            }else{
+                object.addClass('im-in');
+                $(this).html('No Asisitiré');
+            }
         });
     });
 

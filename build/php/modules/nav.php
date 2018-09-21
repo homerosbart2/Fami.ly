@@ -1,5 +1,11 @@
-<html>
+        <?php
+            include '../modules/links.php';
+        ?>
+    </head>
     <body>
+        <?php
+            include '../modules/notification-wall.php';
+        ?>
         <span class="mask"></span>
         <span class="the-line"></span>
         <section id="header">
@@ -32,7 +38,7 @@
                     <li><a id="search" class="nav-option search-option"><span class="option-icon"><i class="fas fa-search"></i></span></a></li>
                     <li><a href="../groups/home.php" class="nav-option"><span class="option-icon"><i class="fas fa-home"></i></span></a></li>
                     <!-- En el span .counter se debe colocar la cantidad de notificaciones sin descartar. -->
-                    <li><a class="nav-option"><span class="option-icon notification"><i class="fas fa-bell"></i></span><span class="counter">2</span></a></li>
+                    <li><a id="notification" class="nav-option"><span class="option-icon notification"><i class="fas fa-bell"></i></span><span class="counter">2</span></a></li>
                     <li><a href="" class="nav-option"><span class="option-icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
                 </span>
                 
@@ -47,7 +53,6 @@
             </span>
         </section>
     </body>
-</html>
 
 <script>
 var wall = 0;
@@ -110,6 +115,18 @@ $(document).ready(function(){
             deactivateMask();
         }
     });
+
+    $('.notification-wall-container').click(function(){
+        if($('.mask').prop('id') == 'searchbox'){
+            $('.searchbox').css('z-index','1998');
+            $('.searchbox').css('opacity','0');
+            $('.searchbox').children('.search').children('.search-input').val('');
+            deactivateMask();
+            if(wall == 1){
+                removeSearchResult(searchArray);
+            }
+        }
+    });
     //Función que se llama al presionar enter en la barra de búsqueda y obtiene el texto en la variable [text].
     $('.search-input').keyup(function(e){
         if(e.keyCode == 13)
@@ -131,6 +148,19 @@ $(document).ready(function(){
                 console.log(text);
             }
             $(this).trigger("enterKey");
+        }
+    });
+
+    $('#notification').click(function(){
+        object = $('.notification-wall-container');
+        if(!object.hasClass('expanded')){
+            object.addClass('expanded');
+            $(this).addClass('expanded');
+            $('.main-nav').addClass('notification-expanded');
+        }else{
+            /*object.removeClass('expanded');
+            $(this).removeClass('expanded');
+            $('.main-nav').removeClass('notification-expanded');*/
         }
     });
 

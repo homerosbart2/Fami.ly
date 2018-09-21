@@ -1,0 +1,92 @@
+.notification-wall-container{
+    color: white;
+    position: fixed;
+    background: $main-contrast;
+    display: flex;
+    justify-content: center;
+    min-width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    top: -100vh;
+    overflow: hidden;
+    &.expanded{
+        top: 0;
+    }
+    .central-container{
+        position: relative;
+        min-height: 100vh;
+        margin: 0 0;
+        .notifications-container{
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            height: 100px;
+            margin: 0 15px;
+            margin-top: 70px;
+            .title{
+                width: 100%;
+                display: flex;
+                font-size: 16px;
+                margin-bottom: 12px;
+            }
+            .group-notification{
+                display: flex;
+                flex-direction: column;
+                width: 45%;
+                border-top: 6px solid white;
+                border-radius: 3px;
+                margin-bottom: 18px;
+                overflow: hidden;
+                .group-name{
+                    width: 100%;
+                    padding: 6px 6px;
+                    text-transform: uppercase;
+                    font-weight: 700;
+                    border-bottom: 2px solid white;
+                    margin-bottom: 6px;
+                    display: flex;
+                    flex-direction: column;
+                    .number{
+                        font-size: 12px;
+                        font-weight: 500;
+                        color: $main;
+                    }
+                }
+                .notification{
+                    position: relative;
+                    background: $light-secondary;
+                    margin: 6px 6px;
+                    padding: 20px 6px;
+                    color: $main-contrast;
+                    .user-name{
+                        position: absolute;
+                        top: 2px;
+                        left: 6px;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+        .wide-central-container{
+            position: absolute;
+            bottom: 30px;
+            .btn-login{
+                border-radius: 60px;
+                padding: 7px 7px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 22px;
+                border: none;
+                &:hover,
+                &:active,
+                &:focus{
+                    transform: scale(1.05);
+                }
+            }
+            
+        }
+    }
+    
+}
