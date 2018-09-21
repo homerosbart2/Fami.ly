@@ -14,7 +14,7 @@
                 <span class="options-division">
                     <span class="profile-img-preview">
                         <!-- Imagen del usuario. -->
-                        <img src="../../assets/img/users/profile.png">
+                        <img src="../../../../assets/img/users/profile.png">
                     </span>
                     <li class="nav-user">
                         <!-- Nombre de usuario. -->
