@@ -417,11 +417,7 @@
             sum = 0;
             updatePercents(postId);
         });
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
+
 
         $('.confirmed').click(function(){
             if(!$(this).hasClass('expanded')){
@@ -466,8 +462,6 @@
                 $(this).html('No Asisitiré');
             }
         });
-<<<<<<< Updated upstream
-=======
 
         $('.btn-chat').click(function(){
             object = $('.chatbox-container');
@@ -518,8 +512,7 @@
             });
             object.removeClass('lock');
         });
->>>>>>> Stashed changes
->>>>>>> Stashed changes
+
     });
 
     

@@ -682,23 +682,14 @@ nav {
   .half-container.minus {
     width: 38%; }
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
 .wide-central-container {
   display: flex;
   width: 100%;
   justify-content: center; }
 
-<<<<<<< Updated upstream
-=======
 body.disableScrollBar {
   overflow: hidden; }
 
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 .mask {
   position: fixed;
   width: 100vw;
@@ -1413,11 +1404,6 @@ body.disableScrollBar {
             margin-left: 12px; }
             .wall .central-container .post-container .post .options a.see-more {
               z-index: 11; }
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
 
 .notification-wall-container {
   color: white;
@@ -1473,25 +1459,20 @@ body.disableScrollBar {
         .notification-wall-container .central-container .notifications-container .group-notification .notification {
           position: relative;
           background: #e9eeff;
-<<<<<<< Updated upstream
           margin: 6px 6px;
           padding: 20px 6px;
-          color: #000B2B; }
-=======
+          color: #000B2B;
           margin: 3px 6px;
           padding: 20px 6px;
           padding-top: 23px;
           padding-bottom: 21px;
           color: #000B2B;
           border-radius: 3px; }
->>>>>>> Stashed changes
           .notification-wall-container .central-container .notifications-container .group-notification .notification .user-name {
             position: absolute;
             top: 2px;
             left: 6px;
             font-weight: 700; }
-<<<<<<< Updated upstream
-=======
           .notification-wall-container .central-container .notifications-container .group-notification .notification .delete-notification {
             position: absolute;
             top: 6px;
@@ -1511,7 +1492,6 @@ body.disableScrollBar {
             .notification-wall-container .central-container .notifications-container .group-notification .notification .type i {
               margin-right: 3px;
               font-size: 8px; }
->>>>>>> Stashed changes
     .notification-wall-container .central-container .wide-central-container {
       position: absolute;
       bottom: 30px; }
@@ -1525,7 +1505,3 @@ body.disableScrollBar {
         border: none; }
         .notification-wall-container .central-container .wide-central-container .btn-login:hover, .notification-wall-container .central-container .wide-central-container .btn-login:active, .notification-wall-container .central-container .wide-central-container .btn-login:focus {
           transform: scale(1.05); }
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
->>>>>>> Stashed changes
