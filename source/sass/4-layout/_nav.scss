@@ -26,6 +26,10 @@ nav{
     box-shadow:  0 7px 10px 0 rgba(0,0,0,0.15); 
     z-index: 2000;
     transition: 0.3s ease;
+    &.notification-expanded{
+        box-shadow: none;
+        border-bottom: 1px solid white;
+    }
     li{
         list-style: none;
         margin: 0 5px;
@@ -98,6 +102,18 @@ nav{
     .nav-option{
         cursor: pointer;
         overflow: hidden;
+        &.expanded{
+            cursor: default;
+            transform: scale(1.1);
+            .option-icon.notification{
+                transform: translateY(-200%);
+            }
+            .counter{
+                background: white;
+                color: $main-contrast;
+                transform: translateX(-14px);
+            }
+        }
         .option-icon.notification{
             transition: 0.2s ease;
             color: white;
