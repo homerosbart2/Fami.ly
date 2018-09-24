@@ -12,7 +12,6 @@
                     <span class="name">Ogáldez</span>
                     <span class="members">11 integrantes</span>
                 </span>
-                
             </span>
             <span class="post-container me">
                 <span id="11" class="post event">
@@ -289,6 +288,39 @@
         <span class="questionbox-container">
             <span class="questionbox">Pregunta</span>
         </span>
+        <span class="post-form-container">
+            <span class="form-container">
+                <span class="arrow left-arrow">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span class="inputs-container">
+                    <span class="inputs-left">
+                        <span class="form">
+                            <span class="form-title">
+                                Votación
+                            </span>
+                        </span>
+                    </span>
+                    <span class="inputs-center">
+                        <span class="form">
+                            <span class="form-title">
+                                Evento
+                            </span>
+                        </span>
+                    </span>
+                    <span class="inputs-right">
+                        <span class="form">
+                            <span class="form-title">
+                                Imagen o Video
+                            </span>
+                        </span>
+                    </span>
+                </span>
+                <span class="arrow right-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </span>
+        </span>
     </span>
 </body>
 </html>
@@ -296,7 +328,6 @@
 <script>
     var question;
     var postId;
-    var object;
     var quantity;
     var quantities = [];
     var sum;
@@ -386,6 +417,11 @@
             sum = 0;
             updatePercents(postId);
         });
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 
         $('.confirmed').click(function(){
             if(!$(this).hasClass('expanded')){
@@ -430,6 +466,60 @@
                 $(this).html('No Asisitiré');
             }
         });
+<<<<<<< Updated upstream
+=======
+
+        $('.btn-chat').click(function(){
+            object = $('.chatbox-container');
+            if(!object.hasClass('expanded')){
+                object.addClass('expanded');
+                $('.main-nav').addClass('post-form-expanded');
+                $('.the-line').css('top', '-55px');
+                $('.main-nav').css('top', '-59px');
+                $(this).html('<i class="fas fa-location-arrow"></i>');
+                $('body').addClass('disableScrollBar');
+            }else{
+                //Acciones que se realizan al presionar el botón de enviar.
+                object.removeClass('expanded');
+                $('.main-nav').removeClass('post-form-expanded');
+                $('.the-line').css('top', '0');
+                $('.main-nav').css('top', '4px');
+                $(this).html('<i class="fas fa-paperclip"></i>');
+                $('body').removeClass('disableScrollBar');
+            }
+        });
+
+        $('.left-arrow').children('i').click(function(){
+            $('.inputs-right').css('opacity', '1');
+            $('.inputs-left').css('opacity', '0');
+            object = $('.inputs-center');
+            object.addClass('lock');
+            object.toggleClass('inputs-center inputs-left');
+            $('.inputs-right').toggleClass('inputs-right inputs-center');
+            $('.inputs-left').each(function(){
+                if(!$(this).hasClass('lock')){
+                    $(this).toggleClass('inputs-left inputs-right');
+                }
+            });
+            object.removeClass('lock');
+        });
+
+        $('.right-arrow').children('i').click(function(){
+            $('.inputs-left').css('opacity', '1');
+            $('.inputs-right').css('opacity', '0');
+            object = $('.inputs-center');
+            object.addClass('lock');
+            object.toggleClass('inputs-center inputs-right');
+            $('.inputs-left').toggleClass('inputs-left inputs-center');
+            $('.inputs-right').each(function(){
+                if(!$(this).hasClass('lock')){
+                    $(this).toggleClass('inputs-right inputs-left');
+                }
+            });
+            object.removeClass('lock');
+        });
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
     });
 
     

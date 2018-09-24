@@ -238,8 +238,8 @@ section {
 
 .btn-chat {
   font-size: 14px;
-  width: 40.03px;
-  height: 36.5px;
+  width: 38.8px;
+  height: 36px;
   background: white;
   color: #000B2B;
   padding: 0 0;
@@ -682,11 +682,23 @@ nav {
   .half-container.minus {
     width: 38%; }
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 .wide-central-container {
   display: flex;
   width: 100%;
   justify-content: center; }
 
+<<<<<<< Updated upstream
+=======
+body.disableScrollBar {
+  overflow: hidden; }
+
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 .mask {
   position: fixed;
   width: 100vw;
@@ -1030,7 +1042,11 @@ nav {
   justify-content: center;
   align-items: center;
   background: #000B2B;
-  z-index: 1999; }
+  z-index: 1999;
+  transition: 0.2s ease; }
+  .chatbox-container.expanded {
+    top: 0;
+    bottom: 100%; }
   .chatbox-container .chatbox {
     height: 100%;
     width: 100%;
@@ -1067,6 +1083,54 @@ nav {
       justify-content: center;
       align-items: center;
       color: white; }
+  .chatbox-container .post-form-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background: #000B2B;
+    top: 54px;
+    color: white; }
+    .chatbox-container .post-form-container .form-container {
+      width: 100%;
+      height: 100%;
+      max-width: 700px;
+      display: flex;
+      flex-direction: row;
+      margin: 0 15px; }
+      .chatbox-container .post-form-container .form-container .arrow {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        padding: 0 12px;
+        font-size: 22px; }
+      .chatbox-container .post-form-container .form-container .inputs-container {
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        height: 100%;
+        width: 100%; }
+        .chatbox-container .post-form-container .form-container .inputs-container .inputs-left, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right {
+          position: absolute;
+          display: flex;
+          height: 100%;
+          width: 100%;
+          top: 0;
+          transition: left 0.2s ease; }
+          .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            margin: 12px 12px; }
+            .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .form-title, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .form-title, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .form-title {
+              text-transform: uppercase; }
+        .chatbox-container .post-form-container .form-container .inputs-container .inputs-left {
+          left: -100%; }
+        .chatbox-container .post-form-container .form-container .inputs-container .inputs-center {
+          left: 0; }
+        .chatbox-container .post-form-container .form-container .inputs-container .inputs-right {
+          left: 100%; }
 
 .wall {
   width: 100%;
@@ -1349,6 +1413,11 @@ nav {
             margin-left: 12px; }
             .wall .central-container .post-container .post .options a.see-more {
               z-index: 11; }
+<<<<<<< Updated upstream
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
 
 .notification-wall-container {
   color: white;
@@ -1404,14 +1473,45 @@ nav {
         .notification-wall-container .central-container .notifications-container .group-notification .notification {
           position: relative;
           background: #e9eeff;
+<<<<<<< Updated upstream
           margin: 6px 6px;
           padding: 20px 6px;
           color: #000B2B; }
+=======
+          margin: 3px 6px;
+          padding: 20px 6px;
+          padding-top: 23px;
+          padding-bottom: 21px;
+          color: #000B2B;
+          border-radius: 3px; }
+>>>>>>> Stashed changes
           .notification-wall-container .central-container .notifications-container .group-notification .notification .user-name {
             position: absolute;
             top: 2px;
             left: 6px;
             font-weight: 700; }
+<<<<<<< Updated upstream
+=======
+          .notification-wall-container .central-container .notifications-container .group-notification .notification .delete-notification {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            color: #000B2B;
+            cursor: pointer; }
+          .notification-wall-container .central-container .notifications-container .group-notification .notification .text {
+            font-size: 13px; }
+          .notification-wall-container .central-container .notifications-container .group-notification .notification .type {
+            font-size: 11px;
+            position: absolute;
+            bottom: 3px;
+            left: 6px;
+            color: #aaa;
+            display: flex;
+            align-items: center; }
+            .notification-wall-container .central-container .notifications-container .group-notification .notification .type i {
+              margin-right: 3px;
+              font-size: 8px; }
+>>>>>>> Stashed changes
     .notification-wall-container .central-container .wide-central-container {
       position: absolute;
       bottom: 30px; }
@@ -1425,3 +1525,7 @@ nav {
         border: none; }
         .notification-wall-container .central-container .wide-central-container .btn-login:hover, .notification-wall-container .central-container .wide-central-container .btn-login:active, .notification-wall-container .central-container .wide-central-container .btn-login:focus {
           transform: scale(1.05); }
+<<<<<<< Updated upstream
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes

@@ -9,6 +9,11 @@
     align-items: center;
     background: $main-contrast;
     z-index: 1999;
+    transition: 0.2s ease;
+    &.expanded{
+        top: 0;
+        bottom: 100%;
+    }
     .chatbox{
         height: 100%;
         width: 100%;
@@ -47,6 +52,64 @@
             justify-content: center;
             align-items: center;
             color: white;
+        }
+    }
+    .post-form-container{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+        background: $main-contrast;
+        top: 54px;
+        color: white;
+        .form-container{
+            width: 100%;
+            height: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: row;
+            margin: 0 15px;
+            .arrow{
+                display: flex;
+                height: 100%;
+                align-items: center;
+                padding: 0 12px;
+                font-size: 22px;
+            }
+            .inputs-container{
+                overflow: hidden;
+                position: relative;
+                display: flex;
+                height: 100%;
+                width: 100%;
+                .inputs-left, .inputs-center, .inputs-right{
+                    position: absolute;
+                    display: flex;
+                    height: 100%;
+                    width: 100%;
+                    top:0;
+                    transition: left 0.2s ease;
+                    .form{
+                        display: flex;
+                        width: 100%;
+                        height: 100%;
+                        margin: 12px 12px;
+                        .form-title{
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+                .inputs-left{
+                    left: -100%;
+                }
+                .inputs-center{
+                    left: 0;
+                }
+                .inputs-right{
+                    left: 100%;
+                }
+            }
         }
     }
 }

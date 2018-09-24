@@ -56,15 +56,50 @@
                 .notification{
                     position: relative;
                     background: $light-secondary;
+<<<<<<< Updated upstream
                     margin: 6px 6px;
                     padding: 20px 6px;
                     color: $main-contrast;
+=======
+                    margin: 3px 6px;
+                    padding: 20px 6px;
+                    padding-top: 23px;
+                    padding-bottom: 21px;
+                    color: $main-contrast;
+                    border-radius: 3px;
+>>>>>>> Stashed changes
                     .user-name{
                         position: absolute;
                         top: 2px;
                         left: 6px;
                         font-weight: 700;
                     }
+<<<<<<< Updated upstream
+=======
+                    .delete-notification{
+                        position: absolute;
+                        top: 6px;
+                        right: 8px;
+                        color: $main-contrast;
+                        cursor: pointer;
+                    }
+                    .text{
+                        font-size: 13px;
+                    }
+                    .type{
+                        font-size: 11px;
+                        position: absolute;
+                        bottom: 3px;
+                        left: 6px;
+                        color: $gray;
+                        display: flex;
+                        align-items: center;
+                        i{
+                            margin-right: 3px;
+                            font-size: 8px;
+                        }
+                    }
+>>>>>>> Stashed changes
                 }
             }
         }
