@@ -467,7 +467,7 @@ nav {
   transition: 0.3s ease; }
   .main-nav.notification-expanded {
     box-shadow: none;
-    border-bottom: 1px solid white; }
+    border-bottom: 2px solid white; }
   .main-nav li {
     list-style: none;
     margin: 0 5px;
@@ -619,22 +619,28 @@ nav {
     .searchbox .search .icon {
       font-size: 16px;
       position: absolute;
-      top: 19px;
-      right: 20px; }
+      top: 15px;
+      right: 20px;
+      transition: 0.2s ease; }
+      .searchbox .search .icon i {
+        margin-left: 24px; }
     .searchbox .search .search-input:active, .searchbox .search .search-input:focus {
-      height: 55px;
+      height: 52.4px;
       width: 100%;
+      margin: 0 0;
       border-radius: 0; }
+      .searchbox .search .search-input:active + .icon, .searchbox .search .search-input:focus + .icon {
+        right: 13px; }
 
 .in-searchbox .search, .searchbox .search {
   position: relative; }
   .in-searchbox .search .search-input, .searchbox .search .search-input {
-    margin: 0 0;
-    height: 38px;
+    margin: 0 7px;
+    height: 37px;
     width: 98%;
     background: white;
     color: #000B2B;
-    padding-right: 40px;
+    padding-right: 120px;
     padding-left: 10px;
     text-align: left; }
     @media only screen and (max-width: 430px) {
@@ -651,11 +657,12 @@ nav {
       color: #000B2B;
       border-radius: 0;
       width: 100%;
-      height: 36px; }
+      height: 36px;
+      padding-right: 32px; }
     .in-searchbox .search .icon {
       position: absolute;
-      top: 12px;
-      right: 12px; }
+      top: 9px;
+      right: 16px; }
 
 .copyright-footer {
   display: flex;
@@ -1043,12 +1050,13 @@ body.disableScrollBar {
     width: 100%;
     max-width: 700px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
     margin: 0 15px;
     z-index: 2000; }
     .chatbox-container .chatbox .chatbox-input {
       width: 100%;
+      display: flex;
       border-radius: 100px;
       padding-left: 15px;
       padding-right: 15px;
@@ -1057,6 +1065,7 @@ body.disableScrollBar {
       background: white;
       color: #000B2B; }
   .chatbox-container .questionbox-container {
+    color: #000B2B;
     position: absolute;
     height: 35px;
     width: 100%;
@@ -1072,8 +1081,7 @@ body.disableScrollBar {
       max-width: 700px;
       display: flex;
       justify-content: center;
-      align-items: center;
-      color: white; }
+      align-items: center; }
   .chatbox-container .post-form-container {
     position: absolute;
     display: flex;
@@ -1081,8 +1089,21 @@ body.disableScrollBar {
     height: 100vh;
     width: 100%;
     background: #000B2B;
-    top: 54px;
+    top: 0;
     color: white; }
+    .chatbox-container .post-form-container .wide-central-container {
+      position: absolute;
+      bottom: 30px; }
+      .chatbox-container .post-form-container .wide-central-container .btn-login {
+        border-radius: 60px;
+        padding: 7px 7px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        border: none; }
+        .chatbox-container .post-form-container .wide-central-container .btn-login:hover, .chatbox-container .post-form-container .wide-central-container .btn-login:active, .chatbox-container .post-form-container .wide-central-container .btn-login:focus {
+          transform: scale(1.05); }
     .chatbox-container .post-form-container .form-container {
       width: 100%;
       height: 100%;
@@ -1096,6 +1117,8 @@ body.disableScrollBar {
         align-items: center;
         padding: 0 12px;
         font-size: 22px; }
+        .chatbox-container .post-form-container .form-container .arrow i {
+          cursor: pointer; }
       .chatbox-container .post-form-container .form-container .inputs-container {
         overflow: hidden;
         position: relative;
@@ -1111,11 +1134,38 @@ body.disableScrollBar {
           transition: left 0.2s ease; }
           .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form {
             display: flex;
+            flex-direction: column;
             width: 100%;
             height: 100%;
             margin: 12px 12px; }
             .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .form-title, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .form-title, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .form-title {
-              text-transform: uppercase; }
+              margin-top: 54px;
+              text-transform: uppercase;
+              display: flex;
+              width: 100%;
+              margin-bottom: 32px; }
+              .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .form-title.small, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .form-title.small, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .form-title.small {
+                margin-top: 0;
+                font-size: 14px;
+                margin-bottom: 0;
+                text-transform: capitalize; }
+            .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .poll-option, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .poll-option, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .poll-option {
+              text-align: left;
+              padding-left: 12px;
+              padding-right: 12px;
+              height: 35px;
+              margin: 6px 20px 22px 20px; }
+              .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .poll-option.with-text, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .poll-option.with-text, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .poll-option.with-text {
+                background: white;
+                color: #000B2B; }
+              .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .poll-option:active, .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .poll-option:focus, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .poll-option:active, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .poll-option:focus, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .poll-option:active, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .poll-option:focus {
+                transform: scale(1.05);
+                background: white;
+                color: #000B2B; }
+            .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .add-container, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .add-container, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .add-container {
+              display: flex;
+              width: 100%;
+              justify-content: flex-end; }
         .chatbox-container .post-form-container .form-container .inputs-container .inputs-left {
           left: -100%; }
         .chatbox-container .post-form-container .form-container .inputs-container .inputs-center {
@@ -1227,10 +1277,36 @@ body.disableScrollBar {
             margin-bottom: 5px;
             margin-right: 3px;
             font-size: 8px; }
-        .wall .central-container .post-container .post .text .search-result {
-          background: #ffffce;
+        .wall .central-container .post-container .post .searchable .search-result {
+          background: #ffff33;
           color: #000B2B; }
         .wall .central-container .post-container .post.event.im-in .confirmed-users .user-container.me {
+          display: flex; }
+          .wall .central-container .post-container .post.event.im-in .confirmed-users .user-container.me .user {
+            height: 20px;
+            width: 20px;
+            margin-left: 12px; }
+        .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container .user {
+          width: 40px;
+          height: 40px;
+          margin-top: 3px;
+          margin-bottom: 3px;
+          margin-left: 1px; }
+        .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.expanded {
+          flex-direction: column-reverse; }
+          .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.expanded .user-container .user {
+            width: 40px;
+            height: 40px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            margin-left: 1px; }
+          .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.expanded .user-container .name {
+            display: flex; }
+          .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.expanded .user-container i {
+            display: flex; }
+        .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.me .name {
+          display: flex; }
+        .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.me i {
           display: flex; }
         .wall .central-container .post-container .post.event .event-date {
           display: flex;
@@ -1264,6 +1340,22 @@ body.disableScrollBar {
           flex-wrap: wrap;
           z-index: 1;
           justify-content: flex-end; }
+          .wall .central-container .post-container .post.event .confirmed-users.expanded {
+            flex-direction: column-reverse; }
+            .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container .user {
+              width: 40px;
+              height: 40px;
+              margin-top: 3px;
+              margin-bottom: 3px;
+              margin-left: 1px; }
+            .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container .name {
+              display: flex; }
+            .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container i {
+              display: flex; }
+            .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container.me .name {
+              display: none; }
+            .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container.me i {
+              display: none; }
           .wall .central-container .post-container .post.event .confirmed-users .user-container {
             position: relative;
             display: flex;
@@ -1275,11 +1367,12 @@ body.disableScrollBar {
               height: 20px;
               margin: 1px 1px; }
             .wall .central-container .post-container .post.event .confirmed-users .user-container.me {
-              display: none; }
+              display: flex; }
               .wall .central-container .post-container .post.event .confirmed-users .user-container.me .user {
-                width: 20px;
-                height: 20px;
-                margin-left: 12px; }
+                transition: 0.2s ease;
+                width: 0;
+                height: 0;
+                margin-left: 0; }
               .wall .central-container .post-container .post.event .confirmed-users .user-container.me .name {
                 font-size: 13px;
                 background: #ffebe7;
@@ -1402,8 +1495,12 @@ body.disableScrollBar {
             font-weight: 700;
             z-index: 1;
             margin-left: 12px; }
+            .wall .central-container .post-container .post .options a i {
+              transition: 0.2s ease; }
             .wall .central-container .post-container .post .options a.see-more {
               z-index: 11; }
+            .wall .central-container .post-container .post .options a.expanded i {
+              transform: rotate(180deg); }
 
 .notification-wall-container {
   color: white;

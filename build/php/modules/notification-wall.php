@@ -49,6 +49,7 @@
             $('.notification-wall-container').removeClass('expanded');
             $('#notification').removeClass('expanded');
             $('.main-nav').removeClass('notification-expanded');
+            $('body').removeClass('disableScrollBar');
         });
     });
 </script>

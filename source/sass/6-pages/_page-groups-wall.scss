@@ -19,12 +19,13 @@
         width: 100%;
         max-width: 700px;
         display: flex;
-        justify-content: center;
+        flex-direction: row;
         align-items: center;
         margin: 0 15px;
         z-index: 2000;
         .chatbox-input{
             width: 100%;
+            display: flex;
             border-radius: 100px;
             padding-left: 15px;
             padding-right: 15px;
@@ -33,8 +34,12 @@
             background: white;
             color: $main-contrast;
         }
+        .btn-chat{
+            
+        }
     }
     .questionbox-container{
+        color: $main-contrast;
         position: absolute;
         height: 35px;
         width: 100%;
@@ -51,7 +56,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
         }
     }
     .post-form-container{
@@ -61,8 +65,26 @@
         height: 100vh;
         width: 100%;
         background: $main-contrast;
-        top: 54px;
+        top: 0;
         color: white;
+        .wide-central-container{
+            position: absolute;
+            bottom: 30px;
+            .btn-login{
+                border-radius: 60px;
+                padding: 7px 7px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 22px;
+                border: none;
+                &:hover,
+                &:active,
+                &:focus{
+                    transform: scale(1.05);
+                }
+            }
+        }
         .form-container{
             width: 100%;
             height: 100%;
@@ -76,6 +98,9 @@
                 align-items: center;
                 padding: 0 12px;
                 font-size: 22px;
+                i{
+                    cursor: pointer;
+                }
             }
             .inputs-container{
                 overflow: hidden;
@@ -92,11 +117,44 @@
                     transition: left 0.2s ease;
                     .form{
                         display: flex;
+                        flex-direction: column;
                         width: 100%;
                         height: 100%;
                         margin: 12px 12px;
                         .form-title{
+                            margin-top: 54px;
                             text-transform: uppercase;
+                            display: flex;
+                            width: 100%;
+                            margin-bottom: 32px;
+                            &.small{
+                                margin-top: 0;
+                                font-size: 14px;
+                                margin-bottom: 0;
+                                text-transform: capitalize;
+                            }
+                        }
+                        .poll-option{
+                            text-align: left;
+                            padding-left: 12px;
+                            padding-right: 12px;
+                            height: 35px;
+                            margin: 6px 20px 22px 20px;
+                            &.with-text{
+                                background: white;
+                                color: $main-contrast;
+                            }
+                            &:active,
+                            &:focus{
+                                transform: scale(1.05);
+                                background: white;
+                                color: $main-contrast;
+                            }
+                        }
+                        .add-container{
+                            display: flex;
+                            width: 100%;
+                            justify-content: flex-end;
                         }
                     }
                 }
@@ -255,9 +313,9 @@
                         font-size: 8px;
                     }
                 }
-                .text{
+                .searchable{
                     .search-result{
-                        background: rgb(255, 255, 206);
+                        background: rgb(255, 255, 51);
                         color: $main-contrast;
                     }
                 }
@@ -266,6 +324,48 @@
                         .confirmed-users{
                             .user-container.me{
                                 display: flex;
+                                .user{
+                                    height: 20px;
+                                    width: 20px;
+                                    margin-left: 12px;
+                                }
+                            }
+                            &.expanded{
+                                .user-container{
+                                    .user{
+                                        width: 40px;
+                                        height: 40px;
+                                        margin-top: 3px;
+                                        margin-bottom: 3px;
+                                        margin-left: 1px;
+                                    }
+                                    &.expanded{
+                                        flex-direction: column-reverse;
+                                        .user-container{
+                                            .user{
+                                                width: 40px;
+                                                height: 40px;
+                                                margin-top: 3px;
+                                                margin-bottom: 3px;
+                                                margin-left: 1px;
+                                            }
+                                            .name{
+                                                display: flex;
+                                            }
+                                            i{
+                                                display: flex;
+                                            }
+                                        }
+                                    }
+                                    &.me{
+                                        .name{
+                                            display: flex;
+                                        }
+                                        i{
+                                            display: flex;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -306,6 +406,32 @@
                         flex-wrap: wrap;
                         z-index: 1;
                         justify-content: flex-end;
+                        &.expanded{
+                            flex-direction: column-reverse;
+                            .user-container{
+                                .user{
+                                    width: 40px;
+                                    height: 40px;
+                                    margin-top: 3px;
+                                    margin-bottom: 3px;
+                                    margin-left: 1px;
+                                }
+                                .name{
+                                    display: flex;
+                                }
+                                i{
+                                    display: flex;
+                                }
+                                &.me{
+                                    .name{
+                                        display: none;
+                                    }
+                                    i{
+                                        display:none;
+                                    }
+                                }
+                            }
+                        }
                         .user-container{
                             position: relative;
                             display: flex;
@@ -318,11 +444,12 @@
                                 margin: 1px 1px;
                             }
                             &.me{
-                                display:none;
+                                display: flex;
                                 .user{
-                                    width: 20px;
-                                    height: 20px;
-                                    margin-left: 12px;
+                                    transition: 0.2s ease;
+                                    width: 0;
+                                    height: 0;
+                                    margin-left: 0;
                                 }
                                 .name{
                                     font-size: 13px;
@@ -485,8 +612,16 @@
                         font-weight: 700;
                         z-index: 1;
                         margin-left: 12px;
+                        i{
+                            transition: 0.2s ease;
+                        }
                         &.see-more{
                             z-index: 11;
+                        }
+                        &.expanded{
+                            i{
+                                transform: rotate(180deg);
+                            }
                         }
                     }
                 }
