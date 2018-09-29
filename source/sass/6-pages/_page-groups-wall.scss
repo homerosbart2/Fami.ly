@@ -34,9 +34,6 @@
             background: white;
             color: $main-contrast;
         }
-        .btn-chat{
-            
-        }
     }
     .questionbox-container{
         color: $main-contrast;
@@ -127,11 +124,15 @@
                             display: flex;
                             width: 100%;
                             margin-bottom: 32px;
+                            align-items: center;
                             &.small{
                                 margin-top: 0;
                                 font-size: 14px;
                                 margin-bottom: 0;
                                 text-transform: capitalize;
+                            }
+                            i{
+                                margin-right: 6px;
                             }
                         }
                         .poll-option{
@@ -155,6 +156,19 @@
                             display: flex;
                             width: 100%;
                             justify-content: flex-end;
+                        }
+                        &.event{
+                            .event-ubication, .event-description{
+                                padding-left: 12px;
+                                padding-right: 12px;
+                                margin: 6px 20px 22px 20px;
+                                &:active,
+                                &:focus{
+                                    transform: scale(1.05);
+                                    background: white;
+                                    color: $main-contrast;
+                                }
+                            }
                         }
                     }
                 }
@@ -180,6 +194,16 @@
         padding-top: 67px;
         padding-bottom: 67px;
         flex-direction: column;
+        .date-separator{
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            color: rgb(170, 170, 170);
+            font-size: 12px;
+            margin: 8px 0;
+            padding: 6px 0;
+        }
         .group-title{
             display: flex;
             width: 100%;
@@ -214,8 +238,19 @@
             display: flex;
             width: 100%;
             margin: 4px 0;
+            &.search-result{
+                .post{
+                    border-left: 8px solid rgb(255, 224, 138);
+                }
+            }
             &.me{
                 justify-content: flex-end;
+                &.search-result{
+                    .post{
+                        border-left: none;
+                        border-right: 8px solid rgb(255, 224, 138);
+                    }
+                }
                 .post{
                     background: $light-main;
                     padding-top: 6px;
@@ -273,6 +308,7 @@
                 overflow: hidden;
                 display: flex;
                 flex-direction: column;
+                transition: 0.4s ease;
                 .time{
                     color: $gray;
                     font-size: 11px;

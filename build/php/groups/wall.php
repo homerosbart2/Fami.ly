@@ -15,6 +15,9 @@
                 </span>
             </span>
             <span class="posts">
+                <span class="date-separator">
+                    Hoy
+                </span>
                 <span class="post-container">
                     <span id="10" class="post event im-in">
                         <span class="user-name">Marco</span>
@@ -118,9 +121,8 @@
                         <span class="type"><i class="fas fa-circle"></i></span>
                     </span>   
                 </span>
-                <span class="post-container">
+                <span class="post-container me">
                     <span id="4" class="post question">
-                        <span class="user-name">Henry</span>
                         <span class="text searchable">¿A dónde quieren salir en la noche?</span>
                         <span class="options">
                             <a class="see-more">Respuestas <i class="fas fa-angle-down"></i></a>
@@ -154,6 +156,9 @@
                         <span class="time">3:15 PM</span>
                         <span class="type"><i class="fas fa-circle"></i></span>
                     </span>   
+                </span>
+                <span class="date-separator">
+                    27 de septiembre de 2018
                 </span>
                 <span class="post-container">
                     <span id="111" class="post message">
@@ -295,14 +300,28 @@
                     <span class="inputs-left">
                         <span class="form event">
                             <span class="form-title">
-                                Evento
+                                <i class="far fa-calendar"></i> Evento
                             </span>
+                            <span class="input-date">
+                                <input type="text" class="day" placeholder="Día">
+                                <span class="slash-separator">|</span>
+                                <input type="text" class="month" placeholder="Mes">
+                                <span class="slash-separator">|</span>
+                                <input type="text" class="year" placeholder="Año">
+                            </span>
+                            <span class="input-time">
+                                <input type="text" class="hour" placeholder="Hora">
+                                <span class="slash-separator">:</span>
+                                <input type="text" class="minutes" placeholder="Minutos">
+                            </span>
+                            <input type="text" class="event-ubication" id="poll-option-1" placeholder="Ubicación">
+                            <input type="text" class="event-description" id="poll-option-1" placeholder="Descripción">
                         </span>
                     </span>
                     <span class="inputs-center">
                         <span class="form poll">
                             <span class="form-title">
-                                Votación
+                                <i class="fas fa-poll-h"></i> Votación
                             </span>
                             <input type="text" class="poll-option" id="poll-option-1" placeholder="Opción 1">
                             <input type="text" class="poll-option" id="poll-option-2" placeholder="Opción 2">
@@ -313,7 +332,7 @@
                     <span class="inputs-right">
                         <span class="form image-video">
                             <span class="form-title">
-                                Imagen o Video
+                                <i class="fas fa-image"></i> Imagen o Video
                             </span>
                         </span>
                     </span>
@@ -340,6 +359,7 @@
     var answers = [];
     var users = [];
     var options = [];
+    var success = 1;
 
     function updatePercents(post){
         object = $('#' + post).children('.answers').find('.answer');
@@ -489,15 +509,7 @@
         rows += '</span>';
         object = $('.chatbox-container');
         object.removeClass('expanded');
-        $('.main-nav').removeClass('post-form-expanded');
-        $('.the-line').css('top', '0');
-        $('.main-nav').css('top', '4px');
-        $('.btn-chat').html('<i class="fas fa-bars"></i>');
-        $('body').removeClass('disableScrollBar');
-        $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');
-        $('.btn-chat').removeClass('poll');
-        $('.btn-chat').removeClass('event');
-        $('.btn-chat').removeClass('image-video');
+        hidePostCreatorForm();
         $('.posts').prepend(rows);
         sum = 0;
         updatePercents(id);
@@ -523,6 +535,7 @@
             $('.questionbox-container').css('color', 'white');
             $('.chatbox-input').prop('placeholder', 'Responde la pregunta');
             $('.chatbox-input').prop('id', 'id' + postId);
+            $('.chatbox-input').focus();
             triggerMask('questionbox');
         }
     }
@@ -536,6 +549,20 @@
             object.css('height','0');
             lmnt.removeClass('expanded');
         }
+    }
+
+    function hidePostCreatorForm(){
+        object = $('.btn-chat');
+        $('.chatbox-container').removeClass('expanded');
+        $('.main-nav').removeClass('post-form-expanded');
+        $('.the-line').css('top', '0');
+        $('.main-nav').css('top', '4px');
+        object.html('<i class="fas fa-bars"></i>');
+        $('body').removeClass('disableScrollBar');
+        $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');
+        object.removeClass('poll');
+        object.removeClass('event');
+        object.removeClass('image-video');
     }
     
     $(document).ready(function(){
@@ -555,6 +582,7 @@
         $('.chatbox-input').keyup(function(e){
             if(e.keyCode == 13)
             {
+                success = 1;
                 text = $(this).val();
                 if(/\S/.test(text)){
                     if($('.btn-chat').hasClass('poll')){
@@ -571,7 +599,12 @@
                                 quantities.push(0);
                             }
                         });
-                        generatePoll(postId, '', text, options, quantities, time, true);
+                        if(options.length > 1){
+                            generatePoll(postId, '', text, options, quantities, time, true);
+                        }else{
+                            //Debe aparecer una notificación si no ingresa dos opciones o más.
+                            success = 0;
+                        }
                     }else if($(this).is('[id]')){
                         //Esto sucede si es una respuesta a alguna pregunta.
                         postId = ($(this).prop('id')).substr(2,$(this).prop('id').length);
@@ -581,6 +614,12 @@
                         $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');
                         $('.chatbox-input').removeAttr('id');
                         deactivateMask();
+                        //Se abren las respuestas si están cerradas.
+                        object = $('#'+postId).children('.options').children('.see-more');
+                        if(!object.hasClass('expanded')){
+                            showQuestionAnswers(object);
+                        }
+                        scrollToMiddle($('#'+postId));
                     }else if(text.search('\\?')!=-1){
                         //Esto sucede si es una pregunta
                         //Hay que generar un nuevo id y obtener la hora del servidor.
@@ -596,7 +635,9 @@
                         time = '12:21 PM';
                         generateMessage(postId, '', text, time, true);
                     }
-                    $(this).val('');
+                    if(success == 1){
+                        $(this).val('');
+                    }
                     $(this).trigger("enterKey");
                 }
             }
@@ -655,27 +696,11 @@
                 //Acciones que se realizan al presionar el botón de enviar.
                 var e = $.Event("keyup", {keyCode: 13});
                 $('.chatbox-input').trigger(e);
-                object.removeClass('expanded');
-                $('.main-nav').removeClass('post-form-expanded');
-                $('.the-line').css('top', '0');
-                $('.main-nav').css('top', '4px');
-                $(this).html('<i class="fas fa-bars"></i>');
-                $('body').removeClass('disableScrollBar');
-                $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');
-                $(this).removeClass('poll');
-                $(this).removeClass('event');
-                $(this).removeClass('image-video');
             }
         });
 
         $('.hide-post-form').click(function(){
-            $('.chatbox-container').removeClass('expanded');
-            $('.main-nav').removeClass('post-form-expanded');
-            $('.the-line').css('top', '0');
-            $('.main-nav').css('top', '4px');
-            $('.btn-chat').html('<i class="fas fa-bars"></i>');
-            $('body').removeClass('disableScrollBar');
-            $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');
+            hidePostCreatorForm();
         });
 
         //Función que se llama al presionar la flecha izquierda, que cambia de formulario.

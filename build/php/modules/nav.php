@@ -79,17 +79,13 @@ function deactivateMask(){
 function scrollToMiddle(id) {
     var elem_position = $(id).offset().top;
     var window_height = $(window).height();
-    var y = elem_position - window_height/2 + 55;
+    var y = elem_position - window_height/4;
     window.scroll({
         top: y, 
         left: 0, 
         behavior: 'smooth' 
     });
 }
-
-Element.prototype.documentOffsetTop = function () {
-    return this.offsetTop + ( this.offsetParent ? this.offsetParent.documentOffsetTop() : 0 );
-};
 
 $(document).ready(function(){
     var text;
@@ -98,6 +94,7 @@ $(document).ready(function(){
     var searchIndex;
 
     function removeSearchResult(){
+        $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
         size = searchArray.length;
         for(i = 0; i < size; i++){
             $('#' + searchArray.pop()).find('.searchable').each(function(){
@@ -109,21 +106,25 @@ $(document).ready(function(){
 
     $('.search-right').click(function(){
         if(searchArray.length > 0){
+            $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
             searchPivot++;
             if(searchPivot == searchArray.length){
                 searchPivot = 0;
             }
             scrollToMiddle($('#'+searchArray[searchPivot]));
+            $('#'+searchArray[searchPivot]).parent().addClass('search-result');
         }
     });
 
     $('.search-left').click(function(){
         if(searchArray.length > 0){
+            $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
             searchPivot--;
             if(searchPivot == -1){
                 searchPivot = searchArray.length - 1;
             }
             scrollToMiddle($('#'+searchArray[searchPivot]));
+            $('#'+searchArray[searchPivot]).parent().addClass('search-result');
         }
     });
 
@@ -136,9 +137,12 @@ $(document).ready(function(){
     });
     //Función que se llama al presionar el botón de búsqueda y muestra la barra en modo móvil.
     $('#search').click(function(){
-        $('.searchbox').css('z-index','2001');
-        $('.searchbox').css('opacity','1');
+        object = $('.searchbox');
+        object.css('z-index','2001');
+        object.css('opacity','1');
         triggerMask('searchbox');
+        //Autofocus al searchbox, pero no me gustó.
+        //object.children('.search').children('.search-input').focus();
     });
     //Función utilizada para desactivar la máscara y los objetos flotantes.
     $('.mask').click(function(){
@@ -196,6 +200,7 @@ $(document).ready(function(){
                 searchPivot = 0;
                 if(searchArray.length > 0){
                     scrollToMiddle($('#'+searchArray[0]));
+                    $('#'+searchArray[0]).parent().addClass('search-result');
                 }
             }else{
                 console.log(text);

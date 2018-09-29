@@ -321,6 +321,43 @@ input[type=file] {
   position: absolute;
   z-index: -1; }
 
+.input-date, .input-time {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 39px;
+  border-radius: 3px;
+  margin: 6px 0 22px 0;
+  align-items: center; }
+
+.input-date {
+  margin-bottom: 6px; }
+  .input-date input[type=text] {
+    text-align: center;
+    background: #000B2B;
+    transition: 0.2s ease;
+    width: 32%;
+    margin: 0 0;
+    height: 37px;
+    border: none;
+    color: white; }
+    .input-date input[type=text] .slash-separator {
+      font-size: 24px; }
+
+.input-time input[type=text] {
+  background: #000B2B;
+  transition: 0.2s ease;
+  width: 48%;
+  margin: 0 0;
+  height: 37px;
+  border: none;
+  color: white;
+  padding: 0 10px; }
+  .input-time input[type=text].hour {
+    text-align: right; }
+  .input-time input[type=text].minutes {
+    text-align: left; }
+
 .admin-shop-form label {
   color: black;
   border-color: #fff;
@@ -1143,12 +1180,15 @@ body.disableScrollBar {
               text-transform: uppercase;
               display: flex;
               width: 100%;
-              margin-bottom: 32px; }
+              margin-bottom: 32px;
+              align-items: center; }
               .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .form-title.small, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .form-title.small, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .form-title.small {
                 margin-top: 0;
                 font-size: 14px;
                 margin-bottom: 0;
                 text-transform: capitalize; }
+              .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .form-title i, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .form-title i, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .form-title i {
+                margin-right: 6px; }
             .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .poll-option, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .poll-option, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .poll-option {
               text-align: left;
               padding-left: 12px;
@@ -1166,6 +1206,14 @@ body.disableScrollBar {
               display: flex;
               width: 100%;
               justify-content: flex-end; }
+            .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form.event .event-ubication, .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form.event .event-description, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form.event .event-ubication, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form.event .event-description, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form.event .event-ubication, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form.event .event-description {
+              padding-left: 12px;
+              padding-right: 12px;
+              margin: 6px 20px 22px 20px; }
+              .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form.event .event-ubication:active, .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form.event .event-ubication:focus, .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form.event .event-description:active, .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form.event .event-description:focus, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form.event .event-ubication:active, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form.event .event-ubication:focus, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form.event .event-description:active, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form.event .event-description:focus, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form.event .event-ubication:active, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form.event .event-ubication:focus, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form.event .event-description:active, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form.event .event-description:focus {
+                transform: scale(1.05);
+                background: white;
+                color: #000B2B; }
         .chatbox-container .post-form-container .form-container .inputs-container .inputs-left {
           left: -100%; }
         .chatbox-container .post-form-container .form-container .inputs-container .inputs-center {
@@ -1181,6 +1229,15 @@ body.disableScrollBar {
     padding-top: 67px;
     padding-bottom: 67px;
     flex-direction: column; }
+    .wall .central-container .date-separator {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      color: #aaaaaa;
+      font-size: 12px;
+      margin: 8px 0;
+      padding: 6px 0; }
     .wall .central-container .group-title {
       display: flex;
       width: 100%;
@@ -1207,8 +1264,13 @@ body.disableScrollBar {
       display: flex;
       width: 100%;
       margin: 4px 0; }
+      .wall .central-container .post-container.search-result .post {
+        border-left: 8px solid #ffe08a; }
       .wall .central-container .post-container.me {
         justify-content: flex-end; }
+        .wall .central-container .post-container.me.search-result .post {
+          border-left: none;
+          border-right: 8px solid #ffe08a; }
         .wall .central-container .post-container.me .post {
           background: #ffebe7;
           padding-top: 6px;
@@ -1240,7 +1302,8 @@ body.disableScrollBar {
         color: #000B2B;
         overflow: hidden;
         display: flex;
-        flex-direction: column; }
+        flex-direction: column;
+        transition: 0.4s ease; }
         .wall .central-container .post-container .post .time {
           color: #aaa;
           font-size: 11px;
