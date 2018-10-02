@@ -163,7 +163,7 @@
                 <span class="post-container">
                     <span id="111" class="post message">
                         <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja <i class="em-svg em-laughing"></i>wuuuuuuuuuuu</span>
+                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
                         <span class="time">3:15 PM</span>
                         <span class="type"><i class="fas fa-circle"></i></span>
                     </span>   
@@ -287,10 +287,15 @@
         <span class="chatbox">
             <input type="text" class="chatbox-input" placeholder="Escribe un mensaje">
             <a class="btn-chat"><i class="fas fa-bars"></i></a>
+            <span class="emoji-menu"><i class="far fa-laugh"></i></span>
+        </span>
+        <span class="emojibox-container">
+            <span class="emojibox"><span class="emoji">😀</span><span class="emoji">😁</span><span class="emoji">😂</span><span class="emoji">🤣</span><span class="emoji">😃</span><span class="emoji">😄</span><span class="emoji">😅</span><span class="emoji">😆</span><span class="emoji">😉</span><span class="emoji">😊</span><span class="emoji">😋</span><span class="emoji">😎</span><span class="emoji">😍</span><span class="emoji">😘</span><span class="emoji">😗</span><span class="emoji">😙</span><span class="emoji">😚</span><span class="emoji">🙂</span><span class="emoji">🤗</span><span class="emoji">🤩</span><span class="emoji">🤔</span><span class="emoji">🤨</span><span class="emoji">😐</span><span class="emoji">😑</span><span class="emoji">😶</span><span class="emoji">🙄</span><span class="emoji">😏</span><span class="emoji">😣</span><span class="emoji">😥</span><span class="emoji">😮</span><span class="emoji">🤐</span><span class="emoji">😯</span><span class="emoji">😪</span><span class="emoji">😫</span><span class="emoji">😴</span><span class="emoji">😌</span><span class="emoji">😛</span><span class="emoji">😜</span><span class="emoji">😝</span><span class="emoji">🤤</span><span class="emoji">😒</span><span class="emoji">😓</span><span class="emoji">😔</span><span class="emoji">😕</span><span class="emoji">🙃</span><span class="emoji">🤑</span><span class="emoji">😲</span><span class="emoji">️</span><span class="emoji">🙁</span><span class="emoji">😖</span>😞<span class="emoji">😟</span><span class="emoji">😤</span><span class="emoji">😢</span><span class="emoji">😭</span><span class="emoji">😦</span><span class="emoji">😧</span><span class="emoji">😨</span><span class="emoji">😩</span><span class="emoji">🤯</span><span class="emoji">😬</span><span class="emoji">😰</span><span class="emoji">😱</span><span class="emoji">😳</span><span class="emoji">🤪</span><span class="emoji">😵</span><span class="emoji">😡</span><span class="emoji">😠</span><span class="emoji">🤬</span><span class="emoji">😷</span><span class="emoji">🤒</span><span class="emoji">🤕</span><span class="emoji">🤢</span><span class="emoji">🤮</span><span class="emoji">🤧</span><span class="emoji">😇</span><span class="emoji">🤠</span><span class="emoji">🤡</span><span class="emoji">🤥</span><span class="emoji">🤫</span><span class="emoji">🤭</span><span class="emoji">🧐</span><span class="emoji">🤓</span><span class="emoji">😈</span><span class="emoji">👿</span><span class="emoji">👹</span><span class="emoji">👺</span><span class="emoji">💀</span><span class="emoji">👻</span><span class="emoji">👽</span><span class="emoji">🤖</span><span class="emoji">💩</span> </span>
         </span>
         <span class="questionbox-container">
             <span class="questionbox">Pregunta</span>
         </span>
+        <span class="wall"></span>
         <span class="post-form-container">
             <span class="form-container">
                 <span class="arrow left-arrow">
@@ -643,6 +648,10 @@
         $('.main-nav').removeClass('post-form-expanded');
         $('.the-line').css('top', '0');
         $('.main-nav').css('top', '4px');
+        if($('.emojibox-container').hasClass('expanded-to-bottom')){
+            $('.emojibox-container').removeClass('expanded-to-bottom');
+            $('.emojibox-container').addClass('expanded-to-top');
+        }
         object.html('<i class="fas fa-bars"></i>');
         $('body').removeClass('disableScrollBar');
         $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');
@@ -675,6 +684,25 @@
     $(document).ready(function(){
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
+
+        $('.emoji-menu').children('i').click(function(){
+            object = $('.emojibox-container');
+            if(object.hasClass('expanded-to-top')){
+                object.removeClass('expanded-to-top');
+            }else if(object.hasClass('expanded-to-bottom')){
+                object.removeClass('expanded-to-bottom');
+            }else if($('.chatbox-container').hasClass('expanded')){
+                object.addClass('expanded-to-bottom');
+            }else{
+                object.addClass('expanded-to-top');
+            }
+        });
+
+        $('.emoji').click(function(){
+            text = $('.chatbox-input').val();
+            $('.chatbox-input').val(text + $(this).text());
+            $('.chatbox-input').focus();
+        });
 
         //Función que se llama al dar click en la opción responder de las preguntas y muestra la pregunta sobre el chatbox.
         $('.answer').click(function(){
@@ -789,6 +817,10 @@
                 $('.main-nav').addClass('post-form-expanded');
                 $('.the-line').css('top', '-55px');
                 $('.main-nav').css('top', '-59px');
+                if($('.emojibox-container').hasClass('expanded-to-top')){
+                    $('.emojibox-container').removeClass('expanded-to-top');
+                    $('.emojibox-container').addClass('expanded-to-bottom');
+                }
                 $(this).html('<i class="fas fa-location-arrow"></i>');
                 $('body').addClass('disableScrollBar');
                 object = $('.inputs-center').children('.form');

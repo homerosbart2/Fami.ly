@@ -39,7 +39,7 @@
 .btn-chat{
     @extend %btn;
     font-size: 14px;
-    width: 38.8px;
+    width: 36px;
     height: 36px;
     background: white;
     color: $main-contrast;
@@ -49,6 +49,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 100px;
+    flex-shrink: 0;
     &:hover,
     &:active,
     &:focus{
