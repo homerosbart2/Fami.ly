@@ -65,7 +65,7 @@
                             <span class="user-container me">
                                 <i class="far fa-check-square"></i>
                                 <img class="user" src="../../assets/img/users/profile.png">
-                                <span class="name">Has indicado que asistirás a este evento.</span>
+                                <span class="name">Asistirás a este evento.</span>
                             </span>
                         </span>
                         <span class="time">10:27 AM</span>
@@ -163,7 +163,7 @@
                 <span class="post-container">
                     <span id="111" class="post message">
                         <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
+                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja <i class="em-svg em-laughing"></i>wuuuuuuuuuuu</span>
                         <span class="time">3:15 PM</span>
                         <span class="type"><i class="fas fa-circle"></i></span>
                     </span>   
@@ -360,6 +360,14 @@
     var users = [];
     var options = [];
     var success = 1;
+    var months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    var month;
+    var year;
+    var day;
+    var description;
+    var hour;
+    var minutes;
+    var ubication;
 
     function updatePercents(post){
         object = $('#' + post).children('.answers').find('.answer');
@@ -401,6 +409,84 @@
         }
         sum = 0;
         updatePercents(postId);
+    }
+
+    function generateEvent(id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me){
+        rows = '';
+        if(me){
+            rows += '<span class="post-container me">';
+            if(imIn){
+                rows += '<span id="'+id+'" class="post event im-in">';
+            }else{
+                rows += '<span id="'+id+'" class="post event">';
+            }
+        }else{
+            rows += '<span class="post-container">';
+            if(imIn){
+                rows += '<span id="'+id+'" class="post event im-in">';
+            }else{
+                rows += '<span id="'+id+'" class="post event">';
+            }
+            rows += '<span class="user-name">'+user+'</span>';
+        }
+        rows += '<span class="event-date">';
+        rows += '<i class="far fa-calendar"></i> ' + eventDate;
+        rows += '</span>';
+        rows += '<span class="text searchable">'+text+'</span>';
+        rows += '<span class="extra-information">';
+        rows += '<span class="description searchable">';
+        rows += description;
+        rows += '</span>';
+        rows += '<span class="event-place">';
+        rows += '<i class="fas fa-map-marker-alt"></i> <span class="searchable">'+ubication+'</span>';
+        rows += '</span>';
+        rows += '<span class="event-time">';
+        rows += '<i class="far fa-clock"></i> ' + eventTime;
+        rows += '</span>';
+        rows += '</span>';
+        rows += '<span class="options">';
+        rows += '<a class="confirmed">Confirmados <i class="fas fa-angle-down"></i></a>';
+        if(imIn){
+            rows += '<a class="assist">No Asistiré</a>';
+        }else{
+            rows += '<a class="assist">Asistiré</a>';
+        }
+        rows += '</span>';
+        rows += '<span class="confirmed-users">';
+        for(i in confirmedPeopleNames){
+            rows += '<span class="user-container">';
+            rows += '<i class="far fa-check-square"></i>';
+            rows += '<img class="user" src="'+confirmedPeopleImages[i]+'">';
+            rows += '<span class="name">'+confirmedPeopleNames[i]+'</span>';
+            rows += '</span>';
+        }
+        rows += '<span class="user-container me">';
+        rows += '<i class="far fa-check-square"></i>';
+        //Aquí hay que poner la imagen del usuario que inició sesión.
+        rows += '<img class="user" src="../../assets/img/users/profile.png">';
+        rows += '<span class="name">Asistirás a este evento.</span>';
+        rows += '</span>';
+        rows += '</span>';
+        rows += '<span class="time">'+time+'</span>';
+        rows += '<span class="type"><i class="fas fa-circle"></i></span>';
+        rows += '</span>   ';
+        rows += '</span>';
+        object = $('.chatbox-container');
+        object.removeClass('expanded');
+        hidePostCreatorForm();
+        $('.posts').prepend(rows);
+        object = $('#' + id).children('.options');
+        object.children('.assist').click(function(){
+            confirmEvent($(this));
+        });
+        object.children('.confirmed').click(function(){
+            expandConfirmedPeople($(this));
+        });
+        window.scroll({
+            top: 0, 
+            left: 0, 
+            behavior: 'smooth' 
+        });
     }
 
     function generateMessage(id, user, text, time, me){
@@ -564,6 +650,27 @@
         object.removeClass('event');
         object.removeClass('image-video');
     }
+
+    function confirmEvent(lmnt){
+        object = lmnt.parent().parent();
+        if(object.hasClass('im-in')){
+            object.removeClass('im-in');
+            lmnt.html('Asisitiré');
+        }else{
+            object.addClass('im-in');
+            lmnt.html('No Asisitiré');
+        }
+    }
+
+    function expandConfirmedPeople(lmnt){
+        if(!lmnt.hasClass('expanded')){
+            lmnt.parent().parent().children('.confirmed-users').addClass('expanded');
+            lmnt.addClass('expanded');
+        }else{
+            lmnt.parent().parent().children('.confirmed-users').removeClass('expanded');
+            lmnt.removeClass('expanded');
+        }
+    }
     
     $(document).ready(function(){
         //Variable que indica que estamos en el wall de un grupo.
@@ -585,9 +692,25 @@
                 success = 1;
                 text = $(this).val();
                 if(/\S/.test(text)){
-                    if($('.btn-chat').hasClass('poll')){
+                    if($('.btn-chat').hasClass('event')){
+                        //Esto sucede si es un evento
+                        //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
+                        postId = 321;
+                        time = '12:21 PM';
+                        confirmedPeopleNames = [];
+                        confirmedPeopleImages = [];
+                        day = $('.day').val();
+                        month = months[(parseInt($('.month').val()) - 1)];
+                        year = $('.year').val();
+                        description = $('.event-description').val();
+                        ubication = $('.event-ubication').val();
+                        hour = $('.hour').val();
+                        minutes = $('.minutes').val();
+                        //TODO: Hay que verificar si la hora es AM o PM y si está entre 0 y 24.
+                        generateEvent(postId, '', text, description, ubication, day + ' de ' + month, hour + ':' + minutes + ' PM', confirmedPeopleNames, confirmedPeopleImages, false, time, true);
+                    }else if($('.btn-chat').hasClass('poll')){
                         //Esto sucede si es una votación
-                        //Hay que generar un nuevo id y obtener la hora del servidor.
+                        //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         postId = 321;
                         time = '12:21 PM';
                         options = [];
@@ -602,7 +725,7 @@
                         if(options.length > 1){
                             generatePoll(postId, '', text, options, quantities, time, true);
                         }else{
-                            //Debe aparecer una notificación si no ingresa dos opciones o más.
+                            //TODO: Debe aparecer una notificación si no ingresa dos opciones o más.
                             success = 0;
                         }
                     }else if($(this).is('[id]')){
@@ -622,7 +745,7 @@
                         scrollToMiddle($('#'+postId));
                     }else if(text.search('\\?')!=-1){
                         //Esto sucede si es una pregunta
-                        //Hay que generar un nuevo id y obtener la hora del servidor.
+                        //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         postId = 321;
                         time = '12:21 PM';
                         answers = [];
@@ -630,7 +753,7 @@
                         generateQuestion(postId, '', text, answers, users, time, true);
                     }else{
                         //Esto sucede si es un mensaje simple.
-                        //Hay que generar un nuevo id y obtener la hora del servidor.
+                        //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         postId = 321;
                         time = '12:21 PM';
                         generateMessage(postId, '', text, time, true);
@@ -650,25 +773,12 @@
 
         //Función para ver todos los confirmados de modo extendido.
         $('.confirmed').click(function(){
-            if(!$(this).hasClass('expanded')){
-                $(this).parent().parent().children('.confirmed-users').addClass('expanded');
-                $(this).addClass('expanded');
-            }else{
-                $(this).parent().parent().children('.confirmed-users').removeClass('expanded');
-                $(this).removeClass('expanded');
-            }
+            expandConfirmedPeople($(this));
         });
 
         //Función que se llama al dar click en Asistiré o No Asistiré
         $('.assist').click(function(){
-            object = $(this).parent().parent();
-            if(object.hasClass('im-in')){
-                object.removeClass('im-in');
-                $(this).html('Asisitiré');
-            }else{
-                object.addClass('im-in');
-                $(this).html('No Asisitiré');
-            }
+            confirmEvent($(this));
         });
 
         //Función que se llama al presionar el botón de adjuntar. 
