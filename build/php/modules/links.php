@@ -6,4 +6,3 @@
 <link href="../../assets/css/bootstrap.css" media="all" rel="stylesheet" type="text/css" />    
 <link rel="stylesheet" href="../../assets/css/main.min.css" />
 <link rel="stylesheet" href="../../assets/fontawesome-free-5.3.1-web/css/all.min.css">
-<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
