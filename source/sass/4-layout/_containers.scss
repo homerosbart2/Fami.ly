@@ -22,3 +22,15 @@
     }
 }
 
+.wide-central-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+
+body{
+    &.disableScrollBar{
+        overflow: hidden;
+    }
+}

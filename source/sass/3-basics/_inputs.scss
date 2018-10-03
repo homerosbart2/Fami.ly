@@ -49,6 +49,52 @@ input[type=file] {
 	z-index: -1;
 }
 
+.input-date, .input-time{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 39px;
+    border-radius: 3px;
+    margin: 6px 0 22px 0;
+    align-items: center;
+}
+
+.input-date{
+    margin-bottom: 6px;
+    input[type=text]{
+        text-align: center;
+        background: $main-contrast;
+        transition: 0.2s ease;
+        width: 32%;
+        margin: 0 0;
+        height: 37px;
+        border: none;
+        color: white;
+        .slash-separator{
+            font-size: 24px;
+        }
+    }
+}
+
+.input-time{
+    input[type=text]{
+        background: $main-contrast;
+        transition: 0.2s ease;
+        width: 48%;
+        margin: 0 0;
+        height: 37px;
+        border: none;
+        color: white;
+        padding: 0 10px;
+        &.hour{
+            text-align: right;
+        }
+        &.minutes{
+            text-align: left;
+        }
+    }
+}
+
 .admin-shop-form{
     label{
         @extend %btn;

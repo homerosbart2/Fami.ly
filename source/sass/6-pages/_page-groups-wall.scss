@@ -9,27 +9,46 @@
     align-items: center;
     background: $main-contrast;
     z-index: 1999;
+    transition: 0.2s ease;
+    &.expanded{
+        top: 0;
+        bottom: 100%;
+    }
     .chatbox{
+        position: relative;
         height: 100%;
         width: 100%;
         max-width: 700px;
         display: flex;
-        justify-content: center;
+        flex-direction: row;
         align-items: center;
         margin: 0 15px;
         z-index: 2000;
         .chatbox-input{
             width: 100%;
+            display: flex;
             border-radius: 100px;
             padding-left: 15px;
-            padding-right: 15px;
+            padding-right: 35px;
             text-align: left;
             height: 35px;
             background: white;
             color: $main-contrast;
+            z-index: 2001;
+        }
+        .emoji-menu{
+            position: absolute;
+            right: 57px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            z-index: 2002;
         }
     }
-    .questionbox-container{
+    .questionbox-container, .emojibox-container{
+        color: $main-contrast;
         position: absolute;
         height: 35px;
         width: 100%;
@@ -46,7 +65,175 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
+        }
+
+        .emojibox{
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 25px;
+            overflow: scroll;
+            flex-wrap: wrap;
+            padding-left: 10px;
+            padding-right: 10px;
+            overflow-x:hidden;
+            .emoji{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .emojibox-container{
+        bottom: -65px;
+        height: 120px;
+        transition: 0.2s ease;
+        &.expanded-to-top{
+            bottom: 55px;
+        }
+        &.expanded-to-bottom{
+            bottom: -120px;
+            z-index: 2000;
+        }
+    }
+    .wall{
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        background: $main-contrast;
+        z-index: 1999;
+    }
+    .post-form-container{
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+        background: $main-contrast;
+        top: 0;
+        color: white;
+        z-index: 1999;
+        .wide-central-container{
+            position: absolute;
+            bottom: 30px;
+            .btn-login{
+                border-radius: 60px;
+                padding: 7px 7px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 22px;
+                border: none;
+                &:hover,
+                &:active,
+                &:focus{
+                    transform: scale(1.05);
+                }
+            }
+        }
+        .form-container{
+            width: 100%;
+            height: 100%;
+            max-width: 700px;
+            display: flex;
+            flex-direction: row;
+            margin: 0 15px;
+            .arrow{
+                display: flex;
+                height: 100%;
+                align-items: center;
+                padding: 0 12px;
+                font-size: 22px;
+                i{
+                    cursor: pointer;
+                }
+            }
+            .inputs-container{
+                overflow: hidden;
+                position: relative;
+                display: flex;
+                height: 100%;
+                width: 100%;
+                .inputs-left, .inputs-center, .inputs-right{
+                    position: absolute;
+                    display: flex;
+                    height: 100%;
+                    width: 100%;
+                    top:0;
+                    transition: left 0.2s ease;
+                    .form{
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%;
+                        height: 100%;
+                        margin: 12px 12px;
+                        .form-title{
+                            margin-top: 54px;
+                            text-transform: uppercase;
+                            display: flex;
+                            width: 100%;
+                            margin-bottom: 32px;
+                            align-items: center;
+                            &.small{
+                                margin-top: 0;
+                                font-size: 14px;
+                                margin-bottom: 0;
+                                text-transform: capitalize;
+                            }
+                            i{
+                                margin-right: 6px;
+                            }
+                        }
+                        .poll-option{
+                            text-align: left;
+                            padding-left: 12px;
+                            padding-right: 12px;
+                            height: 35px;
+                            margin: 6px 20px 22px 20px;
+                            &.with-text{
+                                background: white;
+                                color: $main-contrast;
+                            }
+                            &:active,
+                            &:focus{
+                                transform: scale(1.05);
+                                background: white;
+                                color: $main-contrast;
+                            }
+                        }
+                        .add-container{
+                            display: flex;
+                            width: 100%;
+                            justify-content: flex-end;
+                        }
+                        &.event{
+                            .event-ubication, .event-description{
+                                padding-left: 12px;
+                                padding-right: 12px;
+                                margin: 6px 20px 22px 20px;
+                                &:active,
+                                &:focus{
+                                    transform: scale(1.05);
+                                    background: white;
+                                    color: $main-contrast;
+                                }
+                            }
+                        }
+                    }
+                }
+                .inputs-left{
+                    left: -100%;
+                }
+                .inputs-center{
+                    left: 0;
+                }
+                .inputs-right{
+                    left: 100%;
+                }
+            }
         }
     }
 }
@@ -59,6 +246,17 @@
         padding-top: 67px;
         padding-bottom: 67px;
         flex-direction: column;
+        overflow: auto;
+        .date-separator{
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            color: rgb(170, 170, 170);
+            font-size: 12px;
+            margin: 8px 0;
+            padding: 6px 0;
+        }
         .group-title{
             display: flex;
             width: 100%;
@@ -93,18 +291,59 @@
             display: flex;
             width: 100%;
             margin: 4px 0;
+            &.search-result{
+                .post{
+                    border-left: 8px solid rgb(255, 224, 138);
+                }
+            }
             &.me{
                 justify-content: flex-end;
+                &.search-result{
+                    .post{
+                        border-left: none;
+                        border-right: 8px solid rgb(255, 224, 138);
+                    }
+                }
                 .post{
                     background: $light-main;
                     padding-top: 6px;
                     margin-right: 0;
                     margin-left: 20px;
                     &.poll{
+                        .text{
+                            margin-top: 6px;
+                        }
                         .answers{
                             .answer{
                                 .percent-container{
                                     background: $light-secondary;
+                                }
+                            }
+                        }
+                    }
+                    &.question{
+                        .text{
+                            margin-top: 6px;
+                        }
+                        .answers{
+                            .answer{
+                                background: $light-secondary;
+                                &.me{
+                                    background: white;
+                                    border-left: 6px solid $main;
+                                }
+                            }
+                        }
+                    }
+                    &.event{
+                        .event-date{
+                            margin-top: 3px;
+                        }
+                        .confirmed-users{
+                            .user-container.me{
+                                .name{
+                                    background: white;
+                                    border-left: 6px solid $main;
                                 }
                             }
                         }
@@ -122,6 +361,10 @@
                 overflow: hidden;
                 display: flex;
                 flex-direction: column;
+                transition: 0.4s ease;
+                .text{
+                    word-wrap: break-word;
+                }
                 .time{
                     color: $gray;
                     font-size: 11px;
@@ -162,10 +405,170 @@
                         font-size: 8px;
                     }
                 }
-                .text{
+                .searchable{
                     .search-result{
-                        background: rgb(255, 255, 206);
+                        background: rgb(255, 255, 51);
                         color: $main-contrast;
+                    }
+                }
+                &.event{
+                    &.im-in{
+                        .confirmed-users{
+                            .user-container.me{
+                                display: flex;
+                                .user{
+                                    height: 20px;
+                                    width: 20px;
+                                    margin-left: 12px;
+                                }
+                            }
+                            &.expanded{
+                                .user-container{
+                                    .user{
+                                        width: 40px;
+                                        height: 40px;
+                                        margin-top: 3px;
+                                        margin-bottom: 3px;
+                                        margin-left: 1px;
+                                    }
+                                    &.expanded{
+                                        flex-direction: column-reverse;
+                                        .user-container{
+                                            .user{
+                                                width: 40px;
+                                                height: 40px;
+                                                margin-top: 3px;
+                                                margin-bottom: 3px;
+                                                margin-left: 1px;
+                                            }
+                                            .name{
+                                                display: flex;
+                                            }
+                                            i{
+                                                display: flex;
+                                            }
+                                        }
+                                    }
+                                    &.me{
+                                        .name{
+                                            display: flex;
+                                        }
+                                        i{
+                                            display: flex;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .event-date{
+                        display: flex;
+                        width: 100%;
+                        justify-content: center;
+                        align-items: center;
+                        font-size: 18px;
+                        margin-bottom: 6px;
+                        i{
+                            margin-right: 3px;
+                        }
+                    }
+                    .text{
+                        font-size: 15px;
+                        background: $main-contrast;
+                        color: white;
+                        padding: 2px 6px;
+                        text-align: center;
+                    }
+                    .extra-information{
+                        padding-top: 6px;
+                        display: flex;
+                        width: 100%;
+                        flex-direction: column;
+                        .description{
+                            border-radius: 3px;
+                            border-left: 6px solid $main-contrast;
+                            padding: 0 6px;
+                            background: white;
+                            margin-bottom: 6px;
+                        }
+                    }
+                    .confirmed-users{
+                        margin-bottom: 6px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        z-index: 1;
+                        justify-content: flex-end;
+                        &.expanded{
+                            flex-direction: column-reverse;
+                            .user-container{
+                                .user{
+                                    width: 40px;
+                                    height: 40px;
+                                    margin-top: 3px;
+                                    margin-bottom: 3px;
+                                    margin-left: 1px;
+                                }
+                                .name{
+                                    display: flex;
+                                }
+                                i{
+                                    display: flex;
+                                }
+                                &.me{
+                                    .name{
+                                        display: none;
+                                    }
+                                    i{
+                                        display:none;
+                                    }
+                                }
+                            }
+                        }
+                        .user-container{
+                            position: relative;
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            .user{
+                                border-radius: 100px;
+                                width: 20px;
+                                height: 20px;
+                                margin: 1px 1px;
+                            }
+                            &.me{
+                                display: flex;
+                                .user{
+                                    transition: 0.2s ease;
+                                    width: 0;
+                                    height: 0;
+                                    margin-left: 0;
+                                }
+                                .name{
+                                    font-size: 13px;
+                                    background: $light-main;
+                                    padding: 0 6px;
+                                    border-left: 6px solid $main-contrast;
+                                    border-radius: 3px;
+                                }
+                            }
+                            .name{
+                                position: absolute;
+                                top: 0;
+                                bottom: 0;
+                                left: 65px;
+                                right: 0;
+                                display: none;
+                                align-items: center;
+                                margin-left: 6px;
+                            }
+                            i{
+                                display: none;
+                                margin-right: 6px;
+                            }
+                        }
+                    }
+                    .type::after{
+                        content: "Evento";
                     }
                 }
                 &.question{
@@ -224,6 +627,13 @@
                             border-radius: 3px;
                             margin: 3px 0;
                             padding: 0 6px;
+                            &.selected{
+                                .radio-container{
+                                    label{
+                                        cursor: default;
+                                    }
+                                }
+                            }
                             .radio-container{
                                 display: flex;
                                 align-items: center;
@@ -250,6 +660,7 @@
                                     border-radius: 20px;
                                     margin: 0 3px 3px 0;
                                     transition: 0.2s ease;
+                                    cursor: pointer;
                                     i{
                                         font-size: 1px;
                                         color: white;
@@ -285,6 +696,7 @@
                 .options{
                     display: flex;
                     justify-content: flex-end;
+                    flex-wrap: wrap;
                     margin-top: 3px;
                     a{
                         cursor: pointer !important;
@@ -292,12 +704,30 @@
                         font-weight: 700;
                         z-index: 1;
                         margin-left: 12px;
+                        i{
+                            transition: 0.2s ease;
+                        }
                         &.see-more{
                             z-index: 11;
+                        }
+                        &.expanded{
+                            i{
+                                transform: rotate(180deg);
+                            }
                         }
                     }
                 }
             }
         }
     }
+}
+
+//Esconde las barras de scroll.
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
 }
