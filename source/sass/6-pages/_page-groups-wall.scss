@@ -246,6 +246,7 @@
         padding-top: 67px;
         padding-bottom: 67px;
         flex-direction: column;
+        overflow: auto;
         .date-separator{
             display: flex;
             width: 100%;
@@ -361,6 +362,9 @@
                 display: flex;
                 flex-direction: column;
                 transition: 0.4s ease;
+                .text{
+                    word-wrap: break-word;
+                }
                 .time{
                     color: $gray;
                     font-size: 11px;
