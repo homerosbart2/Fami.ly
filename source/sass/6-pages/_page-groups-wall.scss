@@ -261,8 +261,9 @@
         .group-title{
             display: flex;
             width: 100%;
-            justify-content: flex-start;
+            justify-content: space-between;
             margin-bottom: 10px;
+            align-items: center;
             .information{
                 display: flex;
                 flex-direction: column;
@@ -271,6 +272,20 @@
                     font-size: 20px;
                     font-weight: 700;
                     text-transform: uppercase;
+                }
+            }
+            .options{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                .btn-login{
+                    color: $main;
+                    border: 1px solid $main;
+                    &:hover{
+                        color: white;
+                        background: $main;
+                        border: 1px solid $main;
+                    }
                 }
             }
             .group-card{
@@ -491,6 +506,7 @@
                             padding: 0 6px;
                             background: white;
                             margin-bottom: 6px;
+                            word-wrap: break-word;
                         }
                     }
                     .confirmed-users{
@@ -594,6 +610,7 @@
                             border-left: 6px solid white;
                             margin: 3px 0;
                             padding: 0 6px;
+                            word-wrap: break-word;
                             .user{
                                 font-weight: 700;
                             }
@@ -605,6 +622,11 @@
                     }
                 }
                 &.message{
+                    .text{
+                        .emoji{
+                            font-size: 24px;
+                        }
+                    }
                     .type::after{
                         content: "Mensaje";
                     }
@@ -628,6 +650,7 @@
                             border-radius: 3px;
                             margin: 3px 0;
                             padding: 0 6px;
+                            word-wrap: break-word;
                             &.selected{
                                 .radio-container{
                                     label{
@@ -721,6 +744,10 @@
             }
         }
     }
+}
+
+.searchable{
+    word-wrap: break-word;
 }
 
 //Esconde las barras de scroll.
