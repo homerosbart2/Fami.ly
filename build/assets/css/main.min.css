@@ -1272,7 +1272,8 @@ body.disableScrollBar {
   .wall .central-container {
     padding-top: 67px;
     padding-bottom: 67px;
-    flex-direction: column; }
+    flex-direction: column;
+    overflow: auto; }
     .wall .central-container .date-separator {
       display: flex;
       width: 100%;
@@ -1348,6 +1349,8 @@ body.disableScrollBar {
         display: flex;
         flex-direction: column;
         transition: 0.4s ease; }
+        .wall .central-container .post-container .post .text {
+          word-wrap: break-word; }
         .wall .central-container .post-container .post .time {
           color: #aaa;
           font-size: 11px;
