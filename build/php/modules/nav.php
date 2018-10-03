@@ -188,13 +188,13 @@ $(document).ready(function(){
                     object = $(this);
                     object.find('.searchable').each(function(){
                         text2 = $(this).text();
-                        searchIndex = text2.search(text);
+                        searchIndex = text2.search(new RegExp(text, "i"));
                         if(searchIndex != -1){
                             if(lastId != object.prop('id')){
                                 searchArray.push(object.prop('id'));
                                 lastId = object.prop('id');
                             }
-                            $(this).html(text2.substring(0,searchIndex) + '<span class="search-result">' + text + '</span>' + text2.substring(searchIndex + text.length,text2.length));
+                            $(this).html(text2.substring(0,searchIndex) + '<span class="search-result">' + text2.substring(searchIndex,searchIndex + text.length) + '</span>' + text2.substring(searchIndex + text.length,text2.length));
                         }
                     });
                 });

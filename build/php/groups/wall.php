@@ -287,7 +287,7 @@
         <span class="chatbox">
             <input type="text" class="chatbox-input" placeholder="Escribe un mensaje">
             <a class="btn-chat"><i class="fas fa-bars"></i></a>
-            <span class="emoji-menu"><i class="far fa-laugh"></i></span>
+            <span class="emoji-menu"><i class="far fa-grin"></i></span>
         </span>
         <span class="emojibox-container">
             <span class="emojibox"><span class="emoji">😀</span><span class="emoji">😁</span><span class="emoji">😂</span><span class="emoji">🤣</span><span class="emoji">😃</span><span class="emoji">😄</span><span class="emoji">😅</span><span class="emoji">😆</span><span class="emoji">😉</span><span class="emoji">😊</span><span class="emoji">😋</span><span class="emoji">😎</span><span class="emoji">😍</span><span class="emoji">😘</span><span class="emoji">😗</span><span class="emoji">😙</span><span class="emoji">😚</span><span class="emoji">🙂</span><span class="emoji">🤗</span><span class="emoji">🤩</span><span class="emoji">🤔</span><span class="emoji">🤨</span><span class="emoji">😐</span><span class="emoji">😑</span><span class="emoji">😶</span><span class="emoji">🙄</span><span class="emoji">😏</span><span class="emoji">😣</span><span class="emoji">😥</span><span class="emoji">😮</span><span class="emoji">🤐</span><span class="emoji">😯</span><span class="emoji">😪</span><span class="emoji">😫</span><span class="emoji">😴</span><span class="emoji">😌</span><span class="emoji">😛</span><span class="emoji">😜</span><span class="emoji">😝</span><span class="emoji">🤤</span><span class="emoji">😒</span><span class="emoji">😓</span><span class="emoji">😔</span><span class="emoji">😕</span><span class="emoji">🙃</span><span class="emoji">🤑</span><span class="emoji">😲</span><span class="emoji">️</span><span class="emoji">🙁</span><span class="emoji">😖</span>😞<span class="emoji">😟</span><span class="emoji">😤</span><span class="emoji">😢</span><span class="emoji">😭</span><span class="emoji">😦</span><span class="emoji">😧</span><span class="emoji">😨</span><span class="emoji">😩</span><span class="emoji">🤯</span><span class="emoji">😬</span><span class="emoji">😰</span><span class="emoji">😱</span><span class="emoji">😳</span><span class="emoji">🤪</span><span class="emoji">😵</span><span class="emoji">😡</span><span class="emoji">😠</span><span class="emoji">🤬</span><span class="emoji">😷</span><span class="emoji">🤒</span><span class="emoji">🤕</span><span class="emoji">🤢</span><span class="emoji">🤮</span><span class="emoji">🤧</span><span class="emoji">😇</span><span class="emoji">🤠</span><span class="emoji">🤡</span><span class="emoji">🤥</span><span class="emoji">🤫</span><span class="emoji">🤭</span><span class="emoji">🧐</span><span class="emoji">🤓</span><span class="emoji">😈</span><span class="emoji">👿</span><span class="emoji">👹</span><span class="emoji">👺</span><span class="emoji">💀</span><span class="emoji">👻</span><span class="emoji">👽</span><span class="emoji">🤖</span><span class="emoji">💩</span> </span>
@@ -494,22 +494,40 @@
         });
     }
 
-    function generateMessage(id, user, text, time, me){
+    //Función que genera un nuevo mensaje. Le mandas el [id] de la publicación, el nombre SOLAMENTE del usuario [user] al que pertenece la publicación, un arreglo [texts] donde mandas los mensajes (podés mandar a llamar la función sin preocuparte si el último mensaje es del mismo usuario, pero también podés mandar los mensajes del mismo usuario en un arreglo, te recomiendo la primera), la hora de la publicación [time] y un booleano [me] que dice si el mensaje es del usuario que inició sesión.
+    function generateMessage(id, user, texts, time, me){
         rows = '';
-        if(me){
-            rows += '<span class="post-container me">';
-            rows += '<span id="'+id+'" class="post message">';
+        object = $('.posts').children('.post-container').first();
+        if(me && object.hasClass('me') && object.children('.post').hasClass('message')){
+            for(i in texts){
+                rows += '<span class="text searchable">'+texts[i]+'</span>';
+            }
+            object.children('.post').prepend(rows);
+        }else if(object.children('.post').hasClass('message')){
+            if(user == object.children('.post').children('.user-name').text()){
+                for(i in texts){
+                    rows += '<span class="text searchable">'+texts[i]+'</span>';
+                }
+                object.children('.post').children('.user-name').after(rows);
+            }
         }else{
-            rows += '<span class="post-container">';
-            rows += '<span id="'+id+'" class="post message">';
-            rows += '<span class="user-name">'+user+'</span>';
+            if(me){
+                rows += '<span class="post-container me">';
+                rows += '<span id="'+id+'" class="post message">';
+            }else{
+                rows += '<span class="post-container">';
+                rows += '<span id="'+id+'" class="post message">';
+                rows += '<span class="user-name">'+user+'</span>';
+            }
+            for(i in texts){
+                rows += '<span class="text searchable">'+texts[i]+'</span>';
+            }
+            rows += '<span class="time">'+time+'</span>';
+            rows += '<span class="type"><i class="fas fa-circle"></i></span>';
+            rows += '</span>';
+            rows += '</span>';
+            $('.posts').prepend(rows);
         }
-        rows += '<span class="text searchable">'+text+'</span>';
-        rows += '<span class="time">'+time+'</span>';
-        rows += '<span class="type"><i class="fas fa-circle"></i></span>';
-        rows += '</span>';
-        rows += '</span>';
-        $('.posts').prepend(rows);
         window.scroll({
             top: 0, 
             left: 0, 
@@ -689,12 +707,16 @@
             object = $('.emojibox-container');
             if(object.hasClass('expanded-to-top')){
                 object.removeClass('expanded-to-top');
+                $(this).removeClass('fas').addClass('far');
             }else if(object.hasClass('expanded-to-bottom')){
                 object.removeClass('expanded-to-bottom');
+                $(this).removeClass('fas').addClass('far');
             }else if($('.chatbox-container').hasClass('expanded')){
                 object.addClass('expanded-to-bottom');
+                $(this).removeClass('far').addClass('fas');
             }else{
                 object.addClass('expanded-to-top');
+                $(this).removeClass('far').addClass('fas');
             }
         });
 
@@ -784,7 +806,7 @@
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         postId = 321;
                         time = '12:21 PM';
-                        generateMessage(postId, '', text, time, true);
+                        generateMessage(postId, '', [text], time, true);
                     }
                     if(success == 1){
                         $(this).val('');

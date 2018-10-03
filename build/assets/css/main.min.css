@@ -238,8 +238,8 @@ section {
 
 .btn-chat {
   font-size: 14px;
-  width: 36px;
-  height: 36px;
+  width: 37px;
+  height: 37px;
   background: white;
   color: #000B2B;
   padding: 0 0;
@@ -1112,7 +1112,8 @@ body.disableScrollBar {
       display: flex;
       align-items: center;
       font-size: 20px;
-      z-index: 2002; }
+      z-index: 2002;
+      color: #000B2B; }
   .chatbox-container .questionbox-container, .chatbox-container .emojibox-container {
     color: #000B2B;
     position: absolute;
@@ -1272,7 +1273,8 @@ body.disableScrollBar {
   .wall .central-container {
     padding-top: 67px;
     padding-bottom: 67px;
-    flex-direction: column; }
+    flex-direction: column;
+    overflow: auto; }
     .wall .central-container .date-separator {
       display: flex;
       width: 100%;
@@ -1348,6 +1350,8 @@ body.disableScrollBar {
         display: flex;
         flex-direction: column;
         transition: 0.4s ease; }
+        .wall .central-container .post-container .post .text {
+          word-wrap: break-word; }
         .wall .central-container .post-container .post .time {
           color: #aaa;
           font-size: 11px;
