@@ -10,7 +10,7 @@
     <link href="../../assets/css/pnotify.custom.min.css" media="all" rel="stylesheet" type="text/css" />
     <link href="../../assets/css/bootstrap.css" media="all" rel="stylesheet" type="text/css" />    
     <link rel="stylesheet" href="../../assets/css/main.min.css" />
-</head>
+</head> 
 
 <body>
     <section id="header-login">
@@ -34,6 +34,7 @@
                         <input type='hidden'name='add' value='G'>
                         <input type='text' id='registro_nombre' name='' placeholder='Ingrese el nombre' required>
                         <input type='text' id='registro_username' name='' placeholder='Ingrese el usuario' required>
+                        <input type='text' id='registro_email' name='' placeholder='Ingrese el email' required>
                         <input type='password' id='registro_password1' name='' placeholder='Ingrese la contraseña' required>
                         <input type='password'  id='registro_password2' name='' placeholder='Repita la contraseña' required>
                         <span class="login-buttons">
@@ -67,7 +68,7 @@
 <script>
     function renderProfile(){
         //Luego de 1 segundo se redirige
-        $(location).attr('href', '../users/profile/php');
+        $(location).attr('href', '../users/profile.php');
     }
 
     function showMessage(type,title,text){
@@ -75,7 +76,7 @@
             width: "100%"
         };
         opts.title = title;
-        opts.text = text + username;
+        opts.text = text;
         opts.type = type;
         opts.styling = 'bootstrap3';
         new PNotify(opts);
@@ -89,16 +90,16 @@
                 url: '../rutas_ajax/session/validar_login.php?username=' + username + '&password=' + password,
                 type: 'POST',
                 success: function(r){
-                    if(r != -1){
-                        showMessage("success","Error al iniciar sesión","Verifique sus datos porfavor!.");    
+                    if(r == 1){
+                        showMessage("success","Sesión inciada exitosamente","Bienvenido " + username + ".");
+                        setTimeout("renderProfile()",1000); 
                     }else{
-                        showMessage("success","Sesión inciada exitosamente","Bienvenido ' + username + '.");
-                        setTimeout(renderProfile(),10000);
+                        showMessage("error","Error al iniciar sesión","Verifique sus datos porfavor!.");
                     }
                 }
             });
         }else{
-                showMessage("warning","Login","Complete todos los campos porfavor.");      
+            showMessage("warning","Login","Complete todos los campos porfavor.");      
         }    
     }
 
@@ -107,17 +108,18 @@
         username = document.getElementById("registro_username").value;
         password1 = document.getElementById("registro_password1").value;
         password2 = document.getElementById("registro_password2").value;
+        email = document.getElementById("registro_email").value;
         if((password1 == password2) && password1 != "" && password2 != ""){
             if(username != "" && nombre != ""){
                 $.ajax({
-                    url: '../rutas_ajax/session/nuevo_usuario.php?name=' + nombre + '&username=' + username + '&password=' + password1,
+                    url: '../rutas_ajax/session/nuevo_usuario.php?name=' + nombre + '&username=' + username + '&password=' + password1 + "&email=" + email,
                     type: 'POST',
                     success: function(r){
-                        alert(r);
-                        if(r != -1){
-                            setTimeout('showMessage("success","diego");',1000);    
+                        if(r == 1){
+                            showMessage("success","Nuevo usuario","Usuario registrado correctamente.");
+                            setTimeout("renderProfile()",1000);   
                         }else{
-                            setTimeout('showMessage("success","diego");',1000);
+                            showMessage("error","Nuevo usuario","Error al crear usuario, verifique sus datos!.");
                         }
                     }
                 });

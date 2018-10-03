@@ -1,9 +1,20 @@
 <?php 
     session_start();
-    $usuario_actual = $_SESSION['usuario_actual'];
-    $correo_actual = $_SESSION['correo_actual'];
-?>
+    $usuario_actual = "";
+    $correo_actual = "";
+    if(isset($_SESSION['usuario_actual'])){
+        $usuario_actual = $_SESSION['usuario_actual']; 
+        $correo_actual = $_SESSION['correo_actual'];
+    }else{       
+        //header("Location: ../login/login.php");                 
+    }
+?>  
 <html>
+    <head>   
+    <?php
+        include 'links.php'; 
+    ?>
+    </head>
     <body>
         <span class="mask"></span>
         <span class="the-line"></span>
@@ -37,7 +48,7 @@
                     <li><a id="search" class="nav-option search-option"><span class="option-icon"><i class="fas fa-search"></i></span></a></li>
                     <li><a href="../groups/home.php" class="nav-option"><span class="option-icon"><i class="fas fa-home"></i></span></a></li>
                     <!-- En el span .counter se debe colocar la cantidad de notificaciones sin descartar. -->
-                    <li><a class="nav-option"><span class="option-icon notification"><i class="fas fa-bell"></i></span><span class="counter">2</span></a></li>
+                    <li><a class="nav-option" id="viewNotificaciones"><span class="option-icon notification"><i class="fas fa-bell"></i></span><span class="counter" >2</span></a></li>
                     <li><a href="../rutas_ajax/session/logout.php" class="nav-option"><span class="option-icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
                 </span>
                 
@@ -53,6 +64,28 @@
         </section>
     </body>
 </html>
+
+<style>
+.ui-pnotify{
+    /*CSS PARA PNOTIFY EDITADO*/
+    top:0px;
+    right:66px;
+    left:0px;
+    min-height: 500px;
+}
+
+.ui-pnotify-container{
+    min-height: 500px;
+}
+
+.ui-pnotify-shadow{
+    min-height: 500px;
+}
+
+.alert-success{
+    min-height: 500px;
+}
+</style>
 
 <script>
 var wall = 0;
@@ -76,6 +109,7 @@ $(document).ready(function(){
     var searchArray = [];
     var searchIndex;
 
+
     function removeSearchResult(){
         size = searchArray.length;
         for(i = 0; i < size; i++){
@@ -84,6 +118,24 @@ $(document).ready(function(){
             object.html(text2);
         }
     }
+
+
+    function showNotify(type,title,text){
+        var opts = {
+            width: "50%",
+            heigth: "500px"
+        };
+        opts.title = title;
+        opts.text = text;
+        opts.type = type;
+        opts.styling = 'bootstrap3';
+        new PNotify(opts);
+    }
+
+    //Funcion que levanta las notificaciones en forma de promps
+    $('#viewNotificaciones').on('click',function(){
+        showNotify("success","NOTIFICACION DE...","TENEMOS UNA ACTIVIDAD EN EL PARQUE CENTRAL.");
+    });
 
     //Función que se llama al dar click en la parte del usuario y su foto.
     $('.nav-user').click(function(){
