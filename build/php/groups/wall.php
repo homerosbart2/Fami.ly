@@ -13,8 +13,12 @@
                     <span class="name">Ogáldez</span>
                     <span class="members">11 integrantes</span>
                 </span>
+                <span class="options">
+                    <a class="btn-login">Invitar</a>
+                </span>
             </span>
             <span class="posts">
+                <!-- Casos de prueba -->
                 <span class="date-separator">
                     Hoy
                 </span>
@@ -500,15 +504,25 @@
         object = $('.posts').children('.post-container').first();
         if(me && object.hasClass('me') && object.children('.post').hasClass('message')){
             for(i in texts){
-                rows += '<span class="text searchable">'+texts[i]+'</span>';
+                if(texts[i].match(emojiRegex)){
+                    rows += '<span class="text searchable"><span class="emoji">'+texts[i]+'</span></span>';
+                }else{
+                    rows += '<span class="text searchable">'+texts[i]+'</span>';
+                }
             }
-            object.children('.post').prepend(rows);
+            object.children('.post').append(rows);
+            object.children('.post').children('.time').html(time);
         }else if(object.children('.post').hasClass('message')){
             if(user == object.children('.post').children('.user-name').text()){
                 for(i in texts){
-                    rows += '<span class="text searchable">'+texts[i]+'</span>';
+                    if(texts[i].match(emojiRegex)){
+                        rows += '<span class="text searchable"><span class="emoji">'+texts[i]+'</span></span>';
+                    }else{
+                        rows += '<span class="text searchable">'+texts[i]+'</span>';
+                    }
                 }
-                object.children('.post').children('.user-name').after(rows);
+                object.children('.post').children('.text').last().after(rows);
+                object.children('.post').children('.time').html(time);
             }
         }else{
             if(me){
@@ -520,7 +534,12 @@
                 rows += '<span class="user-name">'+user+'</span>';
             }
             for(i in texts){
-                rows += '<span class="text searchable">'+texts[i]+'</span>';
+                if(texts[i].match(emojiRegex)){
+                    rows += '<span class="text searchable"><span class="emoji">'+texts[i]+'</span></span>';
+                }else{
+                    rows += '<span class="text searchable">'+texts[i]+'</span>';
+                }
+                
             }
             rows += '<span class="time">'+time+'</span>';
             rows += '<span class="type"><i class="fas fa-circle"></i></span>';
@@ -774,6 +793,8 @@
                         });
                         if(options.length > 1){
                             generatePoll(postId, '', text, options, quantities, time, true);
+                            $('.poll-option').val('');
+                            $('.poll-option').removeClass('with-text');
                         }else{
                             //TODO: Debe aparecer una notificación si no ingresa dos opciones o más.
                             success = 0;
@@ -923,6 +944,13 @@
                 $(this).addClass('with-text');
             }else{
                 $(this).removeClass('with-text');
+            }
+        });
+
+        $('.poll-option').keyup(function(e){
+            if(e.keyCode == 13){
+                var e = $.Event("keyup", {keyCode: 13});
+                $('.chatbox-input').trigger(e);
             }
         });
 

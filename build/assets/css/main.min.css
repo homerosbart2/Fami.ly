@@ -1287,8 +1287,9 @@ body.disableScrollBar {
     .wall .central-container .group-title {
       display: flex;
       width: 100%;
-      justify-content: flex-start;
-      margin-bottom: 10px; }
+      justify-content: space-between;
+      margin-bottom: 10px;
+      align-items: center; }
       .wall .central-container .group-title .information {
         display: flex;
         flex-direction: column;
@@ -1297,6 +1298,17 @@ body.disableScrollBar {
           font-size: 20px;
           font-weight: 700;
           text-transform: uppercase; }
+      .wall .central-container .group-title .options {
+        height: 100%;
+        display: flex;
+        align-items: center; }
+        .wall .central-container .group-title .options .btn-login {
+          color: #FF6040;
+          border: 1px solid #FF6040; }
+          .wall .central-container .group-title .options .btn-login:hover {
+            color: white;
+            background: #FF6040;
+            border: 1px solid #FF6040; }
       .wall .central-container .group-title .group-card {
         width: 50px;
         padding-top: 50px;
@@ -1444,7 +1456,8 @@ body.disableScrollBar {
             border-left: 6px solid #000B2B;
             padding: 0 6px;
             background: white;
-            margin-bottom: 6px; }
+            margin-bottom: 6px;
+            word-wrap: break-word; }
         .wall .central-container .post-container .post.event .confirmed-users {
           margin-bottom: 6px;
           display: flex;
@@ -1522,12 +1535,15 @@ body.disableScrollBar {
             border-radius: 3px;
             border-left: 6px solid white;
             margin: 3px 0;
-            padding: 0 6px; }
+            padding: 0 6px;
+            word-wrap: break-word; }
             .wall .central-container .post-container .post.question .answers .answer .user {
               font-weight: 700; }
             .wall .central-container .post-container .post.question .answers .answer.me {
               background: #ffebe7;
               border-left: 6px solid #000B2B; }
+        .wall .central-container .post-container .post.message .text .emoji {
+          font-size: 24px; }
         .wall .central-container .post-container .post.message .type::after {
           content: "Mensaje"; }
         .wall .central-container .post-container .post.poll .text {
@@ -1546,7 +1562,8 @@ body.disableScrollBar {
             flex-wrap: wrap;
             border-radius: 3px;
             margin: 3px 0;
-            padding: 0 6px; }
+            padding: 0 6px;
+            word-wrap: break-word; }
             .wall .central-container .post-container .post.poll .answers .answer.selected .radio-container label {
               cursor: default; }
             .wall .central-container .post-container .post.poll .answers .answer .radio-container {
@@ -1612,6 +1629,9 @@ body.disableScrollBar {
               z-index: 11; }
             .wall .central-container .post-container .post .options a.expanded i {
               transform: rotate(180deg); }
+
+.searchable {
+  word-wrap: break-word; }
 
 ::-webkit-scrollbar {
   width: 0px;
