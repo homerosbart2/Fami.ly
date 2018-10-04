@@ -665,6 +665,9 @@
             $('.chatbox-input').prop('id', 'id' + postId);
             $('.chatbox-input').focus();
             triggerMask('questionbox');
+            object = $('.emojibox-container');
+            object.addClass('double');
+            
         }
     }
 
@@ -688,6 +691,9 @@
         if($('.emojibox-container').hasClass('expanded-to-bottom')){
             $('.emojibox-container').removeClass('expanded-to-bottom');
             $('.emojibox-container').addClass('expanded-to-top');
+            $('.form-container').find('.form').each(function(){
+                $(this).removeClass('pushed');
+            });
         }
         object.html('<i class="fas fa-bars"></i>');
         $('body').removeClass('disableScrollBar');
@@ -729,9 +735,15 @@
                 $(this).removeClass('fas').addClass('far');
             }else if(object.hasClass('expanded-to-bottom')){
                 object.removeClass('expanded-to-bottom');
+                $('.form-container').find('.form').each(function(){
+                    $(this).removeClass('pushed');
+                });
                 $(this).removeClass('fas').addClass('far');
             }else if($('.chatbox-container').hasClass('expanded')){
                 object.addClass('expanded-to-bottom');
+                $('.form-container').find('.form').each(function(){
+                    $(this).addClass('pushed');
+                });
                 $(this).removeClass('far').addClass('fas');
             }else{
                 object.addClass('expanded-to-top');
@@ -863,6 +875,9 @@
                 if($('.emojibox-container').hasClass('expanded-to-top')){
                     $('.emojibox-container').removeClass('expanded-to-top');
                     $('.emojibox-container').addClass('expanded-to-bottom');
+                    $('.form-container').find('.form').each(function(){
+                        $(this).addClass('pushed');
+                    });
                 }
                 $(this).html('<i class="fas fa-location-arrow"></i>');
                 $('body').addClass('disableScrollBar');

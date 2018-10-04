@@ -161,6 +161,8 @@ $(document).ready(function(){
             $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');
             $('.chatbox-input').removeAttr('id');
             deactivateMask();
+            object = $('.emojibox-container');
+            object.removeClass('double');
         }
     });
 

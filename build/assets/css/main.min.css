@@ -1151,6 +1151,8 @@ body.disableScrollBar {
     transition: 0.2s ease; }
     .chatbox-container .emojibox-container.expanded-to-top {
       bottom: 55px; }
+      .chatbox-container .emojibox-container.expanded-to-top.double {
+        bottom: 90px; }
     .chatbox-container .emojibox-container.expanded-to-bottom {
       bottom: -120px;
       z-index: 2000; }
@@ -1219,7 +1221,10 @@ body.disableScrollBar {
             flex-direction: column;
             width: 100%;
             height: 100%;
-            margin: 12px 12px; }
+            margin: 12px 12px;
+            transition: 0.2s ease; }
+            .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form.pushed, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form.pushed, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form.pushed {
+              margin-top: 132px; }
             .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .form-title, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .form-title, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .form-title {
               margin-top: 54px;
               text-transform: uppercase;
