@@ -11,8 +11,8 @@
     z-index: 1999;
     transition: 0.2s ease;
     &.expanded{
-        top: 0;
         bottom: 100%;
+        margin-bottom: -55px;
     }
     .chatbox{
         position: relative;
