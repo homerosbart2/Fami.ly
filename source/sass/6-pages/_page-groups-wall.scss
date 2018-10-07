@@ -288,10 +288,46 @@
                 .btn-login{
                     color: $main;
                     border: 1px solid $main;
+                    margin-left: 12px; 
                     &:hover{
                         color: white;
                         background: $main;
                         border: 1px solid $main;
+                    }
+                }
+                .filter-option{
+                    position: relative;
+                    display: flex;
+                    width: 30px;
+                    padding-top: 30px;
+                    margin-right: 3px;
+                    margin-left: 3px;
+                    border: 1px solid $light-main;
+                    border-radius: 40px;
+                    transition: 0.2s ease;
+                    color: $light-main;
+                    cursor: pointer;
+                    span{
+                        position: absolute;
+                        display: flex;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    &:hover{
+                        color: $main;
+                        border: 1px solid $main;
+                        background: $light-main;
+                    }
+                    &.selected{
+                        color: $light-main;
+                        background: $main;
+                        &:hover{
+                            color: $light-main;
+                        }
                     }
                 }
             }

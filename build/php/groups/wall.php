@@ -14,6 +14,10 @@
                     <span class="members">11 integrantes</span>
                 </span>
                 <span class="options">
+                    <a class="filter-option question"><span><i class="fas fa-question"></i></span></a>
+                    <a class="filter-option poll"><span><i class="fas fa-poll-h"></i></span></a>
+                    <a class="filter-option event"><span><i class="far fa-calendar"></i></span></a>
+                    <a class="filter-option image-video"><span><i class="fas fa-image"></i></span></a>
                     <a class="btn-login">Invitar</a>
                 </span>
             </span>
@@ -365,6 +369,8 @@
     var quantities = [];
     var sum;
     var time;
+    var className;
+    var className2;
     var answers = [];
     var users = [];
     var options = [];
@@ -727,6 +733,36 @@
     $(document).ready(function(){
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
+
+        $('.group-title').find('.filter-option').click(function(){
+            className = $(this).attr('class').split(' ')[1]; 
+            if(!$(this).hasClass('selected')){
+                $('.group-title').find('.filter-option').each(function(){
+                    if($(this).hasClass('selected')){
+                        className2 = $(this).attr('class').split(' ')[1]; 
+                        $('.post-container').each(function(){
+                            if(!$(this).find('.post').hasClass(className2)){
+                                $(this).css('display','flex');
+                            }
+                        });
+                        $(this).removeClass('selected');
+                    }
+                });
+                $('.post-container').each(function(){
+                    if(!$(this).find('.post').hasClass(className)){
+                        $(this).css('display','none');
+                    }
+                });
+                $(this).addClass('selected');
+            }else{
+                $('.post-container').each(function(){
+                    if(!$(this).find('.post').hasClass(className)){
+                        $(this).css('display','flex');
+                    }
+                });
+                $(this).removeClass('selected');
+            }
+        })
 
         $('.emoji-menu').children('i').click(function(){
             object = $('.emojibox-container');

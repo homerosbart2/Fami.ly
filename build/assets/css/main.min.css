@@ -1309,11 +1309,42 @@ body.disableScrollBar {
         align-items: center; }
         .wall .central-container .group-title .options .btn-login {
           color: #FF6040;
-          border: 1px solid #FF6040; }
+          border: 1px solid #FF6040;
+          margin-left: 12px; }
           .wall .central-container .group-title .options .btn-login:hover {
             color: white;
             background: #FF6040;
             border: 1px solid #FF6040; }
+        .wall .central-container .group-title .options .filter-option {
+          position: relative;
+          display: flex;
+          width: 30px;
+          padding-top: 30px;
+          margin-right: 3px;
+          margin-left: 3px;
+          border: 1px solid #ffebe7;
+          border-radius: 40px;
+          transition: 0.2s ease;
+          color: #ffebe7;
+          cursor: pointer; }
+          .wall .central-container .group-title .options .filter-option span {
+            position: absolute;
+            display: flex;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            justify-content: center;
+            align-items: center; }
+          .wall .central-container .group-title .options .filter-option:hover {
+            color: #FF6040;
+            border: 1px solid #FF6040;
+            background: #ffebe7; }
+          .wall .central-container .group-title .options .filter-option.selected {
+            color: #ffebe7;
+            background: #FF6040; }
+            .wall .central-container .group-title .options .filter-option.selected:hover {
+              color: #ffebe7; }
       .wall .central-container .group-title .group-card {
         width: 50px;
         padding-top: 50px;
