@@ -49,7 +49,7 @@
                     <span class="icon">
                         <i class="fas fa-chevron-left search-left"></i>
                         <i class="fas fa-chevron-right search-right"></i>
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-search search-button"></i>
                     </span>
                 </span>
             </span>
@@ -88,6 +88,24 @@ function scrollToMiddle(id) {
     });
 }
 
+//Función para enseñar la barra de búsqueda, si se manda [mask = true] se activa la máscara para descativar con click, si no, no se activa.
+function showMobileSearchBar(mask){
+    $('.searchbox').addClass('expanded');
+    if(mask){
+        triggerMask('searchbox');
+    } 
+}
+
+//Función opuesta de showMobileSearchBar.
+function hideMobileSearchBar(mask){
+    object = $('.searchbox');
+    object.removeClass('expanded');
+    object.children('.search').children('.search-input').val('');
+    if(mask){
+        deactivateMask();
+    }
+}
+
 $(document).ready(function(){
     var text;
     var text2;
@@ -106,6 +124,7 @@ $(document).ready(function(){
     }
 
     $('.search-right').click(function(){
+        $('.searchbox').find('#search-text').focus();
         if(searchArray.length > 0){
             $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
             searchPivot++;
@@ -118,6 +137,7 @@ $(document).ready(function(){
     });
 
     $('.search-left').click(function(){
+        $('.searchbox').find('#search-text').focus();
         if(searchArray.length > 0){
             $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
             searchPivot--;
@@ -129,6 +149,11 @@ $(document).ready(function(){
         }
     });
 
+    $('.search-button').click(function(){
+        var e = $.Event("keyup", {keyCode: 13});
+        $('.search-input').trigger(e);
+    });
+
     //Función que se llama al dar click en la parte del usuario y su foto.
     $('.nav-user').click(function(){
         window.location.href = "../users/profile.php";
@@ -138,20 +163,14 @@ $(document).ready(function(){
     });
     //Función que se llama al presionar el botón de búsqueda y muestra la barra en modo móvil.
     $('#search').click(function(){
-        object = $('.searchbox');
-        object.css('z-index','2001');
-        object.css('opacity','1');
-        triggerMask('searchbox');
+        showMobileSearchBar(true);
         //Autofocus al searchbox, pero no me gustó.
         //object.children('.search').children('.search-input').focus();
     });
     //Función utilizada para desactivar la máscara y los objetos flotantes.
     $('.mask').click(function(){
         if($(this).prop('id') == 'searchbox'){
-            $('.searchbox').css('z-index','1998');
-            $('.searchbox').css('opacity','0');
-            $('.searchbox').children('.search').children('.search-input').val('');
-            deactivateMask();
+            hideMobileSearchBar(true);
             if(wall == 1){
                 removeSearchResult(searchArray);
             }
@@ -184,7 +203,7 @@ $(document).ready(function(){
         { 
             text = $(this).val();
             //Si wall == 1 entonces estamos en el mural de algún grupo.
-            if(wall == 1){
+            if(wall == 1 && !$('.search-people-container').hasClass('expanded')){
                 removeSearchResult(searchArray);
                 $('.post').each(function(){
                     object = $(this);

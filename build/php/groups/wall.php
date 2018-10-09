@@ -157,10 +157,10 @@
                 <span class="post-container">
                     <span id="1" class="post message">
                         <span class="user-name">Vilma</span>
-                        <span class="text searchable">Adiós ): </span>
-                        <span class="text searchable">Adiós ): </span>
-                        <span class="text searchable">Adiós ): </span>
-                        <span class="text searchable">Adiós ): </span>
+                        <span class="text searchable">Adiós 😢 </span>
+                        <span class="text searchable">Adiós 😢 </span>
+                        <span class="text searchable">Adiós 😢 </span>
+                        <span class="text searchable">Adiós 😢 </span>
                         <span class="time">3:15 PM</span>
                         <span class="type"><i class="fas fa-circle"></i></span>
                     </span>   
@@ -177,38 +177,6 @@
                     </span>   
                 </span>
                 <span class="post-container">
-                    <span id="112" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="113" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="114" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="115" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
                     <span id="116" class="post message">
                         <span class="user-name">Vilma</span>
                         <span class="text searchable">zzz</span>
@@ -216,77 +184,77 @@
                         <span class="type"><i class="fas fa-circle"></i></span>
                     </span>   
                 </span>
-                <span class="post-container">
-                    <span id="117" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
+            </span>
+        </span>
+        <span class="search-people-container">
+            <span class="search-people">
+                <span class="search-people-result-container">
+                    <span class="people-result-container">
+                        <img class="card-bg" src="../../assets/img/users/face4.png">
+                        <span class="user-card">
+                            <img src="../../assets/img/users/face4.png">
+                        </span>
+                        <span class="information">
+                            <span class="user-name">Henry Adonirán Campos Zabala</span>
+                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
+                        </span>
+                        <span class="options">
+                            <a class="btn-login profile">Perfil</a>
+                            <a class="btn-login invite">Invitar</a>
+                        </span>
+                    </span>
+
+                    <span class="people-result-container">
+                        <img class="card-bg" src="../../assets/img/users/face3.png">
+                        <span class="user-card">
+                            <img src="../../assets/img/users/face3.png">
+                        </span>
+                        <span class="information">
+                            <span class="user-name">Henry Adonirán Campos Zabala</span>
+                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
+                        </span>
+                        <span class="options">
+                            <a class="btn-login profile">Perfil</a>
+                            <a class="btn-login invite">Invitar</a>
+                        </span>
+                    </span>
+
+                    <span class="people-result-container">
+                        <img class="card-bg" src="../../assets/img/users/face5.png">
+                        <span class="user-card">
+                            <img src="../../assets/img/users/face5.png">
+                        </span>
+                        <span class="information">
+                            <span class="user-name">Henry Adonirán Campos Zabala</span>
+                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
+                        </span>
+                        <span class="options">
+                            <a class="btn-login profile">Perfil</a>
+                            <a class="btn-login invite">Invitar</a>
+                        </span>
+                    </span>
+
+                    <span class="people-result-container">
+                        <img class="card-bg" src="../../assets/img/users/face6.png">
+                        <span class="user-card">
+                            <img src="../../assets/img/users/face6.png">
+                        </span>
+                        <span class="information">
+                            <span class="user-name">Henry Adonirán Campos Zabala</span>
+                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
+                        </span>
+                        <span class="options">
+                            <a class="btn-login profile">Perfil</a>
+                            <a class="btn-login invite">Invitar</a>
+                        </span>
+                    </span>
+                    
+                    <!-- 
+                    <span class="no-result"><i class="fas fa-search"></i> No hay resultado</span>
+                    -->
                 </span>
-                <span class="post-container">
-                    <span id="118" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="119" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="120" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="121" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="122" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="123" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="124" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="125" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
+                <span class="wide-central-container">
+                    <a class="btn-exit-popup hide-search-people"><i class="far fa-times-circle"></i></a>
                 </span>
             </span>
         </span>
@@ -355,7 +323,7 @@
                 </span>
             </span>
             <span class="wide-central-container">
-                <a class="btn-login hide-post-form"><i class="far fa-times-circle"></i></a>
+                <a class="btn-exit-popup hide-post-form"><i class="far fa-times-circle"></i></a>
             </span>
         </span>
     </span>
@@ -383,6 +351,7 @@
     var hour;
     var minutes;
     var ubication;
+    var windowWidth;
 
     function updatePercents(post){
         object = $('#' + post).children('.answers').find('.answer');
@@ -424,6 +393,38 @@
         }
         sum = 0;
         updatePercents(postId);
+    }
+
+    //Función para generar un resultado de búsqueda, recibe [user] que es el nombre completo del usuario, [country] el país del usuario, [userImage] que es la ruta a la imagen del usuario e [invite] que es un booleano para saber si es un resultado de búsqueda para invitar a un grupo. Agrega los resultados dependiendo de [top], si es true los agrega al principio, si es false los agrega de último.
+    function generatePeopleResult(user, country, userImage, invite, top){
+        rows = '';
+        rows += '<span class="people-result-container">';
+        rows += '<img class="card-bg" src="'+userImage+'">';
+        rows += '<span class="user-card">';
+        rows += '<img src="'+userImage+'">';
+        rows += '</span>';
+        rows += '<span class="information">';
+        rows += '<span class="user-name">'+user+'</span>';
+        rows += '<span class="user-country"><i class="fas fa-globe-americas"></i> '+country+'</span>';
+        rows += '</span>';
+        rows += '<span class="options">';
+        rows += '<a class="btn-login profile">Perfil</a>';
+        if(invite){
+            rows += '<a class="btn-login invite">Invitar</a>';
+        }
+        rows += '</span>';
+        rows += '</span>';
+        if(top){
+            $('.search-people-result-container').preppend(rows);
+        }else{
+            $('.search-people-result-container').append(rows);
+        }
+    }
+
+    //Función a llamar cuando no se encontró resultado en una búsqueda.
+    function noResultInSearch(){
+        rows = '<span class="no-result"><i class="fas fa-search"></i> No hay resultado</span>';
+        $('.search-people-result-container').html(rows);
     }
 
     function generateEvent(id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me){
@@ -733,7 +734,34 @@
     $(document).ready(function(){
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
+        
+        //EXAMPLE: Ejemplo para agregar un resultado a la búsqueda.
+        //generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, false);
+        
+        //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda.
+        //noResultInSearch();
 
+        $('.options').find('.btn-login').click(function(){
+            $('.search-people-container').addClass('expanded');
+            $('.chatbox-container').addClass('hidden');
+            $('body').addClass('disableScrollBar');
+            windowWidth = $(window).width();
+            if(windowWidth < 601){
+                showMobileSearchBar(false);
+            }
+        });
+
+        $('.hide-search-people').click(function(){
+            $('.search-people-container').removeClass('expanded');
+            $('.chatbox-container').removeClass('hidden');
+            $('body').removeClass('disableScrollBar');
+            windowWidth = $(window).width();
+            if($('.searchbox').hasClass('expanded')){
+                hideMobileSearchBar(false);
+            }
+        })
+        
+        //Evento para filtrar las publicaciones por tipo.
         $('.group-title').find('.filter-option').click(function(){
             className = $(this).attr('class').split(' ')[1]; 
             if(!$(this).hasClass('selected')){
