@@ -17,13 +17,18 @@
         height: 100%;
         margin: 0 15px;
         display: flex;
+        justify-content: center;
         .search-people-result-container{
             display: flex;
+            flex-direction: column;
+            overflow-y: scroll;
             width: 100%;
-            margin-top: 70px;
+            max-width: 500px;
+            margin-top: 74px;
+            margin-bottom: 9px;
             .no-result{
                 color: gray;
-                width: 100%;
+                height: 100%;
                 width: 100%;
                 display: flex;
                 justify-content: center;
@@ -31,6 +36,69 @@
                 text-transform: uppercase;
                 i{
                     margin-right: 3px;
+                }
+            }
+
+            .people-result-container{
+                position: relative;
+                overflow: hidden;
+                align-items: center;
+                width: 100%;
+                height: 100px;
+                display: flex;
+                color: white;
+                display: flex;
+                justify-content: space-between;
+                flex-shrink: 0;
+                margin-bottom: 9px;
+                .card-bg{
+                    position: absolute;
+                    width: 100%;
+                    filter: blur(20px) brightness(0.8);
+                }
+                .user-card{
+                    cursor: default;
+                    flex-shrink: 0;
+                    &:hover,
+                    &:active,
+                    &:focus{
+                        transform: scale(1);
+                    }
+                }
+
+                .information{
+                    display: flex;
+                    flex-direction: column;
+                    z-index: 1;
+                    margin-left: 12px;
+                    margin-right: 12px;
+                    .user-name{
+                        font-size: 15px;
+                        margin-bottom: 3px;
+                    }
+                }
+
+                .options{
+                    z-index: 1;
+                    margin-right: 12px;
+                    display: flex;
+                    justify-content: flex-end;
+                    flex-wrap: wrap;
+                    a{
+                        margin-left: 3px;
+                        margin-bottom: 3px;
+                        margin-top: 3px;
+                        &.invite{
+                            color: $light-main;
+                            border: 1px solid $light-main;
+                            &:hover,
+                            &:active,
+                            &:focus{
+                                background: $light-main;
+                                color: $main;
+                            }
+                        }
+                    }
                 }
             }
         }

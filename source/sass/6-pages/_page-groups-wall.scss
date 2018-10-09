@@ -279,8 +279,9 @@
                     color: $main;
                     border: 1px solid $main;
                     margin-left: 12px; 
+                    background: $light-main;
                     &:hover{
-                        color: white;
+                        color: $light-main;
                         background: $main;
                         border: 1px solid $main;
                     }

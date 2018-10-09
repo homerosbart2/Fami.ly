@@ -49,7 +49,7 @@
                     <span class="icon">
                         <i class="fas fa-chevron-left search-left"></i>
                         <i class="fas fa-chevron-right search-right"></i>
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-search search-button"></i>
                     </span>
                 </span>
             </span>
@@ -124,6 +124,7 @@ $(document).ready(function(){
     }
 
     $('.search-right').click(function(){
+        $('.searchbox').find('#search-text').focus();
         if(searchArray.length > 0){
             $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
             searchPivot++;
@@ -136,6 +137,7 @@ $(document).ready(function(){
     });
 
     $('.search-left').click(function(){
+        $('.searchbox').find('#search-text').focus();
         if(searchArray.length > 0){
             $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
             searchPivot--;
@@ -145,6 +147,11 @@ $(document).ready(function(){
             scrollToMiddle($('#'+searchArray[searchPivot]));
             $('#'+searchArray[searchPivot]).parent().addClass('search-result');
         }
+    });
+
+    $('.search-button').click(function(){
+        var e = $.Event("keyup", {keyCode: 13});
+        $('.search-input').trigger(e);
     });
 
     //Función que se llama al dar click en la parte del usuario y su foto.
@@ -196,7 +203,7 @@ $(document).ready(function(){
         { 
             text = $(this).val();
             //Si wall == 1 entonces estamos en el mural de algún grupo.
-            if(wall == 1){
+            if(wall == 1 && !$('.search-people-container').hasClass('expanded')){
                 removeSearchResult(searchArray);
                 $('.post').each(function(){
                     object = $(this);
