@@ -22,168 +22,6 @@
                 </span>
             </span>
             <span class="posts">
-                <!-- Casos de prueba -->
-                <span class="date-separator">
-                    Hoy
-                </span>
-                <span class="post-container">
-                    <span id="10" class="post event im-in">
-                        <span class="user-name">Marco</span>
-                        <span class="event-date">
-                            <i class="far fa-calendar"></i> 20 de marzo
-                        </span>
-                        <span class="text searchable">¡Cumpleaños de Fernando!</span>
-                        <span class="extra-information">
-                            <span class="description searchable">
-                                Va a estar muy alegre, vengan todos!!
-                            </span>
-                            <span class="event-place">
-                                <i class="fas fa-map-marker-alt"></i> <span class="searchable">Villas de Fátima</span>
-                            </span>
-                            <span class="event-time">
-                                <i class="far fa-clock"></i> 1:00 PM
-                            </span>
-                        </span>
-                        <span class="options">
-                            <a class="confirmed">Confirmados <i class="fas fa-angle-down"></i></a>
-                            <a class="assist">No Asistiré</a>
-                        </span>
-                        <span class="confirmed-users">
-                            <!-- Lista de respuestas de la pregunta -->
-                            <span class="user-container">
-                                <i class="far fa-check-square"></i>
-                                <img class="user" src="../../assets/img/users/face8.png">
-                                <span class="name">Lilly</span>
-                            </span>
-                            <span class="user-container">
-                                <i class="far fa-check-square"></i>
-                                <img class="user" src="../../assets/img/users/face1.png">
-                                <span class="name">Alex</span>
-                            </span>
-                            <span class="user-container">
-                                <i class="far fa-check-square"></i>
-                                <img class="user" src="../../assets/img/users/face2.png">
-                                <span class="name">Vilma</span>
-                            </span>
-                            <span class="user-container">
-                                <i class="far fa-check-square"></i>
-                                <img class="user" src="../../assets/img/users/face9.png">
-                                <span class="name">Jhonathan</span>
-                            </span>
-                            <span class="user-container me">
-                                <i class="far fa-check-square"></i>
-                                <img class="user" src="../../assets/img/users/profile.png">
-                                <span class="name">Asistirás a este evento.</span>
-                            </span>
-                        </span>
-                        <span class="time">10:27 AM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="20" class="post poll">
-                        <span class="user-name">Henry</span>
-                        <span class="text searchable">¿A dónde quieren salir en la noche?</span>
-                        <form class="answers">
-                            <span class="answer">
-                                <span class="radio-container">
-                                    <input id="poll20-0" type="radio" name="poll" value="0">
-                                    <label for="poll20-0" class="radio-button" >
-                                        <i class="fas fa-check-circle"></i>
-                                    </label>
-                                    <span class="searchable"> Pollo Campero </span> 
-                                </span>
-                                <span class="quantity">3</span>
-                                <span class="percent-container">
-                                    <span class="percent"></span>
-                                </span>
-                            </span>
-                            <span class="answer">
-                                <span class="radio-container">
-                                    <input id="poll20-1" type="radio" name="poll" value="1"> 
-                                    <label for="poll20-1" class="radio-button" >
-                                        <i class="fas fa-check-circle"></i>
-                                    </label>
-                                    <span class="searchable"> Nais </span> 
-                                </span>
-                                <span class="quantity">1</span>
-                                <span class="percent-container">
-                                    <span class="percent"></span>
-                                </span>
-                            </span>
-                            <span class="answer">
-                                <span class="radio-container">
-                                    <input id="poll20-2" type="radio" name="poll" value="2"> 
-                                    <label for="poll20-2" class="radio-button" >
-                                        <i class="fas fa-check-circle"></i>
-                                    </label>
-                                    <span class="searchable"> La Estancia </span> 
-                                </span>
-                                <span class="quantity">1</span>
-                                <span class="percent-container">
-                                    <span class="percent"></span>
-                                </span>
-                            </span>
-                        </form>
-                        <span class="time">12:35 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container me">
-                    <span id="4" class="post question">
-                        <span class="text searchable">¿A dónde quieren salir en la noche?</span>
-                        <span class="options">
-                            <a class="see-more">Respuestas <i class="fas fa-angle-down"></i></a>
-                            <a class="answer">Responder</a>
-                        </span>
-                        <span class="answers">
-                            <!-- Lista de respuestas de la pregunta -->
-                            <span class="answer"><span class="user">Alex</span><span class="searchable">A Nais!!!</span> </span>
-                            <span class="answer me"><span class="searchable">No sé de qué tengo ganas jajaja</span> </span>
-                            <span class="answer"><span class="user">Vilma</span><span class="searchable"> Mejor a Pollo Campero, más barato.</span></span>
-                        </span>
-                        <span class="time">10:27 AM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="3" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="1" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Adiós 😢 </span>
-                        <span class="text searchable">Adiós 😢 </span>
-                        <span class="text searchable">Adiós 😢 </span>
-                        <span class="text searchable">Adiós 😢 </span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="date-separator">
-                    27 de septiembre de 2018
-                </span>
-                <span class="post-container">
-                    <span id="111" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="116" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">zzz</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
             </span>
         </span>
         <span class="search-people-container">
@@ -395,6 +233,11 @@
         updatePercents(postId);
     }
 
+    function generateDateSeparator(date){
+        rows = '<span class="date-separator">'+date+'</span>';
+        $('.posts').prepend(rows);
+    }
+
     //Función para generar un resultado de búsqueda, recibe [user] que es el nombre completo del usuario, [country] el país del usuario, [userImage] que es la ruta a la imagen del usuario e [invite] que es un booleano para saber si es un resultado de búsqueda para invitar a un grupo. Agrega los resultados dependiendo de [top], si es true los agrega al principio, si es false los agrega de último.
     function generatePeopleResult(user, country, userImage, invite, top){
         rows = '';
@@ -427,7 +270,8 @@
         $('.search-people-result-container').html(rows);
     }
 
-    function generateEvent(id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me){
+    //Función para generar un evento nuevo, la cual recibe el [id] de la publicación, el [user] al que pertenece la publicación, [text] que es el título del evento, la [description] del evento, la [ubication], [eventDate] que es la fecha en formato [12 de agosto], [eventTime] que es la hora del evento en formato [9:30 AM], [confirmedPeopleNames] que es el arreglo de los nombres de los usuarios que confirmaron, [confirmedPeopleImages] que es el arreglo con las rutas de las imágenes de los usuarios en el mismo orden que el arreglo anterior, [imIn] booleano que indica si el usuario actual confirmó el evento (Este no se agrega a los arreglos mencionados anteriormente), [time] que es la hora de creación, [me] booleano que indica si el evento pertenece al usuario actual y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
+    function generateEvent(id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me, createdLater){
         rows = '';
         if(me){
             rows += '<span class="post-container me">';
@@ -478,7 +322,7 @@
         }
         rows += '<span class="user-container me">';
         rows += '<i class="far fa-check-square"></i>';
-        //Aquí hay que poner la imagen del usuario que inició sesión.
+        //TODO: Aquí hay que poner la imagen del usuario que inició sesión.
         rows += '<img class="user" src="../../assets/img/users/profile.png">';
         rows += '<span class="name">Asistirás a este evento.</span>';
         rows += '</span>';
@@ -491,13 +335,16 @@
         object.removeClass('expanded');
         hidePostCreatorForm();
         $('.posts').prepend(rows);
-        object = $('#' + id).children('.options');
-        object.children('.assist').click(function(){
-            confirmEvent($(this));
-        });
-        object.children('.confirmed').click(function(){
-            expandConfirmedPeople($(this));
-        });
+        if(createdLater){
+            object = $('#' + id).children('.options');
+            object.children('.assist').click(function(){
+                confirmEvent($(this));
+            });
+            
+            object.children('.confirmed').click(function(){
+                expandConfirmedPeople($(this));
+            });
+        }
         window.scroll({
             top: 0, 
             left: 0, 
@@ -505,7 +352,7 @@
         });
     }
 
-    //Función que genera un nuevo mensaje. Le mandas el [id] de la publicación, el nombre SOLAMENTE del usuario [user] al que pertenece la publicación, un arreglo [texts] donde mandas los mensajes (podés mandar a llamar la función sin preocuparte si el último mensaje es del mismo usuario, pero también podés mandar los mensajes del mismo usuario en un arreglo, te recomiendo la primera), la hora de la publicación [time] y un booleano [me] que dice si el mensaje es del usuario que inició sesión.
+    //Función que genera un nuevo mensaje. Le mandas el [id] de la publicación, el nombre SOLAMENTE del usuario [user] al que pertenece la publicación, un arreglo [texts] donde mandas los mensajes (podés mandar a llamar la función sin preocuparte si el último mensaje es del mismo usuario, pero también podés mandar los mensajes del mismo usuario en un arreglo, te recomiendo la primera porque hay que preocuparse de mandarlo en orden contrario en el arreglo), la hora de la publicación [time] y un booleano [me] que dice si el mensaje es del usuario que inició sesión.
     function generateMessage(id, user, texts, time, me){
         rows = '';
         object = $('.posts').children('.post-container').first();
@@ -561,7 +408,8 @@
         });
     }
 
-    function generateQuestion(id, user, text, answers, users, time, me){
+    //Función para generar una pregunta, la cual recibe [id] que es el id de la publicación, [user] al que pertenece, [text] que es la pregunta, [answers] que es un arreglo con las respuestas, [users] que es un arreglo con los usuarios autores (LAS RESPUESTAS Y USUARIOS DEBEN IR EN EL MISMO ORDEN), [time] que es el tiempo de creación, [me] booleano que indica si la publicación es del usuario actual y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
+    function generateQuestion(id, user, text, answers, users, time, me, createdLater){
         rows = '';
         if(me){
             rows += '<span class="post-container me">';
@@ -580,7 +428,7 @@
         //Lista de respuestas de la pregunta
         for(i in answers){
             if(false){
-                //Esto pasa si la respuesta es del usuario actual (Cambiar ).
+                //TODO: Esto pasa si la respuesta es del usuario actual (Hay que comparar si users[i] == usuarioActual).
                 rows += '<span class="answer me"><span class="searchable">'+answers[i]+'</span></span>';
             }else{
                 rows += '<span class="answer"><span class="user">'+users[i]+'</span><span class="searchable">'+answers[i]+'</span></span>';
@@ -593,15 +441,17 @@
         rows += '</span>';
         $('.posts').prepend(rows);
 
-        object = $('#'+id).children('.options');
+        if(createdLater){
+            object = $('#'+id).children('.options');
 
-        object.children('.answer').click(function(){
-            showQuestionBoxContainer($(this));
-        });
+            object.children('.answer').click(function(){
+                showQuestionBoxContainer($(this));
+            });
 
-        object.children('.see-more').click(function(){
-            showQuestionAnswers($(this));
-        });
+            object.children('.see-more').click(function(){
+                showQuestionAnswers($(this));
+            });
+        }
         window.scroll({
             top: 0, 
             left: 0, 
@@ -609,8 +459,8 @@
         });
     }
 
-    //Función que genera una publicación:votación la cual recibe un [id] nuevo de publicación, el [user] al que pertenece la publicación (Debe ser un string vacío si es del usuario actual), [text] que es el mensaje de la votación, [options] que son las opciones que ingresó el usuario (pueden venir de 1 a 4 opciones, tal vez más), [quantities] que es el arreglo de cantidades de votos por pregunta (¡DEBEN VENIR EN EL MISMO ORDEN QUE LAS OPCIONES!), [time] que es el tiempo de la publicación y [me] que es true si la publicación es del usuario que tiene a sesión y false si la publicación es de cualquier otro.
-    function generatePoll(id, user, text, options, quantities, time, me){
+    //Función que genera una publicación:votación la cual recibe un [id] nuevo de publicación, el [user] al que pertenece la publicación (Debe ser un string vacío si es del usuario actual), [text] que es el mensaje de la votación, [options] que son las opciones que ingresó el usuario (pueden venir de 1 a 4 opciones, tal vez más), [quantities] que es el arreglo de cantidades de votos por pregunta (¡DEBEN VENIR EN EL MISMO ORDEN QUE LAS OPCIONES!), [selected] que es la opción seleccionada por el usuario que inició sesión (un -1 indica que el usuario no ha seleccionado ninguna opción), [time] que es el tiempo de la publicación, [me] que es true si la publicación es del usuario que tiene a sesión y false si la publicación es de cualquier otro, y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
+    function generatePoll(id, user, text, options, quantities, selected, time, me, createdLater){
         rows = '';
         if(me){
             rows += '<span class="post-container me">';
@@ -621,11 +471,24 @@
             rows += '<span class="user-name">'+user+'</span>';
         }
         rows += '<span class="text searchable">'+text+'</span>';
-        rows += '<form class="answers">';
+        if(selected > -1){
+            rows += '<form class="answers answered">';
+        }else{
+            rows += '<form class="answers">';
+        }
         for(i in options){
-            rows += '<span class="answer">';
+            if(selected == i){
+                rows += '<span class="answer selected">';
+            }else{
+                rows += '<span class="answer">';
+            }
             rows += '<span class="radio-container">';
-            rows += '<input id="poll'+id+'-'+i+'" type="radio" name="poll" value="0">';
+            if(selected == i){
+                rows += '<input id="poll'+id+'-'+i+'" type="radio" checked="true"  name="poll" value="0">';
+            }else{
+                rows += '<input id="poll'+id+'-'+i+'" type="radio" name="poll" value="0">';
+            }
+            
             rows += '<label for="poll'+id+'-'+i+'" class="radio-button" >';
             rows += '<i class="fas fa-check-circle"></i>';
             rows += '</label>';
@@ -648,11 +511,13 @@
         $('.posts').prepend(rows);
         sum = 0;
         updatePercents(id);
-        $('#'+id).children('.answers').find('.answer').each(function(){
-            $(this).children('.radio-container').children('.radio-button').click(function(){
-                updateQuantities($(this));
+        if(createdLater){
+            $('#'+id).children('.answers').find('.answer').each(function(){
+                $(this).children('.radio-container').children('.radio-button').click(function(){
+                    updateQuantities($(this));
+                });
             });
-        });
+        }
         window.scroll({
             top: 0, 
             left: 0, 
@@ -711,17 +576,19 @@
     }
 
     function confirmEvent(lmnt){
+        console.log(lmnt);
         object = lmnt.parent().parent();
         if(object.hasClass('im-in')){
             object.removeClass('im-in');
-            lmnt.html('Asisitiré');
+            lmnt.html('Asistiré');
         }else{
             object.addClass('im-in');
-            lmnt.html('No Asisitiré');
+            lmnt.html('No Asistiré');
         }
     }
 
     function expandConfirmedPeople(lmnt){
+        
         if(!lmnt.hasClass('expanded')){
             lmnt.parent().parent().children('.confirmed-users').addClass('expanded');
             lmnt.addClass('expanded');
@@ -730,17 +597,8 @@
             lmnt.removeClass('expanded');
         }
     }
-    
-    $(document).ready(function(){
-        //Variable que indica que estamos en el wall de un grupo.
-        wall = 1;
-        
-        //EXAMPLE: Ejemplo para agregar un resultado a la búsqueda.
-        //generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, false);
-        
-        //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda.
-        //noResultInSearch();
 
+    function initWallListeners(){
         $('.options').find('.btn-login').click(function(){
             $('.search-people-container').addClass('expanded');
             $('.chatbox-container').addClass('hidden');
@@ -852,7 +710,7 @@
                         hour = $('.hour').val();
                         minutes = $('.minutes').val();
                         //TODO: Hay que verificar si la hora es AM o PM y si está entre 0 y 24.
-                        generateEvent(postId, '', text, description, ubication, day + ' de ' + month, hour + ':' + minutes + ' PM', confirmedPeopleNames, confirmedPeopleImages, false, time, true);
+                        generateEvent(postId, '', text, description, ubication, day + ' de ' + month, hour + ':' + minutes + ' PM', confirmedPeopleNames, confirmedPeopleImages, false, time, true, true);
                     }else if($('.btn-chat').hasClass('poll')){
                         //Esto sucede si es una votación
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
@@ -868,7 +726,7 @@
                             }
                         });
                         if(options.length > 1){
-                            generatePoll(postId, '', text, options, quantities, time, true);
+                            generatePoll(postId, '', text, options, quantities, -1, time, true, true);
                             $('.poll-option').val('');
                             $('.poll-option').removeClass('with-text');
                         }else{
@@ -897,7 +755,7 @@
                         time = '12:21 PM';
                         answers = [];
                         users = [];
-                        generateQuestion(postId, '', text, answers, users, time, true);
+                        generateQuestion(postId, '', text, answers, users, time, true, true);
                     }else{
                         //Esto sucede si es un mensaje simple.
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
@@ -1032,6 +890,38 @@
                 $('.chatbox-input').trigger(e);
             }
         });
+    }
+    
+    $(document).ready(function(){
+        //Variable que indica que estamos en el wall de un grupo.
+        wall = 1;
+        
+        //EXAMPLE: Ejemplo para agregar un resultado a la búsqueda.
+        //generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, false);
+        
+        //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda.
+        //noResultInSearch();
+
+        //EXAMPLE: Ejemplos para cada tipo de publicación:
+        //EXAMPLE: Ejemplo mensaje simple.
+        generateMessage(74, 'Vilma', ['Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuuuu', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'zzz'], '3:15 PM', false)
+        
+        //EXAMPLE: Ejemplo pregunta.
+        generateQuestion(75, '', '¿A dónde quieren salir en la noche?', ['A Nais!!!', 'No sé de qué tengo ganas jajaja', 'Mejor a Pollo Campero, más barato'], ['Alex', 'Fernando', 'Vilma'], '10:27 AM', true, false)
+
+        //EXAMPLE: Ejemplo evento.
+        generateEvent(77, 'Marco', '¡Cumpleaños de Fernando!', 'Va a estar muy alegre, vengan todos!!', 'Villas de Fátima', '20 de marzo', '1:00 PM', ['Jhonathan', 'Vilma', 'Alex', 'Lilly'], ['../../assets/img/users/face9.png', '../../assets/img/users/face2.png', '../../assets/img/users/face1.png', '../../assets/img/users/face8.png'], true, '10:27 PM', false, false);
+
+        //EXAMPLE: Ejemplo separador.
+        generateDateSeparator('27 de septiembre de 2018');
+
+        //EXAMPLE: Ejemplo votación.
+        generatePoll(76, 'Henry', '¿A dónde quieren salir en la noche?', ['Pollo Campero', 'Nais', 'La Estancia'], [3, 1, 1], 1, '12:35', false, false);
+
+        generateDateSeparator('Hoy');
+
+        //Función que asigna todos los eventos de los elementos en el mural.
+        initWallListeners();
 
     });
 
