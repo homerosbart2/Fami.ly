@@ -13,8 +13,16 @@
                     <span class="name">Ogáldez</span>
                     <span class="members">11 integrantes</span>
                 </span>
+                <span class="options">
+                    <a class="filter-option question"><span><i class="fas fa-question"></i></span></a>
+                    <a class="filter-option poll"><span><i class="fas fa-poll-h"></i></span></a>
+                    <a class="filter-option event"><span><i class="far fa-calendar"></i></span></a>
+                    <a class="filter-option image-video"><span><i class="fas fa-image"></i></span></a>
+                    <a class="btn-login">Invitar</a>
+                </span>
             </span>
             <span class="posts">
+                <!-- Casos de prueba -->
                 <span class="date-separator">
                     Hoy
                 </span>
@@ -149,10 +157,10 @@
                 <span class="post-container">
                     <span id="1" class="post message">
                         <span class="user-name">Vilma</span>
-                        <span class="text searchable">Adiós ): </span>
-                        <span class="text searchable">Adiós ): </span>
-                        <span class="text searchable">Adiós ): </span>
-                        <span class="text searchable">Adiós ): </span>
+                        <span class="text searchable">Adiós 😢 </span>
+                        <span class="text searchable">Adiós 😢 </span>
+                        <span class="text searchable">Adiós 😢 </span>
+                        <span class="text searchable">Adiós 😢 </span>
                         <span class="time">3:15 PM</span>
                         <span class="type"><i class="fas fa-circle"></i></span>
                     </span>   
@@ -169,38 +177,6 @@
                     </span>   
                 </span>
                 <span class="post-container">
-                    <span id="112" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="113" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="114" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="115" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
                     <span id="116" class="post message">
                         <span class="user-name">Vilma</span>
                         <span class="text searchable">zzz</span>
@@ -208,77 +184,77 @@
                         <span class="type"><i class="fas fa-circle"></i></span>
                     </span>   
                 </span>
-                <span class="post-container">
-                    <span id="117" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
+            </span>
+        </span>
+        <span class="search-people-container">
+            <span class="search-people">
+                <span class="search-people-result-container">
+                    <span class="people-result-container">
+                        <img class="card-bg" src="../../assets/img/users/face4.png">
+                        <span class="user-card">
+                            <img src="../../assets/img/users/face4.png">
+                        </span>
+                        <span class="information">
+                            <span class="user-name">Henry Adonirán Campos Zabala</span>
+                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
+                        </span>
+                        <span class="options">
+                            <a class="btn-login profile">Perfil</a>
+                            <a class="btn-login invite">Invitar</a>
+                        </span>
+                    </span>
+
+                    <span class="people-result-container">
+                        <img class="card-bg" src="../../assets/img/users/face3.png">
+                        <span class="user-card">
+                            <img src="../../assets/img/users/face3.png">
+                        </span>
+                        <span class="information">
+                            <span class="user-name">Henry Adonirán Campos Zabala</span>
+                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
+                        </span>
+                        <span class="options">
+                            <a class="btn-login profile">Perfil</a>
+                            <a class="btn-login invite">Invitar</a>
+                        </span>
+                    </span>
+
+                    <span class="people-result-container">
+                        <img class="card-bg" src="../../assets/img/users/face5.png">
+                        <span class="user-card">
+                            <img src="../../assets/img/users/face5.png">
+                        </span>
+                        <span class="information">
+                            <span class="user-name">Henry Adonirán Campos Zabala</span>
+                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
+                        </span>
+                        <span class="options">
+                            <a class="btn-login profile">Perfil</a>
+                            <a class="btn-login invite">Invitar</a>
+                        </span>
+                    </span>
+
+                    <span class="people-result-container">
+                        <img class="card-bg" src="../../assets/img/users/face6.png">
+                        <span class="user-card">
+                            <img src="../../assets/img/users/face6.png">
+                        </span>
+                        <span class="information">
+                            <span class="user-name">Henry Adonirán Campos Zabala</span>
+                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
+                        </span>
+                        <span class="options">
+                            <a class="btn-login profile">Perfil</a>
+                            <a class="btn-login invite">Invitar</a>
+                        </span>
+                    </span>
+                    
+                    <!-- 
+                    <span class="no-result"><i class="fas fa-search"></i> No hay resultado</span>
+                    -->
                 </span>
-                <span class="post-container">
-                    <span id="118" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="119" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="120" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="121" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="122" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="123" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="124" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="125" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
+                <span class="wide-central-container">
+                    <a class="btn-exit-popup hide-search-people"><i class="far fa-times-circle"></i></a>
                 </span>
             </span>
         </span>
@@ -287,7 +263,7 @@
         <span class="chatbox">
             <input type="text" class="chatbox-input" id="titulo" placeholder="Escribe un mensaje">
             <a class="btn-chat"><i class="fas fa-bars"></i></a>
-            <span class="emoji-menu"><i class="far fa-laugh"></i></span>
+            <span class="emoji-menu"><i class="far fa-grin"></i></span>
         </span>
         <span class="emojibox-container">
             <span class="emojibox"><span class="emoji">😀</span><span class="emoji">😁</span><span class="emoji">😂</span><span class="emoji">🤣</span><span class="emoji">😃</span><span class="emoji">😄</span><span class="emoji">😅</span><span class="emoji">😆</span><span class="emoji">😉</span><span class="emoji">😊</span><span class="emoji">😋</span><span class="emoji">😎</span><span class="emoji">😍</span><span class="emoji">😘</span><span class="emoji">😗</span><span class="emoji">😙</span><span class="emoji">😚</span><span class="emoji">🙂</span><span class="emoji">🤗</span><span class="emoji">🤩</span><span class="emoji">🤔</span><span class="emoji">🤨</span><span class="emoji">😐</span><span class="emoji">😑</span><span class="emoji">😶</span><span class="emoji">🙄</span><span class="emoji">😏</span><span class="emoji">😣</span><span class="emoji">😥</span><span class="emoji">😮</span><span class="emoji">🤐</span><span class="emoji">😯</span><span class="emoji">😪</span><span class="emoji">😫</span><span class="emoji">😴</span><span class="emoji">😌</span><span class="emoji">😛</span><span class="emoji">😜</span><span class="emoji">😝</span><span class="emoji">🤤</span><span class="emoji">😒</span><span class="emoji">😓</span><span class="emoji">😔</span><span class="emoji">😕</span><span class="emoji">🙃</span><span class="emoji">🤑</span><span class="emoji">😲</span><span class="emoji">️</span><span class="emoji">🙁</span><span class="emoji">😖</span>😞<span class="emoji">😟</span><span class="emoji">😤</span><span class="emoji">😢</span><span class="emoji">😭</span><span class="emoji">😦</span><span class="emoji">😧</span><span class="emoji">😨</span><span class="emoji">😩</span><span class="emoji">🤯</span><span class="emoji">😬</span><span class="emoji">😰</span><span class="emoji">😱</span><span class="emoji">😳</span><span class="emoji">🤪</span><span class="emoji">😵</span><span class="emoji">😡</span><span class="emoji">😠</span><span class="emoji">🤬</span><span class="emoji">😷</span><span class="emoji">🤒</span><span class="emoji">🤕</span><span class="emoji">🤢</span><span class="emoji">🤮</span><span class="emoji">🤧</span><span class="emoji">😇</span><span class="emoji">🤠</span><span class="emoji">🤡</span><span class="emoji">🤥</span><span class="emoji">🤫</span><span class="emoji">🤭</span><span class="emoji">🧐</span><span class="emoji">🤓</span><span class="emoji">😈</span><span class="emoji">👿</span><span class="emoji">👹</span><span class="emoji">👺</span><span class="emoji">💀</span><span class="emoji">👻</span><span class="emoji">👽</span><span class="emoji">🤖</span><span class="emoji">💩</span> </span>
@@ -347,7 +323,7 @@
                 </span>
             </span>
             <span class="wide-central-container">
-                <a class="btn-login hide-post-form"><i class="far fa-times-circle"></i></a>
+                <a class="btn-exit-popup hide-post-form"><i class="far fa-times-circle"></i></a>
             </span>
         </span>
     </span>
@@ -361,6 +337,8 @@
     var quantities = [];
     var sum;
     var time;
+    var className;
+    var className2;
     var answers = [];
     var users = [];
     var options = [];
@@ -373,6 +351,7 @@
     var hour;
     var minutes;
     var ubication;
+    var windowWidth;
 
     function updatePercents(post){
         object = $('#' + post).children('.answers').find('.answer');
@@ -414,6 +393,38 @@
         }
         sum = 0;
         updatePercents(postId);
+    }
+
+    //Función para generar un resultado de búsqueda, recibe [user] que es el nombre completo del usuario, [country] el país del usuario, [userImage] que es la ruta a la imagen del usuario e [invite] que es un booleano para saber si es un resultado de búsqueda para invitar a un grupo. Agrega los resultados dependiendo de [top], si es true los agrega al principio, si es false los agrega de último.
+    function generatePeopleResult(user, country, userImage, invite, top){
+        rows = '';
+        rows += '<span class="people-result-container">';
+        rows += '<img class="card-bg" src="'+userImage+'">';
+        rows += '<span class="user-card">';
+        rows += '<img src="'+userImage+'">';
+        rows += '</span>';
+        rows += '<span class="information">';
+        rows += '<span class="user-name">'+user+'</span>';
+        rows += '<span class="user-country"><i class="fas fa-globe-americas"></i> '+country+'</span>';
+        rows += '</span>';
+        rows += '<span class="options">';
+        rows += '<a class="btn-login profile">Perfil</a>';
+        if(invite){
+            rows += '<a class="btn-login invite">Invitar</a>';
+        }
+        rows += '</span>';
+        rows += '</span>';
+        if(top){
+            $('.search-people-result-container').preppend(rows);
+        }else{
+            $('.search-people-result-container').append(rows);
+        }
+    }
+
+    //Función a llamar cuando no se encontró resultado en una búsqueda.
+    function noResultInSearch(){
+        rows = '<span class="no-result"><i class="fas fa-search"></i> No hay resultado</span>';
+        $('.search-people-result-container').html(rows);
     }
 
     function generateEvent(id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me){
@@ -494,22 +505,55 @@
         });
     }
 
-    function generateMessage(id, user, text, time, me){
+    //Función que genera un nuevo mensaje. Le mandas el [id] de la publicación, el nombre SOLAMENTE del usuario [user] al que pertenece la publicación, un arreglo [texts] donde mandas los mensajes (podés mandar a llamar la función sin preocuparte si el último mensaje es del mismo usuario, pero también podés mandar los mensajes del mismo usuario en un arreglo, te recomiendo la primera), la hora de la publicación [time] y un booleano [me] que dice si el mensaje es del usuario que inició sesión.
+    function generateMessage(id, user, texts, time, me){
         rows = '';
-        if(me){
-            rows += '<span class="post-container me">';
-            rows += '<span id="'+id+'" class="post message">';
+        object = $('.posts').children('.post-container').first();
+        if(me && object.hasClass('me') && object.children('.post').hasClass('message')){
+            for(i in texts){
+                if(texts[i].match(emojiRegex)){
+                    rows += '<span class="text searchable"><span class="emoji">'+texts[i]+'</span></span>';
+                }else{
+                    rows += '<span class="text searchable">'+texts[i]+'</span>';
+                }
+            }
+            object.children('.post').append(rows);
+            object.children('.post').children('.time').html(time);
+        }else if(object.children('.post').hasClass('message')){
+            if(user == object.children('.post').children('.user-name').text()){
+                for(i in texts){
+                    if(texts[i].match(emojiRegex)){
+                        rows += '<span class="text searchable"><span class="emoji">'+texts[i]+'</span></span>';
+                    }else{
+                        rows += '<span class="text searchable">'+texts[i]+'</span>';
+                    }
+                }
+                object.children('.post').children('.text').last().after(rows);
+                object.children('.post').children('.time').html(time);
+            }
         }else{
-            rows += '<span class="post-container">';
-            rows += '<span id="'+id+'" class="post message">';
-            rows += '<span class="user-name">'+user+'</span>';
+            if(me){
+                rows += '<span class="post-container me">';
+                rows += '<span id="'+id+'" class="post message">';
+            }else{
+                rows += '<span class="post-container">';
+                rows += '<span id="'+id+'" class="post message">';
+                rows += '<span class="user-name">'+user+'</span>';
+            }
+            for(i in texts){
+                if(texts[i].match(emojiRegex)){
+                    rows += '<span class="text searchable"><span class="emoji">'+texts[i]+'</span></span>';
+                }else{
+                    rows += '<span class="text searchable">'+texts[i]+'</span>';
+                }
+                
+            }
+            rows += '<span class="time">'+time+'</span>';
+            rows += '<span class="type"><i class="fas fa-circle"></i></span>';
+            rows += '</span>';
+            rows += '</span>';
+            $('.posts').prepend(rows);
         }
-        rows += '<span class="text searchable">'+text+'</span>';
-        rows += '<span class="time">'+time+'</span>';
-        rows += '<span class="type"><i class="fas fa-circle"></i></span>';
-        rows += '</span>';
-        rows += '</span>';
-        $('.posts').prepend(rows);
         window.scroll({
             top: 0, 
             left: 0, 
@@ -628,6 +672,9 @@
             $('.chatbox-input').prop('id', 'id' + postId);
             $('.chatbox-input').focus();
             triggerMask('questionbox');
+            object = $('.emojibox-container');
+            object.addClass('double');
+            
         }
     }
 
@@ -651,6 +698,9 @@
         if($('.emojibox-container').hasClass('expanded-to-bottom')){
             $('.emojibox-container').removeClass('expanded-to-bottom');
             $('.emojibox-container').addClass('expanded-to-top');
+            $('.form-container').find('.form').each(function(){
+                $(this).removeClass('pushed');
+            });
         }
         object.html('<i class="fas fa-bars"></i>');
         $('body').removeClass('disableScrollBar');
@@ -684,17 +734,84 @@
     $(document).ready(function(){
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
+        
+        //EXAMPLE: Ejemplo para agregar un resultado a la búsqueda.
+        //generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, false);
+        
+        //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda.
+        //noResultInSearch();
+
+        $('.options').find('.btn-login').click(function(){
+            $('.search-people-container').addClass('expanded');
+            $('.chatbox-container').addClass('hidden');
+            $('body').addClass('disableScrollBar');
+            windowWidth = $(window).width();
+            if(windowWidth < 601){
+                showMobileSearchBar(false);
+            }
+        });
+
+        $('.hide-search-people').click(function(){
+            $('.search-people-container').removeClass('expanded');
+            $('.chatbox-container').removeClass('hidden');
+            $('body').removeClass('disableScrollBar');
+            windowWidth = $(window).width();
+            if($('.searchbox').hasClass('expanded')){
+                hideMobileSearchBar(false);
+            }
+        })
+        
+        //Evento para filtrar las publicaciones por tipo.
+        $('.group-title').find('.filter-option').click(function(){
+            className = $(this).attr('class').split(' ')[1]; 
+            if(!$(this).hasClass('selected')){
+                $('.group-title').find('.filter-option').each(function(){
+                    if($(this).hasClass('selected')){
+                        className2 = $(this).attr('class').split(' ')[1]; 
+                        $('.post-container').each(function(){
+                            if(!$(this).find('.post').hasClass(className2)){
+                                $(this).css('display','flex');
+                            }
+                        });
+                        $(this).removeClass('selected');
+                    }
+                });
+                $('.post-container').each(function(){
+                    if(!$(this).find('.post').hasClass(className)){
+                        $(this).css('display','none');
+                    }
+                });
+                $(this).addClass('selected');
+            }else{
+                $('.post-container').each(function(){
+                    if(!$(this).find('.post').hasClass(className)){
+                        $(this).css('display','flex');
+                    }
+                });
+                $(this).removeClass('selected');
+            }
+        })
 
         $('.emoji-menu').children('i').click(function(){
             object = $('.emojibox-container');
             if(object.hasClass('expanded-to-top')){
                 object.removeClass('expanded-to-top');
+                $(this).removeClass('fas').addClass('far');
             }else if(object.hasClass('expanded-to-bottom')){
                 object.removeClass('expanded-to-bottom');
+                $('.form-container').find('.form').each(function(){
+                    $(this).removeClass('pushed');
+                });
+                $(this).removeClass('fas').addClass('far');
             }else if($('.chatbox-container').hasClass('expanded')){
                 object.addClass('expanded-to-bottom');
+                $('.form-container').find('.form').each(function(){
+                    $(this).addClass('pushed');
+                });
+                $(this).removeClass('far').addClass('fas');
             }else{
                 object.addClass('expanded-to-top');
+                $(this).removeClass('far').addClass('fas');
             }
         });
 
@@ -752,6 +869,8 @@
                         });
                         if(options.length > 1){
                             generatePoll(postId, '', text, options, quantities, time, true);
+                            $('.poll-option').val('');
+                            $('.poll-option').removeClass('with-text');
                         }else{
                             //TODO: Debe aparecer una notificación si no ingresa dos opciones o más.
                             success = 0;
@@ -784,7 +903,7 @@
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         postId = 321;
                         time = '12:21 PM';
-                        generateMessage(postId, '', text, time, true);
+                        generateMessage(postId, '', [text], time, true);
                     }
                     if(success == 1){
                         $(this).val('');
@@ -820,6 +939,9 @@
                 if($('.emojibox-container').hasClass('expanded-to-top')){
                     $('.emojibox-container').removeClass('expanded-to-top');
                     $('.emojibox-container').addClass('expanded-to-bottom');
+                    $('.form-container').find('.form').each(function(){
+                        $(this).addClass('pushed');
+                    });
                 }
                 $(this).html('<i class="fas fa-location-arrow"></i>');
                 $('body').addClass('disableScrollBar');
@@ -901,6 +1023,13 @@
                 $(this).addClass('with-text');
             }else{
                 $(this).removeClass('with-text');
+            }
+        });
+
+        $('.poll-option').keyup(function(e){
+            if(e.keyCode == 13){
+                var e = $.Event("keyup", {keyCode: 13});
+                $('.chatbox-input').trigger(e);
             }
         });
 
