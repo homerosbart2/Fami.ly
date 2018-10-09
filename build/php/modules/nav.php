@@ -1,4 +1,5 @@
 <?php 
+    include 'links.php'; 
     session_start();
     $usuario_actual = "";
     $correo_actual = "";
@@ -9,11 +10,6 @@
         //header("Location: ../login/login.php");                 
     }
 ?>  
-<html>
-    <head>   
-    <?php
-        include 'links.php'; 
-    ?>
     </head>
     <body>
         <?php
@@ -51,7 +47,7 @@
                     <li><a id="search" class="nav-option search-option"><span class="option-icon"><i class="fas fa-search"></i></span></a></li>
                     <li><a href="../groups/home.php" class="nav-option"><span class="option-icon"><i class="fas fa-home"></i></span></a></li>
                     <!-- En el span .counter se debe colocar la cantidad de notificaciones sin descartar. -->
-                    <li><a class="nav-option" id="viewNotificaciones"><span class="option-icon notification"><i class="fas fa-bell"></i></span><span class="counter" >2</span></a></li>
+                    <li><a id="notification" class="nav-option"><span class="option-icon notification"><i class="fas fa-bell"></i></span><span class="counter">2</span></a></li>
                     <li><a href="../rutas_ajax/session/logout.php" class="nav-option"><span class="option-icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
                 </span>
                 
@@ -68,28 +64,6 @@
             </span>
         </section>
     </body>
-
-<style>
-.ui-pnotify{
-    /*CSS PARA PNOTIFY EDITADO*/
-    top:0px;
-    right:66px;
-    left:0px;
-    min-height: 500px;
-}
-
-.ui-pnotify-container{
-    min-height: 500px;
-}
-
-.ui-pnotify-shadow{
-    min-height: 500px;
-}
-
-.alert-success{
-    min-height: 500px;
-}
-</style>
 
 <script>
 var wall = 0;
@@ -147,7 +121,6 @@ $(document).ready(function(){
     var searchArray = [];
     var searchIndex;
 
-
     function removeSearchResult(){
         $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
         size = searchArray.length;
@@ -159,22 +132,6 @@ $(document).ready(function(){
         }
     }
 
-
-    function showNotify(type,title,text){
-        var opts = {
-            width: "50%",
-            heigth: "500px"
-        };
-        opts.title = title;
-        opts.text = text;
-        opts.type = type;
-        opts.styling = 'bootstrap3';
-        new PNotify(opts);
-    }
-
-    //Funcion que levanta las notificaciones en forma de promps
-    $('#viewNotificaciones').on('click',function(){
-        showNotify("success","NOTIFICACION DE...","TENEMOS UNA ACTIVIDAD EN EL PARQUE CENTRAL.");
     $('.search-right').click(function(){
         $('.searchbox').find('#search-text').focus();
         if(searchArray.length > 0){
