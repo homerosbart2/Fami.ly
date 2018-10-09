@@ -59,6 +59,23 @@
     }
 }
 
+.btn-exit-popup{
+    @extend %btn;
+    border-radius: 60px;
+    padding: 7px 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    border: none;
+    &:hover,
+    &:active,
+    &:focus{
+        transform: scale(1.05);
+        color: $main-contrast;
+    }
+}
+
 
 .btn-cancel{
     @extend %btn;

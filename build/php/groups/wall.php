@@ -157,10 +157,10 @@
                 <span class="post-container">
                     <span id="1" class="post message">
                         <span class="user-name">Vilma</span>
-                        <span class="text searchable">Adiós ): </span>
-                        <span class="text searchable">Adiós ): </span>
-                        <span class="text searchable">Adiós ): </span>
-                        <span class="text searchable">Adiós ): </span>
+                        <span class="text searchable">Adiós 😢 </span>
+                        <span class="text searchable">Adiós 😢 </span>
+                        <span class="text searchable">Adiós 😢 </span>
+                        <span class="text searchable">Adiós 😢 </span>
                         <span class="time">3:15 PM</span>
                         <span class="type"><i class="fas fa-circle"></i></span>
                     </span>   
@@ -177,38 +177,6 @@
                     </span>   
                 </span>
                 <span class="post-container">
-                    <span id="112" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="113" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="114" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="115" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
                     <span id="116" class="post message">
                         <span class="user-name">Vilma</span>
                         <span class="text searchable">zzz</span>
@@ -216,77 +184,15 @@
                         <span class="type"><i class="fas fa-circle"></i></span>
                     </span>   
                 </span>
-                <span class="post-container">
-                    <span id="117" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
+            </span>
+        </span>
+        <span class="search-people-container">
+            <span class="search-people">
+                <span class="search-people-result-container">
+                    <span class="no-result"><i class="fas fa-search"></i> No hay resultado</span>
                 </span>
-                <span class="post-container">
-                    <span id="118" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="119" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="120" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="121" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="122" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="123" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="124" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
-                </span>
-                <span class="post-container">
-                    <span id="125" class="post message">
-                        <span class="user-name">Vilma</span>
-                        <span class="text searchable">Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuu</span>
-                        <span class="time">3:15 PM</span>
-                        <span class="type"><i class="fas fa-circle"></i></span>
-                    </span>   
+                <span class="wide-central-container">
+                    <a class="btn-exit-popup hide-search-people"><i class="far fa-times-circle"></i></a>
                 </span>
             </span>
         </span>
@@ -355,7 +261,7 @@
                 </span>
             </span>
             <span class="wide-central-container">
-                <a class="btn-login hide-post-form"><i class="far fa-times-circle"></i></a>
+                <a class="btn-exit-popup hide-post-form"><i class="far fa-times-circle"></i></a>
             </span>
         </span>
     </span>
@@ -383,6 +289,7 @@
     var hour;
     var minutes;
     var ubication;
+    var windowWidth;
 
     function updatePercents(post){
         object = $('#' + post).children('.answers').find('.answer');
@@ -734,6 +641,27 @@
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
 
+        $('.options').find('.btn-login').click(function(){
+            $('.search-people-container').addClass('expanded');
+            $('.chatbox-container').addClass('hidden');
+            $('body').addClass('disableScrollBar');
+            windowWidth = $(window).width();
+            if(windowWidth < 601){
+                showMobileSearchBar(false);
+            }
+        });
+
+        $('.hide-search-people').click(function(){
+            $('.search-people-container').removeClass('expanded');
+            $('.chatbox-container').removeClass('hidden');
+            $('body').removeClass('disableScrollBar');
+            windowWidth = $(window).width();
+            if($('.searchbox').hasClass('expanded')){
+                hideMobileSearchBar(false);
+            }
+        })
+        
+        //Evento para filtrar las publicaciones por tipo.
         $('.group-title').find('.filter-option').click(function(){
             className = $(this).attr('class').split(' ')[1]; 
             if(!$(this).hasClass('selected')){

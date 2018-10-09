@@ -207,7 +207,7 @@ body {
 section {
   display: -webkit-box; }
 
-.btn-register, .btn-chat, .btn-cancel, .btn-login, .btn-menu, .admin-shop-form label {
+.btn-register, .btn-chat, .btn-exit-popup, .btn-cancel, .btn-login, .btn-menu, .admin-shop-form label {
   display: inline-block;
   padding: 5px 10px;
   color: black;
@@ -223,7 +223,7 @@ section {
   border: 1px solid;
   cursor: pointer;
   transition: all 0.2s ease; }
-  .btn-register:hover, .btn-chat:hover, .btn-cancel:hover, .btn-login:hover, .btn-menu:hover, .admin-shop-form label:hover, .btn-register:active, .btn-chat:active, .btn-cancel:active, .btn-login:active, .btn-menu:active, .admin-shop-form label:active, .btn-register:focus, .btn-chat:focus, .btn-cancel:focus, .btn-login:focus, .btn-menu:focus, .admin-shop-form label:focus {
+  .btn-register:hover, .btn-chat:hover, .btn-exit-popup:hover, .btn-cancel:hover, .btn-login:hover, .btn-menu:hover, .admin-shop-form label:hover, .btn-register:active, .btn-chat:active, .btn-exit-popup:active, .btn-cancel:active, .btn-login:active, .btn-menu:active, .admin-shop-form label:active, .btn-register:focus, .btn-chat:focus, .btn-exit-popup:focus, .btn-cancel:focus, .btn-login:focus, .btn-menu:focus, .admin-shop-form label:focus {
     outline: 0; }
 
 .btn-register {
@@ -251,6 +251,18 @@ section {
   flex-shrink: 0; }
   .btn-chat:hover, .btn-chat:active, .btn-chat:focus {
     border: 1px solid white;
+    transform: scale(1.05);
+    color: #000B2B; }
+
+.btn-exit-popup {
+  border-radius: 60px;
+  padding: 7px 7px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  border: none; }
+  .btn-exit-popup:hover, .btn-exit-popup:active, .btn-exit-popup:focus {
     transform: scale(1.05);
     color: #000B2B; }
 
@@ -500,7 +512,6 @@ nav {
   justify-content: space-between;
   padding: 0 0;
   background: #000B2B;
-  box-shadow: 0 7px 10px 0 rgba(0, 0, 0, 0.15);
   z-index: 2000;
   transition: 0.3s ease; }
   .main-nav.notification-expanded {
@@ -646,12 +657,14 @@ nav {
   justify-content: center;
   z-index: 1998;
   transition: all 0.3s ease; }
+  .searchbox.expanded {
+    z-index: 2001;
+    opacity: 1; }
   .searchbox .search {
     width: 100%;
     height: 100%;
     display: flex;
     background: #000B2B;
-    box-shadow: 0 7px 10px 0 rgba(0, 0, 0, 0.15);
     justify-content: center;
     align-items: center; }
     .searchbox .search .icon {
@@ -663,7 +676,7 @@ nav {
       .searchbox .search .icon i {
         margin-left: 24px; }
     .searchbox .search .search-input:active, .searchbox .search .search-input:focus {
-      height: 52.4px;
+      height: 51px;
       width: 100%;
       margin: 0 0;
       border-radius: 0; }
@@ -868,6 +881,47 @@ body.disableScrollBar {
     align-items: center;
     color: white;
     text-shadow: 0 0 8px black, 0 0 16px black; }
+
+.search-people-container {
+  position: absolute;
+  top: -100%;
+  max-width: 900px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  background: white;
+  z-index: 12;
+  transition: 0.2s ease; }
+  .search-people-container.expanded {
+    top: 0; }
+  .search-people-container .search-people {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 15px;
+    display: flex; }
+    .search-people-container .search-people .search-people-result-container {
+      display: flex;
+      width: 100%;
+      margin-top: 70px; }
+      .search-people-container .search-people .search-people-result-container .no-result {
+        color: gray;
+        width: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase; }
+        .search-people-container .search-people .search-people-result-container .no-result i {
+          margin-right: 3px; }
+    .search-people-container .search-people .wide-central-container {
+      position: absolute;
+      bottom: 30px; }
+      .search-people-container .search-people .wide-central-container .btn-exit-popup {
+        background: #000B2B;
+        color: white; }
+        .search-people-container .search-people .wide-central-container .btn-exit-popup:hover, .search-people-container .search-people .wide-central-container .btn-exit-popup:active, .search-people-container .search-people .wide-central-container .btn-exit-popup:focus {
+          color: white; }
 
 #header-login {
   background: url("../img/bg.jpg") no-repeat;
@@ -1083,6 +1137,8 @@ body.disableScrollBar {
   .chatbox-container.expanded {
     bottom: 100%;
     margin-bottom: -55px; }
+  .chatbox-container.hidden {
+    bottom: -55px; }
   .chatbox-container .chatbox {
     position: relative;
     height: 100%;
@@ -1178,16 +1234,6 @@ body.disableScrollBar {
     .chatbox-container .post-form-container .wide-central-container {
       position: absolute;
       bottom: 30px; }
-      .chatbox-container .post-form-container .wide-central-container .btn-login {
-        border-radius: 60px;
-        padding: 7px 7px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 22px;
-        border: none; }
-        .chatbox-container .post-form-container .wide-central-container .btn-login:hover, .chatbox-container .post-form-container .wide-central-container .btn-login:active, .chatbox-container .post-form-container .wide-central-container .btn-login:focus {
-          transform: scale(1.05); }
     .chatbox-container .post-form-container .form-container {
       width: 100%;
       height: 100%;
@@ -1276,6 +1322,7 @@ body.disableScrollBar {
   display: flex;
   justify-content: center; }
   .wall .central-container {
+    position: relative;
     padding-top: 67px;
     padding-bottom: 67px;
     flex-direction: column;

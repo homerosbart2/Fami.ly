@@ -1,0 +1,51 @@
+.search-people-container{
+    position: absolute;
+    top: -100%;
+    max-width: 900px;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background: white;
+    z-index: 12;
+    transition: 0.2s ease;
+    &.expanded{
+        top: 0;
+    }
+    .search-people{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0 15px;
+        display: flex;
+        .search-people-result-container{
+            display: flex;
+            width: 100%;
+            margin-top: 70px;
+            .no-result{
+                color: gray;
+                width: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-transform: uppercase;
+                i{
+                    margin-right: 3px;
+                }
+            }
+        }
+        .wide-central-container{
+            position: absolute;
+            bottom: 30px;
+            .btn-exit-popup{
+                background: $main-contrast;
+                color: white;
+                &:hover,
+                &:active,
+                &:focus{
+                    color: white;
+                }
+            }
+        }
+    }
+}

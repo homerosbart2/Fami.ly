@@ -88,6 +88,24 @@ function scrollToMiddle(id) {
     });
 }
 
+//Función para enseñar la barra de búsqueda, si se manda [mask = true] se activa la máscara para descativar con click, si no, no se activa.
+function showMobileSearchBar(mask){
+    $('.searchbox').addClass('expanded');
+    if(mask){
+        triggerMask('searchbox');
+    } 
+}
+
+//Función opuesta de showMobileSearchBar.
+function hideMobileSearchBar(mask){
+    object = $('.searchbox');
+    object.removeClass('expanded');
+    object.children('.search').children('.search-input').val('');
+    if(mask){
+        deactivateMask();
+    }
+}
+
 $(document).ready(function(){
     var text;
     var text2;
@@ -138,20 +156,14 @@ $(document).ready(function(){
     });
     //Función que se llama al presionar el botón de búsqueda y muestra la barra en modo móvil.
     $('#search').click(function(){
-        object = $('.searchbox');
-        object.css('z-index','2001');
-        object.css('opacity','1');
-        triggerMask('searchbox');
+        showMobileSearchBar(true);
         //Autofocus al searchbox, pero no me gustó.
         //object.children('.search').children('.search-input').focus();
     });
     //Función utilizada para desactivar la máscara y los objetos flotantes.
     $('.mask').click(function(){
         if($(this).prop('id') == 'searchbox'){
-            $('.searchbox').css('z-index','1998');
-            $('.searchbox').css('opacity','0');
-            $('.searchbox').children('.search').children('.search-input').val('');
-            deactivateMask();
+            hideMobileSearchBar(true);
             if(wall == 1){
                 removeSearchResult(searchArray);
             }

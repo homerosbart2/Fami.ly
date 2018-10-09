@@ -38,7 +38,7 @@
             </span>
         </span>
         <span class="wide-central-container">
-            <a class="btn-login hide-notifications"><i class="far fa-times-circle"></i></a>
+            <a class="btn-exit-popup hide-notifications"><i class="far fa-times-circle"></i></a>
         </span>
     </span>
 </span>
