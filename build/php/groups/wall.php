@@ -285,7 +285,7 @@
     </span>
     <span class="chatbox-container">
         <span class="chatbox">
-            <input type="text" class="chatbox-input" placeholder="Escribe un mensaje">
+            <input type="text" class="chatbox-input" id="titulo" placeholder="Escribe un mensaje">
             <a class="btn-chat"><i class="fas fa-bars"></i></a>
             <span class="emoji-menu"><i class="far fa-laugh"></i></span>
         </span>

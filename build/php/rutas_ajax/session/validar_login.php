@@ -15,6 +15,7 @@
             $row = pg_fetch_assoc($result);
             $_SESSION['usuario_actual'] = $row["usuario"];
             $_SESSION['correo_actual'] = $row["correo"];
+            $_SESSION['usuario_actual_id'] = $row["usuario_id"];
             $retorno = 1;
         }
     }  
