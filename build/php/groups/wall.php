@@ -27,69 +27,6 @@
         <span class="search-people-container">
             <span class="search-people">
                 <span class="search-people-result-container">
-                    <span class="people-result-container">
-                        <img class="card-bg" src="../../assets/img/users/face4.png">
-                        <span class="user-card">
-                            <img src="../../assets/img/users/face4.png">
-                        </span>
-                        <span class="information">
-                            <span class="user-name">Henry Adonirán Campos Zabala</span>
-                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
-                        </span>
-                        <span class="options">
-                            <a class="btn-login profile">Perfil</a>
-                            <a class="btn-login invite">Invitar</a>
-                        </span>
-                    </span>
-
-                    <span class="people-result-container">
-                        <img class="card-bg" src="../../assets/img/users/face3.png">
-                        <span class="user-card">
-                            <img src="../../assets/img/users/face3.png">
-                        </span>
-                        <span class="information">
-                            <span class="user-name">Henry Adonirán Campos Zabala</span>
-                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
-                        </span>
-                        <span class="options">
-                            <a class="btn-login profile">Perfil</a>
-                            <a class="btn-login invite">Invitar</a>
-                        </span>
-                    </span>
-
-                    <span class="people-result-container">
-                        <img class="card-bg" src="../../assets/img/users/face5.png">
-                        <span class="user-card">
-                            <img src="../../assets/img/users/face5.png">
-                        </span>
-                        <span class="information">
-                            <span class="user-name">Henry Adonirán Campos Zabala</span>
-                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
-                        </span>
-                        <span class="options">
-                            <a class="btn-login profile">Perfil</a>
-                            <a class="btn-login invite">Invitar</a>
-                        </span>
-                    </span>
-
-                    <span class="people-result-container">
-                        <img class="card-bg" src="../../assets/img/users/face6.png">
-                        <span class="user-card">
-                            <img src="../../assets/img/users/face6.png">
-                        </span>
-                        <span class="information">
-                            <span class="user-name">Henry Adonirán Campos Zabala</span>
-                            <span class="user-country"><i class="fas fa-globe-americas"></i> Guatemala</span>
-                        </span>
-                        <span class="options">
-                            <a class="btn-login profile">Perfil</a>
-                            <a class="btn-login invite">Invitar</a>
-                        </span>
-                    </span>
-                    
-                    <!-- 
-                    <span class="no-result"><i class="fas fa-search"></i> No hay resultado</span>
-                    -->
                 </span>
                 <span class="wide-central-container">
                     <a class="btn-exit-popup hide-search-people"><i class="far fa-times-circle"></i></a>
@@ -104,7 +41,7 @@
             <span class="emoji-menu"><i class="far fa-grin"></i></span>
         </span>
         <span class="emojibox-container">
-            <span class="emojibox"><span class="emoji">😀</span><span class="emoji">😁</span><span class="emoji">😂</span><span class="emoji">🤣</span><span class="emoji">😃</span><span class="emoji">😄</span><span class="emoji">😅</span><span class="emoji">😆</span><span class="emoji">😉</span><span class="emoji">😊</span><span class="emoji">😋</span><span class="emoji">😎</span><span class="emoji">😍</span><span class="emoji">😘</span><span class="emoji">😗</span><span class="emoji">😙</span><span class="emoji">😚</span><span class="emoji">🙂</span><span class="emoji">🤗</span><span class="emoji">🤩</span><span class="emoji">🤔</span><span class="emoji">🤨</span><span class="emoji">😐</span><span class="emoji">😑</span><span class="emoji">😶</span><span class="emoji">🙄</span><span class="emoji">😏</span><span class="emoji">😣</span><span class="emoji">😥</span><span class="emoji">😮</span><span class="emoji">🤐</span><span class="emoji">😯</span><span class="emoji">😪</span><span class="emoji">😫</span><span class="emoji">😴</span><span class="emoji">😌</span><span class="emoji">😛</span><span class="emoji">😜</span><span class="emoji">😝</span><span class="emoji">🤤</span><span class="emoji">😒</span><span class="emoji">😓</span><span class="emoji">😔</span><span class="emoji">😕</span><span class="emoji">🙃</span><span class="emoji">🤑</span><span class="emoji">😲</span><span class="emoji">️</span><span class="emoji">🙁</span><span class="emoji">😖</span>😞<span class="emoji">😟</span><span class="emoji">😤</span><span class="emoji">😢</span><span class="emoji">😭</span><span class="emoji">😦</span><span class="emoji">😧</span><span class="emoji">😨</span><span class="emoji">😩</span><span class="emoji">🤯</span><span class="emoji">😬</span><span class="emoji">😰</span><span class="emoji">😱</span><span class="emoji">😳</span><span class="emoji">🤪</span><span class="emoji">😵</span><span class="emoji">😡</span><span class="emoji">😠</span><span class="emoji">🤬</span><span class="emoji">😷</span><span class="emoji">🤒</span><span class="emoji">🤕</span><span class="emoji">🤢</span><span class="emoji">🤮</span><span class="emoji">🤧</span><span class="emoji">😇</span><span class="emoji">🤠</span><span class="emoji">🤡</span><span class="emoji">🤥</span><span class="emoji">🤫</span><span class="emoji">🤭</span><span class="emoji">🧐</span><span class="emoji">🤓</span><span class="emoji">😈</span><span class="emoji">👿</span><span class="emoji">👹</span><span class="emoji">👺</span><span class="emoji">💀</span><span class="emoji">👻</span><span class="emoji">👽</span><span class="emoji">🤖</span><span class="emoji">💩</span> </span>
+            <span class="emojibox"><span class="emoji">😀</span><span class="emoji">😁</span><span class="emoji">😂</span><span class="emoji">🤣</span><span class="emoji">😃</span><span class="emoji">😄</span><span class="emoji">😅</span><span class="emoji">😆</span><span class="emoji">😉</span><span class="emoji">😊</span><span class="emoji">😋</span><span class="emoji">😎</span><span class="emoji">😍</span><span class="emoji">😘</span><span class="emoji">😗</span><span class="emoji">😙</span><span class="emoji">😚</span><span class="emoji">🙂</span><span class="emoji">🤗</span><span class="emoji">🤩</span><span class="emoji">🤔</span><span class="emoji">🤨</span><span class="emoji">😐</span><span class="emoji">😑</span><span class="emoji">😶</span><span class="emoji">🙄</span><span class="emoji">😏</span><span class="emoji">😣</span><span class="emoji">😥</span><span class="emoji">😮</span><span class="emoji">🤐</span><span class="emoji">😯</span><span class="emoji">😪</span><span class="emoji">😫</span><span class="emoji">😴</span><span class="emoji">😌</span><span class="emoji">😛</span><span class="emoji">😜</span><span class="emoji">😝</span><span class="emoji">🤤</span><span class="emoji">😒</span><span class="emoji">😓</span><span class="emoji">😔</span><span class="emoji">😕</span><span class="emoji">🙃</span><span class="emoji">🤑</span><span class="emoji">😲</span><span class="emoji">😞️</span><span class="emoji">🙁</span><span class="emoji">😖</span><span class="emoji">😟</span><span class="emoji">😤</span><span class="emoji">😢</span><span class="emoji">😭</span><span class="emoji">😦</span><span class="emoji">😧</span><span class="emoji">😨</span><span class="emoji">😩</span><span class="emoji">🤯</span><span class="emoji">😬</span><span class="emoji">😰</span><span class="emoji">😱</span><span class="emoji">😳</span><span class="emoji">🤪</span><span class="emoji">😵</span><span class="emoji">😡</span><span class="emoji">😠</span><span class="emoji">🤬</span><span class="emoji">😷</span><span class="emoji">🤒</span><span class="emoji">🤕</span><span class="emoji">🤢</span><span class="emoji">🤮</span><span class="emoji">🤧</span><span class="emoji">😇</span><span class="emoji">🤠</span><span class="emoji">🤡</span><span class="emoji">🤥</span><span class="emoji">🤫</span><span class="emoji">🤭</span><span class="emoji">🧐</span><span class="emoji">🤓</span><span class="emoji">😈</span><span class="emoji">👿</span><span class="emoji">👹</span><span class="emoji">👺</span><span class="emoji">💀</span><span class="emoji">👻</span><span class="emoji">👽</span><span class="emoji">🤖</span><span class="emoji">💩</span> </span>
         </span>
         <span class="questionbox-container">
             <span class="questionbox">Pregunta</span>
@@ -190,6 +127,7 @@
     var minutes;
     var ubication;
     var windowWidth;
+    var option;
 
     function updatePercents(post){
         object = $('#' + post).children('.answers').find('.answer');
@@ -212,6 +150,9 @@
     }
 
     function updateQuantities(lmnt){
+        //[option] almacena la opción seleccionada.
+        option = lmnt.parent().find('input').prop('id');
+        option = parseInt(option.substring(option.length-1, option.length));
         object = lmnt.parent().parent();
         postId = object.parent().parent().prop('id');
         if(!object.parent().hasClass('answered')){
@@ -231,8 +172,10 @@
         }
         sum = 0;
         updatePercents(postId);
+        //TODO: almacenar en la base de datos que el usuario actual votó en la opción [option] después de la llamada a updatePercents.
     }
 
+    //Función que se llama cada vez que se cambia de fecha, el separador tiene que salir arriba de todas las publicaciones que son de esa fecha.
     function generateDateSeparator(date){
         rows = '<span class="date-separator">'+date+'</span>';
         $('.posts').prepend(rows);
@@ -258,7 +201,7 @@
         rows += '</span>';
         rows += '</span>';
         if(top){
-            $('.search-people-result-container').preppend(rows);
+            $('.search-people-result-container').prepend(rows);
         }else{
             $('.search-people-result-container').append(rows);
         }
@@ -576,8 +519,8 @@
     }
 
     function confirmEvent(lmnt){
-        console.log(lmnt);
         object = lmnt.parent().parent();
+        postId = parseInt(object.prop('id'));
         if(object.hasClass('im-in')){
             object.removeClass('im-in');
             lmnt.html('Asistiré');
@@ -585,10 +528,10 @@
             object.addClass('im-in');
             lmnt.html('No Asistiré');
         }
+        //TODO: almacenar o eliminar en la base de datos la entrada que indica que el usuario actual asistirá al evento con id [postId].
     }
 
     function expandConfirmedPeople(lmnt){
-        
         if(!lmnt.hasClass('expanded')){
             lmnt.parent().parent().children('.confirmed-users').addClass('expanded');
             lmnt.addClass('expanded');
@@ -711,6 +654,7 @@
                         minutes = $('.minutes').val();
                         //TODO: Hay que verificar si la hora es AM o PM y si está entre 0 y 24.
                         generateEvent(postId, '', text, description, ubication, day + ' de ' + month, hour + ':' + minutes + ' PM', confirmedPeopleNames, confirmedPeopleImages, false, time, true, true);
+                        //TODO: almacenar en la base de datos después de la llamada a generateEvent.
                     }else if($('.btn-chat').hasClass('poll')){
                         //Esto sucede si es una votación
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
@@ -729,6 +673,7 @@
                             generatePoll(postId, '', text, options, quantities, -1, time, true, true);
                             $('.poll-option').val('');
                             $('.poll-option').removeClass('with-text');
+                            //TODO: almacenar en la base de datos después de la llamada a generatePoll.
                         }else{
                             //TODO: Debe aparecer una notificación si no ingresa dos opciones o más.
                             success = 0;
@@ -747,6 +692,7 @@
                         if(!object.hasClass('expanded')){
                             showQuestionAnswers(object);
                         }
+                        //TODO: almacenar en la base de datos la respuesta a la pregunta con id [postId].
                         scrollToMiddle($('#'+postId));
                     }else if(text.search('\\?')!=-1){
                         //Esto sucede si es una pregunta
@@ -756,12 +702,14 @@
                         answers = [];
                         users = [];
                         generateQuestion(postId, '', text, answers, users, time, true, true);
+                        //TODO: almacenar en la base de datos después de la llamada a generateQuestion.
                     }else{
                         //Esto sucede si es un mensaje simple.
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         postId = 321;
                         time = '12:21 PM';
                         generateMessage(postId, '', [text], time, true);
+                        //TODO: almacenar en la base de datos después de la llamada a generateMessage.
                     }
                     if(success == 1){
                         $(this).val('');
@@ -896,8 +844,12 @@
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
         
-        //EXAMPLE: Ejemplo para agregar un resultado a la búsqueda.
-        //generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, false);
+        //EXAMPLE: Ejemplos para agregar un resultado a la búsqueda.
+        generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, true);
+        generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face4.png', true, true);
+        generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face3.png', true, true);
+        generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face5.png', true, true);
+        generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', true, true);
         
         //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda.
         //noResultInSearch();
@@ -918,6 +870,7 @@
         //EXAMPLE: Ejemplo votación.
         generatePoll(76, 'Henry', '¿A dónde quieren salir en la noche?', ['Pollo Campero', 'Nais', 'La Estancia'], [3, 1, 1], 1, '12:35', false, false);
 
+        //EXAMPLE: Ejemplo separador.
         generateDateSeparator('Hoy');
 
         //Función que asigna todos los eventos de los elementos en el mural.
