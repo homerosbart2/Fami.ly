@@ -11,30 +11,48 @@
     z-index: 1999;
     transition: 0.2s ease;
     &.expanded{
-        top: 0;
         bottom: 100%;
+        margin-bottom: -55px;
+    }
+    &.hidden{
+        bottom: -55px;
     }
     .chatbox{
+        position: relative;
         height: 100%;
         width: 100%;
         max-width: 700px;
         display: flex;
-        justify-content: center;
+        flex-direction: row;
         align-items: center;
         margin: 0 15px;
         z-index: 2000;
         .chatbox-input{
             width: 100%;
+            display: flex;
             border-radius: 100px;
             padding-left: 15px;
-            padding-right: 15px;
+            padding-right: 35px;
             text-align: left;
             height: 35px;
             background: white;
             color: $main-contrast;
+            z-index: 2001;
+        }
+        .emoji-menu{
+            position: absolute;
+            right: 57px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+            z-index: 2002;
+            color: $main-contrast;
         }
     }
-    .questionbox-container{
+    .questionbox-container, .emojibox-container{
+        color: $main-contrast;
         position: absolute;
         height: 35px;
         width: 100%;
@@ -51,8 +69,49 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
         }
+
+        .emojibox{
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 25px;
+            overflow: scroll;
+            flex-wrap: wrap;
+            padding-left: 10px;
+            padding-right: 10px;
+            overflow-x:hidden;
+            .emoji{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .emojibox-container{
+        bottom: -65px;
+        height: 120px;
+        transition: 0.2s ease;
+        &.expanded-to-top{
+            bottom: 55px;
+            &.double{
+                bottom: 90px;
+            }
+        }
+        &.expanded-to-bottom{
+            bottom: -120px;
+            z-index: 2000;
+        }
+    }
+    .wall{
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        background: $main-contrast;
+        z-index: 1999;
     }
     .post-form-container{
         position: absolute;
@@ -61,8 +120,13 @@
         height: 100vh;
         width: 100%;
         background: $main-contrast;
-        top: 54px;
+        top: 0;
         color: white;
+        z-index: 1999;
+        .wide-central-container{
+            position: absolute;
+            bottom: 30px;
+        }
         .form-container{
             width: 100%;
             height: 100%;
@@ -76,6 +140,9 @@
                 align-items: center;
                 padding: 0 12px;
                 font-size: 22px;
+                i{
+                    cursor: pointer;
+                }
             }
             .inputs-container{
                 overflow: hidden;
@@ -92,11 +159,65 @@
                     transition: left 0.2s ease;
                     .form{
                         display: flex;
+                        flex-direction: column;
                         width: 100%;
                         height: 100%;
                         margin: 12px 12px;
+                        transition: 0.2s ease;
+                        &.pushed{
+                            margin-top: 132px;
+                        }
                         .form-title{
+                            margin-top: 54px;
                             text-transform: uppercase;
+                            display: flex;
+                            width: 100%;
+                            margin-bottom: 32px;
+                            align-items: center;
+                            &.small{
+                                margin-top: 0;
+                                font-size: 14px;
+                                margin-bottom: 0;
+                                text-transform: capitalize;
+                            }
+                            i{
+                                margin-right: 6px;
+                            }
+                        }
+                        .poll-option{
+                            text-align: left;
+                            padding-left: 12px;
+                            padding-right: 12px;
+                            height: 35px;
+                            margin: 6px 20px 22px 20px;
+                            &.with-text{
+                                background: white;
+                                color: $main-contrast;
+                            }
+                            &:active,
+                            &:focus{
+                                transform: scale(1.05);
+                                background: white;
+                                color: $main-contrast;
+                            }
+                        }
+                        .add-container{
+                            display: flex;
+                            width: 100%;
+                            justify-content: flex-end;
+                        }
+                        &.event{
+                            .event-ubication, .event-description{
+                                padding-left: 12px;
+                                padding-right: 12px;
+                                margin: 6px 20px 22px 20px;
+                                &:active,
+                                &:focus{
+                                    transform: scale(1.05);
+                                    background: white;
+                                    color: $main-contrast;
+                                }
+                            }
                         }
                     }
                 }
@@ -119,14 +240,27 @@
     display: flex;
     justify-content: center;
     .central-container{
+        position: relative;
         padding-top: 67px;
         padding-bottom: 67px;
         flex-direction: column;
+        overflow: auto;
+        .date-separator{
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            color: rgb(170, 170, 170);
+            font-size: 12px;
+            margin: 8px 0;
+            padding: 6px 0;
+        }
         .group-title{
             display: flex;
             width: 100%;
-            justify-content: flex-start;
+            justify-content: space-between;
             margin-bottom: 10px;
+            align-items: center;
             .information{
                 display: flex;
                 flex-direction: column;
@@ -135,6 +269,57 @@
                     font-size: 20px;
                     font-weight: 700;
                     text-transform: uppercase;
+                }
+            }
+            .options{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                .btn-login{
+                    color: $main;
+                    border: 1px solid $main;
+                    margin-left: 12px; 
+                    background: $light-main;
+                    &:hover{
+                        color: $light-main;
+                        background: $main;
+                        border: 1px solid $main;
+                    }
+                }
+                .filter-option{
+                    position: relative;
+                    display: flex;
+                    width: 30px;
+                    padding-top: 30px;
+                    margin-right: 3px;
+                    margin-left: 3px;
+                    border: 1px solid $light-main;
+                    border-radius: 40px;
+                    transition: 0.2s ease;
+                    color: $light-main;
+                    cursor: pointer;
+                    span{
+                        position: absolute;
+                        display: flex;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    &:hover{
+                        color: $main;
+                        border: 1px solid $main;
+                        background: $light-main;
+                    }
+                    &.selected{
+                        color: $light-main;
+                        background: $main;
+                        &:hover{
+                            color: $light-main;
+                        }
+                    }
                 }
             }
             .group-card{
@@ -156,8 +341,19 @@
             display: flex;
             width: 100%;
             margin: 4px 0;
+            &.search-result{
+                .post{
+                    border-left: 8px solid rgb(255, 224, 138);
+                }
+            }
             &.me{
                 justify-content: flex-end;
+                &.search-result{
+                    .post{
+                        border-left: none;
+                        border-right: 8px solid rgb(255, 224, 138);
+                    }
+                }
                 .post{
                     background: $light-main;
                     padding-top: 6px;
@@ -215,6 +411,10 @@
                 overflow: hidden;
                 display: flex;
                 flex-direction: column;
+                transition: 0.4s ease;
+                .text{
+                    word-wrap: break-word;
+                }
                 .time{
                     color: $gray;
                     font-size: 11px;
@@ -255,9 +455,9 @@
                         font-size: 8px;
                     }
                 }
-                .text{
+                .searchable{
                     .search-result{
-                        background: rgb(255, 255, 206);
+                        background: rgb(255, 255, 51);
                         color: $main-contrast;
                     }
                 }
@@ -266,6 +466,48 @@
                         .confirmed-users{
                             .user-container.me{
                                 display: flex;
+                                .user{
+                                    height: 20px;
+                                    width: 20px;
+                                    margin-left: 12px;
+                                }
+                            }
+                            &.expanded{
+                                .user-container{
+                                    .user{
+                                        width: 40px;
+                                        height: 40px;
+                                        margin-top: 3px;
+                                        margin-bottom: 3px;
+                                        margin-left: 1px;
+                                    }
+                                    &.expanded{
+                                        flex-direction: column-reverse;
+                                        .user-container{
+                                            .user{
+                                                width: 40px;
+                                                height: 40px;
+                                                margin-top: 3px;
+                                                margin-bottom: 3px;
+                                                margin-left: 1px;
+                                            }
+                                            .name{
+                                                display: flex;
+                                            }
+                                            i{
+                                                display: flex;
+                                            }
+                                        }
+                                    }
+                                    &.me{
+                                        .name{
+                                            display: flex;
+                                        }
+                                        i{
+                                            display: flex;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
@@ -298,6 +540,7 @@
                             padding: 0 6px;
                             background: white;
                             margin-bottom: 6px;
+                            word-wrap: break-word;
                         }
                     }
                     .confirmed-users{
@@ -306,6 +549,32 @@
                         flex-wrap: wrap;
                         z-index: 1;
                         justify-content: flex-end;
+                        &.expanded{
+                            flex-direction: column-reverse;
+                            .user-container{
+                                .user{
+                                    width: 40px;
+                                    height: 40px;
+                                    margin-top: 3px;
+                                    margin-bottom: 3px;
+                                    margin-left: 1px;
+                                }
+                                .name{
+                                    display: flex;
+                                }
+                                i{
+                                    display: flex;
+                                }
+                                &.me{
+                                    .name{
+                                        display: none;
+                                    }
+                                    i{
+                                        display:none;
+                                    }
+                                }
+                            }
+                        }
                         .user-container{
                             position: relative;
                             display: flex;
@@ -318,11 +587,12 @@
                                 margin: 1px 1px;
                             }
                             &.me{
-                                display:none;
+                                display: flex;
                                 .user{
-                                    width: 20px;
-                                    height: 20px;
-                                    margin-left: 12px;
+                                    transition: 0.2s ease;
+                                    width: 0;
+                                    height: 0;
+                                    margin-left: 0;
                                 }
                                 .name{
                                     font-size: 13px;
@@ -374,6 +644,7 @@
                             border-left: 6px solid white;
                             margin: 3px 0;
                             padding: 0 6px;
+                            word-wrap: break-word;
                             .user{
                                 font-weight: 700;
                             }
@@ -385,6 +656,11 @@
                     }
                 }
                 &.message{
+                    .text{
+                        .emoji{
+                            font-size: 24px;
+                        }
+                    }
                     .type::after{
                         content: "Mensaje";
                     }
@@ -408,6 +684,7 @@
                             border-radius: 3px;
                             margin: 3px 0;
                             padding: 0 6px;
+                            word-wrap: break-word;
                             &.selected{
                                 .radio-container{
                                     label{
@@ -485,12 +762,34 @@
                         font-weight: 700;
                         z-index: 1;
                         margin-left: 12px;
+                        i{
+                            transition: 0.2s ease;
+                        }
                         &.see-more{
                             z-index: 11;
+                        }
+                        &.expanded{
+                            i{
+                                transform: rotate(180deg);
+                            }
                         }
                     }
                 }
             }
         }
     }
+}
+
+.searchable{
+    word-wrap: break-word;
+}
+
+//Esconde las barras de scroll.
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
 }

@@ -47,7 +47,9 @@
                 <span class="search">
                     <input type="text" id="search-text" class="search-input" placeholder="Buscar">
                     <span class="icon">
-                        <i class="fas fa-search"></i>
+                        <i class="fas fa-chevron-left search-left"></i>
+                        <i class="fas fa-chevron-right search-right"></i>
+                        <i class="fas fa-search search-button"></i>
                     </span>
                 </span>
             </span>
@@ -58,6 +60,11 @@
 var wall = 0;
 var size;
 var object;
+var rows = '';
+var lastId = -1;
+var top;
+var searchPivot = 0;
+var emojiRegex = /^(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])$/s;
 
 //Funciones para activar y desactivar la máscara.
 function triggerMask(lmnt){
@@ -70,6 +77,34 @@ function deactivateMask(){
     $('.mask').prop('id', '');
 }
 
+function scrollToMiddle(id) {
+    var elem_position = $(id).offset().top;
+    var window_height = $(window).height();
+    var y = elem_position - window_height/4;
+    window.scroll({
+        top: y, 
+        left: 0, 
+        behavior: 'smooth' 
+    });
+}
+
+//Función para enseñar la barra de búsqueda, si se manda [mask = true] se activa la máscara para descativar con click, si no, no se activa.
+function showMobileSearchBar(mask){
+    $('.searchbox').addClass('expanded');
+    if(mask){
+        triggerMask('searchbox');
+    } 
+}
+
+//Función opuesta de showMobileSearchBar.
+function hideMobileSearchBar(mask){
+    object = $('.searchbox');
+    object.removeClass('expanded');
+    object.children('.search').children('.search-input').val('');
+    if(mask){
+        deactivateMask();
+    }
+}
 
 $(document).ready(function(){
     var text;
@@ -78,13 +113,46 @@ $(document).ready(function(){
     var searchIndex;
 
     function removeSearchResult(){
+        $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
         size = searchArray.length;
         for(i = 0; i < size; i++){
-            object = $('#' + searchArray.pop()).children('.text');
-            text2 = object.text();
-            object.html(text2);
+            $('#' + searchArray.pop()).find('.searchable').each(function(){
+                text2 = $(this).text();
+                $(this).html(text2);
+            });
         }
     }
+
+    $('.search-right').click(function(){
+        $('.searchbox').find('#search-text').focus();
+        if(searchArray.length > 0){
+            $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
+            searchPivot++;
+            if(searchPivot == searchArray.length){
+                searchPivot = 0;
+            }
+            scrollToMiddle($('#'+searchArray[searchPivot]));
+            $('#'+searchArray[searchPivot]).parent().addClass('search-result');
+        }
+    });
+
+    $('.search-left').click(function(){
+        $('.searchbox').find('#search-text').focus();
+        if(searchArray.length > 0){
+            $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
+            searchPivot--;
+            if(searchPivot == -1){
+                searchPivot = searchArray.length - 1;
+            }
+            scrollToMiddle($('#'+searchArray[searchPivot]));
+            $('#'+searchArray[searchPivot]).parent().addClass('search-result');
+        }
+    });
+
+    $('.search-button').click(function(){
+        var e = $.Event("keyup", {keyCode: 13});
+        $('.search-input').trigger(e);
+    });
 
     //Función que se llama al dar click en la parte del usuario y su foto.
     $('.nav-user').click(function(){
@@ -95,25 +163,25 @@ $(document).ready(function(){
     });
     //Función que se llama al presionar el botón de búsqueda y muestra la barra en modo móvil.
     $('#search').click(function(){
-        $('.searchbox').css('z-index','2001');
-        $('.searchbox').css('opacity','1');
-        triggerMask('searchbox');
+        showMobileSearchBar(true);
+        //Autofocus al searchbox, pero no me gustó.
+        //object.children('.search').children('.search-input').focus();
     });
     //Función utilizada para desactivar la máscara y los objetos flotantes.
     $('.mask').click(function(){
         if($(this).prop('id') == 'searchbox'){
-            $('.searchbox').css('z-index','1998');
-            $('.searchbox').css('opacity','0');
-            $('.searchbox').children('.search').children('.search-input').val('');
-            deactivateMask();
+            hideMobileSearchBar(true);
             if(wall == 1){
                 removeSearchResult(searchArray);
             }
         }else if($(this).prop('id') == 'questionbox'){
             $('.questionbox-container').css('bottom', '20px');
+            $('.questionbox-container').css('color','#000B2B');
             $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');
             $('.chatbox-input').removeAttr('id');
             deactivateMask();
+            object = $('.emojibox-container');
+            object.removeClass('double');
         }
     });
 
@@ -130,21 +198,32 @@ $(document).ready(function(){
     });
     //Función que se llama al presionar enter en la barra de búsqueda y obtiene el texto en la variable [text].
     $('.search-input').keyup(function(e){
+        lastId = -1;
         if(e.keyCode == 13)
         { 
             text = $(this).val();
             //Si wall == 1 entonces estamos en el mural de algún grupo.
-            if(wall == 1){
+            if(wall == 1 && !$('.search-people-container').hasClass('expanded')){
                 removeSearchResult(searchArray);
                 $('.post').each(function(){
-                    object = $(this).children('.text');
-                    text2 = object.text();
-                    searchIndex = text2.search(text);
-                    if(searchIndex != -1){
-                        searchArray.push($(this).prop('id'));
-                        object.html(text2.substring(0,searchIndex) + '<span class="search-result">' + text + '</span>' + text2.substring(searchIndex + text.length,text2.length));
-                    }
+                    object = $(this);
+                    object.find('.searchable').each(function(){
+                        text2 = $(this).text();
+                        searchIndex = text2.search(new RegExp(text, "i"));
+                        if(searchIndex != -1){
+                            if(lastId != object.prop('id')){
+                                searchArray.push(object.prop('id'));
+                                lastId = object.prop('id');
+                            }
+                            $(this).html(text2.substring(0,searchIndex) + '<span class="search-result">' + text2.substring(searchIndex,searchIndex + text.length) + '</span>' + text2.substring(searchIndex + text.length,text2.length));
+                        }
+                    });
                 });
+                searchPivot = 0;
+                if(searchArray.length > 0){
+                    scrollToMiddle($('#'+searchArray[0]));
+                    $('#'+searchArray[0]).parent().addClass('search-result');
+                }
             }else{
                 console.log(text);
             }
@@ -158,6 +237,7 @@ $(document).ready(function(){
             object.addClass('expanded');
             $(this).addClass('expanded');
             $('.main-nav').addClass('notification-expanded');
+            $('body').addClass('disableScrollBar');
         }else{
             /*object.removeClass('expanded');
             $(this).removeClass('expanded');
@@ -191,7 +271,7 @@ $(document).ready(function(){
         
         // If they scrolled down and are past the navbar, add class .nav-up.
         // This is necessary so you never see what is "behind" the navbar.
-        if(!$('.main-nav').hasClass('post-form-expanded')){
+        if(!$('.main-nav').hasClass('post-form-expanded') & ($('.mask').prop('id') != 'searchbox')){
             if (st > lastScrollTop && st > navbarHeight){
                 // Scroll Down
                 $('.the-line').css('top', '-55px');
