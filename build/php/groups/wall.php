@@ -207,6 +207,12 @@
         }
     }
 
+    //Función que se debe de llamar antes de empezar a llenar con resultados
+    function clearSearch(){
+        rows = '';
+        $('.search-people-result-container').html(rows);
+    }
+
     //Función a llamar cuando no se encontró resultado en una búsqueda.
     function noResultInSearch(){
         rows = '<span class="no-result"><i class="fas fa-search"></i> No hay resultado</span>';
