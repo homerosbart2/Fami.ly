@@ -47,9 +47,19 @@
                 <span class="search">
                     <input type="text" id="search-text" class="search-input" placeholder="Buscar">
                     <span class="icon">
-                        <i class="fas fa-chevron-left search-left"></i>
-                        <i class="fas fa-chevron-right search-right"></i>
-                        <i class="fas fa-search search-button"></i>
+                        <span class="search-left"><i class="fas fa-chevron-left"></i></span>
+                        <span class="search-right"><i class="fas fa-chevron-right"></i></span>
+                        <span class="search-button"><i class="fas fa-search"></i></span>
+                    </span>
+                </span>
+            </span>
+            
+            <span class="search-people-container">
+                <span class="search-people">
+                    <span class="search-people-result-container">
+                    </span>
+                    <span class="wide-central-container">
+                        <a class="btn-exit-popup hide-search-people"><i class="far fa-times-circle"></i></a>
                     </span>
                 </span>
             </span>
@@ -64,6 +74,10 @@ var rows = '';
 var lastId = -1;
 var top;
 var searchPivot = 0;
+var text;
+var text2;
+var searchArray = [];
+var searchIndex;
 var emojiRegex = /^(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])$/s;
 
 //Funciones para activar y desactivar la máscara.
@@ -91,9 +105,13 @@ function scrollToMiddle(id) {
 //Función para enseñar la barra de búsqueda, si se manda [mask = true] se activa la máscara para descativar con click, si no, no se activa.
 function showMobileSearchBar(mask){
     $('.searchbox').addClass('expanded');
-    if(mask){
+    if(wall != 1){
+        $('.search-people-container').addClass('expanded');
+        $('body').addClass('disableScrollBar');
+    }
+    if(mask && wall == 1){
         triggerMask('searchbox');
-    } 
+    }
 }
 
 //Función opuesta de showMobileSearchBar.
@@ -106,22 +124,68 @@ function hideMobileSearchBar(mask){
     }
 }
 
-$(document).ready(function(){
-    var text;
-    var text2;
-    var searchArray = [];
-    var searchIndex;
-
-    function removeSearchResult(){
-        $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
-        size = searchArray.length;
-        for(i = 0; i < size; i++){
-            $('#' + searchArray.pop()).find('.searchable').each(function(){
-                text2 = $(this).text();
-                $(this).html(text2);
-            });
-        }
+function removeSearchResult(){
+    $('#'+searchArray[searchPivot]).parent().removeClass('search-result');
+    size = searchArray.length;
+    for(i = 0; i < size; i++){
+        $('#' + searchArray.pop()).find('.searchable').each(function(){
+            text2 = $(this).text();
+            $(this).html(text2);
+        }); 
     }
+}
+
+//Función para generar un resultado de búsqueda, recibe [user] que es el nombre completo del usuario, [country] el país del usuario, [userImage] que es la ruta a la imagen del usuario e [invite] que es un booleano para saber si es un resultado de búsqueda para invitar a un grupo. Agrega los resultados dependiendo de [top], si es true los agrega al principio, si es false los agrega de último.
+function generatePeopleResult(user, country, userImage, invite, top){
+    rows = '';
+    rows += '<span class="people-result-container">';
+    rows += '<img class="card-bg" src="'+userImage+'">';
+    rows += '<span class="user-card">';
+    rows += '<img src="'+userImage+'">';
+    rows += '</span>';
+    rows += '<span class="information">';
+    rows += '<span class="user-name">'+user+'</span>';
+    rows += '<span class="user-country"><i class="fas fa-globe-americas"></i> '+country+'</span>';
+    rows += '</span>';
+    rows += '<span class="options">';
+    rows += '<a class="btn-login profile">Perfil</a>';
+    if(invite){
+        rows += '<a class="btn-login invite">Invitar</a>';
+    }
+    rows += '</span>';
+    rows += '</span>';
+    if(top){
+        $('.search-people-result-container').prepend(rows);
+    }else{
+        $('.search-people-result-container').append(rows);
+    }
+}
+
+//Función que se debe de llamar antes de empezar a llenar con resultados
+function clearPeopleSearch(){
+    rows = '';
+    $('.search-people-result-container').html(rows);
+}
+
+//Función a llamar cuando no se encontró resultado en una búsqueda.
+function noResultInSearch(){
+    rows = '<span class="no-result"><i class="fas fa-search"></i> No hay resultado</span>';
+    $('.search-people-result-container').html(rows);
+}
+
+$(document).ready(function(){
+
+    noResultInSearch();
+
+    $('.hide-search-people').click(function(){
+        $('.search-people-container').removeClass('expanded');
+        $('.chatbox-container').removeClass('hidden');
+        $('body').removeClass('disableScrollBar');
+        windowWidth = $(window).width();
+        if($('.searchbox').hasClass('expanded')){
+            hideMobileSearchBar(false);
+        }
+    });
 
     $('.search-right').click(function(){
         $('.searchbox').find('#search-text').focus();
@@ -150,6 +214,7 @@ $(document).ready(function(){
     });
 
     $('.search-button').click(function(){
+        $('.searchbox').find('#search-text').focus();
         var e = $.Event("keyup", {keyCode: 13});
         $('.search-input').trigger(e);
     });
@@ -225,7 +290,14 @@ $(document).ready(function(){
                     $('#'+searchArray[0]).parent().addClass('search-result');
                 }
             }else{
-                console.log(text);
+                //Esto sucede al buscar en otro lado que no sea wall.
+                //EXAMPLE: ejemplo para agregar resultados de una búsqueda en otro lado que no sea wall.
+                clearPeopleSearch();
+                generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', false, true);
+                generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face4.png', false, true);
+                generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face3.png', false, true);
+                generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face5.png', false, true);
+                generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', false, true);
             }
             $(this).trigger("enterKey");
         }

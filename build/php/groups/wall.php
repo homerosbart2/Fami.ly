@@ -24,15 +24,6 @@
             <span class="posts">
             </span>
         </span>
-        <span class="search-people-container">
-            <span class="search-people">
-                <span class="search-people-result-container">
-                </span>
-                <span class="wide-central-container">
-                    <a class="btn-exit-popup hide-search-people"><i class="far fa-times-circle"></i></a>
-                </span>
-            </span>
-        </span>
     </span>
     <span class="chatbox-container">
         <span class="chatbox">
@@ -179,44 +170,6 @@
     function generateDateSeparator(date){
         rows = '<span class="date-separator">'+date+'</span>';
         $('.posts').prepend(rows);
-    }
-
-    //Función para generar un resultado de búsqueda, recibe [user] que es el nombre completo del usuario, [country] el país del usuario, [userImage] que es la ruta a la imagen del usuario e [invite] que es un booleano para saber si es un resultado de búsqueda para invitar a un grupo. Agrega los resultados dependiendo de [top], si es true los agrega al principio, si es false los agrega de último.
-    function generatePeopleResult(user, country, userImage, invite, top){
-        rows = '';
-        rows += '<span class="people-result-container">';
-        rows += '<img class="card-bg" src="'+userImage+'">';
-        rows += '<span class="user-card">';
-        rows += '<img src="'+userImage+'">';
-        rows += '</span>';
-        rows += '<span class="information">';
-        rows += '<span class="user-name">'+user+'</span>';
-        rows += '<span class="user-country"><i class="fas fa-globe-americas"></i> '+country+'</span>';
-        rows += '</span>';
-        rows += '<span class="options">';
-        rows += '<a class="btn-login profile">Perfil</a>';
-        if(invite){
-            rows += '<a class="btn-login invite">Invitar</a>';
-        }
-        rows += '</span>';
-        rows += '</span>';
-        if(top){
-            $('.search-people-result-container').prepend(rows);
-        }else{
-            $('.search-people-result-container').append(rows);
-        }
-    }
-
-    //Función que se debe de llamar antes de empezar a llenar con resultados
-    function clearSearch(){
-        rows = '';
-        $('.search-people-result-container').html(rows);
-    }
-
-    //Función a llamar cuando no se encontró resultado en una búsqueda.
-    function noResultInSearch(){
-        rows = '<span class="no-result"><i class="fas fa-search"></i> No hay resultado</span>';
-        $('.search-people-result-container').html(rows);
     }
 
     //Función para generar un evento nuevo, la cual recibe el [id] de la publicación, el [user] al que pertenece la publicación, [text] que es el título del evento, la [description] del evento, la [ubication], [eventDate] que es la fecha en formato [12 de agosto], [eventTime] que es la hora del evento en formato [9:30 AM], [confirmedPeopleNames] que es el arreglo de los nombres de los usuarios que confirmaron, [confirmedPeopleImages] que es el arreglo con las rutas de las imágenes de los usuarios en el mismo orden que el arreglo anterior, [imIn] booleano que indica si el usuario actual confirmó el evento (Este no se agrega a los arreglos mencionados anteriormente), [time] que es la hora de creación, [me] booleano que indica si el evento pertenece al usuario actual y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
@@ -557,16 +510,6 @@
                 showMobileSearchBar(false);
             }
         });
-
-        $('.hide-search-people').click(function(){
-            $('.search-people-container').removeClass('expanded');
-            $('.chatbox-container').removeClass('hidden');
-            $('body').removeClass('disableScrollBar');
-            windowWidth = $(window).width();
-            if($('.searchbox').hasClass('expanded')){
-                hideMobileSearchBar(false);
-            }
-        })
         
         //Evento para filtrar las publicaciones por tipo.
         $('.group-title').find('.filter-option').click(function(){
@@ -851,14 +794,15 @@
         wall = 1;
         
         //EXAMPLE: Ejemplos para agregar un resultado a la búsqueda.
+        clearPeopleSearch();
         generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, true);
         generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face4.png', true, true);
         generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face3.png', true, true);
         generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face5.png', true, true);
         generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', true, true);
         
-        //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda.
-        //noResultInSearch();
+        //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda (Esta instrucción elimina los resultados agregados del ejemplo de arriba).
+        noResultInSearch();
 
         //EXAMPLE: Ejemplos para cada tipo de publicación:
         //EXAMPLE: Ejemplo mensaje simple.
