@@ -671,24 +671,32 @@ nav {
     .searchbox .search .icon {
       font-size: 16px;
       position: absolute;
-      top: 15px;
+      top: 0;
       right: 20px;
-      transition: 0.2s ease; }
-      .searchbox .search .icon i {
-        margin-left: 24px; }
-    .searchbox .search .search-input:active, .searchbox .search .search-input:focus {
-      height: 51px;
-      width: 100%;
-      margin: 0 0;
-      border-radius: 0; }
-      .searchbox .search .search-input:active + .icon, .searchbox .search .search-input:focus + .icon {
-        right: 13px; }
+      transition: 0.2s ease;
+      display: flex;
+      height: 100%; }
+      .searchbox .search .icon span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 40px; }
+    .searchbox .search .search-input {
+      box-sizing: border-box; }
+      .searchbox .search .search-input:active, .searchbox .search .search-input:focus {
+        height: 55px;
+        width: 100%;
+        margin: 0 0;
+        border-radius: 0; }
+        .searchbox .search .search-input:active + .icon, .searchbox .search .search-input:focus + .icon {
+          right: 13px; }
 
 .in-searchbox .search, .searchbox .search {
   position: relative; }
   .in-searchbox .search .search-input, .searchbox .search .search-input {
     margin: 0 7px;
-    height: 37px;
+    height: 41px;
     width: 98%;
     background: white;
     color: #000B2B;
@@ -713,7 +721,7 @@ nav {
       padding-right: 32px; }
     .in-searchbox .search .icon {
       position: absolute;
-      top: 9px;
+      top: 11px;
       right: 16px; }
 
 .copyright-footer {
