@@ -11,8 +11,11 @@
     z-index: 1999;
     transition: 0.2s ease;
     &.expanded{
-        top: 0;
         bottom: 100%;
+        margin-bottom: -55px;
+    }
+    &.hidden{
+        bottom: -55px;
     }
     .chatbox{
         position: relative;
@@ -45,6 +48,7 @@
             align-items: center;
             font-size: 20px;
             z-index: 2002;
+            color: $main-contrast;
         }
     }
     .questionbox-container, .emojibox-container{
@@ -90,6 +94,9 @@
         transition: 0.2s ease;
         &.expanded-to-top{
             bottom: 55px;
+            &.double{
+                bottom: 90px;
+            }
         }
         &.expanded-to-bottom{
             bottom: -120px;
@@ -119,20 +126,6 @@
         .wide-central-container{
             position: absolute;
             bottom: 30px;
-            .btn-login{
-                border-radius: 60px;
-                padding: 7px 7px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 22px;
-                border: none;
-                &:hover,
-                &:active,
-                &:focus{
-                    transform: scale(1.05);
-                }
-            }
         }
         .form-container{
             width: 100%;
@@ -170,6 +163,10 @@
                         width: 100%;
                         height: 100%;
                         margin: 12px 12px;
+                        transition: 0.2s ease;
+                        &.pushed{
+                            margin-top: 132px;
+                        }
                         .form-title{
                             margin-top: 54px;
                             text-transform: uppercase;
@@ -243,6 +240,7 @@
     display: flex;
     justify-content: center;
     .central-container{
+        position: relative;
         padding-top: 67px;
         padding-bottom: 67px;
         flex-direction: column;
@@ -260,8 +258,9 @@
         .group-title{
             display: flex;
             width: 100%;
-            justify-content: flex-start;
+            justify-content: space-between;
             margin-bottom: 10px;
+            align-items: center;
             .information{
                 display: flex;
                 flex-direction: column;
@@ -270,6 +269,57 @@
                     font-size: 20px;
                     font-weight: 700;
                     text-transform: uppercase;
+                }
+            }
+            .options{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                .btn-login{
+                    color: $main;
+                    border: 1px solid $main;
+                    margin-left: 12px; 
+                    background: $light-main;
+                    &:hover{
+                        color: $light-main;
+                        background: $main;
+                        border: 1px solid $main;
+                    }
+                }
+                .filter-option{
+                    position: relative;
+                    display: flex;
+                    width: 30px;
+                    padding-top: 30px;
+                    margin-right: 3px;
+                    margin-left: 3px;
+                    border: 1px solid $light-main;
+                    border-radius: 40px;
+                    transition: 0.2s ease;
+                    color: $light-main;
+                    cursor: pointer;
+                    span{
+                        position: absolute;
+                        display: flex;
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    &:hover{
+                        color: $main;
+                        border: 1px solid $main;
+                        background: $light-main;
+                    }
+                    &.selected{
+                        color: $light-main;
+                        background: $main;
+                        &:hover{
+                            color: $light-main;
+                        }
+                    }
                 }
             }
             .group-card{
@@ -490,6 +540,7 @@
                             padding: 0 6px;
                             background: white;
                             margin-bottom: 6px;
+                            word-wrap: break-word;
                         }
                     }
                     .confirmed-users{
@@ -593,6 +644,7 @@
                             border-left: 6px solid white;
                             margin: 3px 0;
                             padding: 0 6px;
+                            word-wrap: break-word;
                             .user{
                                 font-weight: 700;
                             }
@@ -604,6 +656,11 @@
                     }
                 }
                 &.message{
+                    .text{
+                        .emoji{
+                            font-size: 24px;
+                        }
+                    }
                     .type::after{
                         content: "Mensaje";
                     }
@@ -627,6 +684,7 @@
                             border-radius: 3px;
                             margin: 3px 0;
                             padding: 0 6px;
+                            word-wrap: break-word;
                             &.selected{
                                 .radio-container{
                                     label{
@@ -720,6 +778,10 @@
             }
         }
     }
+}
+
+.searchable{
+    word-wrap: break-word;
 }
 
 //Esconde las barras de scroll.

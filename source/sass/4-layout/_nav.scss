@@ -23,7 +23,7 @@ nav{
     justify-content: space-between;
     padding: 0 0;
     background: $main-contrast;
-    box-shadow:  0 7px 10px 0 rgba(0,0,0,0.15); 
+    //box-shadow:  0 7px 15px 0 rgba(0,0,0,0.15); 
     z-index: 2000;
     transition: 0.3s ease;
     &.notification-expanded{
@@ -216,28 +216,38 @@ nav{
     justify-content: center;
     z-index: 1998;
     transition: all 0.3s ease;
+    &.expanded{
+        z-index: 2001;
+        opacity: 1;
+    }
     .search{
         width: 100%;
         height: 100%;
         display: flex;
         background: $main-contrast;
-        box-shadow:  0 7px 10px 0 rgba(0,0,0,0.15); 
         justify-content: center;
         align-items: center;
         .icon{
             font-size: 16px;
             position: absolute;
-            top: 15px;
+            top: 0;
             right: 20px;
             transition: 0.2s ease;
-            i{
-                margin-left: 24px;
+            display: flex;
+            height: 100%;
+            span{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                width: 40px;
             }
         }
         .search-input{
+            box-sizing: border-box;
             &:active,
             &:focus{
-                height: 52.4px;
+                height: 55px;
                 width: 100%;
                 margin: 0 0;
                 border-radius: 0;
@@ -254,7 +264,7 @@ nav{
         position: relative;
         .search-input{
             margin: 0 7px;
-            height: 37px;
+            height: 41px;
             width: 98%;
             background: white;
             color: $main-contrast;
@@ -284,7 +294,7 @@ nav{
         }
         .icon{
             position: absolute;
-            top: 9px;
+            top: 11px;
             right: 16px;
         }
     }
