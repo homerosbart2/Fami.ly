@@ -14,15 +14,15 @@
     }
     .central-container{
         position: relative;
-        min-height: 100vh;
+        height: 100%;
         margin: 0 0;
         .notifications-container{
             width: 100%;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
-            height: 100px;
-            margin: 0 15px;
+            overflow-y: scroll;
+            margin: 0 15px 15px 15px;
             margin-top: 70px;
             .title{
                 width: 100%;
@@ -33,11 +33,16 @@
             .group-notification{
                 display: flex;
                 flex-direction: column;
-                width: 45%;
+                flex-shrink: 0;
+                width: 47%;
+                min-width: 250px;
                 border-top: 6px solid white;
                 border-radius: 3px;
-                margin-bottom: 18px;
+                margin: 6px 6px 18px 6px;
                 overflow: hidden;
+                @include media-max(570px){
+                    width: 100%;
+                }
                 .group-name{
                     width: 100%;
                     padding: 6px 6px;

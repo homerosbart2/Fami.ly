@@ -563,13 +563,13 @@ nav {
       display: flex;
       align-items: center;
       font-size: 20px; }
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 675px) {
       .main-nav .options-division .in-searchbox {
         display: none; } }
-    @media only screen and (max-width: 780px) {
+    @media only screen and (max-width: 835px) {
       .main-nav .options-division .in-searchbox {
         margin-left: 10px; } }
-    @media only screen and (max-width: 780px) {
+    @media only screen and (max-width: 835px) {
       .main-nav .options-division .nav-user {
         display: none; } }
   .main-nav .nav-option {
@@ -595,7 +595,7 @@ nav {
         background: white;
         color: #000B2B;
         transform: translateX(-14px); }
-    @media only screen and (min-width: 601px) {
+    @media only screen and (min-width: 675px) {
       .main-nav .nav-option.search-option {
         display: none; } }
   .main-nav .nav-user {
@@ -671,50 +671,75 @@ nav {
     .searchbox .search .icon {
       font-size: 16px;
       position: absolute;
-      top: 15px;
+      top: 0;
       right: 20px;
-      transition: 0.2s ease; }
-      .searchbox .search .icon i {
-        margin-left: 24px; }
-    .searchbox .search .search-input:active, .searchbox .search .search-input:focus {
-      height: 51px;
-      width: 100%;
-      margin: 0 0;
-      border-radius: 0; }
-      .searchbox .search .search-input:active + .icon, .searchbox .search .search-input:focus + .icon {
-        right: 13px; }
+      transition: 0.2s ease;
+      display: flex;
+      height: 100%; }
+      .searchbox .search .icon span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 40px; }
+    .searchbox .search .search-input {
+      box-sizing: border-box; }
+      .searchbox .search .search-input:active, .searchbox .search .search-input:focus {
+        height: 55px;
+        width: 100%;
+        margin: 0 0;
+        border-radius: 0; }
+        .searchbox .search .search-input:active + .icon, .searchbox .search .search-input:focus + .icon {
+          right: 13px; }
 
 .in-searchbox .search, .searchbox .search {
   position: relative; }
   .in-searchbox .search .search-input, .searchbox .search .search-input {
     margin: 0 7px;
-    height: 37px;
+    height: 41px;
     width: 98%;
     background: white;
     color: #000B2B;
     padding-right: 120px;
     padding-left: 10px;
-    text-align: left; }
+    text-align: left;
+    box-sizing: border-box; }
     @media only screen and (max-width: 430px) {
       .in-searchbox .search .search-input, .searchbox .search .search-input {
         width: 96%; } }
 
-.in-searchbox {
-  width: 200px; }
-  .in-searchbox .search {
+.in-searchbox .search {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden; }
+  .in-searchbox .search .search-input {
+    color: #000B2B;
+    border-radius: 0;
+    width: 165px;
+    height: 38px;
+    padding-right: 32px; }
+    .in-searchbox .search .search-input.expanded {
+      padding-right: 115px;
+      width: 248px; }
+  .in-searchbox .search .icon {
+    position: absolute;
+    top: 0;
+    right: -72px;
+    transition: 0.2s ease;
     display: flex;
-    justify-content: flex-end;
-    align-items: center; }
-    .in-searchbox .search .search-input {
-      color: #000B2B;
-      border-radius: 0;
-      width: 100%;
-      height: 36px;
-      padding-right: 32px; }
-    .in-searchbox .search .icon {
-      position: absolute;
-      top: 9px;
-      right: 16px; }
+    height: 100%;
+    color: #000B2B;
+    transition: 0.2s ease; }
+    .in-searchbox .search .icon.expanded {
+      right: 8px; }
+    .in-searchbox .search .icon span {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      width: 40px; }
 
 .copyright-footer {
   display: flex;
@@ -886,7 +911,6 @@ body.disableScrollBar {
 .search-people-container {
   position: absolute;
   top: -100%;
-  max-width: 900px;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -1469,7 +1493,8 @@ body.disableScrollBar {
           background: #ffebe7;
           padding-top: 6px;
           margin-right: 0;
-          margin-left: 20px; }
+          margin-left: 20px;
+          border-right: 0 solid #ffe08a; }
           .wall .central-container .post-container.me .post.poll .text {
             margin-top: 6px; }
           .wall .central-container .post-container.me .post.poll .answers .answer .percent-container {
@@ -1497,7 +1522,8 @@ body.disableScrollBar {
         overflow: hidden;
         display: flex;
         flex-direction: column;
-        transition: 0.4s ease; }
+        transition: 0.3s ease;
+        border-left: 0 solid #ffe08a; }
         .wall .central-container .post-container .post .text {
           word-wrap: break-word; }
         .wall .central-container .post-container .post .time {
@@ -1794,15 +1820,15 @@ body.disableScrollBar {
     top: 0; }
   .notification-wall-container .central-container {
     position: relative;
-    min-height: 100vh;
+    height: 100%;
     margin: 0 0; }
     .notification-wall-container .central-container .notifications-container {
       width: 100%;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-around;
-      height: 100px;
-      margin: 0 15px;
+      overflow-y: scroll;
+      margin: 0 15px 15px 15px;
       margin-top: 70px; }
       .notification-wall-container .central-container .notifications-container .title {
         width: 100%;
@@ -1812,11 +1838,16 @@ body.disableScrollBar {
       .notification-wall-container .central-container .notifications-container .group-notification {
         display: flex;
         flex-direction: column;
-        width: 45%;
+        flex-shrink: 0;
+        width: 47%;
+        min-width: 250px;
         border-top: 6px solid white;
         border-radius: 3px;
-        margin-bottom: 18px;
+        margin: 6px 6px 18px 6px;
         overflow: hidden; }
+        @media only screen and (max-width: 570px) {
+          .notification-wall-container .central-container .notifications-container .group-notification {
+            width: 100%; } }
         .notification-wall-container .central-container .notifications-container .group-notification .group-name {
           width: 100%;
           padding: 6px 6px;
