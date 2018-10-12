@@ -812,23 +812,28 @@
                     }else if(item.tipo == "Q"){
                         //ENCUESTAS
                     }else if(item.tipo == "M"){
-                        //MENSAJES
-                        $.ajax({
-                            url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                            type: "POST",
-                            success: function(r){
-                                obj = JSON.parse(r);
-                                mensaje_id = obj[0].mensaje_id;
-                                informacion = obj[0].informacion
-                                var h = new Date(item.fecha_creacion).getHours();
-                                var m = new Date(item.fecha_creacion).getMinutes();
-                                h = (h<10) ? '0' + h : h;
-                                m = (m<10) ? '0' + m : m;
-                                type = false;
-                                if(usuarioId == item.usuario_creador_id) type = true;
-                                generateMessage(mensaje_id, '', [informacion],h+":"+m, type);
-                            }
-                        });                  
+                        //MENSAJES 
+                        var dfd = jQuery.Deferred();
+                        h = new Date(item.fecha_creacion).getHours();
+                        m = new Date(item.fecha_creacion).getMinutes();
+                        h = (h<10) ? '0' + h : h;
+                        m = (m<10) ? '0' + m : m;
+                        horario = h+":"+m;
+                        alert("HORARIO " + horario);                        
+                        $.when($.ajax({
+                                url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
+                                type: "POST"
+                            })).done(function(r){
+                                // success: function(r){
+                                    alert(horario);
+                                    obj = JSON.parse(r);
+                                    mensaje_id = obj[0].mensaje_id;
+                                    informacion = obj[0].informacion;
+                                    type = false;
+                                    if(usuarioId == item.usuario_creador_id) type = true;
+                                    generateMessage(mensaje_id, '', [informacion],horario, type);
+                                // }
+                        });             
                     }
                 }                
             }
