@@ -4,6 +4,32 @@
     <title>Inicio</title>
 <?php
     include '../modules/nav.php';
+    try {
+        //si o si necesitamos que venga el parametro
+        $id = $_GET["id"];
+        if($id > 0){
+            //verifico si el elemento se encuentra en el arreglo
+            $group_array = json_decode($_SESSION['grupos']); 
+            if (!(in_array($id, $group_array))) {
+                echo "<script>";
+                echo "$(location).attr('href', 'home.php')";
+                echo "</script>";
+            }            
+            echo "<script>";
+            echo "var groupId=".$id;
+            echo "\n";
+            echo "var usuarioId=".$usuario_actual_id;
+            echo "</script>";
+        }else{
+            echo "<script>";
+            echo "$(location).attr('href', 'home.php')";
+            echo "</script>";            
+        }
+    }catch(Exception $e) {
+        echo "<script>";
+        echo "$(location).attr('href', 'home.php')";
+        echo "</script>";
+    }
 ?>
 <body>
     <span class="wall">
@@ -261,7 +287,7 @@
     </span>
     <span class="chatbox-container">
         <span class="chatbox">
-            <input type="text" class="chatbox-input" id="titulo" placeholder="Escribe un mensaje">
+            <input type="text" class="chatbox-input" placeholder="Escribe un mensaje">
             <a class="btn-chat"><i class="fas fa-bars"></i></a>
             <span class="emoji-menu"><i class="far fa-grin"></i></span>
         </span>
@@ -304,10 +330,13 @@
                             <span class="form-title">
                                 <i class="fas fa-poll-h"></i> Votación
                             </span>
+                            <a class="btn-cancel" id="add-poll-option"><i class="fas fa-plus"></i> AÑADIR</a>
                             <input type="text" class="poll-option" id="poll-option-1" placeholder="Opción 1">
                             <input type="text" class="poll-option" id="poll-option-2" placeholder="Opción 2">
                             <input type="text" class="poll-option" id="poll-option-3" placeholder="Opción 3">
                             <input type="text" class="poll-option" id="poll-option-4" placeholder="Opción 4">
+                            <div id="options-poll"></div>
+
                         </span>
                     </span>
                     <span class="inputs-right">
@@ -330,7 +359,18 @@
 </body>
 </html>
 
+<style>
+.ui-pnotify{
+    /*CSS PARA PNOTIFY EDITADO*/
+    top:0px;
+    right:66px;
+    left:0px;
+}
+</style>
+
 <script>
+    //objeto que guarda las publicaciones   
+    var postsObject = {};
     var question;
     var postId;
     var quantity;
@@ -711,6 +751,7 @@
     }
 
     function confirmEvent(lmnt){
+        console.log(lmnt);
         object = lmnt.parent().parent();
         if(object.hasClass('im-in')){
             object.removeClass('im-in');
@@ -731,7 +772,76 @@
         }
     }
     
+    function postsList(){
+        $.ajax({
+            url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&tipo=",
+            type: "POST",
+            success: function(r){
+                obj = JSON.parse(r);
+                for(var i = 0; i < obj.length; i++){
+                    var item = {
+                        publicacion_id: obj[i].publicacion_id,
+                        usuario_creador_id: obj[i].usuario_creador_id,
+                        grupo_id: obj[i].grupo_id,
+                        tipo: obj[i].tipo,
+                        fecha_creacion: obj[i].fecha_creacion,
+                    };
+                    postsObject[i] = item;   
+                    //ahora que ya tengo almacenadas las publicaciones se muestran               
+                }
+                
+                //MUESTRO PUBLICACIONES OBTENIDAS
+                for (var key in postsObject) {
+                    var item = postsObject[key];
+                    if(item.tipo == "Vv"){
+                        //VOTACIONES
+                        $.ajax({
+                            url: "../rutas_ajax/votaciones/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                obj = JSON.parse(r);
+                                for(var i = 0; i < obj.length; i++){
+                
+                                }
+                            }
+                        });  
+                    }else if(item.tipo == "EE"){
+                        //EVENTOS
+                    }else if(item.tipo == "A"){
+                        //ARCHIVOS
+                    }else if(item.tipo == "Q"){
+                        //ENCUESTAS
+                    }else if(item.tipo == "M"){
+                        //MENSAJES
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                obj = JSON.parse(r);
+                                mensaje_id = obj[0].mensaje_id;
+                                informacion = obj[0].informacion
+                                var h = new Date(item.fecha_creacion).getHours();
+                                var m = new Date(item.fecha_creacion).getMinutes();
+                                h = (h<10) ? '0' + h : h;
+                                m = (m<10) ? '0' + m : m;
+                                type = false;
+                                if(usuarioId == item.usuario_creador_id) type = true;
+                                generateMessage(mensaje_id, '', [informacion],h+":"+m, type);
+                            }
+                        });                  
+                    }
+                }                
+            }
+        });              
+    }
+
+    function postsShow(){
+        //itero sobre el objeto que guarda las publicaciones        
+    }
+
     $(document).ready(function(){
+        //llamamos a las publicaciones
+        postsList();
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
         
@@ -760,6 +870,18 @@
                 hideMobileSearchBar(false);
             }
         })
+
+        $('#add-poll-option').on('click',function(){
+            size = document.getElementsByClassName('poll-option').length;
+            size++;
+            var input = document.createElement('input')
+            input.type = "text";
+            input.placeholder = "Opción " + size;
+            input.setAttribute("class", "poll-option");
+            input.id = "poll-option-"+size;
+            div = document.getElementById('options-poll');
+            div.appendChild(input);           
+        });
         
         //Evento para filtrar las publicaciones por tipo.
         $('.group-title').find('.filter-option').click(function(){
@@ -829,6 +951,18 @@
         $('.see-more').click(function(){
             showQuestionAnswers($(this));
         });
+        
+        //Funcion que muestra los mensajes
+        function showMessage(type,title,text){
+            var opts = {
+                width: "100%"
+            };
+            opts.title = title;
+            opts.text = text;
+            opts.type = type;
+            opts.styling = 'bootstrap3';
+            new PNotify(opts);
+        }
 
         //Función que se llama al presionar enter en el chat y obtiene el texto en la variable [text]. Si es una respuesta obtiene el id de la pregunta en la variable [postId] y agrega el comentario debajo de la pregunta.
         $('.chatbox-input').keyup(function(e){
@@ -851,8 +985,24 @@
                         ubication = $('.event-ubication').val();
                         hour = $('.hour').val();
                         minutes = $('.minutes').val();
+                        dateEvento = ($('.month').val())+"/"+day+"/"+year;
+                        hourEvento = hour+":"+minutes+":00";
                         //TODO: Hay que verificar si la hora es AM o PM y si está entre 0 y 24.
-                        generateEvent(postId, '', text, description, ubication, day + ' de ' + month, hour + ':' + minutes + ' PM', confirmedPeopleNames, confirmedPeopleImages, false, time, true);
+                        //GUARDAMOS EL EVENTO
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/eventos/insertar.php?grupo=" + groupId + "&titulo=" + text + "&fecha=" + dateEvento + "&horario=" + hourEvento + "&ubicacion=" + ubication + "&descripcion=" + description,
+                            type: "POST",
+                            success: function(r){
+                                // alert(r);
+                                if(r > 1){
+                                    postId = r; 
+                                    generateEvent(postId, '', text, description, ubication, day + ' de ' + month, hour + ':' + minutes + ' PM', confirmedPeopleNames, confirmedPeopleImages, false, time, true);
+                                    showMessage("success","Evento.","El evento se ha creado exitosamente.");
+                                }else{
+                                    showMessage("error","Evento.","El evento no fue creado, verifique sus datos.");
+                                }
+                            }
+                        });                        
                     }else if($('.btn-chat').hasClass('poll')){
                         //Esto sucede si es una votación
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
@@ -868,11 +1018,25 @@
                             }
                         });
                         if(options.length > 1){
-                            generatePoll(postId, '', text, options, quantities, time, true);
-                            $('.poll-option').val('');
-                            $('.poll-option').removeClass('with-text');
+                            $.ajax({
+                                url: "../rutas_ajax/publicaciones/votaciones/insertar.php?grupo=" + groupId + "&informacion=" + text + "&opciones=" + options,
+                                type: "POST",
+                                success: function(r){
+                                    alert(r);
+                                    if(r > 1){
+                                        postId = r; 
+                                        generatePoll(postId, '', text, options, quantities, time, true);
+                                        $('.poll-option').val('');
+                                        $('.poll-option').removeClass('with-text');
+                                        // showMessage("success","Evento.","El evento se ha creado exitosamente.");
+                                    }else{
+                                        showMessage("error","Votación.","La votación no fue creada, verifique sus datos.");
+                                    }
+                                }
+                            });                              
                         }else{
                             //TODO: Debe aparecer una notificación si no ingresa dos opciones o más.
+                            showMessage("warning","Votación.","Debe ingresar 2 o más opciones.");
                             success = 0;
                         }
                     }else if($(this).is('[id]')){
@@ -901,9 +1065,23 @@
                     }else{
                         //Esto sucede si es un mensaje simple.
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
-                        postId = 321;
+                        //GUARDAMOS EL MENSAJE
                         time = '12:21 PM';
-                        generateMessage(postId, '', [text], time, true);
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/mensajes/insertar.php?grupo=" + groupId + "&informacion=" + [text],
+                            type: "POST",
+                            success: function(r){
+                                // alert(r);
+                                if(r > 1){
+                                    postId = r;
+                                    //postsList(); 
+                                    generateMessage(postId, '', [text], time, true);
+                                    // showMessage("success","Evento.","El evento se ha creado exitosamente.");
+                                }else{
+                                    showMessage("error","Mensaje.","El mensaje no fue creado, verifique sus datos.");
+                                }
+                            }
+                        });  
                     }
                     if(success == 1){
                         $(this).val('');

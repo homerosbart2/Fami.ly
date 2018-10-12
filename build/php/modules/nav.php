@@ -4,8 +4,22 @@
     $usuario_actual = "";
     $correo_actual = "";
     if(isset($_SESSION['usuario_actual'])){
+        $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
         $usuario_actual = $_SESSION['usuario_actual']; 
+        $usuario_actual_id = $_SESSION['usuario_actual_id'];
         $correo_actual = $_SESSION['correo_actual'];
+        $group_array = array();
+        $query = "SELECT P.grupo_id FROM PerteneceGrupo As P WHERE P.usuario_id=$usuario_actual_id";
+        $result = pg_query($link, $query);
+        if($result){
+            $i = 0;
+            while($row = pg_fetch_assoc($result)){
+                $group_array[$i] = $row["grupo_id"];
+                $i++;
+            }
+            //se guardan los grupos del usuario se utilizara para seguridad
+            $_SESSION['grupos'] = json_encode($group_array);
+        }            
     }else{       
         //header("Location: ../login/login.php");                 
     }

@@ -15,7 +15,7 @@
                     <img class="image bottom-left" src="../../assets/img/users/face3.png" alt="">
                     <img class="image bottom-right" src="../../assets/img/users/face4.png" alt="">
                     <span class="information">
-                        <span class="name flexFont">
+                        <span class="name flexFont groups" id="1">
                             Hogar
                         </span>
                     </span>
@@ -37,7 +37,7 @@
                     <img class="image bottom-left" src="../../assets/img/users/face6.png" alt="">
                     <img class="image bottom-right" src="../../assets/img/users/face7.png" alt="">
                     <span class="information">
-                        <span class="name flexFont">
+                        <span class="name flexFont groups" id="1">
                             Campos
                         </span>
                     </span>
@@ -48,7 +48,7 @@
                     <img class="image bottom-left" src="../../assets/img/users/face2.png" alt="">
                     <img class="image bottom-right" src="../../assets/img/users/face9.png" alt="">
                     <span class="information">
-                        <span class="name flexFont">
+                        <span class="name flexFont groups" id="1">
                             Ogáldez
                         </span>
                     </span>
@@ -84,4 +84,11 @@ window.onload = function(event) {
 window.onresize = function(event) {
     flexFont();
 };
+
+$(document).ready(function(){
+    $(document).on('click', '.groups', function () {
+        id = $(this).attr("id");
+        $(location).attr('href', 'wall.php?id=' + id);
+    });         
+});
 </script>
