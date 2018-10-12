@@ -359,6 +359,7 @@
                     padding-top: 6px;
                     margin-right: 0;
                     margin-left: 20px;
+                    border-right: 0 solid rgb(255, 224, 138);
                     &.poll{
                         .text{
                             margin-top: 6px;
@@ -411,7 +412,8 @@
                 overflow: hidden;
                 display: flex;
                 flex-direction: column;
-                transition: 0.4s ease;
+                transition: 0.3s ease;
+                border-left: 0 solid rgb(255, 224, 138);
                 .text{
                     word-wrap: break-word;
                 }

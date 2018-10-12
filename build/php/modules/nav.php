@@ -28,9 +28,11 @@
                     <li>
                         <span class="in-searchbox">
                             <span class="search">
-                                <input type="text" id="search-text" class="search-input" placeholder="Buscar">
+                                <input type="text" id="in-search-text" class="search-input" placeholder="Buscar">
                                 <span class="icon">
-                                    <i class="fas fa-search"></i>
+                                    <span class="search-button in"><i class="fas fa-search"></i></span>
+                                    <span class="search-left"><i class="fas fa-chevron-left"></i></span>
+                                    <span class="search-right"><i class="fas fa-chevron-right"></i></span>
                                 </span>
                             </span>
                         </span>
@@ -68,6 +70,7 @@
 
 <script>
 var wall = 0;
+var lockNavSlide = false;
 var size;
 var object;
 var rows = '';
@@ -214,9 +217,24 @@ $(document).ready(function(){
     });
 
     $('.search-button').click(function(){
-        $('.searchbox').find('#search-text').focus();
-        var e = $.Event("keyup", {keyCode: 13});
-        $('.search-input').trigger(e);
+        if(!$(this).hasClass('in')){
+            object = $('.searchbox').find('#search-text');
+        }else{
+            object = $('.in-searchbox').find('#in-search-text');
+        }
+        object.focus();
+        if(!$(this).hasClass('with-result')){
+            var e = $.Event("keyup", {keyCode: 13});
+            object.trigger(e);
+        }else{
+            removeSearchResult();
+            $(this).html('<i class="fas fa-search"></i>');
+            $(this).removeClass('with-result');
+            object = $('.in-searchbox');
+            object.find('.icon').removeClass('expanded');
+            object.find('.search-input').removeClass('expanded');
+            lockNavSlide = false;
+        }
     });
 
     //Función que se llama al dar click en la parte del usuario y su foto.
@@ -267,39 +285,55 @@ $(document).ready(function(){
         if(e.keyCode == 13)
         { 
             text = $(this).val();
-            //Si wall == 1 entonces estamos en el mural de algún grupo.
-            if(wall == 1 && !$('.search-people-container').hasClass('expanded')){
-                removeSearchResult(searchArray);
-                $('.post').each(function(){
-                    object = $(this);
-                    object.find('.searchable').each(function(){
-                        text2 = $(this).text();
-                        searchIndex = text2.search(new RegExp(text, "i"));
-                        if(searchIndex != -1){
-                            if(lastId != object.prop('id')){
-                                searchArray.push(object.prop('id'));
-                                lastId = object.prop('id');
+            if(/\S/.test(text)){
+                //Si wall == 1 entonces estamos en el mural de algún grupo.
+                if(wall == 1 && !$('.search-people-container').hasClass('expanded')){
+                    removeSearchResult(searchArray);
+                    $('.post').each(function(){
+                        object = $(this);
+                        object.find('.searchable').each(function(){
+                            text2 = $(this).text();
+                            searchIndex = text2.search(new RegExp(text, "i"));
+                            if(searchIndex != -1){
+                                if(lastId != object.prop('id')){
+                                    searchArray.push(object.prop('id'));
+                                    lastId = object.prop('id');
+                                }
+                                $(this).html(text2.substring(0,searchIndex) + '<span class="search-result">' + text2.substring(searchIndex,searchIndex + text.length) + '</span>' + text2.substring(searchIndex + text.length,text2.length));
                             }
-                            $(this).html(text2.substring(0,searchIndex) + '<span class="search-result">' + text2.substring(searchIndex,searchIndex + text.length) + '</span>' + text2.substring(searchIndex + text.length,text2.length));
-                        }
+                        });
                     });
-                });
-                searchPivot = 0;
-                if(searchArray.length > 0){
-                    scrollToMiddle($('#'+searchArray[0]));
-                    $('#'+searchArray[0]).parent().addClass('search-result');
+                    searchPivot = 0;
+                    if(searchArray.length > 0){
+                        scrollToMiddle($('#'+searchArray[0]));
+                        $('#'+searchArray[0]).parent().addClass('search-result');
+                        if($(this).prop('id') == 'in-search-text'){
+                            object = $(this).parent().find('.search-button');
+                            object.html('<i class="fas fa-times"></i>');
+                            object.addClass('with-result');
+                            object = $('.in-searchbox');
+                            object.find('.icon').addClass('expanded');
+                            object.find('.search-input').addClass('expanded');
+                            lockNavSlide = true;
+                        }
+                    }
+                }else{
+                    //Esto sucede al buscar en otro lado que no sea wall.
+                    //Se expanden los resultados al presionar enter.
+                    if(!$('.search-people-container').hasClass('expanded') && $(this).prop('id') == 'in-search-text'){
+                        $('.search-people-container').addClass('expanded');
+                    }
+
+                    //EXAMPLE: ejemplo para agregar resultados de una búsqueda en otro lado que no sea wall.
+                    /*clearPeopleSearch();
+                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', false, true);
+                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face4.png', false, true);
+                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face3.png', false, true);
+                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face5.png', false, true);
+                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', false, true);*/
                 }
-            }else{
-                //Esto sucede al buscar en otro lado que no sea wall.
-                //EXAMPLE: ejemplo para agregar resultados de una búsqueda en otro lado que no sea wall.
-                clearPeopleSearch();
-                generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', false, true);
-                generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face4.png', false, true);
-                generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face3.png', false, true);
-                generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face5.png', false, true);
-                generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', false, true);
+                $(this).trigger("enterKey");
             }
-            $(this).trigger("enterKey");
         }
     });
 
@@ -343,7 +377,7 @@ $(document).ready(function(){
         
         // If they scrolled down and are past the navbar, add class .nav-up.
         // This is necessary so you never see what is "behind" the navbar.
-        if(!$('.main-nav').hasClass('post-form-expanded') & ($('.mask').prop('id') != 'searchbox')){
+        if(!$('.main-nav').hasClass('post-form-expanded') & ($('.mask').prop('id') != 'searchbox') &!lockNavSlide){
             if (st > lastScrollTop && st > navbarHeight){
                 // Scroll Down
                 $('.the-line').css('top', '-55px');
