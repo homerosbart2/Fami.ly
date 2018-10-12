@@ -7,6 +7,11 @@
 ?>
 <body>
     <section class="groups-section">
+        <span class="wide-central-container">
+            <span class="options">
+                <a class="btn-login"><i class="fas fa-th-large"></i> Crear Nuevo</a>
+            </span>
+        </span>
         <span class="central-container">
             <span class="half-container  plus">
                 <span class="group-card">

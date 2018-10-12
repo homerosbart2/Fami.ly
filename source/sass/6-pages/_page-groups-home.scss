@@ -5,11 +5,37 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    .wide-central-container{
+        position: fixed;
+        top: 71px;
+        display: flex;
+        z-index: 1;
+        .options{
+            display: flex;
+            margin: 0 16px;
+            width: 100%;
+            //max-width: 900px;
+            justify-content: flex-end;
+            .btn-login{
+                color: $main;
+                border: 1px solid $main;
+                background: $light-main;
+                &:hover,
+                &:active,
+                &:focus{
+                    background: $main;
+                    color: $light-main;
+                }
+            }
+        }
+    }
     .central-container{
         height: 100%;
         @include media-max(550px){
             flex-direction: column;
             .half-container{
+                margin-top: 105px;
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: space-around;

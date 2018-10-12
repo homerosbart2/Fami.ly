@@ -755,7 +755,6 @@ nav {
   max-width: 900px; }
 
 .half-container {
-  padding-top: 65px;
   width: 48%;
   display: flex;
   justify-content: space-around;
@@ -1047,13 +1046,32 @@ body.disableScrollBar {
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  flex-direction: column; }
+  .groups-section .wide-central-container {
+    position: fixed;
+    top: 71px;
+    display: flex;
+    z-index: 1; }
+    .groups-section .wide-central-container .options {
+      display: flex;
+      margin: 0 16px;
+      width: 100%;
+      justify-content: flex-end; }
+      .groups-section .wide-central-container .options .btn-login {
+        color: #FF6040;
+        border: 1px solid #FF6040;
+        background: #ffebe7; }
+        .groups-section .wide-central-container .options .btn-login:hover, .groups-section .wide-central-container .options .btn-login:active, .groups-section .wide-central-container .options .btn-login:focus {
+          background: #FF6040;
+          color: #ffebe7; }
   .groups-section .central-container {
     height: 100%; }
     @media only screen and (max-width: 550px) {
       .groups-section .central-container {
         flex-direction: column; }
         .groups-section .central-container .half-container {
+          margin-top: 105px;
           flex-direction: row;
           flex-wrap: wrap;
           justify-content: space-around;
