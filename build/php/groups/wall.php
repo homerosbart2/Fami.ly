@@ -509,6 +509,11 @@
             if(windowWidth < 601){
                 showMobileSearchBar(false);
             }
+            window.scroll({
+                top: 0, 
+                left: 0,
+                behavior: 'smooth'
+            });
         });
         
         //Evento para filtrar las publicaciones por tipo.

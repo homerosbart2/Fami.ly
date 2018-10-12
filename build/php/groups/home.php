@@ -86,7 +86,8 @@
     };
 
     $(document).ready(function(){
-        $('.search-right').css('display', 'none');
-        $('.search-left').css('display', 'none');
+        object = $('.searchbox');
+        object.find('.search-right').css('display', 'none');
+        object.find('.search-left').css('display', 'none');
     });
 </script>

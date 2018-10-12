@@ -83,16 +83,16 @@ nav{
             font-size: 20px;
         }
         .in-searchbox{
-            @include media-max(600px){
+            @include media-max(675px){
                 display: none;
             }
 
-            @include media-max(780px){
+            @include media-max(835px){
                 margin-left: 10px;
             }
         }
 
-        @include media-max(780px){
+        @include media-max(835px){
             .nav-user{
                 display: none;
             }
@@ -130,7 +130,7 @@ nav{
             }
         }
         &.search-option{
-            @include media-min(601px){
+            @include media-min(675px){
                 display: none;
             }
         }
@@ -271,6 +271,7 @@ nav{
             padding-right: 120px;
             padding-left: 10px;
             text-align: left;
+            box-sizing: border-box;
             @include media-max(430px){
                 width: 96%;
             }
@@ -280,22 +281,42 @@ nav{
 }
 
 .in-searchbox{
-    width: 200px;
     .search{
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        overflow: hidden;
         .search-input{
             color: $main-contrast;
             border-radius: 0;
-            width: 100%;
-            height: 36px;
+            width: 165px;
+            height: 38px;
             padding-right: 32px;
+            &.expanded{
+                padding-right: 115px;
+                width: 248px;
+            }
         }
         .icon{
             position: absolute;
-            top: 11px;
-            right: 16px;
+            top: 0;
+            right: -72px;
+            transition: 0.2s ease;
+            display: flex;
+            height: 100%;
+            color: $main-contrast;
+            transition: 0.2s ease;
+            &.expanded{
+                right: 8px;
+            }
+            span{
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                width: 40px;
+            }
         }
     }
 }
