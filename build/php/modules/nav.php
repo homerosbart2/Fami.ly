@@ -269,6 +269,7 @@ $(document).ready(function(){
             deactivateMask();
             object = $('.group-creation-input-container');
             object.removeClass('expanded');
+            $('.create-group').html('<i class="fas fa-th-large"></i> Crear Nuevo</a>');
         }
     });
 

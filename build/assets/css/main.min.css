@@ -1058,7 +1058,6 @@ body.disableScrollBar {
       display: flex;
       margin: 0 16px;
       width: 100%;
-      z-index: 11;
       justify-content: flex-end; }
       .groups-section .wide-central-container.options-container .options .btn-login {
         color: #FF6040;
@@ -1074,9 +1073,10 @@ body.disableScrollBar {
     display: flex;
     z-index: 1;
     background: #000B2B;
-    transition: 0.2s ease; }
+    transition: 0.2s ease;
+    z-index: 11; }
     .groups-section .wide-central-container.group-creation-input-container.expanded {
-      top: 59px; }
+      top: 58px; }
       .groups-section .wide-central-container.group-creation-input-container.expanded + .wide-central-container {
         top: 130px; }
     .groups-section .wide-central-container.group-creation-input-container .group-creation-input {
@@ -1085,12 +1085,12 @@ body.disableScrollBar {
       max-width: 500px; }
       .groups-section .wide-central-container.group-creation-input-container .group-creation-input .group-creation {
         color: #000B2B;
-        height: 39px;
+        height: 38px;
         background: white;
-        border-radius: 40px;
+        border-radius: 0;
         width: 100%;
         text-align: left;
-        padding: 0 16px;
+        padding: 0 10px;
         margin: 10px 0; }
   .groups-section .central-container {
     height: 100%; }

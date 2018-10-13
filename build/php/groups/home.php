@@ -102,6 +102,7 @@
 
         $('.create-group').click(function(){
             $('.group-creation-input-container').addClass('expanded');
+            $(this).html('<i class="fas fa-check-circle"></i> Aceptar');
             triggerMask('create-group');
         });
     });
