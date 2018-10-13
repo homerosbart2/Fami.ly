@@ -16,11 +16,12 @@
                 echo "</script>";
             }            
             echo "<script>";
+            echo "\n";
             echo "var groupId=".$id.";";
             echo "\n";
             echo "var usuarioId=".$usuario_actual_id.";";
             echo "\n";
-            echo "var usuarioNombre=".$usuario_actual.";";
+            echo "var name='".$usuario_actual_nombre."';";
             echo "\n";
             echo "</script>";
         }else{
