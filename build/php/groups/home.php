@@ -18,7 +18,7 @@
             </span>
         </span>
         <span class="central-container">
-            <span class="half-container  plus">
+            <span class="groups-container">
                 <span class="group-card">
                     <img class="image top-left" src="../../assets/img/users/face1.png">
                     <img class="image top-right" src="../../assets/img/users/face2.png" alt="">
@@ -39,8 +39,6 @@
                         </span>
                     </span>
                 </span>
-            </span>
-            <span class="half-container minus">
                 <span class="group-card">
                     <img class="image top-left" src="../../assets/img/users/face3.png">
                     <img class="image top-right" src="../../assets/img/users/face5.png" alt="">
@@ -82,7 +80,7 @@
     flexFont = function () {
         var divs = document.getElementsByClassName("flexFont");
         for(var i = 0; i < divs.length; i++) {
-            var relFontsize = divs[i].offsetWidth*0.1;
+            var relFontsize = divs[i].offsetWidth*0.12;
             divs[i].style.fontSize = relFontsize+'px';
         }
     };
@@ -95,15 +93,65 @@
         flexFont();
     };
 
+    //
+    function generateGroupCard(id, name, images, empty){
+        rows = '';
+        if(empty){
+            rows += '<span id="'+id+'" class="group-card empty">';
+        }else{
+            rows += '<span id="'+id+'" class="group-card">';
+        }
+        for(i in images){
+            if(i == 0){
+                rows += '<img class="image top-left" src="'+images[i]+'">';
+            }else if(i == 1){
+                rows += '<img class="image top-right" src="'+images[i]+'">';
+            }else if(i == 2){
+                rows += '<img class="image bottom-left" src="'+images[i]+'">';
+            }else if(i == 3){
+                rows += '<img class="image bottom-right" src="'+images[i]+'">';
+            }
+        }
+        rows += '<span class="information">';
+        rows += '<span class="name flexFont">';
+        rows += name;
+        rows += '</span>';
+        rows += '</span>';
+        rows += '</span>';
+        $('.groups-container').append(rows);
+        object = document.getElementById(id);
+        var relFontsize = object.offsetWidth*0.12;
+        object.style.fontSize = relFontsize+'px';
+    }
+
     $(document).ready(function(){
         object = $('.searchbox');
         object.find('.search-right').css('display', 'none');
         object.find('.search-left').css('display', 'none');
 
         $('.create-group').click(function(){
-            $('.group-creation-input-container').addClass('expanded');
-            $(this).html('<i class="fas fa-check-circle"></i> Aceptar');
-            triggerMask('create-group');
+            object = $('.group-creation-input-container');
+            if(!object.hasClass('expanded')){
+                object.addClass('expanded');
+                $(this).html('<i class="fas fa-check-circle"></i> Aceptar');
+                triggerMask('create-group');
+            }else{
+                var e = $.Event("keyup", {keyCode: 13});
+                $('.group-creation').trigger(e);
+            }
+        });
+
+        $('.group-creation').keyup(function(e){
+            if(e.keyCode == 13){
+                text = $(this).val();
+                if(/\S/.test(text)){
+                    groupId = 123;
+                    generateGroupCard(groupId, text, [], true);
+                    hideCreateGroupBar();
+                    $(this).val('');
+                    $(this).trigger("enterKey");
+                }
+            }
         });
     });
 </script>

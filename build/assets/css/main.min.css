@@ -801,21 +801,20 @@ body.disableScrollBar {
   left: 0; }
 
 .group-card {
+  cursor: pointer;
   position: relative;
   display: flex;
-  width: 80%;
-  padding-top: 80%;
+  width: 200px;
+  padding-top: 200px;
+  flex-shrink: 0;
   background: #555555;
   transition: 0.2s ease;
   overflow: hidden;
   margin: 6px 6px; }
-  .group-card:hover, .group-card:active, .group-card:focus {
-    cursor: pointer;
-    transform: scale(1.05); }
-    .group-card:hover .image, .group-card:active .image, .group-card:focus .image {
-      filter: blur(5px) brightness(0.5); }
-    .group-card:hover .information .name, .group-card:active .information .name, .group-card:focus .information .name {
-      opacity: 1; }
+  .group-card.empty {
+    background: #000B2B; }
+  .group-card .image {
+    filter: blur(10px) brightness(0.7); }
   .group-card .image {
     position: absolute;
     width: 50%;
@@ -841,21 +840,20 @@ body.disableScrollBar {
     align-items: center;
     height: 100%;
     width: 100%;
-    color: white; }
+    color: #e9eeff; }
     .group-card .information .name {
       text-transform: uppercase;
       width: 100%;
       display: flex;
       justify-content: center;
       font-weight: 600;
-      opacity: 0;
       transition: 0.3s ease; }
   .group-card .counter {
     position: absolute;
     top: 5px;
     right: 5px;
-    background: #fff;
-    color: #FF6040;
+    background: #e9eeff;
+    color: #000B2B;
     font-weight: 600; }
     .group-card .counter:hover + .counter-information,
     .group-card .counter:active + .counter-information,
@@ -1043,9 +1041,7 @@ body.disableScrollBar {
 .groups-section {
   padding: 0 0;
   width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column; }
   .groups-section .wide-central-container.options-container {
@@ -1081,34 +1077,32 @@ body.disableScrollBar {
         top: 130px; }
     .groups-section .wide-central-container.group-creation-input-container .group-creation-input {
       width: 100%;
-      margin: 0 16px;
-      max-width: 500px; }
+      max-width: 500px;
+      display: flex; }
       .groups-section .wide-central-container.group-creation-input-container .group-creation-input .group-creation {
         color: #000B2B;
         height: 38px;
         background: white;
-        border-radius: 0;
         width: 100%;
+        border-radius: 0;
         text-align: left;
         padding: 0 10px;
-        margin: 10px 0; }
+        margin: 10px 10px; }
+        @media only screen and (max-width: 500px) {
+          .groups-section .wide-central-container.group-creation-input-container .group-creation-input .group-creation {
+            border-radius: 3px; }
+            .groups-section .wide-central-container.group-creation-input-container .group-creation-input .group-creation:active, .groups-section .wide-central-container.group-creation-input-container .group-creation-input .group-creation:focus {
+              margin: 0 0;
+              height: 58px;
+              border-radius: 0; } }
   .groups-section .central-container {
-    height: 100%; }
-    @media only screen and (max-width: 550px) {
-      .groups-section .central-container {
-        flex-direction: column; }
-        .groups-section .central-container .half-container {
-          margin-top: 105px;
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: space-around;
-          width: 100%; }
-          .groups-section .central-container .half-container.plus .group-card {
-            width: 250px;
-            padding-top: 250px; }
-          .groups-section .central-container .half-container.minus .group-card {
-            width: 140px;
-            padding-top: 140px; } }
+    margin-top: 135px;
+    margin-bottom: 6px; }
+    .groups-section .central-container .groups-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap; }
 
 .profile-section {
   padding: 69px 0 0 0;
