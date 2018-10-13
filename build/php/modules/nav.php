@@ -3,11 +3,13 @@
     session_start();
     $usuario_actual = "";
     $correo_actual = "";
+    $usuario_actual_nombre = "";
     if(isset($_SESSION['usuario_actual'])){
         $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
         $usuario_actual = $_SESSION['usuario_actual']; 
         $usuario_actual_id = $_SESSION['usuario_actual_id'];
         $correo_actual = $_SESSION['correo_actual'];
+        $usuario_actual_nombre = $_SESSION['usuario_actual_nombre'];
         $group_array = array();
         $query = "SELECT P.grupo_id FROM PerteneceGrupo As P WHERE P.usuario_id=$usuario_actual_id";
         $result = pg_query($link, $query);

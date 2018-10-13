@@ -16,11 +16,12 @@
                 echo "</script>";
             }            
             echo "<script>";
-            echo "var groupId=".$id;
+            echo "var groupId=".$id.";";
             echo "\n";
-            echo "var usuarioId=".$usuario_actual_id;
+            echo "var usuarioId=".$usuario_actual_id.";";
             echo "\n";
-            echo "var usuarioNombre=".$usuario_actual;
+            echo "var usuarioNombre=".$usuario_actual.";";
+            echo "\n";
             echo "</script>";
         }else{
             echo "<script>";
@@ -952,7 +953,6 @@ function initWallListeners(){
                         informacion = obj[0].informacion;
                         type = false;
                         if(usuarioId == item.usuario_creador_id) type = true;
-                        alert(item.usuario_creador_nombre);
                         generateMessage(item.publicacion_id, item.usuario_creador_nombre, [informacion],horario, type);
                     },
                     async: false // <- this turns it into synchronous
@@ -990,7 +990,7 @@ function initWallListeners(){
         //llamamos a las publicaciones
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
-        // postsList();
+        postsList();
         //EXAMPLE: Ejemplo para agregar un resultado a la búsqueda.
         //generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, false);
         
@@ -1010,9 +1010,9 @@ function initWallListeners(){
 
         //EXAMPLE: Ejemplos para cada tipo de publicación:
         //EXAMPLE: Ejemplo mensaje simple.
-        generateMessage(74, 'Vilma', ['Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuuuu', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'zzz'], '3:15 PM', false)
+        // generateMessage(74, 'Vilma', ['Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuuuu', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'zzz'], '3:15 PM', false)
 
-        generateMessage(100, 'Diego', ['Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuuuu', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'zzz'], '3:20 PM', false)
+        // generateMessage(100, 'DIego', ['Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuuuu', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'zzz'], '3:20 PM', false)
 
         //EXAMPLE: Ejemplo pregunta.
         generateQuestion(75, '', '¿A dónde quieren salir en la noche?', ['A Nais!!!', 'No sé de qué tengo ganas jajaja', 'Mejor a Pollo Campero, más barato'], ['Alex', 'Fernando', 'Vilma'], '10:27 AM', true, false)

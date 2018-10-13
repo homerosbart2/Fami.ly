@@ -18,6 +18,7 @@
             session_start();
             //creamos las variables de sesion
             $row = pg_fetch_assoc($result);
+            $_SESSION['usuario_actual_nombre'] = $name;
             $_SESSION['usuario_actual'] = $username;
             $_SESSION['correo_actual'] = $email;
             $_SESSION['usuario_actual_id'] = $row["usuario_id"];

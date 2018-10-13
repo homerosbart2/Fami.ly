@@ -3,7 +3,7 @@
     $password = $_GET["password"];
     $username = $_GET["username"];
     $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
-    $query = "SELECT U.usuario,U.usuario_id,U.correo FROM Usuarios As U WHERE U.usuario_password= '$password' AND U.usuario='$username'";
+    $query = "SELECT U.usuario,U.usuario_id,U.correo,U.nombre FROM Usuarios As U WHERE U.usuario_password= '$password' AND U.usuario='$username'";
     $result = pg_query($link, $query);
     $resultado = 0;
     $retorno = -1;
@@ -15,6 +15,7 @@
             //creamos las variables de sesion
             $row = pg_fetch_assoc($result);
             $usuario = $row["usuario_id"];
+            $_SESSION['usuario_actual_nombre'] = $row["nombre"];
             $_SESSION['usuario_actual'] = $row["usuario"];
             $_SESSION['correo_actual'] = $row["correo"];
             $_SESSION['usuario_actual_id'] = $usuario;
