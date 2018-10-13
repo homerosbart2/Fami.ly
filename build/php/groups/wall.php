@@ -19,6 +19,8 @@
             echo "var groupId=".$id;
             echo "\n";
             echo "var usuarioId=".$usuario_actual_id;
+            echo "\n";
+            echo "var usuarioNombre=".$usuario_actual;
             echo "</script>";
         }else{
             echo "<script>";
@@ -541,91 +543,7 @@
         }
     }
     
-    function postsList(){
-        $.ajax({
-            url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&tipo=",
-            type: "POST",
-            success: function(r){
-                obj = JSON.parse(r);
-                for(var i = 0; i < obj.length; i++){
-                    var item = {
-                        publicacion_id: obj[i].publicacion_id,
-                        usuario_creador_id: obj[i].usuario_creador_id,
-                        grupo_id: obj[i].grupo_id,
-                        tipo: obj[i].tipo,
-                        fecha_creacion: obj[i].fecha_creacion,
-                    };
-                    postsObject[i] = item;   
-                    //ahora que ya tengo almacenadas las publicaciones se muestran               
-                }
-                
-                //MUESTRO PUBLICACIONES OBTENIDAS
-                for (var key in postsObject) {
-                    var item = postsObject[key];
-                    if(item.tipo == "Vv"){
-                        //VOTACIONES
-                        $.ajax({
-                            url: "../rutas_ajax/votaciones/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                            type: "POST",
-                            success: function(r){
-                                obj = JSON.parse(r);
-                                for(var i = 0; i < obj.length; i++){
-                
-                                }
-                            }
-                        });  
-                    }else if(item.tipo == "EE"){
-                        //EVENTOS
-                    }else if(item.tipo == "A"){
-                        //ARCHIVOS
-                    }else if(item.tipo == "Q"){
-                        //ENCUESTAS
-                    }else if(item.tipo == "M"){
-                        //MENSAJES 
-                        var dfd = jQuery.Deferred();
-                        h = new Date(item.fecha_creacion).getHours();
-                        m = new Date(item.fecha_creacion).getMinutes();
-                        h = (h<10) ? '0' + h : h;
-                        m = (m<10) ? '0' + m : m;
-                        horario = h+":"+m;
-                        alert("HORARIO " + horario);                        
-                        $.when($.ajax({
-                                url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                                type: "POST"
-                            })).done(function(r){
-                                // success: function(r){
-                                    alert(horario);
-                                    obj = JSON.parse(r);
-                                    mensaje_id = obj[0].mensaje_id;
-                                    informacion = obj[0].informacion;
-                                    type = false;
-                                    if(usuarioId == item.usuario_creador_id) type = true;
-                                    generateMessage(mensaje_id, '', [informacion],horario, type);
-                                // }
-                        });             
-                    }
-                }                
-            }
-        });              
-    }
-
-    function postsShow(){
-        //itero sobre el objeto que guarda las publicaciones        
-    }
-
-    $(document).ready(function(){
-        //llamamos a las publicaciones
-        postsList();
-        //Variable que indica que estamos en el wall de un grupo.
-        wall = 1;
-        
-        //EXAMPLE: Ejemplo para agregar un resultado a la búsqueda.
-        //generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, false);
-        
-        //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda.
-        //noResultInSearch();
-
-    function initWallListeners(){
+function initWallListeners(){
         $('.options').find('.btn-login').click(function(){
             $('.search-people-container').addClass('expanded');
             $('.chatbox-container').addClass('hidden');
@@ -857,7 +775,7 @@
                                 if(r > 1){
                                     postId = r;
                                     //postsList(); 
-                                    generateMessage(postId, '', [text], time, true);
+                                    generateMessage(postId, usuarioNombre, [text], time, true);
                                     // showMessage("success","Evento.","El evento se ha creado exitosamente.");
                                 }else{
                                     showMessage("error","Mensaje.","El mensaje no fue creado, verifique sus datos.");
@@ -993,10 +911,91 @@
             }
         });
     }
-    
+
+  function showList(){
+        console.log(postsObject);
+        for (var key in postsObject) {
+            console.log(key);
+            var item = postsObject[key];
+            if(item.tipo == "Vv"){
+                //VOTACIONES
+                $.ajax({
+                    url: "../rutas_ajax/votaciones/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
+                    type: "POST",
+                    success: function(r){
+                        obj = JSON.parse(r);
+                        for(var i = 0; i < obj.length; i++){
+        
+                        }
+                    }
+                });  
+            }else if(item.tipo == "EE"){
+                //EVENTOS
+            }else if(item.tipo == "A"){
+                //ARCHIVOS
+            }else if(item.tipo == "Q"){
+                //ENCUESTAS
+            }else if(item.tipo == "M"){
+                //MENSAJES 
+                var dfd = jQuery.Deferred();
+                h = new Date(item.fecha_creacion).getHours();
+                m = new Date(item.fecha_creacion).getMinutes();
+                h = (h<10) ? '0' + h : h;
+                m = (m<10) ? '0' + m : m;
+                horario = h+":"+m;                      
+                $.ajax({
+                    url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
+                    type: "POST",
+                    success: function(r){
+                        obj = JSON.parse(r);
+                        mensaje_id = obj[0].mensaje_id;
+                        informacion = obj[0].informacion;
+                        type = false;
+                        if(usuarioId == item.usuario_creador_id) type = true;
+                        alert(item.usuario_creador_nombre);
+                        generateMessage(item.publicacion_id, item.usuario_creador_nombre, [informacion],horario, type);
+                    },
+                    async: false // <- this turns it into synchronous
+                });             
+            }
+        } 
+    }
+
+    function postsList(){
+        $.ajax({
+            url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&tipo=",
+            type: "POST",
+            success: function(r){
+                obj = JSON.parse(r);
+                for(var i = 0; i < obj.length; i++){
+                    var item = {
+                        publicacion_id: obj[i].publicacion_id,
+                        usuario_creador_id: obj[i].usuario_creador_id,
+                        usuario_creador_nombre: obj[i].nombre,
+                        grupo_id: obj[i].grupo_id,
+                        tipo: obj[i].tipo,
+                        fecha_creacion: obj[i].fecha_creacion,
+                    };
+                    postsObject[obj[i].publicacion_id] = item;   
+                    //ahora que ya tengo almacenadas las publicaciones se muestran               
+                }               
+            },
+            async: false // <- this turns it into synchronous
+        });         
+        console.log("TERMINA FOR");
+        showList();            
+    }
+
     $(document).ready(function(){
+        //llamamos a las publicaciones
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
+        // postsList();
+        //EXAMPLE: Ejemplo para agregar un resultado a la búsqueda.
+        //generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, false);
+        
+        //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda.
+        //noResultInSearch();
         
         //EXAMPLE: Ejemplos para agregar un resultado a la búsqueda.
         clearPeopleSearch();
@@ -1012,7 +1011,9 @@
         //EXAMPLE: Ejemplos para cada tipo de publicación:
         //EXAMPLE: Ejemplo mensaje simple.
         generateMessage(74, 'Vilma', ['Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuuuu', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'zzz'], '3:15 PM', false)
-        
+
+        generateMessage(100, 'Diego', ['Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuuuu', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'zzz'], '3:20 PM', false)
+
         //EXAMPLE: Ejemplo pregunta.
         generateQuestion(75, '', '¿A dónde quieren salir en la noche?', ['A Nais!!!', 'No sé de qué tengo ganas jajaja', 'Mejor a Pollo Campero, más barato'], ['Alex', 'Fernando', 'Vilma'], '10:27 AM', true, false)
 
