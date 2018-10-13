@@ -265,6 +265,11 @@ $(document).ready(function(){
             deactivateMask();
             object = $('.emojibox-container');
             object.removeClass('double');
+        }else if($(this).prop('id') == 'create-group'){
+            deactivateMask();
+            object = $('.group-creation-input-container');
+            object.removeClass('expanded');
+            $('.create-group').html('<i class="fas fa-th-large"></i> Crear Nuevo</a>');
         }
     });
 

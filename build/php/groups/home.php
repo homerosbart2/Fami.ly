@@ -7,6 +7,16 @@
 ?>
 <body>
     <section class="groups-section">
+        <span class="wide-central-container group-creation-input-container">
+            <span class="group-creation-input">
+                <input class="group-creation" type="text" placeholder="Nombre del grupo">
+            </span>
+        </span>
+        <span class="wide-central-container options-container">
+            <span class="options">
+                <a class="btn-login create-group"><i class="fas fa-th-large"></i> Crear Nuevo</a>
+            </span>
+        </span>
         <span class="central-container">
             <span class="half-container  plus">
                 <span class="group-card">
@@ -89,5 +99,11 @@
         object = $('.searchbox');
         object.find('.search-right').css('display', 'none');
         object.find('.search-left').css('display', 'none');
+
+        $('.create-group').click(function(){
+            $('.group-creation-input-container').addClass('expanded');
+            $(this).html('<i class="fas fa-check-circle"></i> Aceptar');
+            triggerMask('create-group');
+        });
     });
 </script>
