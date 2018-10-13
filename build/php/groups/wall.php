@@ -279,6 +279,28 @@
                 }
                 object.children('.post').children('.text').last().after(rows);
                 object.children('.post').children('.time').html(time);
+            }else{
+                if(me){
+                    rows += '<span class="post-container me">';
+                    rows += '<span id="'+id+'" class="post message">';
+                }else{
+                    rows += '<span class="post-container">';
+                    rows += '<span id="'+id+'" class="post message">';
+                    rows += '<span class="user-name">'+user+'</span>';
+                }
+                for(i in texts){
+                    if(texts[i].match(emojiRegex)){
+                        rows += '<span class="text searchable"><span class="emoji">'+texts[i]+'</span></span>';
+                    }else{
+                        rows += '<span class="text searchable">'+texts[i]+'</span>';
+                    }
+                    
+                }
+                rows += '<span class="time">'+time+'</span>';
+                rows += '<span class="type"><i class="fas fa-circle"></i></span>';
+                rows += '</span>';
+                rows += '</span>';
+                $('.posts').prepend(rows);
             }
         }else{
             if(me){
