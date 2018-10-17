@@ -40,7 +40,7 @@
                     <li><a id="search" class="nav-option search-option"><span class="option-icon"><i class="fas fa-search"></i></span></a></li>
                     <li><a href="../groups/home.php" class="nav-option"><span class="option-icon"><i class="fas fa-home"></i></span></a></li>
                     <!-- En el span .counter se debe colocar la cantidad de notificaciones sin descartar. -->
-                    <li><a id="notification" class="nav-option"><span class="option-icon notification"><i class="fas fa-bell"></i></span><span class="counter">2</span></a></li>
+                    <li><a id="notification" class="nav-option"><span class="option-icon notification"><i class="fas fa-bell"></i></span><span id="nav-counter" class="counter">0</span></a></li>
                     <li><a href="" class="nav-option"><span class="option-icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
                 </span>
                 

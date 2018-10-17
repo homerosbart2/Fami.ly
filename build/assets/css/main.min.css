@@ -1869,6 +1869,17 @@ body.disableScrollBar {
       overflow-y: scroll;
       margin: 0 15px 15px 15px;
       margin-top: 70px; }
+      .notification-wall-container .central-container .notifications-container .no-notification {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        color: white;
+        justify-content: center;
+        align-items: center; }
+        .notification-wall-container .central-container .notifications-container .no-notification i {
+          color: #FF6040;
+          margin-right: 6px;
+          font-size: 12px; }
       .notification-wall-container .central-container .notifications-container .title {
         width: 100%;
         display: flex;
@@ -1911,7 +1922,9 @@ body.disableScrollBar {
           padding-top: 23px;
           padding-bottom: 21px;
           color: #000B2B;
-          border-radius: 3px; }
+          border-radius: 3px;
+          display: flex;
+          flex-direction: column; }
           .notification-wall-container .central-container .notifications-container .group-notification .notification .user-name {
             position: absolute;
             top: 2px;
