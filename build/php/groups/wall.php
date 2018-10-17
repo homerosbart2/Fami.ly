@@ -663,6 +663,7 @@
                         $('.chatbox-input').prop('placeholder', 'Escribe un mensaje');
                         $('.chatbox-input').removeAttr('id');
                         deactivateMask();
+                        $('.emojibox-container').removeClass('double');
                         //Se abren las respuestas si están cerradas.
                         object = $('#'+postId).children('.options').children('.see-more');
                         if(!object.hasClass('expanded')){
