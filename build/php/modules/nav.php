@@ -103,6 +103,7 @@ var lastId = -1;
 var top;
 var searchPivot = 0;
 var text;
+var groupId;
 var text2;
 var searchArray = [];
 var searchIndex;
@@ -161,6 +162,13 @@ function removeSearchResult(){
             $(this).html(text2);
         }); 
     }
+}
+
+function hideCreateGroupBar(){
+    deactivateMask();
+    object = $('.group-creation-input-container');
+    object.removeClass('expanded');
+    $('.create-group').html('<i class="fas fa-th-large"></i> Crear Nuevo</a>');
 }
 
 //Función para generar un resultado de búsqueda, recibe [user] que es el nombre completo del usuario, [country] el país del usuario, [userImage] que es la ruta a la imagen del usuario e [invite] que es un booleano para saber si es un resultado de búsqueda para invitar a un grupo. Agrega los resultados dependiendo de [top], si es true los agrega al principio, si es false los agrega de último.
@@ -290,6 +298,8 @@ $(document).ready(function(){
             deactivateMask();
             object = $('.emojibox-container');
             object.removeClass('double');
+        }else if($(this).prop('id') == 'create-group'){
+            hideCreateGroupBar();
         }
     });
 

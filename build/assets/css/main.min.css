@@ -755,7 +755,6 @@ nav {
   max-width: 900px; }
 
 .half-container {
-  padding-top: 65px;
   width: 48%;
   display: flex;
   justify-content: space-around;
@@ -802,21 +801,20 @@ body.disableScrollBar {
   left: 0; }
 
 .group-card {
+  cursor: pointer;
   position: relative;
   display: flex;
-  width: 80%;
-  padding-top: 80%;
+  width: 200px;
+  padding-top: 200px;
+  flex-shrink: 0;
   background: #555555;
   transition: 0.2s ease;
   overflow: hidden;
   margin: 6px 6px; }
-  .group-card:hover, .group-card:active, .group-card:focus {
-    cursor: pointer;
-    transform: scale(1.05); }
-    .group-card:hover .image, .group-card:active .image, .group-card:focus .image {
-      filter: blur(5px) brightness(0.5); }
-    .group-card:hover .information .name, .group-card:active .information .name, .group-card:focus .information .name {
-      opacity: 1; }
+  .group-card.empty {
+    background: #000B2B; }
+  .group-card .image {
+    filter: blur(10px) brightness(0.7); }
   .group-card .image {
     position: absolute;
     width: 50%;
@@ -842,21 +840,20 @@ body.disableScrollBar {
     align-items: center;
     height: 100%;
     width: 100%;
-    color: white; }
+    color: #e9eeff; }
     .group-card .information .name {
       text-transform: uppercase;
       width: 100%;
       display: flex;
       justify-content: center;
       font-weight: 600;
-      opacity: 0;
       transition: 0.3s ease; }
   .group-card .counter {
     position: absolute;
     top: 5px;
     right: 5px;
-    background: #fff;
-    color: #FF6040;
+    background: #e9eeff;
+    color: #000B2B;
     font-weight: 600; }
     .group-card .counter:hover + .counter-information,
     .group-card .counter:active + .counter-information,
@@ -1044,26 +1041,68 @@ body.disableScrollBar {
 .groups-section {
   padding: 0 0;
   width: 100%;
-  height: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center; }
+  align-items: center;
+  flex-direction: column; }
+  .groups-section .wide-central-container.options-container {
+    position: fixed;
+    top: 71px;
+    display: flex;
+    transition: 0.2s ease;
+    z-index: 11; }
+    .groups-section .wide-central-container.options-container .options {
+      display: flex;
+      margin: 0 16px;
+      width: 100%;
+      justify-content: flex-end; }
+      .groups-section .wide-central-container.options-container .options .btn-login {
+        color: #FF6040;
+        border: 1px solid #FF6040;
+        background: #ffebe7;
+        z-index: 1000; }
+        .groups-section .wide-central-container.options-container .options .btn-login:hover, .groups-section .wide-central-container.options-container .options .btn-login:active, .groups-section .wide-central-container.options-container .options .btn-login:focus {
+          background: #FF6040;
+          color: #ffebe7; }
+  .groups-section .wide-central-container.group-creation-input-container {
+    position: fixed;
+    top: -4px;
+    display: flex;
+    z-index: 1;
+    background: #000B2B;
+    transition: 0.2s ease;
+    z-index: 11; }
+    .groups-section .wide-central-container.group-creation-input-container.expanded {
+      top: 58px; }
+      .groups-section .wide-central-container.group-creation-input-container.expanded + .wide-central-container {
+        top: 130px; }
+    .groups-section .wide-central-container.group-creation-input-container .group-creation-input {
+      width: 100%;
+      max-width: 500px;
+      display: flex; }
+      .groups-section .wide-central-container.group-creation-input-container .group-creation-input .group-creation {
+        color: #000B2B;
+        height: 38px;
+        background: white;
+        width: 100%;
+        border-radius: 0;
+        text-align: left;
+        padding: 0 10px;
+        margin: 10px 10px; }
+        @media only screen and (max-width: 500px) {
+          .groups-section .wide-central-container.group-creation-input-container .group-creation-input .group-creation {
+            border-radius: 3px; }
+            .groups-section .wide-central-container.group-creation-input-container .group-creation-input .group-creation:active, .groups-section .wide-central-container.group-creation-input-container .group-creation-input .group-creation:focus {
+              margin: 0 0;
+              height: 58px;
+              border-radius: 0; } }
   .groups-section .central-container {
-    height: 100%; }
-    @media only screen and (max-width: 550px) {
-      .groups-section .central-container {
-        flex-direction: column; }
-        .groups-section .central-container .half-container {
-          flex-direction: row;
-          flex-wrap: wrap;
-          justify-content: space-around;
-          width: 100%; }
-          .groups-section .central-container .half-container.plus .group-card {
-            width: 250px;
-            padding-top: 250px; }
-          .groups-section .central-container .half-container.minus .group-card {
-            width: 140px;
-            padding-top: 140px; } }
+    margin-top: 135px;
+    margin-bottom: 6px; }
+    .groups-section .central-container .groups-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap; }
 
 .profile-section {
   padding: 69px 0 0 0;
