@@ -1,32 +1,85 @@
 .groups-section{
     padding: 0 0;
     width: 100%;
-    height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    .central-container{
-        height: 100%;
-        @include media-max(550px){
-            flex-direction: column;
-            .half-container{
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: space-around;
+    flex-direction: column;
+    .wide-central-container{
+        &.options-container{
+            position: fixed;
+            top: 71px; //71
+            display: flex;
+            transition: 0.2s ease;
+            z-index: 11;
+            .options{
+                display: flex;
+                margin: 0 16px;
                 width: 100%;
-                &.plus{
-                    .group-card{
-                        width: 250px;
-                        padding-top: 250px;
-                    }
-                }
-                &.minus{
-                    .group-card{
-                        width: 140px;
-                        padding-top: 140px;
+                //max-width: 900px;
+                justify-content: flex-end;
+                .btn-login{
+                    color: $main;
+                    border: 1px solid $main;
+                    background: $light-main;
+                    z-index: 1000;
+                    &:hover,
+                    &:active,
+                    &:focus{
+                        background: $main;
+                        color: $light-main;
                     }
                 }
             }
+        }
+        &.group-creation-input-container{
+            position: fixed;
+            top: -4px;
+            display: flex;
+            z-index: 1;
+            background: $main-contrast;
+            transition: 0.2s ease;
+            z-index: 11;
+            &.expanded{
+                top: 58px;
+                //border-top: 3px solid white;
+                & + .wide-central-container{
+                    top: 130px;
+                }
+            }
+            .group-creation-input{
+                width: 100%;
+                max-width: 500px;
+                display: flex;
+                .group-creation{
+                    color: $main-contrast;
+                    height: 38px;
+                    background: white;
+                    width: 100%;
+                    border-radius: 0;
+                    text-align: left;
+                    padding: 0 10px;
+                    margin: 10px 10px;
+                    @include media-max(500px){
+                        border-radius: 3px;
+                        &:active,
+                        &:focus{
+                            margin: 0 0;
+                            height: 58px;
+                            border-radius: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .central-container{
+        margin-top: 135px;
+        margin-bottom: 6px;
+        .groups-container{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
         }
     }
 }
