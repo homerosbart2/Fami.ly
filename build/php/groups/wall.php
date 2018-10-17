@@ -21,7 +21,7 @@
             echo "\n";
             echo "var usuarioId=".$usuario_actual_id.";";
             echo "\n";
-            echo "var name='".$usuario_actual_nombre."';";
+            echo "var usuarioName='".$usuario_actual_nombre."';";
             echo "\n";
             echo "</script>";
         }else{
@@ -376,8 +376,16 @@
         });
     }
 
+    function IsInArray(array,valor){
+        for(var i = 0; i < array.length; i++){
+            if(array[i] == valor) return true;
+        }
+        return false;
+    }
+
     //Función para generar una pregunta, la cual recibe [id] que es el id de la publicación, [user] al que pertenece, [text] que es la pregunta, [answers] que es un arreglo con las respuestas, [users] que es un arreglo con los usuarios autores (LAS RESPUESTAS Y USUARIOS DEBEN IR EN EL MISMO ORDEN), [time] que es el tiempo de creación, [me] booleano que indica si la publicación es del usuario actual y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
-    function generateQuestion(id, user, text, answers, users, time, me, createdLater){
+    //posicionUsuario si es -1 el usuario no ha contestado de lo contrario mostramos las respuestas del usuario
+    function generateQuestion(id, user, text, answers, users, time,respuestasUsuario, me, createdLater){
         rows = '';
         if(me){
             rows += '<span class="post-container me">';
@@ -395,7 +403,7 @@
         rows += '<span class="answers">';
         //Lista de respuestas de la pregunta
         for(i in answers){
-            if(false){
+            if(IsInArray(respuestasUsuario,i)){
                 //TODO: Esto pasa si la respuesta es del usuario actual (Hay que comparar si users[i] == usuarioActual).
                 rows += '<span class="answer me"><span class="searchable">'+answers[i]+'</span></span>';
             }else{
@@ -544,7 +552,6 @@
     }
 
     function confirmEvent(lmnt){
-        console.log(lmnt);
         object = lmnt.parent().parent();
         postId = parseInt(object.prop('id'));
         if(object.hasClass('im-in')){
@@ -762,6 +769,7 @@ function initWallListeners(){
                             success = 0;
                         }
                     }else if($(this).is('[id]')){
+                        alert("ENTRA");
                         //Esto sucede si es una respuesta a alguna pregunta.
                         postId = ($(this).prop('id')).substr(2,$(this).prop('id').length);
                         $('#' + postId).children('.answers').prepend('<span class="answer me">' + text + '</span>');
@@ -780,11 +788,20 @@ function initWallListeners(){
                     }else if(text.search('\\?')!=-1){
                         //Esto sucede si es una pregunta
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
-                        postId = 321;
-                        time = '12:21 PM';
-                        answers = [];
-                        users = [];
-                        generateQuestion(postId, '', text, answers, users, time, true, true);
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/preguntas/insertar.php?grupo=" + groupId + "&informacion=" + [text],
+                            type: "POST",
+                            success: function(r){
+                                // alert(r);
+                                if(r > 1){
+                                    postId = r;
+                                    //postsList(); 
+                                    generateQuestion(postId, '', text, answers, users, time, true, true);
+                                }else{
+                                    showMessage("error","Pregunta.","La pregunta no fue creada, verifique sus datos.");
+                                }
+                            }
+                        }); 
                         //TODO: almacenar en la base de datos después de la llamada a generateQuestion.
                     }else{
                         //Esto sucede si es un mensaje simple.
@@ -799,7 +816,7 @@ function initWallListeners(){
                                 if(r > 1){
                                     postId = r;
                                     //postsList(); 
-                                    generateMessage(postId, usuarioNombre, [text], time, true);
+                                    generateMessage(postId, usuarioName, [text], time, true);
                                     // showMessage("success","Evento.","El evento se ha creado exitosamente.");
                                 }else{
                                     showMessage("error","Mensaje.","El mensaje no fue creado, verifique sus datos.");
@@ -937,10 +954,36 @@ function initWallListeners(){
     }
 
   function showList(){
-        console.log(postsObject);
+        var showDate = 1;
+        var dateBefore = ""; //con esta variable mantengo el cambio de fecha de publicaciones
+        var dateInLetters = null;
+        var horario = null;
+        var typePost = false;
+        var size = Object.keys(postsObject).length;
+        var contador = 0;
         for (var key in postsObject) {
-            console.log(key);
+            typePost = false;
             var item = postsObject[key];
+            //OBTENEMOS LA FECHA
+            var date = new Date(item.fecha_creacion);       
+            day = date.getDate();
+            month = months[(parseInt(date.getMonth()))];
+            year = date.getFullYear();
+            dateInLetters = day + ' de ' + month + ' del ' + year;
+            h = date.getHours();
+            m = date.getMinutes();
+            h = (h<10) ? '0' + h : h;
+            m = (m<10) ? '0' + m : m;
+            horario = h+":"+m;
+            if(dateBefore != dateInLetters){
+                showDate++;
+                if((showDate % 3)==0){            
+                    showDate = 2;
+                    generateDateSeparator(dateBefore);
+                }                  
+                dateBefore = day + ' de ' + month + ' del ' + year;
+            }              
+            if(usuarioId == item.usuario_creador_id) typePost = true;
             if(item.tipo == "Vv"){
                 //VOTACIONES
                 $.ajax({
@@ -953,20 +996,99 @@ function initWallListeners(){
                         }
                     }
                 });  
-            }else if(item.tipo == "EE"){
+            }else if(item.tipo == "E"){
                 //EVENTOS
+                var asistencia = [];
+                var imIn = false;
+                $.ajax({
+                    url: "../rutas_ajax/publicaciones/eventos/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
+                    type: "POST",
+                    success: function(r){
+                        obj = JSON.parse(r);
+                        evento_id = obj[0][0].evento_id;
+                        titulo = obj[0][0].titulo;
+                        informacion = obj[0][0].informacion;
+                        fecha = obj[0][0].fecha;
+                        hora = obj[0][0].hora;
+                        lugar = obj[0][0].lugar;
+                        for(var j = 0; j < obj[1].length; j++){
+                            usuario = obj[1][j].nombre;
+                            id = obj[1][j].usuario_id;
+                            if(id == usuarioId) imIn = true; 
+                            asistencia.push(usuario);
+                        }
+                    },
+                    async: false // <- this turns it into synchronous
+                });  
+                var dateEvent = new Date(fecha);       
+                dayEvent = dateEvent.getDate();
+                monthEvent = months[(parseInt(dateEvent.getMonth()))];
+                yearEvent = dateEvent.getFullYear();
+                dateInLettersEvent = dayEvent + ' de ' + monthEvent + ' del ' + year;
+                generateEvent(item.publicacion_id, item.usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, [], imIn, horario, typePost, false);                
             }else if(item.tipo == "A"){
                 //ARCHIVOS
-            }else if(item.tipo == "Q"){
-                //ENCUESTAS
+            
+            }else if(item.tipo == "P"){
+                //PREGUNTAS
+                $.ajax({
+                    url: "../rutas_ajax/publicaciones/preguntas/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
+                    type: "POST",
+                    success: function(r){
+                        var respuestas = [];
+                        var usuarios = [];
+                        var respuestasUsuario = [];
+                        obj = JSON.parse(r);
+                        pregunta_id = obj[0][0].pregunta_id;
+                        informacion = obj[0][0].informacion;
+                        for(var b = 0; b < (obj[1]).length; b++){
+                                //itero sobre las respuestas
+                                respuesta_id = obj[1][b].respuesta_id;
+                                usuario = obj[1][b].nombre;
+                                usuario_id = obj[1][b].usuario_id;
+                                informacion = obj[1][b].informacion;
+                                usuarios.push(usuario);
+                                respuestas.push(informacion);
+                                if(usuario_id == usuarioId){
+                                    respuestasUsuario.push(b);
+                                }
+                            }               
+                        generateQuestion(item.publicacion_id, item.usuario_creador_nombre, informacion,respuestas,usuarios,horario,respuestasUsuario,typePost,false);
+                    },
+                    async: false // <- this turns it into synchronous
+                });                  
+            }else if(item.tipo == "V"){
+                //VOTOS
+                var opciones = [];
+                var countOpciones = [];
+                var eligeUsuario = -1;
+                $.ajax({
+                    url: "../rutas_ajax/publicaciones/votaciones/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
+                    type: "POST",
+                    success: function(r){
+                        obj = JSON.parse(r);
+                        mensaje_id = obj[0][0].votacion_id;
+                        informacion = obj[0][0].informacion;
+                        for(var a = 0; a < obj[1].length; a++){
+                            opcion_id = obj[1][a][0].opcion_id;
+                            informacion = obj[1][a][0].informacion;
+                            opciones.push(informacion);
+                            countOpciones.push((obj[1][a]).length - 1);
+                            for(var b = 1;  (eligeUsuario == -1 && b <= ((obj[1][a]).length - 1)); b++){
+                                //itero sobre las opciones para saber si el usuario a seleccionado alguna
+                                usuario = obj[1][a][b].usuario_id;
+                                if(usuario == usuarioId){
+                                    eligeUsuario = a;
+                                    break;
+                                }
+                            }
+                        }                                  
+                        generatePoll(item.publicacion_id, item.usuario_creador_nombre, informacion,opciones,countOpciones,eligeUsuario,horario,typePost,false);
+                    },
+                    async: false // <- this turns it into synchronous
+                });                         
             }else if(item.tipo == "M"){
-                //MENSAJES 
-                var dfd = jQuery.Deferred();
-                h = new Date(item.fecha_creacion).getHours();
-                m = new Date(item.fecha_creacion).getMinutes();
-                h = (h<10) ? '0' + h : h;
-                m = (m<10) ? '0' + m : m;
-                horario = h+":"+m;                      
+                //MENSAJES                    
                 $.ajax({
                     url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
                     type: "POST",
@@ -974,13 +1096,15 @@ function initWallListeners(){
                         obj = JSON.parse(r);
                         mensaje_id = obj[0].mensaje_id;
                         informacion = obj[0].informacion;
-                        type = false;
-                        if(usuarioId == item.usuario_creador_id) type = true;
-                        generateMessage(item.publicacion_id, item.usuario_creador_nombre, [informacion],horario, type);
+                        generateMessage(item.publicacion_id, item.usuario_creador_nombre, [informacion],horario, typePost);
                     },
                     async: false // <- this turns it into synchronous
                 });             
             }
+            contador++;    
+            if(contador==size){
+                generateDateSeparator(dateBefore)
+            };  
         } 
     }
 
@@ -997,7 +1121,7 @@ function initWallListeners(){
                         usuario_creador_nombre: obj[i].nombre,
                         grupo_id: obj[i].grupo_id,
                         tipo: obj[i].tipo,
-                        fecha_creacion: obj[i].fecha_creacion,
+                        fecha_creacion: obj[i].fecha_creacion
                     };
                     postsObject[obj[i].publicacion_id] = item;   
                     //ahora que ya tengo almacenadas las publicaciones se muestran               
@@ -1005,7 +1129,6 @@ function initWallListeners(){
             },
             async: false // <- this turns it into synchronous
         });         
-        console.log("TERMINA FOR");
         showList();            
     }
 
