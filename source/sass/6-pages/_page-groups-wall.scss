@@ -667,6 +667,31 @@
                         content: "Mensaje";
                     }
                 }
+                &.image{
+                    max-width: 200px;
+                    width: 100%;
+                    .type::after{
+                        content: "Imagen";
+                    }
+                    .text{
+                        background: $main-contrast;
+                        color: white;
+                        padding: 2px 6px;
+                    }
+                    .image{
+                        position: relative;
+                        display: flex;
+                        justify-content: center;
+                        padding-bottom: 100%;
+                        overflow: hidden;
+                        border-radius: 4px;
+                        margin: 6px 0 6px 0;
+                        img{
+                            position: absolute;
+                            height: 100%;
+                        }
+                    }
+                }
                 &.poll{
                     .text{
                         background: $main-contrast;
