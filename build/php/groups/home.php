@@ -94,9 +94,9 @@
     };
 
     //
-    function generateGroupCard(id, name, images, empty){
+    function generateGroupCard(id, name, images){
         rows = '';
-        if(empty){
+        if(images.length == 0){
             rows += '<span id="'+id+'" class="group-card empty">';
         }else{
             rows += '<span id="'+id+'" class="group-card">';
@@ -146,7 +146,7 @@
                 text = $(this).val();
                 if(/\S/.test(text)){
                     groupId = 123;
-                    generateGroupCard(groupId, text, [], true);
+                    generateGroupCard(groupId, text, []);
                     hideCreateGroupBar();
                     $(this).val('');
                     $(this).trigger("enterKey");
