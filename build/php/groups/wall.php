@@ -172,6 +172,17 @@
         $('.posts').prepend(rows);
     }
 
+    //Función para mostrar la animación de carga, si [show] es true entonces se muestra, si es false se oculta.
+    function showChargingAnimation(show){
+        rows = '';
+        if(show){
+            rows += '<span class="posts-charging">';
+            rows += '<i class="fas fa-circle-notch fa-spin"></i>';
+            rows += '</span>';
+        }
+        $('.posts').html(rows);
+    }
+
     function generateImage(id, user, text, image, time, me, createdLater){
         rows = '';
         if(me){
@@ -846,6 +857,9 @@
     $(document).ready(function(){
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
+
+        //EXAMPLE: Ejemplo para mostrar la animación de carga.
+        showChargingAnimation(true);
         
         //EXAMPLE: Ejemplos para agregar un resultado a la búsqueda.
         clearPeopleSearch();

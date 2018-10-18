@@ -1517,6 +1517,14 @@ body.disableScrollBar {
           transform: none; }
           .wall .central-container .group-title .group-card:hover img, .wall .central-container .group-title .group-card:active img, .wall .central-container .group-title .group-card:focus img {
             filter: none; }
+    .wall .central-container .posts-charging {
+      position: fixed;
+      display: flex;
+      width: 100%;
+      top: 50vh;
+      justify-content: center;
+      align-items: center;
+      font-size: 65px; }
     .wall .central-container .post-container {
       display: flex;
       width: 100%;
