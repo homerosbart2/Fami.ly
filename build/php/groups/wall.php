@@ -17,7 +17,7 @@
                     <a class="filter-option question"><span><i class="fas fa-question"></i></span></a>
                     <a class="filter-option poll"><span><i class="fas fa-poll-h"></i></span></a>
                     <a class="filter-option event"><span><i class="far fa-calendar"></i></span></a>
-                    <a class="filter-option image-video"><span><i class="fas fa-image"></i></span></a>
+                    <a class="filter-option image"><span><i class="fas fa-image"></i></span></a>
                     <a class="btn-login">Invitar</a>
                 </span>
             </span>
@@ -170,6 +170,32 @@
     function generateDateSeparator(date){
         rows = '<span class="date-separator">'+date+'</span>';
         $('.posts').prepend(rows);
+    }
+
+    function generateImage(id, user, text, image, time, me, createdLater){
+        rows = '';
+        if(me){
+            rows += `<span class="post-container me">`;
+            rows += `<span id="${id}" class="post image">`;
+        }else{
+            rows += `<span class="post-container">`;
+            rows += `<span id="${id}" class="post image">`;
+            rows += `<span class="user-name">${user}</span>`;
+        }
+        rows += `<span class="text searchable">${text}</span>`;
+        rows += `<span class="image">`;
+        rows += `<img src="${image}">`;
+        rows += `</span>`;
+        rows += `<span class="time">${time}</span>`;
+        rows += `<span class="type"><i class="fas fa-circle"></i></span>`;
+        rows += `</span>`;
+        rows += `</span>`;
+        $('.posts').prepend(rows);
+        window.scroll({
+            top: 0, 
+            left: 0, 
+            behavior: 'smooth' 
+        });
     }
 
     //Función para generar un evento nuevo, la cual recibe el [id] de la publicación, el [user] al que pertenece la publicación, [text] que es el título del evento, la [description] del evento, la [ubication], [eventDate] que es la fecha en formato [12 de agosto], [eventTime] que es la hora del evento en formato [9:30 AM], [confirmedPeopleNames] que es el arreglo de los nombres de los usuarios que confirmaron, [confirmedPeopleImages] que es el arreglo con las rutas de las imágenes de los usuarios en el mismo orden que el arreglo anterior, [imIn] booleano que indica si el usuario actual confirmó el evento (Este no se agrega a los arreglos mencionados anteriormente), [time] que es la hora de creación, [me] booleano que indica si el evento pertenece al usuario actual y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
@@ -847,6 +873,9 @@
 
         //EXAMPLE: Ejemplo votación.
         generatePoll(76, 'Henry', '¿A dónde quieren salir en la noche?', ['Pollo Campero', 'Nais', 'La Estancia'], [3, 1, 1], 1, '12:35', false, false);
+
+        //EXAMPLE: Ejemplo imagen.
+        generateImage(78, 'Henry', 'Recuerdo familiar', '../../assets/img/fam1.jpg', '3:52 PM', true, false);
 
         //EXAMPLE: Ejemplo separador.
         generateDateSeparator('Hoy');
