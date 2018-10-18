@@ -1163,7 +1163,7 @@ function initWallListeners(){
         generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', true, true);
         
         //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda (Esta instrucción elimina los resultados agregados del ejemplo de arriba).
-        noResultInSearch();
+        // noResultInSearch();
 
         //EXAMPLE: Ejemplos para cada tipo de publicación:
         //EXAMPLE: Ejemplo mensaje simple.
