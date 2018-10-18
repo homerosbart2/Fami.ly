@@ -174,13 +174,15 @@
 
     //Función para mostrar la animación de carga, si [show] es true entonces se muestra, si es false se oculta.
     function showChargingAnimation(show){
-        rows = '';
         if(show){
+            rows = '';
             rows += '<span class="posts-charging">';
             rows += '<i class="fas fa-circle-notch fa-spin"></i>';
             rows += '</span>';
+            $('.posts').prepend(rows);
+        }else{
+            $('.posts').find('.posts-charging').remove();
         }
-        $('.posts').html(rows);
     }
 
     function generateImage(id, user, text, image, time, me, createdLater){
@@ -897,6 +899,7 @@
         //Función que asigna todos los eventos de los elementos en el mural.
         initWallListeners();
 
+        //showChargingAnimation(false);
     });
 
     
