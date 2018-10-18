@@ -29,7 +29,7 @@
         $result = pg_query($link, $query);
         if($result){    
             $rows = pg_fetch_assoc($result);
-            $create = $publicacion;              
+            $create = $publicacion;            
         }
     }
     echo $create

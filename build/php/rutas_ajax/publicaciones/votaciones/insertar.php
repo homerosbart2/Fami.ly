@@ -31,11 +31,12 @@
         $result = pg_query($link, $query);
         if($result){    
             $rows = pg_fetch_assoc($result);
-            $create = $publicacion;  
+            $votacion = $rows["votacion_id"];
             foreach ($opciones as $opcion) {
-                $query = "INSERT INTO Opciones(votacion_id,informacion) VALUES ($create,'$opcion')";
+                $query = "INSERT INTO Opciones(votacion_id,informacion) VALUES ($votacion,'$opcion')";
                 $result = pg_query($link, $query);
-            }                        
+            }                      
+            $create = $publicacion;  
         }
     }
     echo $create
