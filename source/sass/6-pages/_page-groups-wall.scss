@@ -337,6 +337,15 @@
                 }
             }
         }
+        .posts-charging{
+            position: fixed;
+            display: flex;
+            width: 100%;
+            top: 50vh;
+            justify-content: center;
+            align-items: center;
+            font-size: 65px;
+        }
         .post-container{
             display: flex;
             width: 100%;
