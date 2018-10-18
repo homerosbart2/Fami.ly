@@ -187,9 +187,11 @@
     function updateQuantities(lmnt){
         //[option] almacena la opción seleccionada.
         option = lmnt.parent().find('input').prop('id');
+        optionId = (lmnt.parent().find('input')).attr("option");
         option = parseInt(option.substring(option.length-1, option.length));
         object = lmnt.parent().parent();
         postId = object.parent().parent().prop('id');
+        votacionId = object.parent().parent().attr('votacion');
         if(!object.parent().hasClass('answered')){
             quantity = parseInt(object.children('.quantity').text()) + 1;
             object.children('.quantity').html(quantity);
@@ -206,8 +208,16 @@
             }
         }
         sum = 0;
-        updatePercents(postId);
-        //TODO: almacenar en la base de datos que el usuario actual votó en la opción [option] después de la llamada a updatePercents.
+        updatePercents(postId);     
+        // TODO: almacenar en la base de datos que el usuario actual votó en la opción [option] después de la llamada a updatePercents.
+        $.ajax({
+            url: "../rutas_ajax/publicaciones/votaciones/insertar_votos.php?grupo=" + groupId + "&votacion=" + votacionId + "&opcion=" + optionId,
+            type: "POST",
+            success: function(r){
+                // if(r == 1) //creada
+                // else if(r == 2) //editada
+            },
+        });        
     }
 
     //Función que se llama cada vez que se cambia de fecha, el separador tiene que salir arriba de todas las publicaciones que son de esa fecha.
@@ -217,21 +227,21 @@
     }
 
     //Función para generar un evento nuevo, la cual recibe el [id] de la publicación, el [user] al que pertenece la publicación, [text] que es el título del evento, la [description] del evento, la [ubication], [eventDate] que es la fecha en formato [12 de agosto], [eventTime] que es la hora del evento en formato [9:30 AM], [confirmedPeopleNames] que es el arreglo de los nombres de los usuarios que confirmaron, [confirmedPeopleImages] que es el arreglo con las rutas de las imágenes de los usuarios en el mismo orden que el arreglo anterior, [imIn] booleano que indica si el usuario actual confirmó el evento (Este no se agrega a los arreglos mencionados anteriormente), [time] que es la hora de creación, [me] booleano que indica si el evento pertenece al usuario actual y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
-    function generateEvent(id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me, createdLater){
+    function generateEvent(id, evento_id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me, createdLater){
         rows = '';
         if(me){
             rows += '<span class="post-container me">';
             if(imIn){
-                rows += '<span id="'+id+'" class="post event im-in">';
+                rows += '<span id="'+id+'" evento="' + evento_id + '" class="post event im-in">';
             }else{
-                rows += '<span id="'+id+'" class="post event">';
+                rows += '<span id="'+id+'" evento="' + evento_id + '" class="post event">';
             }
         }else{
             rows += '<span class="post-container">';
             if(imIn){
-                rows += '<span id="'+id+'" class="post event im-in">';
+                rows += '<span id="'+id+'" evento="' + evento_id + '" class="post event im-in">';
             }else{
-                rows += '<span id="'+id+'" class="post event">';
+                rows += '<span id="'+id+'" evento="' + evento_id + '" class="post event">';
             }
             rows += '<span class="user-name">'+user+'</span>';
         }
@@ -385,16 +395,16 @@
 
     //Función para generar una pregunta, la cual recibe [id] que es el id de la publicación, [user] al que pertenece, [text] que es la pregunta, [answers] que es un arreglo con las respuestas, [users] que es un arreglo con los usuarios autores (LAS RESPUESTAS Y USUARIOS DEBEN IR EN EL MISMO ORDEN), [time] que es el tiempo de creación, [me] booleano que indica si la publicación es del usuario actual y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
     //posicionUsuario si es -1 el usuario no ha contestado de lo contrario mostramos las respuestas del usuario
-    function generateQuestion(id, user, text, answers, users, time,respuestasUsuario, me, createdLater){
+    function generateQuestion(id, pregunta_id, user, text, answers, users, time,respuestasUsuario, me, createdLater){
         rows = '';
         if(me){
             rows += '<span class="post-container me">';
-            rows += '<span id="'+id+'" class="post question">';
+            rows += '<span id="'+id+'" pregunta="' + pregunta_id + '" class="post question">';
         }else{
             rows += '<span class="post-container">';
-            rows += '<span id="'+id+'" class="post question">';
+            rows += '<span id="'+id+'" pregunta="' + pregunta_id + '" class="post question">';
             rows += '<span class="user-name">'+user+'</span>';
-        }
+        }   
         rows += '<span class="text searchable">'+text+'</span>';
         rows += '<span class="options">';
         rows += '<a class="see-more">Respuestas <i class="fas fa-angle-down"></i></a>';
@@ -436,14 +446,14 @@
     }
 
     //Función que genera una publicación:votación la cual recibe un [id] nuevo de publicación, el [user] al que pertenece la publicación (Debe ser un string vacío si es del usuario actual), [text] que es el mensaje de la votación, [options] que son las opciones que ingresó el usuario (pueden venir de 1 a 4 opciones, tal vez más), [quantities] que es el arreglo de cantidades de votos por pregunta (¡DEBEN VENIR EN EL MISMO ORDEN QUE LAS OPCIONES!), [selected] que es la opción seleccionada por el usuario que inició sesión (un -1 indica que el usuario no ha seleccionado ninguna opción), [time] que es el tiempo de la publicación, [me] que es true si la publicación es del usuario que tiene a sesión y false si la publicación es de cualquier otro, y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
-    function generatePoll(id, user, text, options, quantities, selected, time, me, createdLater){
+    function generatePoll(id, votacion_id, user, text, options, quantities, selected, optionsIds, time, me, createdLater){
         rows = '';
         if(me){
             rows += '<span class="post-container me">';
-            rows += '<span id="'+id+'" class="post poll">';
+            rows += '<span id="'+id+'" votacion="' + votacion_id + '" class="post poll">';
         }else{
             rows += '<span class="post-container">';
-            rows += '<span id="'+id+'" class="post poll">';
+            rows += '<span id="'+id+'" votacion="' + votacion_id + '" class="post poll">';
             rows += '<span class="user-name">'+user+'</span>';
         }
         rows += '<span class="text searchable">'+text+'</span>';
@@ -460,9 +470,9 @@
             }
             rows += '<span class="radio-container">';
             if(selected == i){
-                rows += '<input id="poll'+id+'-'+i+'" type="radio" checked="true"  name="poll" value="0">';
+                rows += '<input id="poll'+id+'-'+i+'" option="' + optionsIds[i] + '" type="radio" checked="true"  name="poll" value="0">';
             }else{
-                rows += '<input id="poll'+id+'-'+i+'" type="radio" name="poll" value="0">';
+                rows += '<input id="poll'+id+'-'+i+'" option="' + optionsIds[i] + '" type="radio" name="poll" value="0">';
             }
             
             rows += '<label for="poll'+id+'-'+i+'" class="radio-button" >';
@@ -554,6 +564,7 @@
     function confirmEvent(lmnt){
         object = lmnt.parent().parent();
         postId = parseInt(object.prop('id'));
+        eventId = object.attr("evento");
         if(object.hasClass('im-in')){
             object.removeClass('im-in');
             lmnt.html('Asistiré');
@@ -562,6 +573,15 @@
             lmnt.html('No Asistiré');
         }
         //TODO: almacenar o eliminar en la base de datos la entrada que indica que el usuario actual asistirá al evento con id [postId].
+        $.ajax({
+            url: "../rutas_ajax/publicaciones/eventos/insertar_asistencia.php?grupo=" + groupId + "&evento=" + eventId,
+            type: "POST",
+            success: function(r){
+                console.log(r);
+                // if(r == 1) //creada
+                // else if(r == 2) //editada
+            },
+        });  
     }
 
     function expandConfirmedPeople(lmnt){
@@ -724,9 +744,7 @@ function initWallListeners(){
                             success: function(r){
                                 // alert(r);
                                 if(r > 1){
-                                    postId = r; 
-                                    generateEvent(postId, '', text, description, ubication, day + ' de ' + month, hour + ':' + minutes + ' PM', confirmedPeopleNames, confirmedPeopleImages, false, time, true);
-                                    showMessage("success","Evento.","El evento se ha creado exitosamente.");
+                                    postsList(true,r);
                                 }else{
                                     showMessage("error","Evento.","El evento no fue creado, verifique sus datos.");
                                 }
@@ -753,10 +771,7 @@ function initWallListeners(){
                                 success: function(r){
                                     alert(r);
                                     if(r > 1){
-                                        postId = r; 
-                                        generatePoll(postId, '', text, options, quantities, time, true);
-                                        $('.poll-option').val('');
-                                        $('.poll-option').removeClass('with-text');
+                                        postsList(true,r);
                                         // showMessage("success","Evento.","El evento se ha creado exitosamente.");
                                     }else{
                                         showMessage("error","Votación.","La votación no fue creada, verifique sus datos.");
@@ -769,9 +784,9 @@ function initWallListeners(){
                             success = 0;
                         }
                     }else if($(this).is('[id]')){
-                        alert("ENTRA");
                         //Esto sucede si es una respuesta a alguna pregunta.
                         postId = ($(this).prop('id')).substr(2,$(this).prop('id').length);
+                        questionId = (document.getElementById(postId)).getAttribute("pregunta");
                         $('#' + postId).children('.answers').prepend('<span class="answer me">' + text + '</span>');
                         //Se esconde la pregunta.
                         $('.questionbox-container').css('bottom', '20px');
@@ -784,6 +799,13 @@ function initWallListeners(){
                             showQuestionAnswers(object);
                         }
                         //TODO: almacenar en la base de datos la respuesta a la pregunta con id [postId].
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/preguntas/insertar_respuestas.php?grupo=" + groupId + "&pregunta=" + questionId + "&informacion=" + text,
+                            type: "POST",
+                            success: function(r){
+                                // if(r == 1) //creada
+                            },
+                        });   
                         scrollToMiddle($('#'+postId));
                     }else if(text.search('\\?')!=-1){
                         //Esto sucede si es una pregunta
@@ -794,9 +816,7 @@ function initWallListeners(){
                             success: function(r){
                                 // alert(r);
                                 if(r > 1){
-                                    postId = r;
-                                    //postsList(); 
-                                    generateQuestion(postId, '', text, answers, users, time, true, true);
+                                    postsList(true,r);
                                 }else{
                                     showMessage("error","Pregunta.","La pregunta no fue creada, verifique sus datos.");
                                 }
@@ -814,10 +834,8 @@ function initWallListeners(){
                             success: function(r){
                                 // alert(r);
                                 if(r > 1){
-                                    postId = r;
-                                    //postsList(); 
-                                    generateMessage(postId, usuarioName, [text], time, true);
-                                    // showMessage("success","Evento.","El evento se ha creado exitosamente.");
+                                    postsList(true,r);
+                                    // showMessage("success","Mensaje.","El mensaje se ha creado exitosamente.");
                                 }else{
                                     showMessage("error","Mensaje.","El mensaje no fue creado, verifique sus datos.");
                                 }
@@ -953,7 +971,7 @@ function initWallListeners(){
         });
     }
 
-  function showList(){
+  function showList(createAt){
         var showDate = 1;
         var dateBefore = ""; //con esta variable mantengo el cambio de fecha de publicaciones
         var dateInLetters = null;
@@ -983,20 +1001,8 @@ function initWallListeners(){
                 }                  
                 dateBefore = day + ' de ' + month + ' del ' + year;
             }              
-            if(usuarioId == item.usuario_creador_id) typePost = true;
-            if(item.tipo == "Vv"){
-                //VOTACIONES
-                $.ajax({
-                    url: "../rutas_ajax/votaciones/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                    type: "POST",
-                    success: function(r){
-                        obj = JSON.parse(r);
-                        for(var i = 0; i < obj.length; i++){
-        
-                        }
-                    }
-                });  
-            }else if(item.tipo == "E"){
+            if(usuarioId == item.usuario_creador_id) typePost = true; 
+            if(item.tipo == "E"){
                 //EVENTOS
                 var asistencia = [];
                 var imIn = false;
@@ -1014,8 +1020,11 @@ function initWallListeners(){
                         for(var j = 0; j < obj[1].length; j++){
                             usuario = obj[1][j].nombre;
                             id = obj[1][j].usuario_id;
-                            if(id == usuarioId) imIn = true; 
-                            asistencia.push(usuario);
+                            estado = obj[1][j].estado
+                            if(estado == 1){
+                                if(id == usuarioId) imIn = true; 
+                                else asistencia.push(usuario);
+                            }
                         }
                     },
                     async: false // <- this turns it into synchronous
@@ -1025,7 +1034,7 @@ function initWallListeners(){
                 monthEvent = months[(parseInt(dateEvent.getMonth()))];
                 yearEvent = dateEvent.getFullYear();
                 dateInLettersEvent = dayEvent + ' de ' + monthEvent + ' del ' + year;
-                generateEvent(item.publicacion_id, item.usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, [], imIn, horario, typePost, false);                
+                generateEvent(item.publicacion_id, evento_id, item.usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, [], imIn, horario, typePost, createAt);                
             }else if(item.tipo == "A"){
                 //ARCHIVOS
             
@@ -1053,7 +1062,7 @@ function initWallListeners(){
                                     respuestasUsuario.push(b);
                                 }
                             }               
-                        generateQuestion(item.publicacion_id, item.usuario_creador_nombre, informacion,respuestas,usuarios,horario,respuestasUsuario,typePost,false);
+                        generateQuestion(item.publicacion_id, pregunta_id, item.usuario_creador_nombre, informacion,respuestas,usuarios,horario,respuestasUsuario,typePost,createAt);
                     },
                     async: false // <- this turns it into synchronous
                 });                  
@@ -1061,17 +1070,19 @@ function initWallListeners(){
                 //VOTOS
                 var opciones = [];
                 var countOpciones = [];
+                var optionsIds = [];
                 var eligeUsuario = -1;
                 $.ajax({
                     url: "../rutas_ajax/publicaciones/votaciones/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
                     type: "POST",
                     success: function(r){
                         obj = JSON.parse(r);
-                        mensaje_id = obj[0][0].votacion_id;
+                        votacion_id = obj[0][0].votacion_id;
                         informacion = obj[0][0].informacion;
                         for(var a = 0; a < obj[1].length; a++){
                             opcion_id = obj[1][a][0].opcion_id;
                             informacion = obj[1][a][0].informacion;
+                            optionsIds.push(opcion_id);
                             opciones.push(informacion);
                             countOpciones.push((obj[1][a]).length - 1);
                             for(var b = 1;  (eligeUsuario == -1 && b <= ((obj[1][a]).length - 1)); b++){
@@ -1083,7 +1094,7 @@ function initWallListeners(){
                                 }
                             }
                         }                                  
-                        generatePoll(item.publicacion_id, item.usuario_creador_nombre, informacion,opciones,countOpciones,eligeUsuario,horario,typePost,false);
+                        generatePoll(item.publicacion_id, votacion_id, item.usuario_creador_nombre, informacion,opciones,countOpciones,eligeUsuario,optionsIds,horario,typePost,false);
                     },
                     async: false // <- this turns it into synchronous
                 });                         
@@ -1108,9 +1119,9 @@ function initWallListeners(){
         } 
     }
 
-    function postsList(){
+    function postsList(createAt,postId){
         $.ajax({
-            url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&tipo=",
+            url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&publicacion=" + postId,
             type: "POST",
             success: function(r){
                 obj = JSON.parse(r);
@@ -1129,14 +1140,14 @@ function initWallListeners(){
             },
             async: false // <- this turns it into synchronous
         });         
-        showList();            
+        showList(createAt);            
     }
 
     $(document).ready(function(){
         //llamamos a las publicaciones
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
-        postsList();
+        postsList(false,"");
         //EXAMPLE: Ejemplo para agregar un resultado a la búsqueda.
         //generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, false);
         
@@ -1160,20 +1171,20 @@ function initWallListeners(){
 
         // generateMessage(100, 'DIego', ['Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuuuu', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'zzz'], '3:20 PM', false)
 
-        //EXAMPLE: Ejemplo pregunta.
-        generateQuestion(75, '', '¿A dónde quieren salir en la noche?', ['A Nais!!!', 'No sé de qué tengo ganas jajaja', 'Mejor a Pollo Campero, más barato'], ['Alex', 'Fernando', 'Vilma'], '10:27 AM', true, false)
+            // //EXAMPLE: Ejemplo pregunta.
+            // generateQuestion(75, '', '¿A dónde quieren salir en la noche?', ['A Nais!!!', 'No sé de qué tengo ganas jajaja', 'Mejor a Pollo Campero, más barato'], ['Alex', 'Fernando', 'Vilma'], '10:27 AM', true, false)
 
-        //EXAMPLE: Ejemplo evento.
-        generateEvent(77, 'Marco', '¡Cumpleaños de Fernando!', 'Va a estar muy alegre, vengan todos!!', 'Villas de Fátima', '20 de marzo', '1:00 PM', ['Jhonathan', 'Vilma', 'Alex', 'Lilly'], ['../../assets/img/users/face9.png', '../../assets/img/users/face2.png', '../../assets/img/users/face1.png', '../../assets/img/users/face8.png'], true, '10:27 PM', false, false);
+            // //EXAMPLE: Ejemplo evento.
+            // generateEvent(77, 'Marco', '¡Cumpleaños de Fernando!', 'Va a estar muy alegre, vengan todos!!', 'Villas de Fátima', '20 de marzo', '1:00 PM', ['Jhonathan', 'Vilma', 'Alex', 'Lilly'], ['../../assets/img/users/face9.png', '../../assets/img/users/face2.png', '../../assets/img/users/face1.png', '../../assets/img/users/face8.png'], true, '10:27 PM', false, false);
 
-        //EXAMPLE: Ejemplo separador.
-        generateDateSeparator('27 de septiembre de 2018');
+            // //EXAMPLE: Ejemplo separador.
+            // generateDateSeparator('27 de septiembre de 2018');
 
-        //EXAMPLE: Ejemplo votación.
-        generatePoll(76, 'Henry', '¿A dónde quieren salir en la noche?', ['Pollo Campero', 'Nais', 'La Estancia'], [3, 1, 1], 1, '12:35', false, false);
+            // //EXAMPLE: Ejemplo votación.
+            // generatePoll(76, 'Henry', '¿A dónde quieren salir en la noche?', ['Pollo Campero', 'Nais', 'La Estancia'], [3, 1, 1], 1, '12:35', false, false);
 
-        //EXAMPLE: Ejemplo separador.
-        generateDateSeparator('Hoy');
+            // //EXAMPLE: Ejemplo separador.
+            // generateDateSeparator('Hoy');
 
         //Función que asigna todos los eventos de los elementos en el mural.
         initWallListeners();

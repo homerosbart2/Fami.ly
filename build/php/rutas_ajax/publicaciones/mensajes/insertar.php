@@ -29,7 +29,7 @@
         $result = pg_query($link, $query);
         if($result){    
             $rows = pg_fetch_assoc($result);
-            $create = $rows["mensaje_id"];            
+            $create = $publicacion;              
         }
     }
     echo $create

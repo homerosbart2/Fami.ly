@@ -4,9 +4,13 @@
     $usuario = $_SESSION['usuario_actual_id']; 
     //parametros
     $grupo = $_GET["grupo"];
-    $tipo = $_GET["tipo"];
+    $publicacion = $_GET["publicacion"];
     $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
-    $query = "SELECT DISTINCT P.publicacion_id, P.usuario_creador_id,P.grupo_id,P.tipo,P.fecha_creacion,U.nombre FROM  Publicaciones AS P, Usuarios AS U WHERE P.grupo_id = $grupo AND P.usuario_creador_id = U.usuario_id ORDER BY P.fecha_creacion ASC";
+    if(empty($publicacion)){
+        $query = "SELECT P.publicacion_id, P.usuario_creador_id,P.grupo_id,P.tipo,P.fecha_creacion,U.nombre FROM  Publicaciones AS P, Usuarios AS U WHERE P.grupo_id = $grupo AND P.usuario_creador_id = U.usuario_id ORDER BY P.fecha_creacion ASC";
+    }else{
+        $query = "SELECT P.publicacion_id, P.usuario_creador_id,P.grupo_id,P.tipo,P.fecha_creacion,U.nombre FROM  Publicaciones AS P, Usuarios AS U WHERE P.grupo_id = $grupo AND P.usuario_creador_id = U.usuario_id AND P.publicacion_id = $publicacion ORDER BY P.fecha_creacion ASC";
+    }
     $result = pg_query($link, $query);
     $retorno = array();
     $i = 0;

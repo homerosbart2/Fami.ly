@@ -123,7 +123,24 @@ function generateGroupCard(id, name, images){
     object.style.fontSize = relFontsize+'px';
 }
 
+function listGroups(){
+    //lista los grupos a los que el usuario pertenece
+    $.ajax({
+        url: "../rutas_ajax/grupos/listado.php?",
+        type: "POST",
+        success: function(r){
+            obj = JSON.parse(r);
+            for(var i = 0; i < obj.length; i++){
+                groupId = obj[i].grupo_id;
+                apellido = obj[i].apellido;
+                generateGroupCard(groupId, apellido, []); 
+            }                         
+        },
+    });
+}
+
 $(document).ready(function(){
+    listGroups();
     object = $('.searchbox');
     object.find('.search-right').css('display', 'none');
     object.find('.search-left').css('display', 'none');
@@ -149,11 +166,21 @@ $(document).ready(function(){
         if(e.keyCode == 13){
             text = $(this).val();
             if(/\S/.test(text)){
-                groupId = 123;
-                generateGroupCard(groupId, text, []);
-                hideCreateGroupBar();
-                $(this).val('');
-                $(this).trigger("enterKey");
+                //CREAMOS EL GRUPO EN LA DB             
+                $.ajax({
+                    url: "../rutas_ajax/grupos/insertar.php?apellido=" + text,
+                    type: "POST",
+                    success: function(r){
+                        if(r > 0){
+                            groupId = r;
+                            generateGroupCard(groupId, text, []);
+                            hideCreateGroupBar();
+                            $(this).val('');
+                            $(this).trigger("enterKey");                            
+                        }
+                    },
+                    async: false // <- this turns it into synchronous
+                });                             
             }
         }
     });

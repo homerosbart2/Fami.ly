@@ -18,7 +18,7 @@
             $evento = $row["evento_id"];
             $i++;
         }  
-        $query = "SELECT A.asiste_id, U.nombre, U.usuario_id FROM  Asiste AS A, Usuarios AS U WHERE A.evento_id = $evento AND U.usuario_id = A.usuario_id";
+        $query = "SELECT A.asiste_id, A.estado, U.nombre, U.usuario_id FROM  Asiste AS A, Usuarios AS U WHERE A.evento_id = $evento AND U.usuario_id = A.usuario_id";
         $result = pg_query($link, $query);
         $i = 0;
         if($result){

@@ -31,7 +31,7 @@
         $result = pg_query($link, $query);
         if($result){    
             $rows = pg_fetch_assoc($result);
-            $create = $rows["votacion_id"];
+            $create = $publicacion;  
             foreach ($opciones as $opcion) {
                 $query = "INSERT INTO Opciones(votacion_id,informacion) VALUES ($create,'$opcion')";
                 $result = pg_query($link, $query);
