@@ -886,13 +886,17 @@ body.disableScrollBar {
   margin: 6px 6px;
   cursor: pointer;
   transition: 0.2s ease; }
-  .user-card:hover, .user-card:active, .user-card:focus {
-    transform: scale(1.05); }
+  .user-card:hover img, .user-card:active img, .user-card:focus img {
+    filter: blur(0) brightness(1); }
+  .user-card:hover .name, .user-card:active .name, .user-card:focus .name {
+    color: transparent; }
   .user-card img {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%; }
+    width: 100%;
+    transition: 0.4s ease;
+    filter: blur(10px) brightness(0.7); }
   .user-card .name {
     position: absolute;
     top: 0;
@@ -902,8 +906,8 @@ body.disableScrollBar {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    text-shadow: 0 0 8px black, 0 0 16px black; }
+    color: #e9eeff;
+    transition: 0.2s ease; }
 
 .search-people-container {
   position: absolute;
@@ -1113,11 +1117,17 @@ body.disableScrollBar {
     display: flex;
     flex-direction: column; }
     .profile-section .central-container .profile-title {
+      overflow: hidden;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: flex-start;
       width: 100%;
-      background-image: linear-gradient(-45deg, #FF6040, #203E99); }
+      background: gray; }
+      .profile-section .central-container .profile-title .title-bg {
+        filter: blur(15px) brightness(0.7);
+        position: absolute;
+        width: 100%; }
       .profile-section .central-container .profile-title .profile-img {
         position: relative;
         width: 20%;
@@ -1128,7 +1138,7 @@ body.disableScrollBar {
         overflow: hidden;
         cursor: pointer; }
         .profile-section .central-container .profile-title .profile-img:hover img, .profile-section .central-container .profile-title .profile-img:active img, .profile-section .central-container .profile-title .profile-img:focus img {
-          filter: blur(5px) brightness(0.5); }
+          filter: blur(10px) brightness(0.7); }
         .profile-section .central-container .profile-title .profile-img:hover .img-update, .profile-section .central-container .profile-title .profile-img:active .img-update, .profile-section .central-container .profile-title .profile-img:focus .img-update {
           opacity: 1; }
         .profile-section .central-container .profile-title .profile-img img {
@@ -1149,7 +1159,7 @@ body.disableScrollBar {
           align-items: center;
           opacity: 0;
           transition: 0.2s ease; }
-          .profile-section .central-container .profile-title .profile-img .img-update i {
+          .profile-section .central-container .profile-title .profile-img .img-update i, .profile-section .central-container .profile-title .profile-img .img-update svg {
             margin-right: 5px; }
       .profile-section .central-container .profile-title .name-container {
         display: flex;
@@ -1157,7 +1167,8 @@ body.disableScrollBar {
         justify-content: center;
         align-items: flex-start;
         margin: 10px 10px;
-        color: white; }
+        color: white;
+        z-index: 1; }
         .profile-section .central-container .profile-title .name-container .user-names, .profile-section .central-container .profile-title .name-container .user-lastnames {
           font-size: 26px;
           display: flex;
@@ -1199,6 +1210,20 @@ body.disableScrollBar {
         display: flex;
         flex-direction: column;
         margin-bottom: 10px; }
+        .profile-section .central-container .profile .profile-information .birthday, .profile-section .central-container .profile .profile-information .gender, .profile-section .central-container .profile .profile-information .country {
+          display: flex;
+          flex-direction: row;
+          align-items: center; }
+          .profile-section .central-container .profile .profile-information .birthday .icon, .profile-section .central-container .profile .profile-information .gender .icon, .profile-section .central-container .profile .profile-information .country .icon {
+            display: flex;
+            width: 20px;
+            height: 20px;
+            justify-content: center;
+            align-items: center;
+            margin-right: 9px;
+            margin-bottom: 3px;
+            margin-top: 3px;
+            font-size: 16px; }
       .profile-section .central-container .profile .groups-information {
         margin-bottom: 10px; }
         .profile-section .central-container .profile .groups-information .groups-container {
@@ -1206,22 +1231,10 @@ body.disableScrollBar {
           flex-direction: row;
           flex-wrap: wrap; }
           .profile-section .central-container .profile .groups-information .groups-container .group-card {
-            width: 19%;
-            padding-top: 19%;
+            width: 125px;
+            padding-top: 125px;
             margin-left: 0;
-            margin-right: 1%; }
-            @media only screen and (max-width: 570px) {
-              .profile-section .central-container .profile .groups-information .groups-container .group-card {
-                width: 24%;
-                padding-top: 24%; } }
-            @media only screen and (max-width: 470px) {
-              .profile-section .central-container .profile .groups-information .groups-container .group-card {
-                width: 32%;
-                padding-top: 32%; } }
-            @media only screen and (max-width: 370px) {
-              .profile-section .central-container .profile .groups-information .groups-container .group-card {
-                width: 48%;
-                padding-top: 48%; } }
+            margin-right: 6px; }
           @media only screen and (max-width: 370px) {
             .profile-section .central-container .profile .groups-information .groups-container {
               justify-content: space-between; } }
