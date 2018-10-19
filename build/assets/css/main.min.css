@@ -1623,7 +1623,7 @@ body.disableScrollBar {
           height: 40px;
           margin-top: 3px;
           margin-bottom: 3px;
-          margin-left: 1px; }
+          margin-left: 6px; }
         .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.expanded {
           flex-direction: column-reverse; }
           .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.expanded .user-container .user {
@@ -1634,11 +1634,11 @@ body.disableScrollBar {
             margin-left: 1px; }
           .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.expanded .user-container .name {
             display: flex; }
-          .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.expanded .user-container i {
+          .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.expanded .user-container i, .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.expanded .user-container svg {
             display: flex; }
         .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.me .name {
           display: flex; }
-        .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.me i {
+        .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.me i, .wall .central-container .post-container .post.event.im-in .confirmed-users.expanded .user-container.me svg {
           display: flex; }
         .wall .central-container .post-container .post.event .event-date {
           display: flex;
@@ -1668,13 +1668,17 @@ body.disableScrollBar {
             margin-bottom: 6px;
             word-wrap: break-word; }
         .wall .central-container .post-container .post.event .confirmed-users {
+          color: transparent;
+          font-size: 0;
           margin-bottom: 6px;
           display: flex;
           flex-wrap: wrap;
           z-index: 1;
           justify-content: flex-end; }
           .wall .central-container .post-container .post.event .confirmed-users.expanded {
-            flex-direction: column-reverse; }
+            flex-direction: column-reverse;
+            color: #000B2B;
+            font-size: 14px; }
             .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container .user {
               width: 40px;
               height: 40px;
@@ -1683,11 +1687,11 @@ body.disableScrollBar {
               margin-left: 1px; }
             .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container .name {
               display: flex; }
-            .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container i {
+            .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container i, .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container svg {
               display: flex; }
             .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container.me .name {
               display: none; }
-            .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container.me i {
+            .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container.me i, .wall .central-container .post-container .post.event .confirmed-users.expanded .user-container.me svg {
               display: none; }
           .wall .central-container .post-container .post.event .confirmed-users .user-container {
             position: relative;
@@ -1721,7 +1725,7 @@ body.disableScrollBar {
               display: none;
               align-items: center;
               margin-left: 6px; }
-            .wall .central-container .post-container .post.event .confirmed-users .user-container i {
+            .wall .central-container .post-container .post.event .confirmed-users .user-container i, .wall .central-container .post-container .post.event .confirmed-users .user-container svg {
               display: none;
               margin-right: 6px; }
         .wall .central-container .post-container .post.event .type::after {
@@ -1804,7 +1808,9 @@ body.disableScrollBar {
                   background: #000B2B;
                   width: 15px;
                   height: 15px;
-                  margin-right: 4px; }
+                  margin-right: 4px;
+                  color: white;
+                  font-size: 19px; }
                   .wall .central-container .post-container .post.poll .answers .answer .radio-container input:checked + label i {
                     font-size: 19px;
                     opacity: 1; }
@@ -1818,6 +1824,7 @@ body.disableScrollBar {
                 border-radius: 20px;
                 margin: 0 3px 3px 0;
                 transition: 0.2s ease;
+                font-size: 0;
                 cursor: pointer; }
                 .wall .central-container .post-container .post.poll .answers .answer .radio-container label i {
                   font-size: 1px;
