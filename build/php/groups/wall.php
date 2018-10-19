@@ -883,14 +883,16 @@
         //EXAMPLE: Ejemplo evento.
         generateEvent(77, 'Marco', '¡Cumpleaños de Fernando!', 'Va a estar muy alegre, vengan todos!!', 'Villas de Fátima', '20 de marzo', '1:00 PM', ['Jhonathan', 'Vilma', 'Alex', 'Lilly'], ['../../assets/img/users/face9.png', '../../assets/img/users/face2.png', '../../assets/img/users/face1.png', '../../assets/img/users/face8.png'], true, '10:27 PM', false, false);
 
+        generateEvent(78, 'Marco', '¡Cumpleaños de Fernando!', 'Va a estar muy alegre, vengan todos!!', 'Villas de Fátima', '20 de marzo', '1:00 PM', ['Jhonathan', 'Vilma', 'Alex', 'Lilly'], ['../../assets/img/users/face9.png', '../../assets/img/users/face2.png', '../../assets/img/users/face1.png', '../../assets/img/users/face8.png'], true, '10:27 PM', false, false);
+
         //EXAMPLE: Ejemplo separador.
         generateDateSeparator('27 de septiembre de 2018');
 
         //EXAMPLE: Ejemplo votación.
-        generatePoll(76, 'Henry', '¿A dónde quieren salir en la noche?', ['Pollo Campero', 'Nais', 'La Estancia'], [3, 1, 1], 1, '12:35', false, false);
+        generatePoll(79, 'Henry', '¿A dónde quieren salir en la noche?', ['Pollo Campero', 'Nais', 'La Estancia'], [3, 1, 1], 1, '12:35', false, false);
 
         //EXAMPLE: Ejemplo imagen.
-        generateImage(78, 'Henry', 'Recuerdo familiar', '../../assets/img/fam1.jpg', '3:52 PM', true, false);
+        generateImage(90, 'Henry', 'Recuerdo familiar', '../../assets/img/fam1.jpg', '3:52 PM', true, false);
 
         //EXAMPLE: Ejemplo separador.
         generateDateSeparator('Hoy');

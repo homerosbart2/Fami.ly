@@ -110,6 +110,7 @@
         //EXAMPLE: ejemplos de generación de notificaciones.
         generateNotification('Lorena', 'Me parece bien el lugar.', 'Mensaje', '123', 'Campos', false);
         generateNotification('Nuelmar', 'Cena familiar Campos', 'Evento', '123', 'Campos', false);
+        generateNotification('Nuelmar', 'Cena familiar Campos', 'Evento', '123', 'Campos', false)
         generateNotification('Henry', 'Que onda', 'Mensaje', '123', 'Campos', false);
         generateNotification('Henry', '¿Cómo están?', 'Mensaje', '123', 'Campos', false);
 
