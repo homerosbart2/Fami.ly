@@ -37,6 +37,9 @@
 ?>
 <body>
     <span class="wall">
+        <span class="posts-charging">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
         <span class="central-container">
             <span class="group-title">
                 <span class="information">
@@ -229,13 +232,9 @@
     //Función para mostrar la animación de carga, si [show] es true entonces se muestra, si es false se oculta.
     function showChargingAnimation(show){
         if(show){
-            rows = '';
-            rows += '<span class="posts-charging">';
-            rows += '<i class="fas fa-circle-notch fa-spin"></i>';
-            rows += '</span>';
-            $('.posts').prepend(rows);
+            $('.wall').find('.posts-charging').addClass('shown');
         }else{
-            $('.posts').find('.posts-charging').remove();
+            $('.wall').find('.posts-charging').removeClass('shown');
         }
     }
 
