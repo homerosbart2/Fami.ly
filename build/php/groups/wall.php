@@ -1152,6 +1152,7 @@ function initWallListeners(){
             type: "POST",
             success: function(r){
                 obj = JSON.parse(r);
+                postsObject = {};
                 for(var i = 0; i < obj.length; i++){
                     var item = {
                         publicacion_id: obj[i].publicacion_id,
