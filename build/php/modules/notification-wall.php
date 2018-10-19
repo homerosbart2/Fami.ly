@@ -20,7 +20,7 @@
                 finded = 1;
                 $(this).find('.notification').each(function(){
                     if($(this).find('.type').text() == (' ' + type) && $(this).find('.user-name').text() == user){
-                        rows += `<span class="text">${text}</span>`;
+                        rows += `<span notification-id="${id}" class="text">${text}</span>`;
                         $(this).append(rows);
                         inserted = 1;
                     }
@@ -30,7 +30,7 @@
                     rows += `<span class="user-name">${user}</span>`;
                     rows += `<a class="delete-notification"  id= "` + id + `"><i class="far fa-eye-slash"></i></a>`;
                     rows += `<span class="type"><i class="fas fa-circle"></i> ${type}</span>`;
-                    rows += `<span class="text">${text}</span>`;
+                    rows += `<span notification-id="${id}" class="text">${text}</span>`;
                     rows += `</span>`;
                     object = $(this).find('.group-name');
                     object.after(rows);
@@ -55,7 +55,7 @@
             rows += `<span class="user-name">${user}</span>`;
             rows += `<a class="delete-notification" id= "` + id + `"><i class="far fa-eye-slash"></i></a>`;
             rows += `<span class="type"><i class="fas fa-circle"></i> ${type}</span>`;
-            rows += `<span class="text">${text}</span>`;
+            rows += `<span notification-id="${id}" class="text">${text}</span>`;
             rows += `</span>`;
             rows += `</span>`;
             $('.notifications-container').append(rows);
