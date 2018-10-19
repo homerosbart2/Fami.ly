@@ -226,6 +226,19 @@
         $('.posts').prepend(rows);
     }
 
+    //Función para mostrar la animación de carga, si [show] es true entonces se muestra, si es false se oculta.
+    function showChargingAnimation(show){
+        if(show){
+            rows = '';
+            rows += '<span class="posts-charging">';
+            rows += '<i class="fas fa-circle-notch fa-spin"></i>';
+            rows += '</span>';
+            $('.posts').prepend(rows);
+        }else{
+            $('.posts').find('.posts-charging').remove();
+        }
+    }
+
     function generateImage(id, user, text, image, time, me, createdLater){
         rows = '';
         if(me){
@@ -1144,6 +1157,7 @@ function initWallListeners(){
                 generateDateSeparator(dateBefore)
             };  
         } 
+        showChargingAnimation(false);
     }
 
     function postsList(createAt,postId){
@@ -1172,15 +1186,13 @@ function initWallListeners(){
     }
 
     $(document).ready(function(){
+        showChargingAnimation(true);
         //llamamos a las publicaciones
+        postsList(false,"");
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
-        postsList(false,"");
-        //EXAMPLE: Ejemplo para agregar un resultado a la búsqueda.
-        //generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, false);
-        
-        //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda.
-        //noResultInSearch();
+
+        //EXAMPLE: Ejemplo para mostrar la animación de carga.
         
         //EXAMPLE: Ejemplos para agregar un resultado a la búsqueda.
         clearPeopleSearch();
@@ -1220,6 +1232,7 @@ function initWallListeners(){
         //Función que asigna todos los eventos de los elementos en el mural.
         initWallListeners();
 
+        //showChargingAnimation(false);
     });
 
     
