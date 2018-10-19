@@ -11,13 +11,22 @@
     &:hover,
     &:active,
     &:focus{
-        transform: scale(1.05);
+        img{
+            filter: blur(0) brightness(1);
+            //transform: scale(1.05);
+        }
+        .name{
+            color: transparent;
+            //text-shadow: 0 0 8px rgb(0, 0, 0), 0 0 16px rgb(0, 0, 0);
+        }
     }
     img{
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
+        transition: 0.4s ease;
+        filter: blur(10px) brightness(0.7);
     }
     .name{
         position: absolute;
@@ -28,7 +37,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        color: white;
-        text-shadow: 0 0 8px rgb(0, 0, 0), 0 0 16px rgb(0, 0, 0);
+        color: $light-secondary;
+        transition: 0.2s ease;
+        //text-shadow: 0 0 8px rgb(0, 0, 0), 0 0 16px rgb(0, 0, 0);
     }
 }

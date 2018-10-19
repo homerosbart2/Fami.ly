@@ -10,7 +10,7 @@
 
 <script>
     //Función para generar notificaciones que recibe [user] que es el usuario que generó la notificación, [text] que es el texto de las publicaciones, [type] que es el tipo de la notificación literal (Mensaje, Votación, etc...), [groupRef] que es el id del grupo, [groupName] que es el nombre del grupo y [createdLater] que debe ser true si la función es llamada después de initNotificationWallListeners(). 
-    function generateNotification(user, text, type, groupRef, groupName, createdLater){
+    function generateNotification(id, user, text, type, groupRef, groupName, createdLater){
         var finded = 0;
         var inserted = 0;
         rows = '';
@@ -18,8 +18,8 @@
             if($(this).attr('group-ref') == groupRef){
                 finded = 1;
                 $(this).find('.notification').each(function(){
-                    if($(this).find('.type').text() == (' ' + type) && $(this).find('.user-name').text() == user){
-                        rows += `<span class="text">${text}</span>`;
+                    if($(this).find('.type').text() == (' Mensaje') && $(this).find('.user-name').text() == user){
+                        rows += `<span notification-id="${id}" class="text">${text}</span>`;
                         $(this).append(rows);
                         inserted = 1;
                     }
@@ -29,7 +29,7 @@
                     rows += `<span class="user-name">${user}</span>`;
                     rows += `<a class="delete-notification"><i class="far fa-eye-slash"></i></a>`;
                     rows += `<span class="type"><i class="fas fa-circle"></i> ${type}</span>`;
-                    rows += `<span class="text">${text}</span>`;
+                    rows += `<span notification-id="${id}" class="text">${text}</span>`;
                     rows += `</span>`;
                     object = $(this).find('.group-name');
                     object.after(rows);
@@ -54,7 +54,7 @@
             rows += `<span class="user-name">${user}</span>`;
             rows += `<a class="delete-notification"><i class="far fa-eye-slash"></i></a>`;
             rows += `<span class="type"><i class="fas fa-circle"></i> ${type}</span>`;
-            rows += `<span class="text">${text}</span>`;
+            rows += `<span notification-id="${id}" class="text">${text}</span>`;
             rows += `</span>`;
             rows += `</span>`;
             $('.notifications-container').append(rows);
