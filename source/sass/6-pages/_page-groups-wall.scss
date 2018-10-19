@@ -490,7 +490,7 @@
                                         height: 40px;
                                         margin-top: 3px;
                                         margin-bottom: 3px;
-                                        margin-left: 1px;
+                                        margin-left: 6px;
                                     }
                                     &.expanded{
                                         flex-direction: column-reverse;
@@ -505,7 +505,7 @@
                                             .name{
                                                 display: flex;
                                             }
-                                            i{
+                                            i, svg{
                                                 display: flex;
                                             }
                                         }
@@ -514,7 +514,7 @@
                                         .name{
                                             display: flex;
                                         }
-                                        i{
+                                        i, svg{
                                             display: flex;
                                         }
                                     }
@@ -555,6 +555,8 @@
                         }
                     }
                     .confirmed-users{
+                        color: transparent;
+                        font-size: 0;
                         margin-bottom: 6px;
                         display: flex;
                         flex-wrap: wrap;
@@ -562,6 +564,8 @@
                         justify-content: flex-end;
                         &.expanded{
                             flex-direction: column-reverse;
+                            color: $main-contrast;
+                            font-size: 14px;
                             .user-container{
                                 .user{
                                     width: 40px;
@@ -573,14 +577,14 @@
                                 .name{
                                     display: flex;
                                 }
-                                i{
+                                i, svg{
                                     display: flex;
                                 }
                                 &.me{
                                     .name{
                                         display: none;
                                     }
-                                    i{
+                                    i, svg{
                                         display:none;
                                     }
                                 }
@@ -623,7 +627,7 @@
                                 align-items: center;
                                 margin-left: 6px;
                             }
-                            i{
+                            i, svg{
                                 display: none;
                                 margin-right: 6px;
                             }
@@ -738,6 +742,8 @@
                                         width: 15px;
                                         height: 15px;
                                         margin-right: 4px;
+                                        color: white;
+                                        font-size: 19px;
                                         i{
                                             font-size: 19px;
                                             opacity: 1;
@@ -754,6 +760,7 @@
                                     border-radius: 20px;
                                     margin: 0 3px 3px 0;
                                     transition: 0.2s ease;
+                                    font-size: 0;
                                     cursor: pointer;
                                     i{
                                         font-size: 1px;
