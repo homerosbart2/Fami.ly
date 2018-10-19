@@ -1436,6 +1436,21 @@ body.disableScrollBar {
   width: 100%;
   display: flex;
   justify-content: center; }
+  .wall .posts-charging {
+    position: fixed;
+    display: flex;
+    flex-shrink: inherit;
+    width: 100%;
+    top: 50vh;
+    justify-content: center;
+    align-items: center;
+    font-size: 65px;
+    opacity: 0;
+    z-index: -1;
+    transition: 0.2s ease; }
+    .wall .posts-charging.shown {
+      opacity: 1;
+      z-index: 1000; }
   .wall .central-container {
     position: relative;
     padding-top: 67px;
@@ -1517,14 +1532,6 @@ body.disableScrollBar {
           transform: none; }
           .wall .central-container .group-title .group-card:hover img, .wall .central-container .group-title .group-card:active img, .wall .central-container .group-title .group-card:focus img {
             filter: none; }
-    .wall .central-container .posts-charging {
-      position: fixed;
-      display: flex;
-      width: 100%;
-      top: 50vh;
-      justify-content: center;
-      align-items: center;
-      font-size: 65px; }
     .wall .central-container .post-container {
       display: flex;
       width: 100%;
