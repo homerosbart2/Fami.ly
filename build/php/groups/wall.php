@@ -1012,186 +1012,177 @@ function initWallListeners(){
     }
 
   function showList(createAt){
-        var showDate = 1;
-        var dateBefore = ""; //con esta variable mantengo el cambio de fecha de publicaciones
-        var dateInLetters = null;
-        var horario = null;
-        var typePost = false;
-        var size = Object.keys(postsObject).length;
-        var contador = 0;
-        for (var key in postsObject) {
-            typePost = false;
-            var item = postsObject[key];
-            //OBTENEMOS LA FECHA
-            var date = new Date(item.fecha_creacion);       
-            day = date.getDate();
-            month = months[(parseInt(date.getMonth()))];
-            year = date.getFullYear();
-            dateInLetters = day + ' de ' + month + ' del ' + year;
-            h = date.getHours();
-            m = date.getMinutes();
-            h = (h<10) ? '0' + h : h;
-            m = (m<10) ? '0' + m : m;
-            horario = h+":"+m;
-            if(dateBefore != dateInLetters){
-                showDate++;
-                if((showDate % 3)==0){            
-                    showDate = 2;
-                    generateDateSeparator(dateBefore);
-                }                  
-                dateBefore = day + ' de ' + month + ' del ' + year;
-            }              
-            if(usuarioId == item.usuario_creador_id) typePost = true; 
-            if(item.tipo == "E"){
-                //EVENTOS
-                var asistencia = [];
-                var imIn = false;
-                $.ajax({
-                    url: "../rutas_ajax/publicaciones/eventos/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                    type: "POST",
-                    success: function(r){
-                        obj = JSON.parse(r);
-                        evento_id = obj[0][0].evento_id;
-                        titulo = obj[0][0].titulo;
-                        informacion = obj[0][0].informacion;
-                        fecha = obj[0][0].fecha;
-                        hora = obj[0][0].hora;
-                        lugar = obj[0][0].lugar;
-                        for(var j = 0; j < obj[1].length; j++){
-                            usuario = obj[1][j].nombre;
-                            id = obj[1][j].usuario_id;
-                            estado = obj[1][j].estado
-                            if(estado == 1){
-                                if(id == usuarioId) imIn = true; 
-                                else asistencia.push(usuario);
-                            }
-                        }
-                    },
-                    async: false // <- this turns it into synchronous
-                });  
-                var dateEvent = new Date(fecha);       
-                dayEvent = dateEvent.getDate();
-                monthEvent = months[(parseInt(dateEvent.getMonth()))];
-                yearEvent = dateEvent.getFullYear();
-                dateInLettersEvent = dayEvent + ' de ' + monthEvent + ' del ' + year;
-                generateEvent(item.publicacion_id, evento_id, item.usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, [], imIn, horario, typePost, createAt);                
-            }else if(item.tipo == "A"){
-                //ARCHIVOS
-            
-            }else if(item.tipo == "P"){
-                //PREGUNTAS
-                $.ajax({
-                    url: "../rutas_ajax/publicaciones/preguntas/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                    type: "POST",
-                    success: function(r){
-                        var respuestas = [];
-                        var usuarios = [];
-                        var respuestasUsuario = [];
-                        obj = JSON.parse(r);
-                        pregunta_id = obj[0][0].pregunta_id;
-                        informacion = obj[0][0].informacion;
-                        for(var b = 0; b < (obj[1]).length; b++){
-                                //itero sobre las respuestas
-                                respuesta_id = obj[1][b].respuesta_id;
-                                usuario = obj[1][b].nombre;
-                                usuario_id = obj[1][b].usuario_id;
-                                informacion = obj[1][b].informacion;
-                                usuarios.push(usuario);
-                                respuestas.push(informacion);
-                                if(usuario_id == usuarioId){
-                                    respuestasUsuario.push(b);
-                                }
-                            }               
-                        generateQuestion(item.publicacion_id, pregunta_id, item.usuario_creador_nombre, informacion,respuestas,usuarios,horario,respuestasUsuario,typePost,createAt);
-                    },
-                    async: false // <- this turns it into synchronous
-                });                  
-            }else if(item.tipo == "V"){
-                //VOTOS
-                var opciones = [];
-                var countOpciones = [];
-                var optionsIds = [];
-                var eligeUsuario = -1;
-                $.ajax({
-                    url: "../rutas_ajax/publicaciones/votaciones/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                    type: "POST",
-                    success: function(r){
-                        obj = JSON.parse(r);
-                        votacion_id = obj[0][0].votacion_id;
-                        informacion = obj[0][0].informacion;
-                        for(var a = 0; a < obj[1].length; a++){
-                            opcion_id = obj[1][a][0].opcion_id;
-                            informacion = obj[1][a][0].informacion;
-                            optionsIds.push(opcion_id);
-                            opciones.push(informacion);
-                            countOpciones.push((obj[1][a]).length - 1);
-                            for(var b = 1;  (eligeUsuario == -1 && b <= ((obj[1][a]).length - 1)); b++){
-                                //itero sobre las opciones para saber si el usuario a seleccionado alguna
-                                usuario = obj[1][a][b].usuario_id;
-                                if(usuario == usuarioId){
-                                    eligeUsuario = a;
-                                    break;
-                                }
-                            }
-                        }                                  
-                        generatePoll(item.publicacion_id, votacion_id, item.usuario_creador_nombre, informacion,opciones,countOpciones,eligeUsuario,optionsIds,horario,typePost,false);
-                    },
-                    async: false // <- this turns it into synchronous
-                });                         
-            }else if(item.tipo == "M"){
-                //MENSAJES                    
-                $.ajax({
-                    url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                    type: "POST",
-                    success: function(r){
-                        obj = JSON.parse(r);
-                        mensaje_id = obj[0].mensaje_id;
-                        informacion = obj[0].informacion;
-                        generateMessage(item.publicacion_id, item.usuario_creador_nombre, [informacion],horario, typePost);
-                    },
-                    async: false // <- this turns it into synchronous
-                });             
-            }
-            contador++;    
-            if(contador==size){
-                generateDateSeparator(dateBefore)
-            };  
-        } 
-        showChargingAnimation(false);
+
     }
 
     function postsList(createAt,postId){
+        showChargingAnimation(true);
         $.ajax({
             url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&publicacion=" + postId,
             type: "POST",
             success: function(r){
-                obj = JSON.parse(r);
-                postsObject = {};
-                for(var i = 0; i < obj.length; i++){
-                    var item = {
-                        publicacion_id: obj[i].publicacion_id,
-                        usuario_creador_id: obj[i].usuario_creador_id,
-                        usuario_creador_nombre: obj[i].nombre,
-                        grupo_id: obj[i].grupo_id,
-                        tipo: obj[i].tipo,
-                        fecha_creacion: obj[i].fecha_creacion
-                    };
-                    postsObject[obj[i].publicacion_id] = item;   
-                    //ahora que ya tengo almacenadas las publicaciones se muestran               
-                }               
+                objParent = JSON.parse(r);
+                // postsObject = {};
+                for(var k = 0; k < objParent.length; k++){
+                    publicacion_id = objParent[k].publicacion_id,
+                    usuario_creador_id =  objParent[k].usuario_creador_id,
+                    usuario_creador_nombre = objParent[k].nombre,
+                    grupo_id = objParent[k].grupo_id,
+                    tipo = objParent[k].tipo,
+                    fecha_creacion = objParent[k].fecha_creacion
+                    var showDate = 1;
+                    var dateBefore = ""; //con esta variable mantengo el cambio de fecha de publicaciones
+                    var dateInLetters = null;
+                    var horario = null;
+                    var typePost = false;
+                    var contador = 0;
+                    typePost = false;
+                    //OBTENEMOS LA FECHA
+                    var date = new Date(fecha_creacion);       
+                    day = date.getDate();
+                    month = months[(parseInt(date.getMonth()))];
+                    year = date.getFullYear();
+                    dateInLetters = day + ' de ' + month + ' del ' + year;
+                    h = date.getHours();
+                    m = date.getMinutes();
+                    h = (h<10) ? '0' + h : h;
+                    m = (m<10) ? '0' + m : m;
+                    horario = h+":"+m;
+                    if(dateBefore != dateInLetters){
+                        showDate++;
+                        if((showDate % 3)==0){            
+                            showDate = 2;
+                            generateDateSeparator(dateBefore);
+                        }                  
+                        dateBefore = day + ' de ' + month + ' del ' + year;
+                    }              
+                    if(usuarioId == usuario_creador_id) typePost = true; 
+                    if(tipo == "E"){
+                        //EVENTOS
+                        var asistencia = [];
+                        var imIn = false;
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/eventos/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                obj = JSON.parse(r);
+                                evento_id = obj[0][0].evento_id;
+                                titulo = obj[0][0].titulo;
+                                informacion = obj[0][0].informacion;
+                                fecha = obj[0][0].fecha;
+                                hora = obj[0][0].hora;
+                                lugar = obj[0][0].lugar;
+                                for(var j = 0; j < obj[1].length; j++){
+                                    usuario = obj[1][j].nombre;
+                                    id = obj[1][j].usuario_id;
+                                    estado = obj[1][j].estado
+                                    if(estado == 1){
+                                        if(id == usuarioId) imIn = true; 
+                                        else asistencia.push(usuario);
+                                    }
+                                }
+                            },
+                            async: false // <- this turns it into synchronous
+                        });  
+                        var dateEvent = new Date(fecha);       
+                        dayEvent = dateEvent.getDate();
+                        monthEvent = months[(parseInt(dateEvent.getMonth()))];
+                        yearEvent = dateEvent.getFullYear();
+                        dateInLettersEvent = dayEvent + ' de ' + monthEvent + ' del ' + year;
+                        generateEvent(publicacion_id, evento_id, usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, [], imIn, horario, typePost, createAt);                
+                    }else if(tipo == "A"){
+                        //ARCHIVOS
+                    
+                    }else if(tipo == "P"){
+                        //PREGUNTAS
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/preguntas/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                var respuestas = [];
+                                var usuarios = [];
+                                var respuestasUsuario = [];
+                                obj = JSON.parse(r);
+                                pregunta_id = obj[0][0].pregunta_id;
+                                informacion = obj[0][0].informacion;
+                                for(var b = 0; b < (obj[1]).length; b++){
+                                        //itero sobre las respuestas
+                                        respuesta_id = obj[1][b].respuesta_id;
+                                        usuario = obj[1][b].nombre;
+                                        usuario_id = obj[1][b].usuario_id;
+                                        informacion = obj[1][b].informacion;
+                                        usuarios.push(usuario);
+                                        respuestas.push(informacion);
+                                        if(usuario_id == usuarioId){
+                                            respuestasUsuario.push(b);
+                                        }
+                                    }               
+                                generateQuestion(publicacion_id, pregunta_id, usuario_creador_nombre, informacion,respuestas,usuarios,horario,respuestasUsuario,typePost,createAt);
+                            },
+                            async: false // <- this turns it into synchronous
+                        });                  
+                    }else if(tipo == "V"){
+                        //VOTOS
+                        var opciones = [];
+                        var countOpciones = [];
+                        var optionsIds = [];
+                        var eligeUsuario = -1;
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/votaciones/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                obj = JSON.parse(r);
+                                votacion_id = obj[0][0].votacion_id;
+                                informacion = obj[0][0].informacion;
+                                for(var a = 0; a < obj[1].length; a++){
+                                    opcion_id = obj[1][a][0].opcion_id;
+                                    informacion = obj[1][a][0].informacion;
+                                    optionsIds.push(opcion_id);
+                                    opciones.push(informacion);
+                                    countOpciones.push((obj[1][a]).length - 1);
+                                    for(var b = 1;  (eligeUsuario == -1 && b <= ((obj[1][a]).length - 1)); b++){
+                                        //itero sobre las opciones para saber si el usuario a seleccionado alguna
+                                        usuario = obj[1][a][b].usuario_id;
+                                        if(usuario == usuarioId){
+                                            eligeUsuario = a;
+                                            break;
+                                        }
+                                    }
+                                }                                  
+                                generatePoll(publicacion_id, votacion_id, usuario_creador_nombre, informacion,opciones,countOpciones,eligeUsuario,optionsIds,horario,typePost,false);
+                            },
+                            async: false // <- this turns it into synchronous
+                        });                         
+                    }else if(tipo == "M"){
+                        //MENSAJES                    
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                obj = JSON.parse(r);
+                                mensaje_id = obj[0].mensaje_id;
+                                informacion = obj[0].informacion;
+                                generateMessage(publicacion_id, usuario_creador_nombre, [informacion],horario, typePost);
+                            },
+                            async: false // <- this turns it into synchronous
+                        });             
+                    }
+                    contador++;    
+                    if(contador==size){
+                        generateDateSeparator(dateBefore)
+                    };  
+                }
+                showChargingAnimation(false);                                                   
             },
-            async: false // <- this turns it into synchronous
-        });         
-        showList(createAt);            
+        });                   
     }
 
     $(document).ready(function(){
-        showChargingAnimation(true);
+        // showChargingAnimation(true);
         //llamamos a las publicaciones
         postsList(false,"");
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
-
         //EXAMPLE: Ejemplo para mostrar la animación de carga.
         
         //EXAMPLE: Ejemplos para agregar un resultado a la búsqueda.
