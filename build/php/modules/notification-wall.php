@@ -133,16 +133,18 @@
             url: "../rutas_ajax/notificaciones/listado.php?",
             type: "POST",
             success: function(r){
-                obj = JSON.parse(r);
-                for(var i = 0; i < obj.length; i++){
-                    publicacion_id = obj[i].publicacion_id,
-                    notificacion_id = obj[i].notificacion_id,
-                    usuario_creador = obj[i].usuario_creador,
-                    usuario_creador_nombre = obj[i].nombre,
-                    grupo_id = obj[i].grupo_id,
-                    grupo = obj[i].apellido,
-                    tipo = obj[i].tipo,
-                    fecha_creacion = obj[i].fecha_creacion
+                objParent = JSON.parse(r);
+                size = objParent.length;
+                if(size == 0) emptyNotificationWall();
+                for(var i = 0; i < objParent.length; i++){
+                    publicacion_id = objParent[i].publicacion_id;
+                    notificacion_id = objParent[i].notificacion_id;
+                    usuario_creador = objParent[i].usuario_creador;
+                    usuario_creador_nombre = objParent[i].nombre;
+                    grupo_id = objParent[i].grupo_id;
+                    grupo = objParent[i].apellido;
+                    tipo = objParent[i].tipo;
+                    fecha_creacion = objParent[i].fecha_creacion;
                     //ahora muestro los datos de la publicacion
                     if(tipo == "E"){
                         //EVENTOS
@@ -211,20 +213,7 @@
     }
 
     $(document).ready(function(){
-        listNotifications();
-        // EXAMPLE: ejemplos de generación de notificaciones.
-        generateNotification('1','Lorena', 'Me parece bien el lugar.', 'Mensaje', '123', 'Campos', false);
-        generateNotification('2','Nuelmar', 'Cena familiar Campos', 'Evento', '123', 'Campos', false);
-        generateNotification('3','Henry', 'Que onda', 'Mensaje', '123', 'Campos', false);
-        generateNotification('4','Henry', '¿Cómo están?', 'Mensaje', '123', 'Campos', false);
-
         initNotificationWallListeners();
-        
-        generateNotification('5','Marco', 'WUT WUT', 'Mensaje', '123', 'Campos', true);
-        generateNotification('6','Marco', 'WUT WUT', 'Mensaje', '124', 'Jairo',true);
-        generateNotification('7','Marco', 'WUT WUT x2', 'Mensaje', '123', 'Campos', true);
-
-        // EXAMPLE: función que se llama si no hay notificaciones.
-        // emptyNotificationWall();
+        listNotifications();
     });
 </script>
