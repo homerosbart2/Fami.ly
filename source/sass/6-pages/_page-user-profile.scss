@@ -1,5 +1,5 @@
 .profile-section{
-    padding: 65px 0 0 0;
+    padding: 69px 0 0 0;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -9,6 +9,7 @@
         .profile-title{
             display: flex;
             align-items: center;
+            justify-content: flex-start;
             width: 100%;
             background-image: linear-gradient(-45deg, $main, $secondary);
             .profile-img{
@@ -58,6 +59,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
+                align-items: flex-start;
                 margin: 10px 10px;
                 color: white;
                 .user-names, .user-lastnames{
@@ -67,6 +69,7 @@
                 }
                 .user-lastnames{
                     font-weight: 600;
+                    text-transform: uppercase;
                 }
                 .user-alias{
                     font-size: 16px;
@@ -134,9 +137,12 @@
                             padding-top: 32%;
                         }
                         @include media-max(370px){
-                            width: 49%;
-                            padding-top: 49%;
+                            width: 48%;
+                            padding-top: 48%;
                         }
+                    }
+                    @include media-max(370px){
+                        justify-content: space-between
                     }
                 }
             }

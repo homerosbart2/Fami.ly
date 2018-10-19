@@ -36,6 +36,47 @@
     }
 }
 
+.btn-chat{
+    @extend %btn;
+    font-size: 14px;
+    width: 37px;
+    height: 37px;
+    background: white;
+    color: $main-contrast;
+    padding: 0 0;
+    margin: 0 0 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    flex-shrink: 0;
+    &:hover,
+    &:active,
+    &:focus{
+        border: 1px solid white;
+        transform: scale(1.05);
+        color: $main-contrast;
+    }
+}
+
+.btn-exit-popup{
+    @extend %btn;
+    border-radius: 60px;
+    padding: 7px 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    border: none;
+    z-index: 10;
+    &:hover,
+    &:active,
+    &:focus{
+        transform: scale(1.05);
+        color: $main-contrast;
+    }
+}
+
 
 .btn-cancel{
     @extend %btn;
