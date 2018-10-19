@@ -19,57 +19,6 @@
         </span>
         <span class="central-container">
             <span class="groups-container">
-                <span class="group-card">
-                    <img class="image top-left" src="../../assets/img/users/face1.png">
-                    <img class="image top-right" src="../../assets/img/users/face2.png" alt="">
-                    <img class="image bottom-left" src="../../assets/img/users/face3.png" alt="">
-                    <img class="image bottom-right" src="../../assets/img/users/face4.png" alt="">
-                    <span class="information">
-                        <span class="name flexFont">
-                            Hogar
-                        </span>
-                    </span>
-                    <span class="counter">1</span>
-                    <span class="counter-information">
-                        <span class="notification-title">
-                            Hay una nueva encuesta de <b>Alex Campos</b>:
-                        </span>
-                        <span class="notification-text">
-                            ¿Qué quieren almorzar?
-                        </span>
-                    </span>
-                </span>
-                <span class="group-card">
-                    <img class="image top-left" src="../../assets/img/users/face3.png">
-                    <img class="image top-right" src="../../assets/img/users/face5.png" alt="">
-                    <img class="image bottom-left" src="../../assets/img/users/face6.png" alt="">
-                    <img class="image bottom-right" src="../../assets/img/users/face7.png" alt="">
-                    <span class="information">
-                        <span class="name flexFont">
-                            Campos
-                        </span>
-                    </span>
-                </span>
-                <span class="group-card">
-                    <img class="image top-left" src="../../assets/img/users/face8.png">
-                    <img class="image top-right" src="../../assets/img/users/face1.png" alt="">
-                    <img class="image bottom-left" src="../../assets/img/users/face2.png" alt="">
-                    <img class="image bottom-right" src="../../assets/img/users/face9.png" alt="">
-                    <span class="information">
-                        <span class="name flexFont">
-                            Ogáldez
-                        </span>
-                    </span>
-                    <span class="counter">1</span>
-                    <span class="counter-information">
-                        <span class="notification-title">
-                            Hay un nuevo mensaje de <b>Vilma Ogáldez</b>:
-                        </span>
-                        <span class="notification-text">
-                            Hola a todos!!!
-                        </span>
-                    </span>
-                </span>
             </span>
         </span>
     </section>
@@ -119,15 +68,17 @@
         rows += '</span>';
         rows += '</span>';
         $('.groups-container').append(rows);
-        object = document.getElementById(id);
-        var relFontsize = object.offsetWidth*0.12;
-        object.style.fontSize = relFontsize+'px';
+        flexFont();
     }
 
     $(document).ready(function(){
         object = $('.searchbox');
         object.find('.search-right').css('display', 'none');
         object.find('.search-left').css('display', 'none');
+
+        generateGroupCard(1, 'Hogar', ['../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face3.png','../../assets/img/users/face4.png']);
+        generateGroupCard(1, 'Campos', ['../../assets/img/users/face3.png','../../assets/img/users/face5.png','../../assets/img/users/face6.png','../../assets/img/users/face7.png']);
+        generateGroupCard(1, 'Ogáldez', ['../../assets/img/users/face8.png','../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face9.png']);
 
         $('.create-group').click(function(){
             object = $('.group-creation-input-container');

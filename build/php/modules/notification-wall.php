@@ -18,7 +18,7 @@
             if($(this).attr('group-ref') == groupRef){
                 finded = 1;
                 $(this).find('.notification').each(function(){
-                    if($(this).find('.type').text() == (' ' + type) && $(this).find('.user-name').text() == user){
+                    if($(this).find('.type').text() == (' Mensaje') && $(this).find('.user-name').text() == user){
                         rows += `<span notification-id="${id}" class="text">${text}</span>`;
                         $(this).append(rows);
                         inserted = 1;
