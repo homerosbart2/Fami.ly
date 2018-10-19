@@ -1011,10 +1011,6 @@ function initWallListeners(){
         });
     }
 
-  function showList(createAt){
-
-    }
-
     function postsList(createAt,postId){
         showChargingAnimation(true);
         $.ajax({
@@ -1149,7 +1145,7 @@ function initWallListeners(){
                                         }
                                     }
                                 }                                  
-                                generatePoll(publicacion_id, votacion_id, usuario_creador_nombre, informacion,opciones,countOpciones,eligeUsuario,optionsIds,horario,typePost,false);
+                                generatePoll(publicacion_id, votacion_id, usuario_creador_nombre, informacion,opciones,countOpciones,eligeUsuario,optionsIds,horario,typePost,createAt);
                             },
                             async: false // <- this turns it into synchronous
                         });                         
@@ -1180,7 +1176,7 @@ function initWallListeners(){
     $(document).ready(function(){
         // showChargingAnimation(true);
         //llamamos a las publicaciones
-        postsList(false,"");
+        postsList(true,"");
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
         //EXAMPLE: Ejemplo para mostrar la animación de carga.

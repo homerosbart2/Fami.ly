@@ -26,9 +26,9 @@
                     }
                 });
                 if(inserted == 0){
-                    rows += `<span class="notification" id= "` + id + `">`;
+                    rows += `<span class="notification">`;
                     rows += `<span class="user-name">${user}</span>`;
-                    rows += `<a class="delete-notification"><i class="far fa-eye-slash"></i></a>`;
+                    rows += `<a class="delete-notification"  id= "` + id + `"><i class="far fa-eye-slash"></i></a>`;
                     rows += `<span class="type"><i class="fas fa-circle"></i> ${type}</span>`;
                     rows += `<span class="text">${text}</span>`;
                     rows += `</span>`;
@@ -51,9 +51,9 @@
             rows += `<span class="group-name">`;
             rows += `${groupName} <span class="number">1 Nueva</span>`;
             rows += `</span>`;
-            rows += `<span class="notification" id= "` + id + `">`;
+            rows += `<span class="notification">`;
             rows += `<span class="user-name">${user}</span>`;
-            rows += `<a class="delete-notification"><i class="far fa-eye-slash"></i></a>`;
+            rows += `<a class="delete-notification" id= "` + id + `"><i class="far fa-eye-slash"></i></a>`;
             rows += `<span class="type"><i class="fas fa-circle"></i> ${type}</span>`;
             rows += `<span class="text">${text}</span>`;
             rows += `</span>`;
@@ -72,19 +72,30 @@
     //Función que elimina la notificación.
     //TODO: Hay que eliminar la notificación de la base de datos, pero se necesita tomar en cuenta el id para esto, me comentas cuando vayas por esta parte.
     function removeNotification(lmnt){
-        object = lmnt.parent().parent();
-        if(object.find('.notification').length == 1){
-            if(object.parent().find('.group-notification').length == 1){
-                emptyNotificationWall();
+        notifyId = lmnt.attr("id");
+        //cambiamos el estado de la notificacion a leida
+        $.ajax({
+            url: "../rutas_ajax/notificaciones/cambiar_estado.php?notificacion=" + notifyId,
+            type: "POST",
+            success: function(r){
+                // alert(r);
+                if(r == 1){
+                    object = lmnt.parent().parent();
+                    if(object.find('.notification').length == 1){
+                        if(object.parent().find('.group-notification').length == 1){
+                            emptyNotificationWall();
+                        }
+                        object.remove();
+                    }else{
+                        lmnt.parent().remove();
+                        object = object.find('.number');
+                        object.html((parseInt(object.text().split(' ')[0]) - 1) + ' NUEVAS');
+                    }
+                    object = $('#nav-counter');
+                    object.html(parseInt(object.text()) - 1);
+                }
             }
-            object.remove();
-        }else{
-            lmnt.parent().remove();
-            object = object.find('.number');
-            object.html((parseInt(object.text().split(' ')[0]) - 1) + ' NUEVAS');
-        }
-        object = $('#nav-counter');
-        object.html(parseInt(object.text()) - 1);
+        });          
     }
 
     //Eventos del mural de notificaciones y la generación de notificaciones depende de esta función.
@@ -117,78 +128,6 @@
         }
     }
 
-
-    function getInfoNotification(){
-        var retorno = "";
-        size = Object.keys(notifyObject).length;
-        if(size > 0){
-            for (var key in notifyObject) {
-                var item = notifyObject[key];
-                if(item.tipo == "E"){
-                    //EVENTOS
-                    $.ajax({
-                        url: "../rutas_ajax/publicaciones/eventos/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                        type: "POST",
-                        success: function(r){
-                            obj = JSON.parse(r);
-                            // evento_id = obj[0][0].evento_id;
-                            informacion = obj[0][0].titulo;
-                            // informacion = obj[0][0].informacion;
-                            // fecha = obj[0][0].fecha;
-                            // hora = obj[0][0].hora;
-                            // lugar = obj[0][0].lugar;
-                        },
-                        async: false // <- this turns it into synchronous
-                    });               
-                }else if(item.tipo == "A"){
-                    //ARCHIVOS
-                
-                }else if(item.tipo == "P"){
-                    //PREGUNTAS
-                    $.ajax({
-                        url: "../rutas_ajax/publicaciones/preguntas/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                        type: "POST",
-                        success: function(r){
-                            // var respuestas = [];
-                            // var usuarios = [];
-                            // var respuestasUsuario = [];
-                            obj = JSON.parse(r);
-                            // pregunta_id = obj[0][0].pregunta_id;
-                            informacion = obj[0][0].informacion;
-                        },
-                        async: false // <- this turns it into synchronous
-                    });                  
-                }else if(item.tipo == "V"){
-                    //VOTOS
-                    $.ajax({
-                        url: "../rutas_ajax/publicaciones/votaciones/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                        type: "POST",
-                        success: function(r){
-                            obj = JSON.parse(r);
-                            // votacion_id = obj[0][0].votacion_id;
-                            informacion = obj[0][0].informacion;                                 
-                        },
-                        async: false // <- this turns it into synchronous
-                    });                         
-                }else if(item.tipo == "M"){
-                    //MENSAJES                    
-                    $.ajax({
-                        url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + groupId + "&publicacion_id=" + item.publicacion_id,
-                        type: "POST",
-                        success: function(r){
-                            obj = JSON.parse(r);
-                            // mensaje_id = obj[0].mensaje_id;
-                            informacion = obj[0].informacion;
-                        },
-                        async: false // <- this turns it into synchronous
-                    });             
-                }  
-            }
-            tipo = tipoNotify(item.tipo);
-            generateNotification(item.notificacion_id,item.usuario_creador,informacion,tipo,item.grupo_id,item.grupo,false);                       
-        }
-    } 
-
     function listNotifications(){
         $.ajax({
             url: "../rutas_ajax/notificaciones/listado.php?",
@@ -196,23 +135,79 @@
             success: function(r){
                 obj = JSON.parse(r);
                 for(var i = 0; i < obj.length; i++){
-                    var item = {
-                        publicacion_id: obj[i].publicacion_id,
-                        notificacion_id: obj[i].notificacion_id,
-                        usuario_creador: obj[i].usuario_creador,
-                        usuario_creador_nombre: obj[i].nombre,
-                        grupo_id: obj[i].grupo_id,
-                        grupo: obj[i].apellido,
-                        tipo: obj[i].tipo,
-                        fecha_creacion: obj[i].fecha_creacion
-                    };
-                    notifyObject[obj[i].notificacion_id] = item;   
-                    //ahora que ya tengo almacenadas las publicaciones se muestran               
+                    publicacion_id = obj[i].publicacion_id,
+                    notificacion_id = obj[i].notificacion_id,
+                    usuario_creador = obj[i].usuario_creador,
+                    usuario_creador_nombre = obj[i].nombre,
+                    grupo_id = obj[i].grupo_id,
+                    grupo = obj[i].apellido,
+                    tipo = obj[i].tipo,
+                    fecha_creacion = obj[i].fecha_creacion
+                    //ahora muestro los datos de la publicacion
+                    if(tipo == "E"){
+                        //EVENTOS
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/eventos/listado.php?grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                obj = JSON.parse(r);
+                                // evento_id = obj[0][0].evento_id;
+                                informacion = obj[0][0].titulo;
+                                // informacion = obj[0][0].informacion;
+                                // fecha = obj[0][0].fecha;
+                                // hora = obj[0][0].hora;
+                                // lugar = obj[0][0].lugar;
+                            },
+                            async: false // <- this turns it into synchronous
+                        });               
+                    }else if(tipo == "A"){
+                        //ARCHIVOS
+                    
+                    }else if(tipo == "P"){
+                        //PREGUNTAS
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/preguntas/listado.php?grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                // var respuestas = [];
+                                // var usuarios = [];
+                                // var respuestasUsuario = [];
+                                obj = JSON.parse(r);
+                                // pregunta_id = obj[0][0].pregunta_id;
+                                informacion = obj[0][0].informacion;
+                            },
+                            async: false // <- this turns it into synchronous
+                        });                  
+                    }else if(tipo == "V"){
+                        //VOTOS
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/votaciones/listado.php?grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                obj = JSON.parse(r);
+                                // votacion_id = obj[0][0].votacion_id;
+                                informacion = obj[0][0].informacion;                                 
+                            },
+                            async: false // <- this turns it into synchronous
+                        });                         
+                    }else if(tipo == "M"){
+                        //MENSAJES                    
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                obj = JSON.parse(r);
+                                // mensaje_id = obj[0].mensaje_id;
+                                informacion = obj[0].informacion;
+                            },
+                            async: false // <- this turns it into synchronous
+                        });             
+                    }  
+                    tipo = tipoNotify(tipo);
+                    generateNotification(notificacion_id,usuario_creador,informacion,tipo,grupo_id,grupo,true);                                     
                 }               
             },
-            async: false // <- this turns it into synchronous
         });         
-        getInfoNotification();
     }
 
     $(document).ready(function(){
