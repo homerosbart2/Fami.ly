@@ -1266,25 +1266,25 @@ body.disableScrollBar {
             font-size: 18px; }
           .profile-section .central-container .profile-title .name-container .user-alias {
             font-size: 12px; } }
-    .profile-section .central-container .profile {
+    .profile-section .central-container .profile-information-container {
       padding: 8px 3px;
       display: flex;
       flex-direction: column; }
-      .profile-section .central-container .profile .info-title {
+      .profile-section .central-container .profile-information-container .info-title {
         font-size: 16px;
         font-weight: bold;
         color: #000B2B;
         width: 100%;
         display: flex; }
-      .profile-section .central-container .profile .profile-information {
+      .profile-section .central-container .profile-information-container .profile-information {
         display: flex;
         flex-direction: column;
         margin-bottom: 10px; }
-        .profile-section .central-container .profile .profile-information .birthday, .profile-section .central-container .profile .profile-information .gender, .profile-section .central-container .profile .profile-information .country {
+        .profile-section .central-container .profile-information-container .profile-information .birthday, .profile-section .central-container .profile-information-container .profile-information .gender, .profile-section .central-container .profile-information-container .profile-information .country {
           display: flex;
           flex-direction: row;
           align-items: center; }
-          .profile-section .central-container .profile .profile-information .birthday .icon, .profile-section .central-container .profile .profile-information .gender .icon, .profile-section .central-container .profile .profile-information .country .icon {
+          .profile-section .central-container .profile-information-container .profile-information .birthday .icon, .profile-section .central-container .profile-information-container .profile-information .gender .icon, .profile-section .central-container .profile-information-container .profile-information .country .icon {
             display: flex;
             width: 20px;
             height: 20px;
@@ -1294,29 +1294,29 @@ body.disableScrollBar {
             margin-bottom: 3px;
             margin-top: 3px;
             font-size: 16px; }
-      .profile-section .central-container .profile .groups-information {
+      .profile-section .central-container .profile-information-container .groups-information {
         margin-bottom: 10px; }
-        .profile-section .central-container .profile .groups-information .groups-container {
+        .profile-section .central-container .profile-information-container .groups-information .groups-container {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap; }
-          .profile-section .central-container .profile .groups-information .groups-container .group-card {
+          .profile-section .central-container .profile-information-container .groups-information .groups-container .group-card {
             width: 125px;
             padding-top: 125px;
             margin-left: 0;
             margin-right: 6px; }
           @media only screen and (max-width: 370px) {
-            .profile-section .central-container .profile .groups-information .groups-container {
+            .profile-section .central-container .profile-information-container .groups-information .groups-container {
               justify-content: space-between; } }
-      .profile-section .central-container .profile .family-information {
+      .profile-section .central-container .profile-information-container .family-information {
         display: flex;
         flex-direction: column; }
-        .profile-section .central-container .profile .family-information .users-container {
+        .profile-section .central-container .profile-information-container .family-information .users-container {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
           margin: 6px 10px; }
-          .profile-section .central-container .profile .family-information .users-container .users-lastname {
+          .profile-section .central-container .profile-information-container .family-information .users-container .users-lastname {
             width: 100%;
             display: flex; }
 
