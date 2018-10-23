@@ -846,7 +846,7 @@ function initWallListeners(){
                             })
                             .then(function(data) {
                                 console.log('data = ', data);
-                                if(date > 1) postsList(true,data);
+                                if(data > 1) postsList(true,data);
                             })
                             .catch(function(err) {
                                 console.error(err);

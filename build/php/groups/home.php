@@ -84,15 +84,6 @@ window.onresize = function(event) {
             });
         }
     }
-    rows += '<span class="information">';
-    rows += '<span class="name flexFont">';
-    rows += name;
-    rows += '</span>';
-    rows += '</span>';
-    rows += '</span>';
-    $('.groups-container').append(rows);
-    flexFont();
-}
 
 function listGroups(){
     //lista los grupos a los que el usuario pertenece
