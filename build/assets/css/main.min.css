@@ -813,6 +813,14 @@ body.disableScrollBar {
   margin: 6px 6px; }
   .group-card.empty {
     background: #000B2B; }
+  .group-card.invitation:hover .information, .group-card.invitation:active .information, .group-card.invitation:focus .information {
+    opacity: 0; }
+  .group-card.invitation:hover .options a, .group-card.invitation:active .options a, .group-card.invitation:focus .options a {
+    transform: scale(1); }
+  .group-card.invitation .image {
+    filter: blur(10px) brightness(0.7) grayscale(100%); }
+  .group-card.invitation .information .invite-text {
+    display: flex; }
   .group-card .image {
     filter: blur(10px) brightness(0.7); }
   .group-card .image {
@@ -831,7 +839,7 @@ body.disableScrollBar {
     .group-card .image.bottom-right {
       bottom: 0;
       right: 0; }
-  .group-card .information {
+  .group-card .options, .group-card .information {
     position: absolute;
     top: 0;
     left: 0;
@@ -840,7 +848,26 @@ body.disableScrollBar {
     align-items: center;
     height: 100%;
     width: 100%;
-    color: #e9eeff; }
+    color: #e9eeff;
+    transition: 0.2s ease; }
+  .group-card .options {
+    z-index: 1; }
+    .group-card .options a {
+      background: #e9eeff;
+      border: 1px solid #e9eeff;
+      color: #000B2B;
+      font-size: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 40px;
+      transform: scale(0);
+      height: 30px;
+      width: 20px;
+      margin: 9px 12px; }
+  .group-card .information {
+    opacity: 1;
+    flex-direction: column; }
     .group-card .information .name {
       text-transform: uppercase;
       width: 100%;
@@ -848,6 +875,10 @@ body.disableScrollBar {
       justify-content: center;
       font-weight: 600;
       transition: 0.3s ease; }
+    .group-card .information .invite-text {
+      text-transform: uppercase;
+      border-top: 2px solid #e9eeff;
+      padding-top: 3px; }
   .group-card .counter {
     position: absolute;
     top: 5px;
@@ -884,12 +915,28 @@ body.disableScrollBar {
   padding-top: 90px;
   display: flex;
   margin: 6px 6px;
+  border: 3px solid #fff;
   cursor: pointer;
   transition: 0.2s ease; }
+  .user-card.following {
+    border: 3px solid #ffebe7; }
+    .user-card.following:hover .follow-indicator, .user-card.following:active .follow-indicator, .user-card.following:focus .follow-indicator {
+      opacity: 1; }
   .user-card:hover img, .user-card:active img, .user-card:focus img {
     filter: blur(0) brightness(1); }
   .user-card:hover .name, .user-card:active .name, .user-card:focus .name {
     color: transparent; }
+  .user-card .follow-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -9px;
+    margin-top: -9px;
+    font-size: 18px;
+    color: #ffebe7;
+    z-index: 1;
+    opacity: 0;
+    transition: 0.2s ease; }
   .user-card img {
     position: absolute;
     top: 0;
@@ -907,7 +954,8 @@ body.disableScrollBar {
     justify-content: center;
     align-items: center;
     color: #e9eeff;
-    transition: 0.2s ease; }
+    transition: 0.2s ease;
+    z-index: 2; }
 
 .search-people-container {
   position: absolute;
@@ -1124,7 +1172,29 @@ body.disableScrollBar {
       justify-content: flex-start;
       width: 100%;
       background: gray; }
+      .profile-section .central-container .profile-title.expanded {
+        background: #000B2B;
+        overflow: visible;
+        justify-content: center; }
+        .profile-section .central-container .profile-title.expanded .title-bg {
+          position: absolute;
+          filter: blur(0) brightness(1);
+          z-index: 2;
+          top: 0; }
+          @media screen and (orientation: landscape) {
+            .profile-section .central-container .profile-title.expanded .title-bg {
+              top: 10px;
+              width: auto;
+              height: 80vh; } }
+      .profile-section .central-container .profile-title .expand-profile-picture {
+        position: absolute;
+        z-index: 3;
+        right: 10px;
+        bottom: 10px;
+        color: white;
+        cursor: pointer; }
       .profile-section .central-container .profile-title .title-bg {
+        transition: 0.2s ease;
         filter: blur(15px) brightness(0.7);
         position: absolute;
         width: 100%; }
@@ -1133,7 +1203,7 @@ body.disableScrollBar {
         width: 20%;
         padding-top: 20%;
         border-radius: 200px;
-        border: 5px solid white;
+        border: 3px solid white;
         margin: 10px 10px;
         overflow: hidden;
         cursor: pointer; }
@@ -1193,7 +1263,7 @@ body.disableScrollBar {
               color: #000B2B; }
         @media only screen and (max-width: 650px) {
           .profile-section .central-container .profile-title .name-container .user-names, .profile-section .central-container .profile-title .name-container .user-lastnames {
-            font-size: 20px; }
+            font-size: 18px; }
           .profile-section .central-container .profile-title .name-container .user-alias {
             font-size: 12px; } }
     .profile-section .central-container .profile {
@@ -1245,7 +1315,7 @@ body.disableScrollBar {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
-          margin: 10px 10px; }
+          margin: 6px 10px; }
           .profile-section .central-container .profile .family-information .users-container .users-lastname {
             width: 100%;
             display: flex; }
@@ -1375,7 +1445,7 @@ body.disableScrollBar {
         align-items: center;
         padding: 0 12px;
         font-size: 22px; }
-        .chatbox-container .post-form-container .form-container .arrow i {
+        .chatbox-container .post-form-container .form-container .arrow i, .chatbox-container .post-form-container .form-container .arrow svg {
           cursor: pointer; }
       .chatbox-container .post-form-container .form-container .inputs-container {
         overflow: hidden;
@@ -1411,7 +1481,7 @@ body.disableScrollBar {
                 font-size: 14px;
                 margin-bottom: 0;
                 text-transform: capitalize; }
-              .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .form-title i, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .form-title i, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .form-title i {
+              .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .form-title i, .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .form-title svg, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .form-title i, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .form-title svg, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .form-title i, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .form-title svg {
                 margin-right: 6px; }
             .chatbox-container .post-form-container .form-container .inputs-container .inputs-left .form .poll-option, .chatbox-container .post-form-container .form-container .inputs-container .inputs-center .form .poll-option, .chatbox-container .post-form-container .form-container .inputs-container .inputs-right .form .poll-option {
               text-align: left;
@@ -1667,7 +1737,7 @@ body.disableScrollBar {
           align-items: center;
           font-size: 18px;
           margin-bottom: 6px; }
-          .wall .central-container .post-container .post.event .event-date i {
+          .wall .central-container .post-container .post.event .event-date i, .wall .central-container .post-container .post.event .event-date svg {
             margin-right: 3px; }
         .wall .central-container .post-container .post.event .text {
           font-size: 15px;
@@ -1831,7 +1901,7 @@ body.disableScrollBar {
                   margin-right: 4px;
                   color: white;
                   font-size: 19px; }
-                  .wall .central-container .post-container .post.poll .answers .answer .radio-container input:checked + label i {
+                  .wall .central-container .post-container .post.poll .answers .answer .radio-container input:checked + label i, .wall .central-container .post-container .post.poll .answers .answer .radio-container input:checked + label svg {
                     font-size: 19px;
                     opacity: 1; }
               .wall .central-container .post-container .post.poll .answers .answer .radio-container label {
@@ -1846,7 +1916,7 @@ body.disableScrollBar {
                 transition: 0.2s ease;
                 font-size: 0;
                 cursor: pointer; }
-                .wall .central-container .post-container .post.poll .answers .answer .radio-container label i {
+                .wall .central-container .post-container .post.poll .answers .answer .radio-container label i, .wall .central-container .post-container .post.poll .answers .answer .radio-container label svg {
                   font-size: 1px;
                   color: white;
                   opacity: 0;
@@ -1879,11 +1949,11 @@ body.disableScrollBar {
             font-weight: 700;
             z-index: 1;
             margin-left: 12px; }
-            .wall .central-container .post-container .post .options a i {
+            .wall .central-container .post-container .post .options a i, .wall .central-container .post-container .post .options a svg {
               transition: 0.2s ease; }
             .wall .central-container .post-container .post .options a.see-more {
               z-index: 11; }
-            .wall .central-container .post-container .post .options a.expanded i {
+            .wall .central-container .post-container .post .options a.expanded i, .wall .central-container .post-container .post .options a.expanded svg {
               transform: rotate(180deg); }
 
 .searchable {
@@ -1931,7 +2001,7 @@ body.disableScrollBar {
         color: white;
         justify-content: center;
         align-items: center; }
-        .notification-wall-container .central-container .notifications-container .no-notification i {
+        .notification-wall-container .central-container .notifications-container .no-notification i, .notification-wall-container .central-container .notifications-container .no-notification svg {
           color: #FF6040;
           margin-right: 6px;
           font-size: 12px; }
@@ -2001,7 +2071,7 @@ body.disableScrollBar {
             color: #aaa;
             display: flex;
             align-items: center; }
-            .notification-wall-container .central-container .notifications-container .group-notification .notification .type i {
+            .notification-wall-container .central-container .notifications-container .group-notification .notification .type i, .notification-wall-container .central-container .notifications-container .group-notification .notification .type svg {
               margin-right: 3px;
               font-size: 8px; }
     .notification-wall-container .central-container .wide-central-container {

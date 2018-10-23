@@ -12,6 +12,11 @@
     <section class="profile-section">
         <span class="central-container">
             <span class="profile-title">
+                <!--
+                <span class="expand-profile-picture">
+                    <i class="fas fa-expand"></i>
+                </span>
+                -->
                 <img class="title-bg" src="../../assets/img/users/profile.png">
                 <span class="profile-img">
                     <!-- Imagen de perfil del usuario -->
@@ -26,7 +31,7 @@
                         Henry Alejandro
                     </span>
                     <span class="user-alias">
-                        <b>@</b>henry.campos97
+                        <b>@</b>henry.campos98
                     </span>
                     <span class="button-section">
                         <a class="btn-login">Seguir</a>
@@ -47,48 +52,15 @@
                     </span>
                 </span>
                 <span class="family-information">
-                    <span class="info-title">Familiares</span>
+                    <span class="info-title relatives">Familiares</span>
                     <span class="users-container">
                         <span class="users-lastname">Campos</span>
-                        <span class="user-card">
-                            <img class="image top-left" src="../../assets/img/users/face1.png">
-                            <span class="name">Alex</span>
-                        </span>
-                        <span class="user-card">
-                            <img class="image top-left" src="../../assets/img/users/face5.png">
-                            <span class="name">Dulce</span>
-                        </span>
-                        <span class="user-card">
-                            <img class="image top-left" src="../../assets/img/users/face4.png">
-                            <span class="name">Henry</span>
-                        </span>
-                        <span class="user-card">
-                            <img class="image top-left" src="../../assets/img/users/face3.png">
-                            <span class="name">Jhonathan</span>
-                        </span>
-                        <span class="user-card">
-                            <img class="image top-left" src="../../assets/img/users/face7.png">
-                            <span class="name">Lorena</span>
-                        </span>
-                        <span class="user-card">
-                            <img class="image top-left" src="../../assets/img/users/face6.png">
-                            <span class="name">Nuelmar</span>
-                        </span>
                     </span>
                     <span class="users-container">
                         <span class="users-lastname">Ogáldez</span>
-                        <span class="user-card">
-                            <img class="image top-left" src="../../assets/img/users/face9.png">
-                            <span class="name">Julio</span>
-                        </span>
-                        <span class="user-card">
-                            <img class="image top-left" src="../../assets/img/users/face8.png">
-                            <span class="name">Luz</span>
-                        </span>
-                        <span class="user-card">
-                            <img class="image top-left" src="../../assets/img/users/face2.png">
-                            <span class="name">Vilma</span>
-                        </span>
+                    </span>
+                    <span class="info-title friends">Amigos</span>
+                    <span class="users-container">
                     </span>
                 </span>
             </span>
@@ -99,20 +71,16 @@
 <script>
     function generateGroupCard(id, name, images){
         rows = '';
-        if(images.length == 0){
-            rows += '<span id="'+id+'" class="group-card empty">';
-        }else{
-            rows += '<span id="'+id+'" class="group-card">';
-        }
+        rows += (images.length == 0)? `<span id="${id}" class="group-card empty">` : `<span id="${id}" class="group-card">`;
         for(i in images){
             if(i == 0){
-                rows += '<img class="image top-left" src="'+images[i]+'">';
+                rows += `<img class="image top-left" src="${images[i]}">`;
             }else if(i == 1){
-                rows += '<img class="image top-right" src="'+images[i]+'">';
+                rows += `<img class="image top-right" src="${images[i]}">`;
             }else if(i == 2){
-                rows += '<img class="image bottom-left" src="'+images[i]+'">';
+                rows += `<img class="image bottom-left" src="${images[i]}">`;
             }else if(i == 3){
-                rows += '<img class="image bottom-right" src="'+images[i]+'">';
+                rows += `<img class="image bottom-right" src="${images[i]}">`;
             }
         }
         rows += '<span class="information">';
@@ -123,6 +91,22 @@
         rows += '</span>';
         $('.groups-container').append(rows);
         flexFont();
+    }
+
+    //Función para generar las tarjetas de usuario, que recibe [id] del usuario, [name] primer nombre del usuario, [lastname] que es 0 si el apellido en común es el primer apellido del usuario que inició sesión, 1 si el segundo es el común y 2 si no tienen apellidos en común, [image] que es el path a la imagen del usuario y [following] que es true si el usuario actual está siguiendo a este.
+    function generateUserCard(id, name, lastname, image, following){
+        rows = '';
+        rows += (following)? `<span user-id="${id}" class="user-card following">` : `<span user-id="${id}" class="user-card">`;
+        //rows += `<span class="follow-indicator"><i class="fas fa-check-circle"></i></span>`;
+        rows += `<img class="image top-left" src="${image}">`;
+        rows += `<span class="name">${name}</span>`;
+        rows += `</span>`;
+        object = $('.profile').find('.family-information').find('.users-container').eq(lastname);
+        object.append(rows);
+        object.find('.user-card').last().click((event)=>{
+            //TODO: Direccionar al perfil del usuario con el identificador [id].
+            console.log(id);
+        })
     }
 
     flexFont = function () {
@@ -142,9 +126,28 @@
     };
 
     $(document).ready(()=>{
+        //EXAMPLE: Ejemplos para generar tarjetas de grupos como en la pantalla de inicio.
         generateGroupCard(1, 'Hogar', ['../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face3.png','../../assets/img/users/face4.png']);
-        generateGroupCard(1, 'Campos', ['../../assets/img/users/face3.png','../../assets/img/users/face5.png','../../assets/img/users/face6.png','../../assets/img/users/face7.png']);
-        generateGroupCard(1, 'Ogáldez', ['../../assets/img/users/face8.png','../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face9.png']);
+        generateGroupCard(2, 'Campos', ['../../assets/img/users/face3.png','../../assets/img/users/face5.png','../../assets/img/users/face6.png','../../assets/img/users/face7.png']);
+        generateGroupCard(3, 'Ogáldez', ['../../assets/img/users/face8.png','../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face9.png']);
+        
+        //EXAMPLE: Ejemplos para generar tarjetas de usuario dependiendo del apellido.
+        //TODO: No sé cómo vamos a hacer esto, podríamos agregar un botón en el perfil para indicar si esa persona es familiar y si es tío o abuela, pero se necesita otra tabla de familiares y en esa indicar si se está siguiendo o no.
+        //TODO: Hay que verificar los apellidos y si se está siguiendo para mandar a llamar estas funciones.
+        generateUserCard(1, 'Alex', 0, '../../assets/img/users/face1.png', true);
+        generateUserCard(2, 'Dulce', 0, '../../assets/img/users/face5.png', true);
+        generateUserCard(3, 'Henry', 0, '../../assets/img/users/face4.png', false);
+        generateUserCard(4, 'Jhonathan', 0, '../../assets/img/users/face3.png', false);
+        generateUserCard(5, 'Lorena', 0, '../../assets/img/users/face7.png', false);
+        generateUserCard(6, 'Nuelmar', 0, '../../assets/img/users/face6.png', false);
+
+        generateUserCard(7, 'Julio', 1, '../../assets/img/users/face9.png', true);
+        generateUserCard(8, 'Luz', 1, '../../assets/img/users/face8.png', false);
+        generateUserCard(9, 'Vilma', 1, '../../assets/img/users/face2.png', false);
+
+        $('.expand-profile-picture').click((event)=>{
+            $('.profile-title').addClass('expanded');
+        });
     });
 
 </script>
