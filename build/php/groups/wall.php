@@ -149,7 +149,7 @@
         opacity: 0;
         overflow: hidden;
         position: relative;
-        z-index: -1;
+        z-index: 5;
     }    
 </style>
 
