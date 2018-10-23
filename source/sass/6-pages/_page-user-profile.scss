@@ -15,7 +15,33 @@
             width: 100%;
             //background-image: linear-gradient(-45deg, $main, $secondary);
             background: gray;
+            &.expanded{
+                background: $main-contrast;
+                overflow: visible;
+                justify-content: center;
+                .title-bg{
+                    position: absolute;
+                    filter: blur(0) brightness(1);
+                    z-index: 2;
+                    top: 0;
+                    //box-shadow: 0 0 35px rgba(0, 0, 0, 0.3);
+                    @media screen and (orientation:landscape) {
+                        top: 10px;
+                        width: auto;
+                        height: 80vh;
+                    }
+                }
+            }
+            .expand-profile-picture{
+                position: absolute;
+                z-index: 3;
+                right: 10px;
+                bottom: 10px;
+                color: white;
+                cursor: pointer;
+            }
             .title-bg{
+                transition: 0.2s ease;
                 filter: blur(15px) brightness(0.7);
                 position: absolute;
                 width: 100%;
@@ -25,7 +51,7 @@
                 width: 20%;
                 padding-top: 20%;
                 border-radius: 200px;
-                border: 5px solid white;
+                border: 3px solid white;
                 margin: 10px 10px;
                 overflow: hidden;
                 cursor: pointer;
@@ -102,7 +128,7 @@
                 }
                 @include media-max(650px){
                     .user-names, .user-lastnames{
-                        font-size: 20px;
+                        font-size: 18px;
                     }
                     .user-alias{
                         font-size: 12px;
@@ -110,7 +136,7 @@
                 }
             }
         }
-        .profile{
+        .profile-information-container{
             padding: 8px 3px;
             display: flex;
             flex-direction: column;
@@ -166,7 +192,7 @@
                     display: flex;
                     flex-direction: row;
                     flex-wrap: wrap;
-                    margin: 10px 10px;
+                    margin: 6px 10px;
                     .users-lastname{
                         width: 100%;
                         display: flex;

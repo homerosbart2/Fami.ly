@@ -108,17 +108,16 @@
 
     $(document).ready(function(){
         //EXAMPLE: ejemplos de generación de notificaciones.
-        generateNotification('Lorena', 'Me parece bien el lugar.', 'Mensaje', '123', 'Campos', false);
-        generateNotification('Nuelmar', 'Cena familiar Campos', 'Evento', '123', 'Campos', false);
-        generateNotification('Nuelmar', 'Cena familiar Campos', 'Evento', '123', 'Campos', false)
-        generateNotification('Henry', 'Que onda', 'Mensaje', '123', 'Campos', false);
-        generateNotification('Henry', '¿Cómo están?', 'Mensaje', '123', 'Campos', false);
+        generateNotification(1, 'Lorena', 'Me parece bien el lugar.', 'Mensaje', '123', 'Campos', false);
+        generateNotification(2, 'Nuelmar', 'Cena familiar Campos', 'Evento', '123', 'Campos', false);
+        generateNotification(3, 'Henry', 'Que onda', 'Mensaje', '123', 'Campos', false);
+        generateNotification(4, 'Henry', '¿Cómo están?', 'Mensaje', '123', 'Campos', false);
 
         initNotificationWallListeners();
         
-        generateNotification('Marco', 'WUT WUT', 'Mensaje', '123', 'Campos', true);
-        generateNotification('Marco', 'WUT WUT', 'Mensaje', '124', 'Jairo',true);
-        generateNotification('Marco', 'WUT WUT x2', 'Mensaje', '123', 'Campos', true);
+        generateNotification(5, 'Marco', 'WUT WUT', 'Mensaje', '123', 'Campos', true);
+        generateNotification(6, 'Marco', 'WUT WUT', 'Mensaje', '124', 'Jairo',true);
+        generateNotification(7, 'Marco', 'WUT WUT x2', 'Mensaje', '123', 'Campos', true);
 
         //EXAMPLE: función que se llama si no hay notificaciones.
         //emptyNotificationWall();
