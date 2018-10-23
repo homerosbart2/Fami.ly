@@ -140,7 +140,12 @@
                 align-items: center;
                 padding: 0 12px;
                 font-size: 22px;
-                i{
+                .button{
+                    width: 35px;
+                    height: 35px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     cursor: pointer;
                 }
             }
@@ -180,7 +185,7 @@
                                 margin-bottom: 0;
                                 text-transform: capitalize;
                             }
-                            i{
+                            i, svg{
                                 margin-right: 6px;
                             }
                         }
@@ -537,7 +542,7 @@
                         align-items: center;
                         font-size: 18px;
                         margin-bottom: 6px;
-                        i{
+                        i, svg{
                             margin-right: 3px;
                         }
                     }
@@ -752,7 +757,7 @@
                                         margin-right: 4px;
                                         color: white;
                                         font-size: 19px;
-                                        i{
+                                        i, svg{
                                             font-size: 19px;
                                             opacity: 1;
                                         }
@@ -770,7 +775,7 @@
                                     transition: 0.2s ease;
                                     font-size: 0;
                                     cursor: pointer;
-                                    i{
+                                    i, svg{
                                         font-size: 1px;
                                         color: white;
                                         opacity: 0;
@@ -813,14 +818,14 @@
                         font-weight: 700;
                         z-index: 1;
                         margin-left: 12px;
-                        i{
+                        i, svg{
                             transition: 0.2s ease;
                         }
                         &.see-more{
                             z-index: 11;
                         }
                         &.expanded{
-                            i{
+                            i, svg{
                                 transform: rotate(180deg);
                             }
                         }

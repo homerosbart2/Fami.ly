@@ -74,7 +74,9 @@
         <span class="post-form-container">
             <span class="form-container">
                 <span class="arrow left-arrow">
-                    <i class="fas fa-arrow-left"></i>
+                    <span class="button">
+                        <i class="fas fa-arrow-left"></i>
+                    </span>
                 </span>
                 <span class="inputs-container">
                     <span class="inputs-left">
@@ -124,7 +126,9 @@
                     </span>     
                 </span>
                 <span class="arrow right-arrow">
-                    <i class="fas fa-arrow-right"></i>
+                    <span class="button">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
                 </span>
             </span>
             <span class="wide-central-container">
@@ -1006,7 +1010,8 @@ function initWallListeners(){
         });
 
         //Función que se llama al presionar la flecha izquierda, que cambia de formulario.
-        $('.left-arrow').children('i').click(function(){
+        $('.left-arrow').children('.button').click(function(){
+            console.log('hola');
             $('.inputs-right').css('opacity', '1');
             $('.inputs-left').css('opacity', '0');
             object = $('.inputs-center');
@@ -1032,7 +1037,7 @@ function initWallListeners(){
         });
 
         //Función que se llama al presionar la flecha izquierda, que cambia de formulario.
-        $('.right-arrow').children('i').click(function(){
+        $('.right-arrow').children('.button').click(function(){
             $('.inputs-left').css('opacity', '1');
             $('.inputs-right').css('opacity', '0');
             object = $('.inputs-center');
@@ -1260,6 +1265,7 @@ function initWallListeners(){
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
         //EXAMPLE: Ejemplo para mostrar la animación de carga.
+        //showChargingAnimation(true);
         
         //EXAMPLE: Ejemplos para agregar un resultado a la búsqueda.
         clearPeopleSearch();
