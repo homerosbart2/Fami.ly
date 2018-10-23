@@ -117,8 +117,11 @@
                             <span class="form-title">
                                 <i class="fas fa-image"></i> Imagen o Video
                             </span>
+                            <input type="file" onchange="readImg(this);" id="file-input" name="files[]"  accept="image/png, image/jpeg" />                            
+                            <!-- NECESITO ESTE DIV CON ID "img-viewer" AQUI VOY A MOSTRAR AL CARGAR LA IMAGEN -->              
+                            <img id="img-viewer" src="http://placehold.it/180" alt="your image" />                                      
                         </span>
-                    </span>
+                    </span>     
                 </span>
                 <span class="arrow right-arrow">
                     <i class="fas fa-arrow-right"></i>
@@ -133,17 +136,25 @@
 </html>
 
 <style>
-.ui-pnotify{
-    /*CSS PARA PNOTIFY EDITADO*/
-    top:0px;
-    right:66px;
-    left:0px;
-}
+    .ui-pnotify{
+        /*CSS PARA PNOTIFY EDITADO*/
+        top:0px;
+        right:66px;
+        left:0px;
+    }
+
+    input[type=file] {
+        width: 100px;
+        height: 100px;
+        opacity: 0;
+        overflow: hidden;
+        position: relative;
+        z-index: -1;
+    }    
 </style>
 
 <script>
-    //objeto que guarda las publicaciones   
-    var postsObject = {};
+    var lastPostId = 0;
     var question;
     var postId;
     var quantity;
@@ -622,6 +633,29 @@
         });  
     }
 
+    var imagenValida = false;
+    function readImg(input) {
+        if (input.files && input.files[0]) {        
+            var file = input.files[0];
+            imageFile = file.type;
+            var match = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
+            if (!(imageFile == match[0] || imageFile == match[1] || imageFile == match[2] || imageFile == match[3])){
+                $('#img-viewer').attr('src', 'uploads/novalid.png');
+                $('#img-viewer').attr('height', 200)
+                $('#img-viewer').attr('width', 200)
+                imagenValida =  false;
+                alert("FORMATO NO VALIDO");
+            }else {
+                imagenValida = true;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img-viewer').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    }
+    
     function expandConfirmedPeople(lmnt){
         if(!lmnt.hasClass('expanded')){
             lmnt.parent().parent().children('.confirmed-users').addClass('expanded');
@@ -788,6 +822,34 @@ function initWallListeners(){
                                 }
                             }
                         });                        
+                    }else if(($('.btn-chat').hasClass('image-video'))){
+                        if(imagenValida){
+                            //GUARDAMOS LA IMAGEN
+                            const files = document.querySelector('[type=file]').files;
+                            const formData = new FormData();
+                            for (let i = 0; i < files.length; i++) {
+                                let file = files[i];
+                                formData.append('files[]', file);
+                            }
+
+                            fetch("../rutas_ajax/publicaciones/imagenes/insertar.php?grupo=" + groupId + "&informacion=" 
+                            + text, {
+                                method: 'POST',
+                                body: formData
+                            })
+                            .then(function(response) {
+                                return response.text();
+                            })
+                            .then(function(data) {
+                                console.log('data = ', data);
+                                if(date > 1) postsList(true,data);
+                            })
+                            .catch(function(err) {
+                                console.error(err);
+                            });
+                        }else{
+                            alert("seleccione un archivo valido");
+                        }                        
                     }else if($('.btn-chat').hasClass('poll')){
                         //Esto sucede si es una votación
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
@@ -1010,13 +1072,24 @@ function initWallListeners(){
         });
     }
 
-    function postsList(createAt,postId){
-        showChargingAnimation(true);
+    function updatePosts () {
+        setTimeout("postsList('true','',false)",2000); 
+    }
+
+    var showDate = 1;
+    var dateBefore = ""; //con esta variable mantengo el cambio de fecha de publicaciones
+    var dateInLetters = null;
+    var horario = null;
+    var typePost = false;
+    var contador = 0;   
+    function postsList(createAt,postId,loading){   
+        if(loading == true) showChargingAnimation(true);
         $.ajax({
-            url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&publicacion=" + postId,
+            url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&publicacion=" + postId + "&last=" + lastPostId,
             type: "POST",
             success: function(r){
                 objParent = JSON.parse(r);
+                size = objParent.length;
                 // postsObject = {};
                 for(var k = 0; k < objParent.length; k++){
                     publicacion_id = objParent[k].publicacion_id,
@@ -1025,12 +1098,6 @@ function initWallListeners(){
                     grupo_id = objParent[k].grupo_id,
                     tipo = objParent[k].tipo,
                     fecha_creacion = objParent[k].fecha_creacion
-                    var showDate = 1;
-                    var dateBefore = ""; //con esta variable mantengo el cambio de fecha de publicaciones
-                    var dateInLetters = null;
-                    var horario = null;
-                    var typePost = false;
-                    var contador = 0;
                     typePost = false;
                     //OBTENEMOS LA FECHA
                     var date = new Date(fecha_creacion);       
@@ -1076,18 +1143,30 @@ function initWallListeners(){
                                         else asistencia.push(usuario);
                                     }
                                 }
+                                var dateEvent = new Date(fecha);       
+                                dayEvent = dateEvent.getDate();
+                                 monthEvent = months[(parseInt(dateEvent.getMonth()))];
+                                yearEvent = dateEvent.getFullYear();
+                                dateInLettersEvent = dayEvent + ' de ' + monthEvent + ' del ' + year;
+                                generateEvent(publicacion_id, evento_id, usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, [], imIn, horario, typePost, createAt);                                   
                             },
                             async: false // <- this turns it into synchronous
-                        });  
-                        var dateEvent = new Date(fecha);       
-                        dayEvent = dateEvent.getDate();
-                        monthEvent = months[(parseInt(dateEvent.getMonth()))];
-                        yearEvent = dateEvent.getFullYear();
-                        dateInLettersEvent = dayEvent + ' de ' + monthEvent + ' del ' + year;
-                        generateEvent(publicacion_id, evento_id, usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, [], imIn, horario, typePost, createAt);                
-                    }else if(tipo == "A"){
-                        //ARCHIVOS
-                    
+                        });               
+                    }else if(tipo == "I"){
+                        //IMAGENES                    
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/imagenes/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                obj = JSON.parse(r);
+                                imagen_id = obj[0].imagen_id;
+                                informacion = obj[0].informacion;
+                                formato = obj[0].formato;
+                                imgPath = "../../assets/img/posts/" + imagen_id + "." + formato;
+                                generateImage(publicacion_id, usuario_creador_nombre, informacion, imgPath, horario, typePost, createAt);
+                            },
+                            async: false // <- this turns it into synchronous
+                        });                         
                     }else if(tipo == "P"){
                         //PREGUNTAS
                         $.ajax({
@@ -1166,8 +1245,10 @@ function initWallListeners(){
                     if(contador==size){
                         generateDateSeparator(dateBefore)
                     };  
+                    lastPostId = publicacion_id;
                 }
-                showChargingAnimation(false);                                                   
+                if(loading == true) showChargingAnimation(false);    
+                updatePosts();                                               
             },
         });                   
     }
@@ -1175,7 +1256,7 @@ function initWallListeners(){
     $(document).ready(function(){
         // showChargingAnimation(true);
         //llamamos a las publicaciones
-        postsList(true,"");
+        postsList(true,"",true);
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
         //EXAMPLE: Ejemplo para mostrar la animación de carga.
@@ -1210,10 +1291,10 @@ function initWallListeners(){
             // generatePoll(76, 'Henry', '¿A dónde quieren salir en la noche?', ['Pollo Campero', 'Nais', 'La Estancia'], [3, 1, 1], 1, '12:35', false, false);
 
         //EXAMPLE: Ejemplo imagen.
-        generateImage(78, 'Henry', 'Recuerdo familiar', '../../assets/img/fam1.jpg', '3:52 PM', true, false);
+        // generateImage(78, 'Henry', 'Recuerdo familiar', '../../assets/img/fam1.jpg', '3:52 PM', true, false);
 
         //EXAMPLE: Ejemplo separador.
-        generateDateSeparator('Hoy');
+        // generateDateSeparator('Hoy');
 
         //Función que asigna todos los eventos de los elementos en el mural.
         initWallListeners();

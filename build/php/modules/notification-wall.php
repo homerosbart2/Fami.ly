@@ -9,9 +9,10 @@
 </span>
 
 <script>
-    var notifyObject = {};
+    var size = 0;
     //Función para generar notificaciones que recibe [user] que es el usuario que generó la notificación, [text] que es el texto de las publicaciones, [type] que es el tipo de la notificación literal (Mensaje, Votación, etc...), [groupRef] que es el id del grupo, [groupName] que es el nombre del grupo y [createdLater] que debe ser true si la función es llamada después de initNotificationWallListeners(). 
     function generateNotification(id, user, text, type, groupRef, groupName, createdLater){
+        console.log("IN");
         var finded = 0;
         var inserted = 0;
         rows = '';
@@ -19,7 +20,7 @@
             if($(this).attr('group-ref') == groupRef){
                 finded = 1;
                 $(this).find('.notification').each(function(){
-                    if($(this).find('.type').text() == (' ' + type) && $(this).find('.user-name').text() == user){
+                    if($(this).find('.type').text() == (' Mensaje') && $(this).find('.user-name').text() == user){
                         rows += `<span notification-id="${id}" class="text">${text}</span>`;
                         $(this).append(rows);
                         inserted = 1;
@@ -38,6 +39,7 @@
                     object.html((parseInt(object.text().split(' ')[0]) + 1) + ' NUEVAS');
                     object = $('#nav-counter');
                     object.html(parseInt(object.text()) + 1);
+                    size =  parseInt(object.text()) + 1;
                     if(createdLater){
                         $(this).find('.delete-notification').eq(0).click(function(){
                             removeNotification($(this));
@@ -61,6 +63,7 @@
             $('.notifications-container').append(rows);
             object = $('#nav-counter');
             object.html(parseInt(object.text()) + 1);
+            size =  parseInt(object.text()) + 1;
             if(createdLater){
                 $('.notifications-container').find('.group-notification').eq(-1).find('.delete-notification').eq(0).click(function(){
                     removeNotification($(this));
@@ -96,7 +99,8 @@
             object.html((parseInt(object.text().split(' ')[0]) - 1) + ' NUEVAS');
         }
         object = $('#nav-counter');
-        object.html(parseInt(object.text()) - 1);   
+        object.html(parseInt(object.text()) - 1);
+        size =  parseInt(object.text()) - 1;
     }
 
     //Eventos del mural de notificaciones y la generación de notificaciones depende de esta función.
@@ -110,6 +114,7 @@
 
         $('.delete-notification').click(function(){
             removeNotification($(this));
+            size--;
         });
     }
 
@@ -121,22 +126,24 @@
 
     function tipoNotify(tipo){
         switch(tipo){
-            case "V" : return "Votacion";
-            case "E" : return "Eventos";
-            case "A" : return "Archivos";
-            case "P" : return "Preguntas";
-            case "M" : return "Mensajes";
+            case "V" : return "Votacio";
+            case "E" : return "Evento";
+            case "I" : return "Imagen";
+            case "P" : return "Pregunta";
+            case "M" : return "Mensaje";
         }
     }
 
-    function listNotifications(){
+    function updateNotifies() {
+        setTimeout("listNotifications(0)",2000); 
+    }
+
+    function listNotifications(show){
         $.ajax({
-            url: "../rutas_ajax/notificaciones/listado.php?",
+            url: "../rutas_ajax/notificaciones/listado.php?show=" + show,
             type: "POST",
             success: function(r){
                 objParent = JSON.parse(r);
-                size = objParent.length;
-                if(size == 0) emptyNotificationWall();
                 for(var i = 0; i < objParent.length; i++){
                     publicacion_id = objParent[i].publicacion_id;
                     notificacion_id = objParent[i].notificacion_id;
@@ -163,8 +170,8 @@
                             },
                             async: false // <- this turns it into synchronous
                         });               
-                    }else if(tipo == "A"){
-                        //ARCHIVOS
+                    }else if(tipo == "I"){
+                        //IMAGENES
                     
                     }else if(tipo == "P"){
                         //PREGUNTAS
@@ -208,13 +215,15 @@
                     }  
                     tipo = tipoNotify(tipo);
                     generateNotification(notificacion_id,usuario_creador,informacion,tipo,grupo_id,grupo,true);                                     
-                }               
+                }
+                if(size < 2) emptyNotificationWall();
+                updateNotifies(1);               
             },
         });         
     }
 
     $(document).ready(function(){
         initNotificationWallListeners();
-        listNotifications();
+        listNotifications(1);
     });
 </script>

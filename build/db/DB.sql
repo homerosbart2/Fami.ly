@@ -16,9 +16,11 @@
 
 CREATE TABLE GruposFamiliares(
 	grupo_id SERIAL,
+	usuario_creador integer,
 	tipo varchar(5),
 	apellido varchar(100),
-    PRIMARY KEY(grupo_id)
+    PRIMARY KEY(grupo_id),
+	FOREIGN KEY(usuario_creador) REFERENCES Usuarios(usuario_id),
 );
 
 --quite el campo pais por que aun quiero ver bien algo
@@ -34,6 +36,7 @@ CREATE TABLE Usuarios(
 	fecha_nacimiento date,
 	PRIMARY KEY(usuario_id),
 	UNIQUE (correo)
+
 );
 
 CREATE TABLE PerteneceGrupo(
@@ -76,13 +79,13 @@ CREATE TABLE Notificaciones(
     publicacion_id integer,
 	usuario_receptor_id integer, --usuario receptor de la notificacion
     estado boolean, --sirve para saber si ya se leyo o no
+	mostrar boolean DEFAULT 'true', --sirve para mandarla a traer o no para reducir costos al hacer polling
 	PRIMARY KEY(notificacion_id),
     FOREIGN KEY(usuario_receptor_id) REFERENCES Usuarios(usuario_id),
     FOREIGN KEY(publicacion_id) REFERENCES Publicaciones(publicacion_id)
 );
 
 --ISA DE PUBLICACIONES
-
 --EVENTOS
 CREATE TABLE Eventos(
 	evento_id SERIAL,
@@ -163,6 +166,7 @@ CREATE TABLE Imagenes(
 	imagen_id SERIAL,
 	publicacion_id integer,
 	informacion text,
+	formato varchar(10),
 	PRIMARY KEY(imagen_id),
 	FOREIGN KEY(publicacion_id) REFERENCES Publicaciones(publicacion_id)
 );
@@ -170,5 +174,5 @@ CREATE TABLE Imagenes(
 -- CREATE USER social;
 ALTER USER social WITH ENCRYPTED PASSWORD '%SocialAdmin18%';
 GRANT ALL PRIVILEGES ON DATABASE "FAMILY" TO social;
-GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas TO tienda;
+GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas,Imagenes TO tienda;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to tienda;
