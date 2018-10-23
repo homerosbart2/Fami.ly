@@ -140,7 +140,7 @@
                 align-items: center;
                 padding: 0 12px;
                 font-size: 22px;
-                i{
+                i, svg{
                     cursor: pointer;
                 }
             }
@@ -180,7 +180,7 @@
                                 margin-bottom: 0;
                                 text-transform: capitalize;
                             }
-                            i{
+                            i, svg{
                                 margin-right: 6px;
                             }
                         }
@@ -239,6 +239,23 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    .posts-charging{
+        position: fixed;
+        display: flex;
+        flex-shrink: inherit;
+        width: 100%;
+        top: 50vh;
+        justify-content: center;
+        align-items: center;
+        font-size: 65px;
+        opacity: 0;
+        z-index: -1;
+        transition: 0.2s ease;
+        &.shown{
+            opacity: 1;
+            z-index: 1000;
+        }
+    }
     .central-container{
         position: relative;
         padding-top: 67px;
@@ -336,15 +353,6 @@
                     }
                 }
             }
-        }
-        .posts-charging{
-            position: fixed;
-            display: flex;
-            width: 100%;
-            top: 50vh;
-            justify-content: center;
-            align-items: center;
-            font-size: 65px;
         }
         .post-container{
             display: flex;
@@ -490,7 +498,7 @@
                                         height: 40px;
                                         margin-top: 3px;
                                         margin-bottom: 3px;
-                                        margin-left: 1px;
+                                        margin-left: 6px;
                                     }
                                     &.expanded{
                                         flex-direction: column-reverse;
@@ -505,7 +513,7 @@
                                             .name{
                                                 display: flex;
                                             }
-                                            i{
+                                            i, svg{
                                                 display: flex;
                                             }
                                         }
@@ -514,7 +522,7 @@
                                         .name{
                                             display: flex;
                                         }
-                                        i{
+                                        i, svg{
                                             display: flex;
                                         }
                                     }
@@ -529,7 +537,7 @@
                         align-items: center;
                         font-size: 18px;
                         margin-bottom: 6px;
-                        i{
+                        i, svg{
                             margin-right: 3px;
                         }
                     }
@@ -555,6 +563,8 @@
                         }
                     }
                     .confirmed-users{
+                        color: transparent;
+                        font-size: 0;
                         margin-bottom: 6px;
                         display: flex;
                         flex-wrap: wrap;
@@ -562,6 +572,8 @@
                         justify-content: flex-end;
                         &.expanded{
                             flex-direction: column-reverse;
+                            color: $main-contrast;
+                            font-size: 14px;
                             .user-container{
                                 .user{
                                     width: 40px;
@@ -573,14 +585,14 @@
                                 .name{
                                     display: flex;
                                 }
-                                i{
+                                i, svg{
                                     display: flex;
                                 }
                                 &.me{
                                     .name{
                                         display: none;
                                     }
-                                    i{
+                                    i, svg{
                                         display:none;
                                     }
                                 }
@@ -623,7 +635,7 @@
                                 align-items: center;
                                 margin-left: 6px;
                             }
-                            i{
+                            i, svg{
                                 display: none;
                                 margin-right: 6px;
                             }
@@ -738,7 +750,9 @@
                                         width: 15px;
                                         height: 15px;
                                         margin-right: 4px;
-                                        i{
+                                        color: white;
+                                        font-size: 19px;
+                                        i, svg{
                                             font-size: 19px;
                                             opacity: 1;
                                         }
@@ -754,8 +768,9 @@
                                     border-radius: 20px;
                                     margin: 0 3px 3px 0;
                                     transition: 0.2s ease;
+                                    font-size: 0;
                                     cursor: pointer;
-                                    i{
+                                    i, svg{
                                         font-size: 1px;
                                         color: white;
                                         opacity: 0;
@@ -798,14 +813,14 @@
                         font-weight: 700;
                         z-index: 1;
                         margin-left: 12px;
-                        i{
+                        i, svg{
                             transition: 0.2s ease;
                         }
                         &.see-more{
                             z-index: 11;
                         }
                         &.expanded{
-                            i{
+                            i, svg{
                                 transform: rotate(180deg);
                             }
                         }

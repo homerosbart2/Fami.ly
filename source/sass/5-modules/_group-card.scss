@@ -12,9 +12,28 @@
     &.empty{
         background: $main-contrast;
     }
-    &:hover,
-    &:active,
-    &:focus{}
+    &.invitation{
+        &:hover,
+        &:active,
+        &:focus{
+            .information{
+                opacity: 0;
+            }
+            .options{
+                a{
+                    transform: scale(1);
+                }
+            }
+        }
+        .image{
+            filter: blur(10px) brightness(0.7) grayscale(100%);
+        }
+        .information{
+            .invite-text{
+                display: flex;
+            }
+        }
+    }
     .image{
         filter: blur(10px) brightness(0.7);
     }
@@ -39,7 +58,7 @@
             right: 0;
         }
     }
-    .information{
+    .options, .information{
         position: absolute;
         top: 0;
         left: 0;
@@ -49,6 +68,28 @@
         height: 100%;
         width: 100%;
         color: $light-secondary;
+        transition: 0.2s ease;
+    }
+    .options{
+        z-index: 1;
+        a{
+            background: $light-secondary;
+            border: 1px solid $light-secondary;
+            color: $main-contrast;
+            font-size: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 40px;
+            transform: scale(0);
+            height: 30px;
+            width: 20px;
+            margin: 9px 12px;
+        }
+    }
+    .information{
+        opacity: 1;
+        flex-direction: column;
         .name{
             text-transform: uppercase;
             width: 100%;
@@ -59,6 +100,11 @@
             //background: $light-secondary;
             //border-left: 3px solid $main-contrast;
             //border-right: 3px solid $main-contrast;
+        }
+        .invite-text{
+            text-transform: uppercase;
+            border-top: 2px solid $light-secondary;
+            padding-top: 3px;
         }
     }
     .counter{
