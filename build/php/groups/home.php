@@ -137,6 +137,7 @@ $(document).ready(function(){
                     url: "../rutas_ajax/grupos/insertar.php?apellido=" + text,
                     type: "POST",
                     success: function(r){
+            console.log(r);
                         if(r > 0){
                             groupId = r;
                             generateGroupCard(groupId, text, []);

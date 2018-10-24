@@ -119,9 +119,16 @@
                             <span class="form-title">
                                 <i class="fas fa-image"></i> Imagen o Video
                             </span>
-                            <input type="file" onchange="readImg(this);" id="file-input" name="files[]"  accept="image/png, image/jpeg" />                            
-                            <!-- NECESITO ESTE DIV CON ID "img-viewer" AQUI VOY A MOSTRAR AL CARGAR LA IMAGEN -->              
-                            <img id="img-viewer" src="http://placehold.it/180" alt="your image" />                                      
+                            <span class="image-input-container">
+                                <input type="file" onchange="readImg(this);" id="image-input" name="files[]"  accept="image/png, image/jpeg" />
+                                <label for="image-input"><i class="fas fa-plus"></i></label>
+                            </span>                         
+                            <!-- NECESITO ESTE DIV CON ID "img-viewer" AQUI VOY A MOSTRAR AL CARGAR LA IMAGEN --> 
+                            <span class="centered-image-container">
+                                <span class="image-viewer-container">
+                                    <img id="img-viewer"/>
+                                </span>   
+                            </span>                                
                         </span>
                     </span>     
                 </span>
@@ -272,6 +279,9 @@
         rows += `</span>`;
         rows += `</span>`;
         $('.posts').prepend(rows);
+        hidePostCreatorForm();
+        $('.image-input-container').removeClass('image-selected');
+        $('#img-viewer').attr('src', '');
         window.scroll({
             top: 0, 
             left: 0, 
@@ -653,6 +663,7 @@
                 imagenValida = true;
                 var reader = new FileReader();
                 reader.onload = function (e) {
+                    $('.image-input-container').addClass('image-selected');
                     $('#img-viewer').attr('src', e.target.result);
                 };
                 reader.readAsDataURL(input.files[0]);
