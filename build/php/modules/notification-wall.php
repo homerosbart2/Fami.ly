@@ -16,6 +16,9 @@
         var finded = 0;
         var inserted = 0;
         rows = '';
+        if($('.notifications-container').has('.no-notification')){
+            $('.notifications-container').html('');
+        }
         $('.group-notification').each(function(){
             if($(this).attr('group-ref') == groupRef){
                 finded = 1;
