@@ -23,7 +23,7 @@
             while($row2 = pg_fetch_assoc($result)){
                 $temp_array = array();
                 $opcion = $row2["opcion_id"];
-                $query = "SELECT V.voto_id, U.nombre, U.usuario_id FROM Votos AS V, Usuarios AS U WHERE U.usuario_id = V.usuario_id AND V.opcion_id = $opcion";
+                $query = "SELECT V.voto_id, U.nombres, U.usuario_id FROM Votos AS V, Usuarios AS U WHERE U.usuario_id = V.usuario_id AND V.opcion_id = $opcion";
                 $result2 = pg_query($link, $query);
                 $temp_array[0] = $row2;
                 $a = 1;

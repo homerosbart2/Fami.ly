@@ -172,7 +172,7 @@ function hideCreateGroupBar(){
 }
 
 //Función para generar un resultado de búsqueda, recibe [user] que es el nombre completo del usuario, [country] el país del usuario, [userImage] que es la ruta a la imagen del usuario e [invite] que es un booleano para saber si es un resultado de búsqueda para invitar a un grupo. Agrega los resultados dependiendo de [top], si es true los agrega al principio, si es false los agrega de último.
-function generatePeopleResult(user, country, userImage, invite, top){
+function generatePeopleResult(userId, user, country, userImage, invite, top){
     rows = '';
     rows += '<span class="people-result-container">';
     rows += '<img class="card-bg" src="'+userImage+'">';
@@ -186,7 +186,7 @@ function generatePeopleResult(user, country, userImage, invite, top){
     rows += '<span class="options">';
     rows += '<a class="btn-login profile">Perfil</a>';
     if(invite){
-        rows += '<a class="btn-login invite">Invitar</a>';
+        rows += '<a class="btn-login invite" id="' + userId + '">Invitar</a>';
     }
     rows += '</span>';
     rows += '</span>';
@@ -212,6 +212,20 @@ function noResultInSearch(){
 $(document).ready(function(){
 
     noResultInSearch();
+
+    $(document).on('click', '.invite', function () {
+        console.log(this);
+        id = $(this).attr("id");
+        $.ajax({
+            url: "../rutas_ajax/personas/invitar.php?to=" + id + "&grupo" + groupId,
+            type: "POST",
+            success: function(r){
+                if(r = 1){
+                    alert("NOTIFICACION CREADA");
+                }
+            },
+        }); 
+    });
 
     $('.hide-search-people').click(function(){
         $('.search-people-container').removeClass('expanded');
@@ -320,6 +334,7 @@ $(document).ready(function(){
         if(e.keyCode == 13)
         { 
             text = $(this).val();
+            console.log(wall);
             if(/\S/.test(text)){
                 //Si wall == 1 entonces estamos en el mural de algún grupo.
                 if(wall == 1 && !$('.search-people-container').hasClass('expanded')){
@@ -358,6 +373,24 @@ $(document).ready(function(){
                     if(!$('.search-people-container').hasClass('expanded') && $(this).prop('id') == 'in-search-text'){
                         $('.search-people-container').addClass('expanded');
                     }
+
+                    clearPeopleSearch(); 
+                    var type = false;
+                    if(wall != 1) groupId = -1;
+                    $.ajax({
+                        url: "../rutas_ajax/personas/buscar.php?palabra=" + text + "&wall=" + wall + "&grupo=" + groupId,
+                        type: "POST",
+                        success: function(r){
+                            obj = JSON.parse(r);
+                            if(obj.length > 0){
+                                for(var i = 0; i < obj.length; i++){
+                                    generatePeopleResult(obj[i].usuario_id, obj[i].nombres + " " + obj[i].apellidos,obj[i].pais,'../../assets/img/users/profile.png',obj[i].tipo,true);
+                                }
+                            }else{
+                                noResultInSearch();
+                            }
+                        },
+                    });                            
 
                     //EXAMPLE: ejemplo para agregar resultados de una búsqueda en otro lado que no sea wall.
                     /*clearPeopleSearch();

@@ -103,6 +103,7 @@ function listGroups(){
 
 $(document).ready(function(){
     listGroups();
+    listGroups();
     object = $('.searchbox');
     object.find('.search-right').css('display', 'none');
     object.find('.search-left').css('display', 'none');

@@ -9,10 +9,10 @@
     $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
     if($show == 1){
         //primera carga
-        $query = "SELECT N.notificacion_id, P.tipo, P.publicacion_id, N.usuario_receptor_id, G.apellido, N.estado, U.nombre AS usuario_creador, P.grupo_id, P.tipo, P.fecha_creacion FROM Notificaciones AS N,Usuarios AS U, Publicaciones AS P, GruposFamiliares AS G WHERE P.grupo_id = G.grupo_id AND N.publicacion_id = N.publicacion_id AND N.usuario_receptor_id = $usuario AND U.usuario_id = P.usuario_creador_id AND N.estado = 'TRUE' AND P.publicacion_id = N.publicacion_id ORDER BY P.fecha_creacion ASC";
+        $query = "SELECT N.notificacion_id, P.tipo, P.publicacion_id, N.usuario_receptor_id, G.apellido, N.estado, U.nombres AS usuario_creador, P.grupo_id, P.tipo, P.fecha_creacion FROM Notificaciones AS N,Usuarios AS U, Publicaciones AS P, GruposFamiliares AS G WHERE P.grupo_id = G.grupo_id AND N.publicacion_id = N.publicacion_id AND N.usuario_receptor_id = $usuario AND U.usuario_id = P.usuario_creador_id AND N.estado = 'TRUE' AND P.publicacion_id = N.publicacion_id ORDER BY P.fecha_creacion ASC";
         $result = pg_query($link, $query);
     }else{
-        $query = "SELECT N.notificacion_id, P.tipo, P.publicacion_id, N.usuario_receptor_id, G.apellido, N.estado, U.nombre AS usuario_creador, P.grupo_id, P.tipo, P.fecha_creacion FROM Notificaciones AS N,Usuarios AS U, Publicaciones AS P, GruposFamiliares AS G WHERE P.grupo_id = G.grupo_id AND N.publicacion_id = N.publicacion_id AND N.usuario_receptor_id = $usuario AND U.usuario_id = P.usuario_creador_id AND N.estado = 'TRUE' AND P.publicacion_id = N.publicacion_id AND N.mostrar = 'true'  ORDER BY P.fecha_creacion ASC";
+        $query = "SELECT N.notificacion_id, P.tipo, P.publicacion_id, N.usuario_receptor_id, G.apellido, N.estado, U.nombres AS usuario_creador, P.grupo_id, P.tipo, P.fecha_creacion FROM Notificaciones AS N,Usuarios AS U, Publicaciones AS P, GruposFamiliares AS G WHERE P.grupo_id = G.grupo_id AND N.publicacion_id = N.publicacion_id AND N.usuario_receptor_id = $usuario AND U.usuario_id = P.usuario_creador_id AND N.estado = 'TRUE' AND P.publicacion_id = N.publicacion_id AND N.mostrar = 'true'  ORDER BY P.fecha_creacion ASC";
         $result = pg_query($link, $query);
     }
     //variables

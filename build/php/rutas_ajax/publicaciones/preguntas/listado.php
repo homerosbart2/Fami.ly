@@ -18,7 +18,7 @@
         $preguntas_array[0] = $row;
         $pregunta = $row["pregunta_id"];
         //consulta 2 - respuestas
-        $query = "SELECT R.usuario_id,informacion,U.nombre FROM  Respuestas AS R, Usuarios AS U WHERE U.usuario_id = R.usuario_id AND R.pregunta_id = $pregunta";
+        $query = "SELECT R.usuario_id,informacion,U.nombres FROM  Respuestas AS R, Usuarios AS U WHERE U.usuario_id = R.usuario_id AND R.pregunta_id = $pregunta";
         $result = pg_query($link, $query);
         $i = 0;
         while($row = pg_fetch_assoc($result)){

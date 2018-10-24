@@ -121,7 +121,7 @@
                             </span>
                             <input type="file" onchange="readImg(this);" id="file-input" name="files[]"  accept="image/png, image/jpeg" />                            
                             <!-- NECESITO ESTE DIV CON ID "img-viewer" AQUI VOY A MOSTRAR AL CARGAR LA IMAGEN -->              
-                            <img id="img-viewer" src="http://placehold.it/180" alt="your image" />                                      
+                            <img id="img-viewer"  alt="your image" />                                      
                         </span>
                     </span>     
                 </span>
@@ -818,8 +818,7 @@ function initWallListeners(){
                             url: "../rutas_ajax/publicaciones/eventos/insertar.php?grupo=" + groupId + "&titulo=" + text + "&fecha=" + dateEvento + "&horario=" + hourEvento + "&ubicacion=" + ubication + "&descripcion=" + description,
                             type: "POST",
                             success: function(r){
-                                // alert(r);
-                                if(r > 1){
+                                if(r > 0){
                                     postsList(true,r);
                                 }else{
                                     showMessage("error","Evento.","El evento no fue creado, verifique sus datos.");
@@ -846,7 +845,7 @@ function initWallListeners(){
                             })
                             .then(function(data) {
                                 console.log('data = ', data);
-                                if(data > 1) postsList(true,data);
+                                if(data > 0) postsList(true,data);
                             })
                             .catch(function(err) {
                                 console.error(err);
@@ -873,8 +872,7 @@ function initWallListeners(){
                                 url: "../rutas_ajax/publicaciones/votaciones/insertar.php?grupo=" + groupId + "&informacion=" + text + "&opciones=" + options,
                                 type: "POST",
                                 success: function(r){
-                                    alert(r);
-                                    if(r > 1){
+                                    if(r > 0){
                                         postsList(true,r);
                                         // showMessage("success","Evento.","El evento se ha creado exitosamente.");
                                     }else{
@@ -920,7 +918,7 @@ function initWallListeners(){
                             type: "POST",
                             success: function(r){
                                 // alert(r);
-                                if(r > 1){
+                                if(r > 0){
                                     postsList(true,r);
                                 }else{
                                     showMessage("error","Pregunta.","La pregunta no fue creada, verifique sus datos.");
@@ -938,7 +936,7 @@ function initWallListeners(){
                             type: "POST",
                             success: function(r){
                                 // alert(r);
-                                if(r > 1){
+                                if(r > 0){
                                     postsList(true,r);
                                     // showMessage("success","Mensaje.","El mensaje se ha creado exitosamente.");
                                 }else{
@@ -1099,7 +1097,7 @@ function initWallListeners(){
                 for(var k = 0; k < objParent.length; k++){
                     publicacion_id = objParent[k].publicacion_id,
                     usuario_creador_id =  objParent[k].usuario_creador_id,
-                    usuario_creador_nombre = objParent[k].nombre,
+                    usuario_creador_nombre = objParent[k].nombres,
                     grupo_id = objParent[k].grupo_id,
                     tipo = objParent[k].tipo,
                     fecha_creacion = objParent[k].fecha_creacion
@@ -1268,12 +1266,12 @@ function initWallListeners(){
         //showChargingAnimation(true);
         
         //EXAMPLE: Ejemplos para agregar un resultado a la búsqueda.
-        clearPeopleSearch();
-        generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, true);
-        generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face4.png', true, true);
-        generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face3.png', true, true);
-        generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face5.png', true, true);
-        generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', true, true);
+        // clearPeopleSearch();
+        // generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, true);
+        // generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face4.png', true, true);
+        // generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face3.png', true, true);
+        // generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face5.png', true, true);
+        // generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', true, true);
         
         //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda (Esta instrucción elimina los resultados agregados del ejemplo de arriba).
         // noResultInSearch();

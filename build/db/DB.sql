@@ -13,16 +13,6 @@
 -- DROP TABLE Publicaciones;
 
 
-
-CREATE TABLE GruposFamiliares(
-	grupo_id SERIAL,
-	usuario_creador integer,
-	tipo varchar(5),
-	apellido varchar(100),
-    PRIMARY KEY(grupo_id),
-	FOREIGN KEY(usuario_creador) REFERENCES Usuarios(usuario_id),
-);
-
 --quite el campo pais por que aun quiero ver bien algo
 CREATE TABLE Usuarios( 
 	usuario_id SERIAL,
@@ -36,7 +26,15 @@ CREATE TABLE Usuarios(
 	fecha_nacimiento date,
 	PRIMARY KEY(usuario_id),
 	UNIQUE (correo)
+);
 
+CREATE TABLE GruposFamiliares(
+	grupo_id SERIAL,
+	usuario_creador integer,
+	tipo varchar(5),
+	apellido varchar(100),
+    PRIMARY KEY(grupo_id),
+	FOREIGN KEY(usuario_creador) REFERENCES Usuarios(usuario_id)
 );
 
 CREATE TABLE PerteneceGrupo(
@@ -147,7 +145,7 @@ CREATE TABLE Mensajes(
 CREATE TABLE Preguntas(
 	pregunta_id SERIAL,
 	publicacion_id integer,
-	informacion text
+	informacion text,
 	PRIMARY KEY(pregunta_id),
     FOREIGN KEY(publicacion_id) REFERENCES Publicaciones(publicacion_id)	
 );
@@ -176,3 +174,37 @@ ALTER USER social WITH ENCRYPTED PASSWORD '%SocialAdmin18%';
 GRANT ALL PRIVILEGES ON DATABASE "FAMILY" TO social;
 GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas,Imagenes TO tienda;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to tienda;
+
+
+
+--CAMBIOS REALIZADOS 
+ALTER TABLE Usuarios
+DROP COLUMN nombre;
+
+ALTER TABLE Usuarios
+DROP COLUMN apellido1;
+
+ALTER TABLE Usuarios
+DROP COLUMN apellido2;
+
+ALTER TABLE Usuarios
+ADD COLUMN apellidos text;
+
+ALTER TABLE Usuarios
+ADD COLUMN nombres text;
+
+ALTER TABLE Usuarios
+ADD COLUMN pais varchar(25);
+
+CREATE TABLE Invitaciones(
+	invitacion_id SERIAL,
+	usuario_emisor integer,
+	usuario_receptor integer,
+	grupo_id integer,
+	estado boolean,
+	PRIMARY KEY(invitacion_id),
+	UNIQUE(usuario_receptor,grupo_id),
+	FOREIGN KEY(usuario_emisor) REFERENCES Usuarios(usuario_id),
+	FOREIGN KEY(usuario_receptor) REFERENCES Usuarios(usuario_id),
+	FOREIGN KEY(grupo_id) REFERENCES Usuarios(grupo_id)
+);
