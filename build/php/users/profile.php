@@ -45,7 +45,8 @@
         rows += `<span class="central-container">`;
         rows += (following)? `<span class="profile-title following">` : `<span class="profile-title">`;
         rows += `<img class="title-bg" src="${image}">`;
-        rows += `<span class="profile-img">`;
+        //#user-image-file es el input con la imagen.
+        rows += (type == 0)? `<span class="profile-img me"><input type="file" id="user-image-file">` : `<span class="profile-img">`;
         rows += `<img src="${image}">`;
         rows += `<span class="img-update"><i class="far fa-caret-square-up"></i> Subir imagen</span>`;
         rows += `</span>`;
@@ -112,14 +113,22 @@
         rows += `</span>`;
         
         $('.profile-section').html(rows);
-
-        $('.button-section').find('.follow').click((event)=>{
-            if($('.profile-title').hasClass('following')){
-                follow(false);
-            }else{
-                follow(true);
-            }
-        });
+        
+        if(type == 1){
+            $('.button-section').find('.follow').click((event)=>{
+                if($('.profile-title').hasClass('following')){
+                    follow(false);
+                }else{
+                    follow(true);
+                }
+            });
+        }else if(type == 0){
+            $('.img-update').click((event)=>{
+                var element = $(event.currentTarget);
+                console.log('hola');
+                $('#user-image-file').click();
+            });
+        }
 
         callback();
     }
@@ -170,15 +179,15 @@
 
     $(document).ready(()=>{
         //EXAMPLE: Ejemplo para generar un perfil de usuario ajeno.
-        generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', true, ()=>{
+        /* generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', true, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de grupos como en la pantalla de inicio.
             generateGroupCard(1, 'Hogar', ['../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face3.png','../../assets/img/users/face4.png']);
             generateGroupCard(2, 'Campos', ['../../assets/img/users/face3.png','../../assets/img/users/face5.png','../../assets/img/users/face6.png','../../assets/img/users/face7.png']);
             generateGroupCard(3, 'Ogáldez', ['../../assets/img/users/face8.png','../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face9.png']);
-        });
+        }); */
 
         //EXAMPLE: Ejemplo para generar un perfil de usuario actual.
-        /*generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', false, ()=>{
+        generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', false, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de usuario dependiendo del apellido.
             //TODO: No sé cómo vamos a hacer esto, podríamos agregar un botón en el perfil para indicar si esa persona es familiar y si es tío o abuela, pero se necesita otra tabla de familiares y en esa indicar si se está siguiendo o no.
             //TODO: Hay que verificar los apellidos y si se está siguiendo para mandar a llamar estas funciones.
@@ -192,7 +201,7 @@
             generateUserCard(7, 'Julio', 1, '../../assets/img/users/face9.png', true);
             generateUserCard(8, 'Luz', 1, '../../assets/img/users/face8.png', false);
             generateUserCard(9, 'Vilma', 1, '../../assets/img/users/face2.png', false);
-        });*/
+        });
 
         $('.expand-profile-picture').click((event)=>{
             $('.profile-title').addClass('expanded');

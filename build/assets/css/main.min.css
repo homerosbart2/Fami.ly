@@ -1211,12 +1211,16 @@ body.disableScrollBar {
         border: 3px solid white;
         margin: 10px 10px;
         overflow: hidden;
-        cursor: pointer;
         transition: 0.5s ease; }
-        .profile-section .central-container .profile-title .profile-img:hover img, .profile-section .central-container .profile-title .profile-img:active img, .profile-section .central-container .profile-title .profile-img:focus img {
-          filter: blur(10px) brightness(0.7); }
-        .profile-section .central-container .profile-title .profile-img:hover .img-update, .profile-section .central-container .profile-title .profile-img:active .img-update, .profile-section .central-container .profile-title .profile-img:focus .img-update {
-          opacity: 1; }
+        .profile-section .central-container .profile-title .profile-img.me {
+          cursor: pointer; }
+          .profile-section .central-container .profile-title .profile-img.me .img-update {
+            display: flex; }
+          .profile-section .central-container .profile-title .profile-img.me:hover img, .profile-section .central-container .profile-title .profile-img.me:active img, .profile-section .central-container .profile-title .profile-img.me:focus img {
+            filter: blur(10px) brightness(0.7); }
+          .profile-section .central-container .profile-title .profile-img.me:hover .img-update, .profile-section .central-container .profile-title .profile-img.me:active .img-update, .profile-section .central-container .profile-title .profile-img.me:focus .img-update {
+            transform: scale(1);
+            opacity: 1; }
         .profile-section .central-container .profile-title .profile-img img {
           position: absolute;
           top: 0;
@@ -1230,11 +1234,15 @@ body.disableScrollBar {
           left: 0;
           width: 100%;
           height: 100%;
-          display: flex;
+          display: none;
           justify-content: center;
           align-items: center;
+          transform: scale(0);
           opacity: 0;
           transition: 0.2s ease; }
+          @media only screen and (max-width: 650px) {
+            .profile-section .central-container .profile-title .profile-img .img-update {
+              font-size: 11px; } }
           .profile-section .central-container .profile-title .profile-img .img-update i, .profile-section .central-container .profile-title .profile-img .img-update svg {
             margin-right: 5px; }
       .profile-section .central-container .profile-title .name-container {
