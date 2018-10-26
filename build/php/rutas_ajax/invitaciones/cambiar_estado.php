@@ -9,7 +9,7 @@
     $create = -1;
     //se cambia el estado de la notificacion
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
-    $query = "DELETE FROM Invitaciones WHERE invitacion_id = $invitacion RETURNING grupo_id";
+    $query = "UPDATE Invitaciones SET estado='FALSE' WHERE invitacion_id = $invitacion RETURNING grupo_id";
     $result = pg_query($link, $query);
     if($result){
         if($tipo == 1){
