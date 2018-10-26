@@ -49,6 +49,9 @@
             font-size: 20px;
             z-index: 2002;
             color: $main-contrast;
+            .btn-emoji{
+                cursor: pointer;
+            }
         }
     }
     .questionbox-container, .emojibox-container{
