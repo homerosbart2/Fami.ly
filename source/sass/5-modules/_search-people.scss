@@ -33,7 +33,7 @@
                 justify-content: center;
                 align-items: center;
                 text-transform: uppercase;
-                i{
+                i, svg{
                     margin-right: 3px;
                 }
             }
@@ -53,15 +53,19 @@
                 .card-bg{
                     position: absolute;
                     width: 100%;
-                    filter: blur(20px) brightness(0.8);
+                    filter: blur(30px) brightness(0.8);
                 }
                 .user-card{
                     cursor: default;
                     flex-shrink: 0;
+                    border: 0;
                     &:hover,
                     &:active,
                     &:focus{
-                        transform: scale(1);
+                        //transform: scale(1);
+                    }
+                    img{
+                        filter: blur(0) brightness(1);
                     }
                 }
 

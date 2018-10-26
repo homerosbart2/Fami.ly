@@ -9,6 +9,7 @@
     transition: 0.2s ease;
     overflow: hidden;
     margin: 6px 6px;
+    //border: 5px solid $light-main;
     &.empty{
         background: $main-contrast;
     }

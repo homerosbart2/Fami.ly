@@ -991,7 +991,7 @@ body.disableScrollBar {
         justify-content: center;
         align-items: center;
         text-transform: uppercase; }
-        .search-people-container .search-people .search-people-result-container .no-result i {
+        .search-people-container .search-people .search-people-result-container .no-result i, .search-people-container .search-people .search-people-result-container .no-result svg {
           margin-right: 3px; }
       .search-people-container .search-people .search-people-result-container .people-result-container {
         position: relative;
@@ -1008,12 +1008,13 @@ body.disableScrollBar {
         .search-people-container .search-people .search-people-result-container .people-result-container .card-bg {
           position: absolute;
           width: 100%;
-          filter: blur(20px) brightness(0.8); }
+          filter: blur(30px) brightness(0.8); }
         .search-people-container .search-people .search-people-result-container .people-result-container .user-card {
           cursor: default;
-          flex-shrink: 0; }
-          .search-people-container .search-people .search-people-result-container .people-result-container .user-card:hover, .search-people-container .search-people .search-people-result-container .people-result-container .user-card:active, .search-people-container .search-people .search-people-result-container .people-result-container .user-card:focus {
-            transform: scale(1); }
+          flex-shrink: 0;
+          border: 0; }
+          .search-people-container .search-people .search-people-result-container .people-result-container .user-card img {
+            filter: blur(0) brightness(1); }
         .search-people-container .search-people .search-people-result-container .people-result-container .information {
           display: flex;
           flex-direction: column;
@@ -1172,6 +1173,10 @@ body.disableScrollBar {
       justify-content: flex-start;
       width: 100%;
       background: gray; }
+      .profile-section .central-container .profile-title.following .profile-img {
+        border: 5px solid #ffebe7; }
+      .profile-section .central-container .profile-title.following .name-container .button-section .relative {
+        display: flex !important; }
       .profile-section .central-container .profile-title.expanded {
         background: #000B2B;
         overflow: visible;
@@ -1195,7 +1200,7 @@ body.disableScrollBar {
         cursor: pointer; }
       .profile-section .central-container .profile-title .title-bg {
         transition: 0.2s ease;
-        filter: blur(15px) brightness(0.7);
+        filter: blur(30px) brightness(0.7);
         position: absolute;
         width: 100%; }
       .profile-section .central-container .profile-title .profile-img {
@@ -1206,7 +1211,8 @@ body.disableScrollBar {
         border: 3px solid white;
         margin: 10px 10px;
         overflow: hidden;
-        cursor: pointer; }
+        cursor: pointer;
+        transition: 0.5s ease; }
         .profile-section .central-container .profile-title .profile-img:hover img, .profile-section .central-container .profile-title .profile-img:active img, .profile-section .central-container .profile-title .profile-img:focus img {
           filter: blur(10px) brightness(0.7); }
         .profile-section .central-container .profile-title .profile-img:hover .img-update, .profile-section .central-container .profile-title .profile-img:active .img-update, .profile-section .central-container .profile-title .profile-img:focus .img-update {
@@ -1258,9 +1264,19 @@ body.disableScrollBar {
             padding: 5px 15px;
             display: flex;
             align-items: center;
-            margin-right: 6px; }
-            .profile-section .central-container .profile-title .name-container .button-section .btn-login:hover {
+            margin-right: 9px; }
+            .profile-section .central-container .profile-title .name-container .button-section .btn-login.relative {
+              display: none; }
+            .profile-section .central-container .profile-title .name-container .button-section .btn-login.solid {
+              background: white;
+              color: #000B2B;
+              transition: 0.2s ease; }
+              .profile-section .central-container .profile-title .name-container .button-section .btn-login.solid:hover, .profile-section .central-container .profile-title .name-container .button-section .btn-login.solid:active, .profile-section .central-container .profile-title .name-container .button-section .btn-login.solid:focus {
+                transform: scale(1.05); }
+            .profile-section .central-container .profile-title .name-container .button-section .btn-login:hover, .profile-section .central-container .profile-title .name-container .button-section .btn-login:active, .profile-section .central-container .profile-title .name-container .button-section .btn-login:focus {
               color: #000B2B; }
+            .profile-section .central-container .profile-title .name-container .button-section .btn-login i, .profile-section .central-container .profile-title .name-container .button-section .btn-login svg {
+              margin-right: 3px; }
         @media only screen and (max-width: 650px) {
           .profile-section .central-container .profile-title .name-container .user-names, .profile-section .central-container .profile-title .name-container .user-lastnames {
             font-size: 18px; }
@@ -1368,6 +1384,8 @@ body.disableScrollBar {
       font-size: 20px;
       z-index: 2002;
       color: #000B2B; }
+      .chatbox-container .chatbox .emoji-menu .btn-emoji {
+        cursor: pointer; }
   .chatbox-container .questionbox-container, .chatbox-container .emojibox-container {
     color: #000B2B;
     position: absolute;
