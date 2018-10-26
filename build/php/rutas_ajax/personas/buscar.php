@@ -12,7 +12,7 @@
     if($wall == 1){
         //buscamos a todos pero necesitamos un estado para saber si el usuario esta o no dentro del grupo ya
         //personas no existentes en el grupo
-        $query = "SELECT DISTINCT U.usuario_id, U.nombres, U.apellidos, U.pais,'True' AS tipo FROM Usuarios AS U, PerteneceGrupo AS P WHERE P.grupo_id != $grupo AND P.usuario_id = U.usuario_id AND U.usuario_id != $usuario AND (LOWER(U.nombres) LIKE LOWER('%$palabra%') OR LOWER(U.apellidos) LIKE LOWER('%$palabra%'))";
+        $query = "SELECT U.usuario_id, U.nombres, U.apellidos, U.pais,'True' AS tipo FROM Usuarios U LEFT OUTER JOIN PerteneceGrupo P ON U.usuario_id=P.usuario_id AND P.grupo_id=$grupo WHERE P.grupo_id IS NULL AND U.usuario_id != $usuario AND (LOWER(U.nombres) LIKE LOWER('%$palabra%') OR LOWER(U.apellidos) LIKE LOWER('%$palabra%'))";
         $result = pg_query($link, $query);     
         //variables
         $retorno = array();
@@ -24,7 +24,7 @@
             }  
         } 
         //personas ya existentes en el grupo
-        $query = "SELECT U.usuario_id, U.nombres, U.apellidos, U.pais, 'False' AS tipo FROM Usuarios AS U, PerteneceGrupo AS P WHERE P.grupo_id = $grupo AND P.usuario_id = U.usuario_id AND U.usuario_id != $usuario AND (LOWER(U.nombres) LIKE LOWER('%$palabra%') OR LOWER(U.apellidos) LIKE LOWER('%$palabra%'))";
+        $query = "SELECT U.usuario_id, U.nombres, U.apellidos, U.pais,False AS tipo FROM Usuarios U LEFT OUTER JOIN PerteneceGrupo P ON U.usuario_id=P.usuario_id AND P.grupo_id=$grupo WHERE P.grupo_id IS NOT NULL AND U.usuario_id != $usuario AND (LOWER(U.nombres) LIKE LOWER('%$palabra%') OR LOWER(U.apellidos) LIKE LOWER('%$palabra%'))";
         $result = pg_query($link, $query);  
         if($result){
             while($row = pg_fetch_assoc($result)){
@@ -34,7 +34,7 @@
         }                
     }else{
         //buscamos a todos
-        $query = "SELECT U.usuario_id, U.nombres, U.apellidos, U.pais,'False' AS tipo FROM Usuarios AS U WHERE U.usuario_id != $usuario AND (LOWER(U.nombres) LIKE LOWER('%$palabra%') OR LOWER(U.apellidos) LIKE LOWER('%$palabra%'))";
+        $query = "SELECT U.usuario_id, U.nombres, U.apellidos, U.pais,False AS tipo FROM Usuarios AS U WHERE U.usuario_id != $usuario AND (LOWER(U.nombres) LIKE LOWER('%$palabra%') OR LOWER(U.apellidos) LIKE LOWER('%$palabra%'))";
         $result = pg_query($link, $query);
         //variables
         $retorno = array();

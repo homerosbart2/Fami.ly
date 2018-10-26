@@ -214,14 +214,15 @@ $(document).ready(function(){
     noResultInSearch();
 
     $(document).on('click', '.invite', function () {
-        console.log(this);
         id = $(this).attr("id");
         $.ajax({
-            url: "../rutas_ajax/personas/invitar.php?to=" + id + "&grupo" + groupId,
+            url: "../rutas_ajax/invitaciones/invitar.php?to=" + id + "&grupo=" + groupId,
             type: "POST",
             success: function(r){
-                if(r = 1){
+                if(r > 0){
                     alert("NOTIFICACION CREADA");
+                }else{
+                    alert("EL USUARIO YA TIENE UNA SOLICITUD CREADA");
                 }
             },
         }); 
@@ -293,7 +294,7 @@ $(document).ready(function(){
     });
     //Función que se llama al presionar el botón de búsqueda y muestra la barra en modo móvil.
     $('#search').click(function(){
-        showMobileSearchBar(true);
+        showMobileSearchBar(true);f
         //Autofocus al searchbox, pero no me gustó.
         //object.children('.search').children('.search-input').focus();
     });
@@ -334,7 +335,6 @@ $(document).ready(function(){
         if(e.keyCode == 13)
         { 
             text = $(this).val();
-            console.log(wall);
             if(/\S/.test(text)){
                 //Si wall == 1 entonces estamos en el mural de algún grupo.
                 if(wall == 1 && !$('.search-people-container').hasClass('expanded')){
@@ -384,7 +384,9 @@ $(document).ready(function(){
                             obj = JSON.parse(r);
                             if(obj.length > 0){
                                 for(var i = 0; i < obj.length; i++){
-                                    generatePeopleResult(obj[i].usuario_id, obj[i].nombres + " " + obj[i].apellidos,obj[i].pais,'../../assets/img/users/profile.png',obj[i].tipo,true);
+                                    var tipo = true;
+                                    if(obj[i].tipo == 'f') tipo = false;
+                                    generatePeopleResult(obj[i].usuario_id, obj[i].nombres + " " + obj[i].apellidos,obj[i].pais,'../../assets/img/users/profile.png',tipo,true);
                                 }
                             }else{
                                 noResultInSearch();

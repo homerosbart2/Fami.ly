@@ -203,8 +203,14 @@ CREATE TABLE Invitaciones(
 	grupo_id integer,
 	estado boolean,
 	PRIMARY KEY(invitacion_id),
-	UNIQUE(usuario_receptor,grupo_id),
+	UNIQUE(usuario_receptor,grupo_id,estado),
 	FOREIGN KEY(usuario_emisor) REFERENCES Usuarios(usuario_id),
 	FOREIGN KEY(usuario_receptor) REFERENCES Usuarios(usuario_id),
-	FOREIGN KEY(grupo_id) REFERENCES Usuarios(grupo_id)
+	FOREIGN KEY(grupo_id) REFERENCES GruposFamiliares(grupo_id)
 );
+
+ALTER USER social WITH ENCRYPTED PASSWORD '%SocialAdmin18%';
+GRANT ALL PRIVILEGES ON DATABASE "FAMILY" TO social;
+GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas,Imagenes,Invitaciones TO tienda;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to tienda;
+

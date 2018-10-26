@@ -93,24 +93,44 @@ function listGroups(){
         success: function(r){
             obj = JSON.parse(r);
             for(var i = 0; i < obj.length; i++){
-                groupId = obj[i].grupo_id;
+                grupo_id = obj[i].grupo_id;
                 apellido = obj[i].apellido;
-                generateGroupCard(groupId, apellido, []); 
+                generateGroupCard(grupo_id, apellido, []); 
             }                         
         },
     });
 }
 
+function listInvitaciones(){
+    //lista los grupos a los que el usuario pertenece
+    $.ajax({
+        url: "../rutas_ajax/invitaciones/listado.php?",
+        type: "POST",
+        success: function(r){
+            obj = JSON.parse(r);
+            for(var i = 0; i < obj.length; i++){
+                grupo_id = obj[i].grupo_id;
+                apellido = obj[i].apellido; //apellido del grupo
+                usuario_receptor_apellidos = obj[i].apellidos;
+                usuario_receptor_nombres = obj[i].nombres;
+                invitacion_id = obj[i].invitacion_id;
+                generateGroupCard(grupo_id, apellido, [], invitacion_id); 
+            }                         
+        },
+    });
+}
+
+
 $(document).ready(function(){
-    listGroups();
+    listInvitaciones();
     listGroups();
     object = $('.searchbox');
     object.find('.search-right').css('display', 'none');
     object.find('.search-left').css('display', 'none');
 
-        generateGroupCard(1, 'Hogar', ['../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face3.png','../../assets/img/users/face4.png']);
-        generateGroupCard(2, 'Campos', ['../../assets/img/users/face3.png','../../assets/img/users/face5.png','../../assets/img/users/face6.png','../../assets/img/users/face7.png']);
-        generateGroupCard(3, 'Ogáldez', ['../../assets/img/users/face8.png','../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face9.png'], 345);
+        // generateGroupCard(1, 'Hogar', ['../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face3.png','../../assets/img/users/face4.png']);
+        // generateGroupCard(2, 'Campos', ['../../assets/img/users/face3.png','../../assets/img/users/face5.png','../../assets/img/users/face6.png','../../assets/img/users/face7.png']);
+        // generateGroupCard(3, 'Ogáldez', ['../../assets/img/users/face8.png','../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face9.png'], 345);
 
         $(document).on('click', '.group-card', function () {
             id = $(this).attr("id");
@@ -138,7 +158,6 @@ $(document).ready(function(){
                     url: "../rutas_ajax/grupos/insertar.php?apellido=" + text,
                     type: "POST",
                     success: function(r){
-            console.log(r);
                         if(r > 0){
                             groupId = r;
                             generateGroupCard(groupId, text, []);
