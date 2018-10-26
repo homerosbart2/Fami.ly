@@ -7,7 +7,7 @@
     $wall = $_GET["wall"];
     $grupo = $_GET["grupo"];
     //wall = 1 -> mural de lo contrario estamos afuera
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //buscare los usuarios que ya estan en el grupo
     if($wall == 1){
         //buscamos a todos pero necesitamos un estado para saber si el usuario esta o no dentro del grupo ya

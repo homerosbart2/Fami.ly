@@ -14,7 +14,18 @@
                 echo "<script>";
                 echo "$(location).attr('href', 'home.php')";
                 echo "</script>";
-            }            
+            }  
+            echo "<br><br><br>";
+            $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
+            $query = "SELECT COUNT(*) as total_miembros, G.apellido, G.grupo_id FROM GruposFamiliares AS G, PerteneceGrupo AS P WHERE P.grupo_id = G.grupo_id AND G.grupo_id = $id GROUP BY G.grupo_id,G.apellido";
+            $result = pg_query($link, $query);
+            $retorno = array();
+            $i = 0;
+            if($result){
+                $row = pg_fetch_assoc($result);
+                $total_miembros = $row["total_miembros"];
+                $grupo_nombre = $row["apellido"];
+            }                      
             echo "<script>";
             echo "\n";
             echo "var groupId=".$id.";";
@@ -43,8 +54,8 @@
         <span class="central-container">
             <span class="group-title">
                 <span class="information">
-                    <span class="name">Ogáldez</span>
-                    <span class="members">11 integrantes</span>
+                    <span class="name"><?php echo $grupo_nombre ?></span>
+                    <span class="members"><?php echo $total_miembros ?> INTEGRANTES</span>
                 </span>
                 <span class="options">
                     <a class="filter-option question"><span><i class="fas fa-question"></i></span></a>

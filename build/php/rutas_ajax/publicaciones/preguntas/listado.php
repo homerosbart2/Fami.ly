@@ -10,7 +10,7 @@
     $preguntas_array = array();
     $respuestas_array = array();
     //consulta 1 - pregunta
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     $query = "SELECT * FROM  Preguntas AS P WHERE P.publicacion_id = $publicacion";
     $result = pg_query($link, $query);
     if($result){    

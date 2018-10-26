@@ -34,7 +34,7 @@
 					//parametros
 					$informacion = $_GET["informacion"];
 					$grupo = $_GET["grupo"];
-					$link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+					$link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
 					//creacion de la publicacion
 					$query = "INSERT INTO Publicaciones(usuario_creador_id,grupo_id,tipo,fecha_creacion) VALUES ($usuario,$grupo,'I',CURRENT_TIMESTAMP) RETURNING publicacion_id";
 					$result = pg_query($link, $query);

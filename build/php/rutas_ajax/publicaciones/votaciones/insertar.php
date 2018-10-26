@@ -7,7 +7,7 @@
     $grupo = $_GET["grupo"];
     $opciones = $_GET["opciones"];
     $opciones = explode(",", $opciones);  
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //variables
     $create = -1;
     //creacion de la publicacion

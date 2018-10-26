@@ -11,8 +11,9 @@
 <script>
     var size = 0;
     //Función para generar notificaciones que recibe [user] que es el usuario que generó la notificación, [text] que es el texto de las publicaciones, [type] que es el tipo de la notificación literal (Mensaje, Votación, etc...), [groupRef] que es el id del grupo, [groupName] que es el nombre del grupo y [createdLater] que debe ser true si la función es llamada después de initNotificationWallListeners(). 
-    function generateNotification(id, user, text, type, groupRef, groupName, createdLater){
-        console.log("IN");
+    function generateNotification(id, user, text, type, groupRef, groupName,typeNotification, createdLater){
+        //tipoNotificacion = "P" -> POST
+        //tipoNotificacion = "I" -> INVITACION
         var finded = 0;
         var inserted = 0;
         rows = '';
@@ -24,7 +25,7 @@
                 finded = 1;
                 $(this).find('.notification').each(function(){
                     if($(this).find('.type').text() == (' Mensaje') && $(this).find('.user-name').text() == user){
-                        rows += `<span notification-id="${id}" class="text">${text}</span>`;
+                        rows += `<span notification-id="${id}" notification-type="${typeNotification}" class="text">${text}</span>`;
                         $(this).append(rows);
                         inserted = 1;
                     }
@@ -34,7 +35,7 @@
                     rows += `<span class="user-name">${user}</span>`;
                     rows += `<a class="delete-notification"><i class="far fa-eye-slash"></i></a>`;
                     rows += `<span class="type"><i class="fas fa-circle"></i> ${type}</span>`;
-                    rows += `<span notification-id="${id}" class="text">${text}</span>`;
+                    rows += `<span notification-id="${id}" notification-type="${typeNotification}" class="text">${text}</span>`;
                     rows += `</span>`;
                     object = $(this).find('.group-name');
                     object.after(rows);
@@ -42,7 +43,6 @@
                     object.html((parseInt(object.text().split(' ')[0]) + 1) + ' NUEVAS');
                     object = $('#nav-counter');
                     object.html(parseInt(object.text()) + 1);
-                    size =  parseInt(object.text()) + 1;
                     if(createdLater){
                         $(this).find('.delete-notification').eq(0).click(function(){
                             removeNotification($(this));
@@ -60,13 +60,12 @@
             rows += `<span class="user-name">${user}</span>`;
             rows += `<a class="delete-notification"><i class="far fa-eye-slash"></i></a>`;
             rows += `<span class="type"><i class="fas fa-circle"></i> ${type}</span>`;
-            rows += `<span notification-id="${id}" class="text">${text}</span>`;
+            rows += `<span notification-id="${id}" notification-type="${typeNotification}" class="text">${text}</span>`;
             rows += `</span>`;
             rows += `</span>`;
             $('.notifications-container').append(rows);
             object = $('#nav-counter');
             object.html(parseInt(object.text()) + 1);
-            size =  parseInt(object.text()) + 1;
             if(createdLater){
                 $('.notifications-container').find('.group-notification').eq(-1).find('.delete-notification').eq(0).click(function(){
                     removeNotification($(this));
@@ -80,13 +79,26 @@
     function removeNotification(lmnt){
         lmnt.parent().find('.text').each((index, element)=>{
             notifyId = $(element).attr('notification-id');
-            //cambiamos el estado de la notificacion a leida
-            $.ajax({
-                url: "../rutas_ajax/notificaciones/cambiar_estado.php?notificacion=" + notifyId,
-                type: "POST",
-                success: function(r){
-                }
-            });  
+            notifyType = $(element).attr('notification-type');
+            if(notifyType == "I"){
+            //invitacion
+                //cambiamos el estado de la notificacion a leida
+                $.ajax({
+                    url: "../rutas_ajax/notificaciones_invitaciones/cambiar_estado.php?notificacion=" + notifyId,
+                    type: "POST",
+                    success: function(r){
+                    }
+                });  
+            }else{
+            //publicacion               
+                //cambiamos el estado de la notificacion a leida
+                $.ajax({
+                    url: "../rutas_ajax/notificaciones/cambiar_estado.php?notificacion=" + notifyId,
+                    type: "POST",
+                    success: function(r){
+                    }
+                });              
+            }
         });
          
 
@@ -103,7 +115,6 @@
         }
         object = $('#nav-counter');
         object.html(parseInt(object.text()) - 1);
-        size =  parseInt(object.text()) - 1;
     }
 
     //Eventos del mural de notificaciones y la generación de notificaciones depende de esta función.
@@ -117,7 +128,6 @@
 
         $('.delete-notification').click(function(){
             removeNotification($(this));
-            size--;
         });
     }
 
@@ -138,7 +148,30 @@
     }
 
     function updateNotifies() {
+        object = $('#nav-counter');
+        size = (parseInt(object.text()));
+        if(size < 1) emptyNotificationWall();
         setTimeout("listNotifications(0)",2000); 
+    }
+
+    function listNotificationsInvitaciones(show){
+        $.ajax({
+            url: "../rutas_ajax/notificaciones_invitaciones/listado.php?show=" + show,
+            type: "POST",
+            success: function(r){
+                objParent2 = JSON.parse(r);
+                for(var i = 0; i < objParent2.length; i++){
+                    invitacion_id = objParent2[i].invitacion_id;
+                    notificacion_id = objParent2[i].notificacion_id;
+                    usuario_creador = objParent2[i].usuario_creador;
+                    grupo_id = objParent2[i].grupo_id;
+                    grupo = objParent2[i].apellido;
+                    tipo = "Invitación";
+                    fecha_creacion = objParent2[i].fecha_creacion;
+                    generateNotification(invitacion_id,usuario_creador,"Invitación al grupo",tipo,grupo_id,grupo,"I",true);     
+                } 
+            }
+        });        
     }
 
     function listNotifications(show){
@@ -151,7 +184,6 @@
                     publicacion_id = objParent[i].publicacion_id;
                     notificacion_id = objParent[i].notificacion_id;
                     usuario_creador = objParent[i].usuario_creador;
-                    usuario_creador_nombre = objParent[i].nombre;
                     grupo_id = objParent[i].grupo_id;
                     grupo = objParent[i].apellido;
                     tipo = objParent[i].tipo;
@@ -217,16 +249,16 @@
                         });             
                     }  
                     tipo = tipoNotify(tipo);
-                    generateNotification(notificacion_id,usuario_creador,informacion,tipo,grupo_id,grupo,true);                                     
+                    generateNotification(notificacion_id,usuario_creador,informacion,tipo,grupo_id,grupo,"P",true);                                     
                 }
-                if(size < 2) emptyNotificationWall();
-                updateNotifies(1);               
+                updateNotifies();               
             },
         });         
     }
 
     $(document).ready(function(){
         initNotificationWallListeners();
+        listNotificationsInvitaciones(1);
         listNotifications(1);
     });
 </script>

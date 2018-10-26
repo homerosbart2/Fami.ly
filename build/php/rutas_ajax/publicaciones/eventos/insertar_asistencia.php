@@ -7,7 +7,7 @@
     $grupo = $_GET["grupo"];
     //variables
     $create = -1;
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //verificamos si ya existe la asistencia del evento del usuario actual
     $query = "SELECT A.estado,A.asiste_id FROM Asiste AS A WHERE A.evento_id = $evento AND A.usuario_id=$usuario";
     $result = pg_query($link, $query);

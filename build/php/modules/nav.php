@@ -1,11 +1,11 @@
 <?php 
-    include 'links.php'; 
     session_start();
+    include 'links.php'; 
     $usuario_actual = "";
     $correo_actual = "";
     $usuario_actual_nombre = "";
     if(isset($_SESSION['usuario_actual'])){
-        $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+        $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
         $usuario_actual = $_SESSION['usuario_actual']; 
         $usuario_actual_id = $_SESSION['usuario_actual_id'];
         $correo_actual = $_SESSION['correo_actual'];
@@ -219,7 +219,7 @@ $(document).ready(function(){
             url: "../rutas_ajax/invitaciones/invitar.php?to=" + id + "&grupo=" + groupId,
             type: "POST",
             success: function(r){
-                if(r > 0){
+                if(r == 1){
                     alert("NOTIFICACION CREADA");
                 }else{
                     alert("EL USUARIO YA TIENE UNA SOLICITUD CREADA");

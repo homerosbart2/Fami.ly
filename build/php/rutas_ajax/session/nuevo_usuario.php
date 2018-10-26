@@ -4,7 +4,7 @@
     $username = $_GET["username"];
     $email = $_GET["email"];
     $name = $_GET["name"];
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //buscamos existencia
     $query = "SELECT * FROM Usuarios AS U WHERE (usuario = '$username') OR (correo = '$email')";
     $result = pg_query($link, $query);

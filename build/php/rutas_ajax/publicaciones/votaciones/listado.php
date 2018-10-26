@@ -10,7 +10,7 @@
     $info_votaciones = array();
     $info_opciones = array();
     //querys
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     $query = "SELECT * FROM  Votaciones AS V WHERE V.publicacion_id = $publicacion";
     $result = pg_query($link, $query);    
     if($result){

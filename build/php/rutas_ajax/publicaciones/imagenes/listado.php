@@ -5,7 +5,7 @@
     //parametros
     $grupo = $_GET["grupo"];
     $publicacion = $_GET["publicacion_id"];
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     $query = "SELECT * FROM  Imagenes AS I WHERE I.publicacion_id = $publicacion";
     $result = pg_query($link, $query);
     $retorno = array();

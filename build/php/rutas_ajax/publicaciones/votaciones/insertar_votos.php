@@ -8,7 +8,7 @@
     $votacion = $_GET["votacion"];
     //variables
     $create = -1;
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //verificamos si ya existe un voto del usuario actual
     $query = "SELECT V.voto_id FROM Votos AS V, Opciones AS O WHERE O.votacion_id = $votacion AND V.opcion_id = O.opcion_id AND V.usuario_id=$usuario";
     $result = pg_query($link, $query);

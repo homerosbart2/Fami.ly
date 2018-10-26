@@ -6,7 +6,7 @@
     $grupo = $_GET["grupo"];
     $publicacion = $_GET["publicacion"];
     $last = $_GET["last"];
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     if(empty($publicacion)){
         $query = "SELECT P.publicacion_id, P.usuario_creador_id,P.grupo_id,P.tipo,P.fecha_creacion,U.nombres FROM  Publicaciones AS P, Usuarios AS U WHERE P.grupo_id = $grupo AND P.usuario_creador_id = U.usuario_id AND P.publicacion_id > $last ORDER BY P.fecha_creacion ASC";
     }else{

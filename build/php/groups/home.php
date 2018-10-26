@@ -74,13 +74,30 @@ window.onresize = function(event) {
         flexFont();
         if(invitationId !== undefined){
             $('#' + id).find('.options').find('.accept').click((event)=>{
-                //TODO: Agregar al usuario al grupo con id [invitationId], eliminar la invitación e ingresar al mural del grupo.
-                console.log(`Aceptar invitación: ${invitationId}`);
+                alert("entra");
+                $.ajax({
+                    url: "../rutas_ajax/invitaciones/cambiar_estado.php?invitacion=" + invitationId + "&tipo=1",
+                    type: "POST",
+                    success: function(r){
+                        alert(r);
+                        if(r > 0){
+                            // $(location).attr('href', 'wall.php?id=' + r);
+                        }
+                    },
+                });                
             });
 
             $('#' + id).find('.options').find('.cancel').click((event)=>{
-                //TODO: Eliminar la invitación y recargar.
-                console.log(`Cancelar invitación: ${invitationId}`);
+                $.ajax({
+                    url: "../rutas_ajax/invitaciones/cambiar_estado.php?invitacion=" + invitationId + "&tipo=0",
+                    type: "POST",
+                    success: function(r){
+                        alert(r);
+                        if(r == -1){
+                            // $(location).attr('href', 'home.php?');
+                        }
+                    },
+                });  ;
             });
         }
     }

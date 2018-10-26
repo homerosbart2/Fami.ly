@@ -2,7 +2,7 @@
     //encargado de crear la sesion del usuario y ver que si se haya creado una sesion
     $password = $_GET["password"];
     $username = $_GET["username"];
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     $query = "SELECT U.usuario,U.usuario_id,U.correo,U.nombres FROM Usuarios As U WHERE U.usuario_password= '$password' AND U.usuario='$username'";
     $result = pg_query($link, $query);
     $resultado = 0;

@@ -198,19 +198,28 @@ ADD COLUMN pais varchar(25);
 
 CREATE TABLE Invitaciones(
 	invitacion_id SERIAL,
-	usuario_emisor integer,
-	usuario_receptor integer,
+	usuario_emisor_id integer,
+	usuario_receptor_id integer,
 	grupo_id integer,
-	estado boolean,
+	estado boolean DEFAULT 'true',
+	fecha_creacion timestamp,
 	PRIMARY KEY(invitacion_id),
-	UNIQUE(usuario_receptor,grupo_id,estado),
-	FOREIGN KEY(usuario_emisor) REFERENCES Usuarios(usuario_id),
-	FOREIGN KEY(usuario_receptor) REFERENCES Usuarios(usuario_id),
+	UNIQUE(usuario_receptor_id,grupo_id),
+	FOREIGN KEY(usuario_emisor_id) REFERENCES Usuarios(usuario_id),
+	FOREIGN KEY(usuario_receptor_id) REFERENCES Usuarios(usuario_id),
 	FOREIGN KEY(grupo_id) REFERENCES GruposFamiliares(grupo_id)
+);
+
+CREATE TABLE NotificacionesInvitaciones(
+	notificacion_invitacion_id SERIAL,
+	invitacion_id integer,
+	estado boolean DEFAULT 'true',
+	mostrar boolean DEFAULT 'true', --sirve para mandarla a traer o no para reducir costos al hacer polling
+	PRIMARY KEY(notificacion_invitacion_id),
+	FOREIGN KEY(invitacion_id) REFERENCES Invitaciones(invitacion_id)
 );
 
 ALTER USER social WITH ENCRYPTED PASSWORD '%SocialAdmin18%';
 GRANT ALL PRIVILEGES ON DATABASE "FAMILY" TO social;
-GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas,Imagenes,Invitaciones TO tienda;
-GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to tienda;
-
+GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas,Imagenes,Invitaciones,NotificacionesInvitaciones TO social;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to social;

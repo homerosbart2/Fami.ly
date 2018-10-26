@@ -12,7 +12,7 @@
     $ubicacion = $_GET["ubicacion"];
     $descripcion = $_GET["descripcion"];
     $grupo = $_GET["grupo"];
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //variables
     $create = -1;
     //creacion de la publicacion
