@@ -15,6 +15,18 @@
             width: 100%;
             //background-image: linear-gradient(-45deg, $main, $secondary);
             background: gray;
+            &.following{
+                .profile-img{
+                    border: 5px solid $light-main;
+                }
+                .name-container{
+                    .button-section{
+                        .relative{
+                            display: flex !important;
+                        }
+                    }
+                }
+            }
             &.expanded{
                 background: $main-contrast;
                 overflow: visible;
@@ -42,7 +54,7 @@
             }
             .title-bg{
                 transition: 0.2s ease;
-                filter: blur(15px) brightness(0.7);
+                filter: blur(30px) brightness(0.7);
                 position: absolute;
                 width: 100%;
             }
@@ -54,15 +66,22 @@
                 border: 3px solid white;
                 margin: 10px 10px;
                 overflow: hidden;
-                cursor: pointer;
-                &:hover,
-                &:active,
-                &:focus{
-                    img{
-                        filter: blur(10px) brightness(0.7);
-                    }
+                transition: 0.5s ease;
+                &.me{
+                    cursor: pointer;
                     .img-update{
-                        opacity: 1;
+                        display: flex;
+                    }
+                    &:hover,
+                    &:active,
+                    &:focus{
+                        img{
+                            filter: blur(10px) brightness(0.7);
+                        }
+                        .img-update{
+                            transform: scale(1);
+                            opacity: 1;
+                        }
                     }
                 }
                 img{
@@ -79,11 +98,15 @@
                     left: 0;
                     width: 100%;
                     height: 100%;
-                    display: flex;
+                    display: none;
                     justify-content: center;
                     align-items: center;
+                    transform: scale(0);
                     opacity: 0;
                     transition: 0.2s ease;
+                    @include media-max(650px){
+                        font-size: 11px;
+                    }
                     i, svg{
                         margin-right: 5px;
                     }
@@ -120,9 +143,27 @@
                         padding: 5px 15px;
                         display: flex;
                         align-items: center;
-                        margin-right: 6px;
-                        &:hover{
+                        margin-right: 9px;
+                        &.relative{
+                            display: none;
+                        }
+                        &.solid{
+                            background: white;
                             color: $main-contrast;
+                            transition: 0.2s ease;
+                            &:hover,
+                            &:active,
+                            &:focus{
+                                transform: scale(1.05);
+                            }
+                        }
+                        &:hover,
+                        &:active,
+                        &:focus{
+                            color: $main-contrast;
+                        }
+                        i, svg{
+                            margin-right: 3px;
                         }
                     }
                 }
@@ -179,6 +220,7 @@
                         padding-top: 125px;
                         margin-left: 0;
                         margin-right: 6px;
+                        //border: 3px solid $light-main;
                     }
                     @include media-max(370px){
                         justify-content: space-between
