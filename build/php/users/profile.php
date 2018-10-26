@@ -35,14 +35,15 @@
         flexFont();
     }
 
-    //Función para generar los perfiles de los usuarios, recibe [type] que es el tipo de usuario (0 si es el usuario actual y 1 si es cualquier otro usuario), [username] que es el nombre de usuario, [name] que es un arreglo con los nombres y apellidos (['nombre', 'nombre', 'apellido', 'apellido']), [birthday] que es el cumpleaños (como 27 de marzo), [gender] que es el género, [country] que es el país, [image] que es el path de la imagen del usuario y [callback] que es una función que se ejecuta al finalizar la generación del perfil (En el callback podes llamar a los métodos de generación de tarjetas).
-    function generateUserProfile(type, username, name, birthday, gender, country, image, callback){
+    //Función para generar los perfiles de los usuarios, recibe [type] que es el tipo de usuario (0 si es el usuario actual y 1 si es cualquier otro usuario), [username] que es el nombre de usuario, [name] que es un arreglo con los nombres y apellidos (['nombre', 'nombre', 'apellido', 'apellido']), [birthday] que es el cumpleaños (como 27 de marzo), [gender] que es el género, [country] que es el país, [image] que es el path de la imagen del usuario, [following] booleano que indica si se está siguiendo (debe ser false si es el perfil del usuario actual) y [callback] que es una función que se ejecuta al finalizar la generación del perfil (En el callback podes llamar a los métodos de generación de tarjetas).
+    function generateUserProfile(type, username, name, birthday, gender, country, image, following, callback){
         rows = '';
 
         rows += `<span class="central-container">`;
-        rows += `<span class="profile-title">`;
+        rows += (following)? `<span class="profile-title following">` : `<span class="profile-title">`;
         rows += `<img class="title-bg" src="${image}">`;
-        rows += `<span class="profile-img">`;
+        //#user-image-file es el input con la imagen.
+        rows += (type == 0)? `<span class="profile-img me"><input type="file" id="user-image-file">` : `<span class="profile-img">`;
         rows += `<img src="${image}">`;
         rows += `<span class="img-update"><i class="far fa-caret-square-up"></i> Subir imagen</span>`;
         rows += `</span>`;
@@ -57,8 +58,16 @@
         rows += `<b>@</b>${username}`;
         rows += `</span>`;
         rows += `<span class="button-section">`;
-        rows += `<a class="btn-login">Seguir</a>`;
-        rows += `<a class="btn-login"><i class="fas fa-cog"></i></a>`;
+        if(type == 1){
+            if(following){
+                rows += `<a class="follow btn-login"><i class="fas fa-check-circle"></i> Siguiendo</a>`;
+                rows += `<a class="relative btn-login solid"><i class="fas fa-plus"></i>Familiar</a>`;
+            }else{
+                rows += `<a class="follow btn-login">Seguir</a>`
+            }
+        }else if(type == 0){
+            rows += `<a class="config btn-login"><i class="fas fa-cog"></i> Configuración</a>`;
+        }
         rows += `</span>`;
         rows += `</span>`;
         rows += `</span>`;
@@ -101,6 +110,22 @@
         rows += `</span>`;
         
         $('.profile-section').html(rows);
+        
+        if(type == 1){
+            $('.button-section').find('.follow').click((event)=>{
+                if($('.profile-title').hasClass('following')){
+                    follow(false);
+                }else{
+                    follow(true);
+                }
+            });
+        }else if(type == 0){
+            $('.img-update').click((event)=>{
+                var element = $(event.currentTarget);
+                console.log('hola');
+                $('#user-image-file').click();
+            });
+        }
 
         callback();
     }
@@ -137,13 +162,29 @@
         flexFont();
     };
 
+    function follow(follow){
+        if(!follow){
+            //TODO: Eliminar el follow al usuario.
+            $('.profile-title').removeClass('following');
+            $('.button-section').find('.follow').html('Seguir');
+        }else{
+            //TODO: Hacer follow al usuario.
+            $('.profile-title').addClass('following');
+            $('.button-section').find('.follow').html('<i class="fas fa-check-circle"></i> Siguiendo');
+        }
+    }
+
     $(document).ready(()=>{
-        generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '27 de marzo', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', ()=>{
+        //EXAMPLE: Ejemplo para generar un perfil de usuario ajeno.
+        /* generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', true, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de grupos como en la pantalla de inicio.
             generateGroupCard(1, 'Hogar', ['../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face3.png','../../assets/img/users/face4.png']);
             generateGroupCard(2, 'Campos', ['../../assets/img/users/face3.png','../../assets/img/users/face5.png','../../assets/img/users/face6.png','../../assets/img/users/face7.png']);
             generateGroupCard(3, 'Ogáldez', ['../../assets/img/users/face8.png','../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face9.png']);
-            
+        }); */
+
+        //EXAMPLE: Ejemplo para generar un perfil de usuario actual.
+        generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', false, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de usuario dependiendo del apellido.
             //TODO: No sé cómo vamos a hacer esto, podríamos agregar un botón en el perfil para indicar si esa persona es familiar y si es tío o abuela, pero se necesita otra tabla de familiares y en esa indicar si se está siguiendo o no.
             //TODO: Hay que verificar los apellidos y si se está siguiendo para mandar a llamar estas funciones.
