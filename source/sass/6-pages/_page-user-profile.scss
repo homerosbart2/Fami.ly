@@ -189,9 +189,30 @@
                 display: flex;
             }
             .profile-information{
+                position: relative;
                 display: flex;
                 flex-direction: column;
                 margin-bottom: 10px;
+                .btn-wishlist{
+                    position: absolute;
+                    right: 15px;
+                    top: 15px;
+                    font-size: 35px;
+                    color: $main;
+                    cursor: pointer;
+                    background: $light-main;
+                    border-radius: 40px;
+                    padding: 10px 10px;
+                    transition: 0.2s ease;
+                    &:hover,
+                    &:active,
+                    &:focus{
+                        color: $light-main;
+                        background: $main;
+                        transform: scale(1.05);
+                        //box-shadow: 0 5px 10px rgba(0, 0, 0, 0.089);
+                    }
+                }
                 .birthday, .gender, .country{
                     display: flex;
                     flex-direction: row;
