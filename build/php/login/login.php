@@ -32,9 +32,12 @@
 
                     <form id="register-form" class="register-form">
                         <input type='hidden'name='add' value='G'>
-                        <input type='text' id='registro_nombre' name='' placeholder='Ingrese el nombre' required>
+                        <input type='text' id='registro_nombre' name='' placeholder='Ingrese nombres' required>
+                        <input type='text' id='registro_lastname' name='' placeholder='Ingrese apellidos' required>
                         <input type='text' id='registro_username' name='' placeholder='Ingrese el usuario' required>
                         <input type='text' id='registro_email' name='' placeholder='Ingrese el email' required>
+                        <input type='date' id='registro_fecha' name='' placeholder='Ingrese fecha de nacimiento' required>
+                        <input type='text' id='registro_pais' name='' placeholder='Ingrese ciudad' required>
                         <input type='password' id='registro_password1' name='' placeholder='Ingrese la contraseña' required>
                         <input type='password'  id='registro_password2' name='' placeholder='Repita la contraseña' required>
                         <span class="login-buttons">
@@ -109,10 +112,13 @@
         password1 = document.getElementById("registro_password1").value;
         password2 = document.getElementById("registro_password2").value;
         email = document.getElementById("registro_email").value;
+        pais = document.getElementById("registro_pais").value;
+        fecha = document.getElementById("registro_fecha").value;
+        lastname = document.getElementById("registro_lastname").value;
         if((password1 == password2) && password1 != "" && password2 != ""){
             if(username != "" && nombre != ""){
                 $.ajax({
-                    url: '../rutas_ajax/session/nuevo_usuario.php?name=' + nombre + '&username=' + username + '&password=' + password1 + "&email=" + email,
+                    url: '../rutas_ajax/session/nuevo_usuario.php?name=' + nombre + '&username=' + username + '&password=' + password1 + "&email=" + email + "&fecha=" + fecha + "&pais=" + pais + "&lastname=" + lastname,
                     type: 'POST',
                     success: function(r){
                         if(r == 1){

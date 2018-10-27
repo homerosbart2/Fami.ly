@@ -28,6 +28,7 @@ CREATE TABLE Usuarios(
 	UNIQUE (correo)
 );
 
+
 CREATE TABLE GruposFamiliares(
 	grupo_id SERIAL,
 	usuario_creador integer,
@@ -195,6 +196,12 @@ ADD COLUMN nombres text;
 
 ALTER TABLE Usuarios
 ADD COLUMN pais varchar(25);
+
+ALTER TABLE Usuarios
+ADD COLUMN formato_img varchar(10) DEFAULT 'png';
+
+ALTER TABLE Usuarios
+ADD COLUMN name_img varchar(25) DEFAULT 'default';
 
 CREATE TABLE Invitaciones(
 	invitacion_id SERIAL,

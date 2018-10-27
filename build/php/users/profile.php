@@ -122,7 +122,6 @@
         }else if(type == 0){
             $('.img-update').click((event)=>{
                 var element = $(event.currentTarget);
-                console.log('hola');
                 $('#user-image-file').click();
             });
         }
@@ -144,6 +143,53 @@
             //TODO: Direccionar al perfil del usuario con el identificador [id].
             console.log(id);
         })
+    }
+
+    var imagenValida = false;
+    function readImg(input) {
+        if (input.files && input.files[0]) {        
+            var file = input.files[0];
+            imageFile = file.type;
+            var match = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
+            if (!(imageFile == match[0] || imageFile == match[1] || imageFile == match[2] || imageFile == match[3])){
+                alert("FORMATO NO VALIDO");
+            }else {
+                imagenValida = true;
+                // var reader = new FileReader();
+                // reader.onload = function (e) {
+                //     $('.image-input-container').addClass('image-selected');
+                //     $('#img-viewer').attr('src', e.target.result);
+                // };
+                // reader.readAsDataURL(input.files[0]);
+                if(imagenValida){
+                    //GUARDAMOS LA IMAGEN
+                    const files = document.querySelector('[type=file]').files;
+                    const formData = new FormData();
+                    for (let i = 0; i < files.length; i++) {
+                        let file = files[i];
+                        formData.append('files[]', file);
+                    }
+
+                    fetch("../rutas_ajax/perfiles/upload.php?", 
+                    {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(function(response) {
+                        return response.text();
+                    })
+                    .then(function(data) {
+                        console.log('data = ', data);
+                        if(data = 1);
+                    })
+                    .catch(function(err) {
+                        console.error(err);
+                    });
+                }else{
+                    alert("seleccione un archivo valido");
+                }                  
+            }
+        }
     }
 
     flexFont = function () {
@@ -174,7 +220,28 @@
         }
     }
 
+    function listUserInfo(){
+        // $.ajax({
+        //     url: "../rutas_ajax/grupos/listado.php?",
+        //     type: "POST",
+        //     success: function(r){
+        //         obj = JSON.parse(r);
+        //         //en 0 viene la informacion del usuario actual
+        //         nombreCompleto = obj[0].nombres + " " + obj[0].apellidos;
+        //         var truncar = nombreCompleto.split(" ");
+        //         generateUserProfile(obj[0].usuario_id, obj[0].usuario, ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], obj[0].fecha_nacimiento, 'Hombre', 'Guatemala', '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, false, ()=>{
+        //             for(var i = 1; i < obj.length; i++){
+        //                 apellido = obj[j][0];
+        //                 for(var j = 0; j < obj[j].length; i++){
+        //                 generateUserCard((obj[j][1].usuario_id, obj[j][1].nombres, 0,'../../assets/img/users/' + obj[j][1].name_img+"."+obj[j][1].formato_img, true);
+        //             }
+        //         });                         
+        //     },
+        // });        
+    }
+
     $(document).ready(()=>{
+        listUserInfo();
         //EXAMPLE: Ejemplo para generar un perfil de usuario ajeno.
         /* generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', true, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de grupos como en la pantalla de inicio.
@@ -184,7 +251,7 @@
         }); */
 
         //EXAMPLE: Ejemplo para generar un perfil de usuario actual.
-        generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', false, ()=>{
+            generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', false, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de usuario dependiendo del apellido.
             //TODO: No sé cómo vamos a hacer esto, podríamos agregar un botón en el perfil para indicar si esa persona es familiar y si es tío o abuela, pero se necesita otra tabla de familiares y en esa indicar si se está siguiendo o no.
             //TODO: Hay que verificar los apellidos y si se está siguiendo para mandar a llamar estas funciones.
@@ -203,6 +270,11 @@
         $('.expand-profile-picture').click((event)=>{
             $('.profile-title').addClass('expanded');
         });
+
+        $("#user-image-file").on('change',function () {
+            readImg(this);
+        });
+
     });
 
 </script>

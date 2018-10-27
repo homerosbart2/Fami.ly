@@ -15,7 +15,6 @@
                 echo "$(location).attr('href', 'home.php')";
                 echo "</script>";
             }  
-            echo "<br><br><br>";
             $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
             $query = "SELECT COUNT(*) as total_miembros, G.apellido, G.grupo_id FROM GruposFamiliares AS G, PerteneceGrupo AS P WHERE P.grupo_id = G.grupo_id AND G.grupo_id = $id GROUP BY G.grupo_id,G.apellido";
             $result = pg_query($link, $query);
@@ -301,7 +300,7 @@
     }
 
     //Función para generar un evento nuevo, la cual recibe el [id] de la publicación, el [user] al que pertenece la publicación, [text] que es el título del evento, la [description] del evento, la [ubication], [eventDate] que es la fecha en formato [12 de agosto], [eventTime] que es la hora del evento en formato [9:30 AM], [confirmedPeopleNames] que es el arreglo de los nombres de los usuarios que confirmaron, [confirmedPeopleImages] que es el arreglo con las rutas de las imágenes de los usuarios en el mismo orden que el arreglo anterior, [imIn] booleano que indica si el usuario actual confirmó el evento (Este no se agrega a los arreglos mencionados anteriormente), [time] que es la hora de creación, [me] booleano que indica si el evento pertenece al usuario actual y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
-    function generateEvent(id, evento_id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me, createdLater){
+    function generateEvent(id, evento_id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me,imImgPath,createdLater){
         rows = '';
         if(me){
             rows += '<span class="post-container me">';
@@ -353,7 +352,7 @@
         rows += '<span class="user-container me">';
         rows += '<i class="far fa-check-square"></i>';
         //TODO: Aquí hay que poner la imagen del usuario que inició sesión.
-        rows += '<img class="user" src="../../assets/img/users/profile.png">';
+        rows += '<img class="user" src="' + imImgPath + '">';
         rows += '<span class="name">Asistirás a este evento.</span>';
         rows += '</span>';
         rows += '</span>';
@@ -1147,6 +1146,7 @@ function initWallListeners(){
                     if(tipo == "E"){
                         //EVENTOS
                         var asistencia = [];
+                        var asistenciaImagenes = [];
                         var imIn = false;
                         $.ajax({
                             url: "../rutas_ajax/publicaciones/eventos/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
@@ -1160,12 +1160,19 @@ function initWallListeners(){
                                 hora = obj[0][0].hora;
                                 lugar = obj[0][0].lugar;
                                 for(var j = 0; j < obj[1].length; j++){
-                                    usuario = obj[1][j].nombre;
+                                    usuario = obj[1][j].nombres;
                                     id = obj[1][j].usuario_id;
                                     estado = obj[1][j].estado
+                                    path_img = "../../assets/img/users/" + obj[1][j].name_img + "." + obj[1][j].formato_img;
                                     if(estado == 1){
-                                        if(id == usuarioId) imIn = true; 
-                                        else asistencia.push(usuario);
+                                        if(id == usuarioId){ 
+                                            imIn = true;
+                                            imPath = path_img;
+                                        } 
+                                        else{ 
+                                            asistencia.push(usuario);
+                                            asistenciaImagenes.push(path_img);
+                                        }
                                     }
                                 }
                                 var dateEvent = new Date(fecha);       
@@ -1173,7 +1180,7 @@ function initWallListeners(){
                                  monthEvent = months[(parseInt(dateEvent.getMonth()))];
                                 yearEvent = dateEvent.getFullYear();
                                 dateInLettersEvent = dayEvent + ' de ' + monthEvent + ' del ' + year;
-                                generateEvent(publicacion_id, evento_id, usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, [], imIn, horario, typePost, createAt);                                   
+                                generateEvent(publicacion_id, evento_id, usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, asistenciaImagenes, imIn, horario, typePost,imPath, createAt);                                   
                             },
                             async: false // <- this turns it into synchronous
                         });               

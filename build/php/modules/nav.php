@@ -21,7 +21,16 @@
             }
             //se guardan los grupos del usuario se utilizara para seguridad
             $_SESSION['grupos'] = json_encode($group_array);
-        }            
+        }      
+        //solicitamos la informacion del usuario
+        $user_img_path = "../../assets/img/users/default.png";
+        $query = "SELECT U.formato_img,U.name_img FROM Usuarios As U WHERE U.usuario_id=$usuario_actual_id";
+        $result = pg_query($link, $query);
+        $row = pg_fetch_assoc($result);
+        if($result){
+            $user_img_path = "../../assets/img/users/".$row["name_img"].".".$row["formato_img"];
+        }        
+
     }else{       
         //header("Location: ../login/login.php");                 
     }
@@ -41,7 +50,7 @@
                 <span class="options-division">
                     <span class="profile-img-preview">
                         <!-- Imagen del usuario. -->
-                        <img src="../../assets/img/users/profile.png">
+                        <img src=<?php echo $user_img_path?>>
                     </span>
                     <li class="nav-user">
                         <!-- Nombre de usuario. -->

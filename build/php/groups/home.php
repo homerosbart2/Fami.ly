@@ -79,7 +79,6 @@ window.onresize = function(event) {
                     url: "../rutas_ajax/invitaciones/cambiar_estado.php?invitacion=" + invitationId + "&tipo=1",
                     type: "POST",
                     success: function(r){
-                        alert(r);
                         if(r > 0){
                             // $(location).attr('href', 'wall.php?id=' + r);
                         }
@@ -92,7 +91,6 @@ window.onresize = function(event) {
                     url: "../rutas_ajax/invitaciones/cambiar_estado.php?invitacion=" + invitationId + "&tipo=0",
                     type: "POST",
                     success: function(r){
-                        alert(r);
                         if(r == -1){
                             // $(location).attr('href', 'home.php?');
                         }
@@ -110,9 +108,14 @@ function listGroups(){
         success: function(r){
             obj = JSON.parse(r);
             for(var i = 0; i < obj.length; i++){
-                grupo_id = obj[i].grupo_id;
-                apellido = obj[i].apellido;
-                generateGroupCard(grupo_id, apellido, []); 
+                grupo_id = obj[i][0].grupo_id;
+                apellido = obj[i][0].apellido;
+                var personas = [];
+                for(var j = 0; (j < obj[i][1].length && j < 4); j++){
+                    path = "../../assets/img/users/" + obj[i][1][j].name_img + "." + obj[i][1][j].formato_img;
+                    personas.push(path);
+                }
+                generateGroupCard(grupo_id, apellido, personas); 
             }                         
         },
     });

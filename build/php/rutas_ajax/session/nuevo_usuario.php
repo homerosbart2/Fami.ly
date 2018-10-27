@@ -4,6 +4,9 @@
     $username = $_GET["username"];
     $email = $_GET["email"];
     $name = $_GET["name"];
+    $lastname = $_GET["lastname"];
+    $fecha = $_GET["fecha"];
+    $pais = $_GET["pais"];    
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //buscamos existencia
     $query = "SELECT * FROM Usuarios AS U WHERE (usuario = '$username') OR (correo = '$email')";
@@ -11,7 +14,7 @@
     $rows = pg_num_rows($result);
     $create = 0;
     if($rows == 0){  
-        $query = "INSERT INTO Usuarios(usuario_password,nombre,correo,usuario) VALUES('$password','$name','$email','$username') RETURNING usuario_id";
+        $query = "INSERT INTO Usuarios(usuario_password,nombres,apellidos,correo,usuario,fecha_nacimiento,pais) VALUES('$password','$name','$lastname','$email','$username','$fecha','$pais') RETURNING usuario_id";
         $result = pg_query($link, $query);
         if ($result) {
             $create = 1;
