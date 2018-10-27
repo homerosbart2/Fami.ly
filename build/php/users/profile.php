@@ -39,7 +39,7 @@
     }
 
     //Función para generar los perfiles de los usuarios, recibe [type] que es el tipo de usuario (0 si es el usuario actual y 1 si es cualquier otro usuario), [username] que es el nombre de usuario, [name] que es un arreglo con los nombres y apellidos (['nombre', 'nombre', 'apellido', 'apellido']), [birthday] que es el cumpleaños (como 27 de marzo), [gender] que es el género, [country] que es el país, [image] que es el path de la imagen del usuario, [following] booleano que indica si se está siguiendo (debe ser false si es el perfil del usuario actual) y [callback] que es una función que se ejecuta al finalizar la generación del perfil (En el callback podes llamar a los métodos de generación de tarjetas).
-    function generateUserProfile(type, username, name, birthday, gender, country, image, following, callback){
+    function generateUserProfile(type, username, name, birthday, gender, country, image, groupsIds, groupsNames, following, callback){
         rows = '';
 
         rows += `<span class="central-container">`;
@@ -75,10 +75,8 @@
         rows += `</span>`;
         rows += `</span>`;
         rows += `<span class="profile-information-container">`;
-
-        
-
         rows += `<span class="profile-information">`;
+        rows += `<span class="btn-wishlist"><i class="fas fa-gift"></i></span>`;
         rows += `<span class="info-title">Información</span>`;
         rows += `<span class="birthday"><span class="icon"><i class="fas fa-birthday-cake"></i></span> ${birthday}</span>`;
         rows += `<span class="gender"><span class="icon"><i class="fas fa-mars"></i></span> ${gender}</span>`;
@@ -88,14 +86,13 @@
             //Usuario que inició sesión.
             case 0:
                 rows += `<span class="family-information">`;
-                rows += `<span class="info-title relatives">Familiares</span>`;
-                rows += `<span class="users-container">`;
-                rows += `<span class="users-lastname">${name[2]}</span>`;
-                rows += `</span>`;
-                rows += `<span class="users-container">`;
-                rows += `<span class="users-lastname">${name[3]}</span>`;
-                rows += `</span>`;
-                rows += `<span class="info-title friends">Amigos</span>`;
+                rows += `<span class="info-title relatives">Grupos</span>`;
+                for(i in groupsIds){
+                    rows += `<span group-id="${groupsIds[i]}" class="users-container">`;
+                    rows += `<span class="users-lastname">${groupsNames[i]}</span>`;
+                    rows += `</span>`;
+                }
+                //rows += `<span class="info-title friends">Amigos</span>`;
                 rows += `<span class="users-container">`;
                 rows += `</span>`;
                 break;
@@ -125,7 +122,6 @@
         }else if(type == 0){
             $('.img-update').click((event)=>{
                 var element = $(event.currentTarget);
-                console.log('hola');
                 $('#user-image-file').click();
             });
         }
@@ -134,19 +130,23 @@
     }
 
     //Función para generar las tarjetas de usuario, que recibe [id] del usuario, [name] primer nombre del usuario, [lastname] que es 0 si el apellido en común es el primer apellido del usuario que inició sesión, 1 si el segundo es el común y 2 si no tienen apellidos en común, [image] que es el path a la imagen del usuario y [following] que es true si el usuario actual está siguiendo a este.
-    function generateUserCard(id, name, lastname, image, following){
+    function generateUserCard(id, name, group, image, following){
         rows = '';
         rows += (following)? `<span user-id="${id}" class="user-card following">` : `<span user-id="${id}" class="user-card">`;
         //rows += `<span class="follow-indicator"><i class="fas fa-check-circle"></i></span>`;
         rows += `<img class="image top-left" src="${image}">`;
         rows += `<span class="name">${name}</span>`;
         rows += `</span>`;
-        object = $('.profile-information-container').find('.family-information').find('.users-container').eq(lastname);
-        object.append(rows);
-        object.find('.user-card').last().click((event)=>{
-            //TODO: Direccionar al perfil del usuario con el identificador [id].
-            console.log(id);
-        })
+        $('.profile-information-container').find('.family-information').find('.users-container').each((index, element)=>{
+            var element = $(element);
+            if(element.attr('group-id') == group){
+                element.append(rows);
+                element.find('.user-card').last().click((event)=>{
+                    //TODO: Direccionar al perfil del usuario con el identificador [id].
+                    console.log(id);
+                });
+            }
+        });
     }
 
     flexFont = function () {
@@ -187,20 +187,21 @@
         }); */
 
         //EXAMPLE: Ejemplo para generar un perfil de usuario actual.
-        generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', false, ()=>{
+        generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', [3,4,5], ['Prueba1', 'Prueba2', 'Prueba3'], false, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de usuario dependiendo del apellido.
             //TODO: No sé cómo vamos a hacer esto, podríamos agregar un botón en el perfil para indicar si esa persona es familiar y si es tío o abuela, pero se necesita otra tabla de familiares y en esa indicar si se está siguiendo o no.
             //TODO: Hay que verificar los apellidos y si se está siguiendo para mandar a llamar estas funciones.
-            generateUserCard(1, 'Alex', 0, '../../assets/img/users/face1.png', true);
-            generateUserCard(2, 'Dulce', 0, '../../assets/img/users/face5.png', true);
-            generateUserCard(3, 'Henry', 0, '../../assets/img/users/face4.png', false);
-            generateUserCard(4, 'Jhonathan', 0, '../../assets/img/users/face3.png', false);
-            generateUserCard(5, 'Lorena', 0, '../../assets/img/users/face7.png', false);
-            generateUserCard(6, 'Nuelmar', 0, '../../assets/img/users/face6.png', false);
+            generateUserCard(1, 'Alex', 3, '../../assets/img/users/face1.png', true);
+            generateUserCard(2, 'Dulce', 3, '../../assets/img/users/face5.png', true);
+            generateUserCard(3, 'Henry', 4, '../../assets/img/users/face4.png', false);
+            generateUserCard(4, 'Jhonathan', 4, '../../assets/img/users/face3.png', false);
+            
+            generateUserCard(5, 'Lorena', 4, '../../assets/img/users/face7.png', false);
+            generateUserCard(6, 'Nuelmar', 4, '../../assets/img/users/face6.png', false);
 
-            generateUserCard(7, 'Julio', 1, '../../assets/img/users/face9.png', true);
-            generateUserCard(8, 'Luz', 1, '../../assets/img/users/face8.png', false);
-            generateUserCard(9, 'Vilma', 1, '../../assets/img/users/face2.png', false);
+            generateUserCard(7, 'Julio', 5, '../../assets/img/users/face9.png', true);
+            generateUserCard(8, 'Luz', 5, '../../assets/img/users/face8.png', false);
+            generateUserCard(9, 'Vilma', 5, '../../assets/img/users/face2.png', false);
         });
 
         $('.expand-profile-picture').click((event)=>{
