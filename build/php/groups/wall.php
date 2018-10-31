@@ -27,6 +27,8 @@
             }                      
             echo "<script>";
             echo "\n";
+            echo "var imPath="."'".$user_img_path."';";
+            echo "\n";
             echo "var groupId=".$id.";";
             echo "\n";
             echo "var usuarioId=".$usuario_actual_id.";";
@@ -300,7 +302,7 @@
     }
 
     //Función para generar un evento nuevo, la cual recibe el [id] de la publicación, el [user] al que pertenece la publicación, [text] que es el título del evento, la [description] del evento, la [ubication], [eventDate] que es la fecha en formato [12 de agosto], [eventTime] que es la hora del evento en formato [9:30 AM], [confirmedPeopleNames] que es el arreglo de los nombres de los usuarios que confirmaron, [confirmedPeopleImages] que es el arreglo con las rutas de las imágenes de los usuarios en el mismo orden que el arreglo anterior, [imIn] booleano que indica si el usuario actual confirmó el evento (Este no se agrega a los arreglos mencionados anteriormente), [time] que es la hora de creación, [me] booleano que indica si el evento pertenece al usuario actual y [createdLater] que indica si se creó la publicación antes o después de initWallListeners() (RECOMENDACIÓN: Te recomiendo obtener las publicaciones al principio de $(document).ready y mandar false, luego cada vez que se obtenga una nueva publicación sin recargar la página mandar true).
-    function generateEvent(id, evento_id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me,imImgPath,createdLater){
+    function generateEvent(id, evento_id, user, text, description, ubication, eventDate, eventTime, confirmedPeopleNames, confirmedPeopleImages, imIn, time, me,createdLater){
         rows = '';
         if(me){
             rows += '<span class="post-container me">';
@@ -352,7 +354,7 @@
         rows += '<span class="user-container me">';
         rows += '<i class="far fa-check-square"></i>';
         //TODO: Aquí hay que poner la imagen del usuario que inició sesión.
-        rows += '<img class="user" src="' + imImgPath + '">';
+        rows += '<img class="user" src="' + imPath + '">';
         rows += '<span class="name">Asistirás a este evento.</span>';
         rows += '</span>';
         rows += '</span>';
@@ -650,7 +652,6 @@
             url: "../rutas_ajax/publicaciones/eventos/insertar_asistencia.php?grupo=" + groupId + "&evento=" + eventId,
             type: "POST",
             success: function(r){
-                console.log(r);
                 // if(r == 1) //creada
                 // else if(r == 2) //editada
             },
@@ -1097,7 +1098,7 @@ function initWallListeners(){
     }
 
     function updatePosts () {
-        setTimeout("postsList('true','',false)",2000); 
+        setTimeout("postsList('true','',false,1)",2000); 
     }
 
     var showDate = 1;
@@ -1106,10 +1107,10 @@ function initWallListeners(){
     var horario = null;
     var typePost = false;
     var contador = 0;   
-    function postsList(createAt,postId,loading){   
+    function postsList(createAt,postId,loading,tipo){   
         if(loading == true) showChargingAnimation(true);
         $.ajax({
-            url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&publicacion=" + postId + "&last=" + lastPostId,
+            url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&publicacion=" + postId + "&last=" + lastPostId + "&tipo=" + tipo,
             type: "POST",
             success: function(r){
                 objParent = JSON.parse(r);
@@ -1167,7 +1168,6 @@ function initWallListeners(){
                                     if(estado == 1){
                                         if(id == usuarioId){ 
                                             imIn = true;
-                                            imPath = path_img;
                                         } 
                                         else{ 
                                             asistencia.push(usuario);
@@ -1180,7 +1180,7 @@ function initWallListeners(){
                                  monthEvent = months[(parseInt(dateEvent.getMonth()))];
                                 yearEvent = dateEvent.getFullYear();
                                 dateInLettersEvent = dayEvent + ' de ' + monthEvent + ' del ' + year;
-                                generateEvent(publicacion_id, evento_id, usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, asistenciaImagenes, imIn, horario, typePost,imPath, createAt);                                   
+                                generateEvent(publicacion_id, evento_id, usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, asistenciaImagenes, imIn, horario, typePost, createAt);                                   
                             },
                             async: false // <- this turns it into synchronous
                         });               
@@ -1242,9 +1242,9 @@ function initWallListeners(){
                                 informacion = obj[0][0].informacion;
                                 for(var a = 0; a < obj[1].length; a++){
                                     opcion_id = obj[1][a][0].opcion_id;
-                                    informacion = obj[1][a][0].informacion;
+                                    informacionPoll = obj[1][a][0].informacion;
                                     optionsIds.push(opcion_id);
-                                    opciones.push(informacion);
+                                    opciones.push(informacionPoll);
                                     countOpciones.push((obj[1][a]).length - 1);
                                     for(var b = 1;  (eligeUsuario == -1 && b <= ((obj[1][a]).length - 1)); b++){
                                         //itero sobre las opciones para saber si el usuario a seleccionado alguna
@@ -1288,7 +1288,7 @@ function initWallListeners(){
     $(document).ready(function(){
         // showChargingAnimation(true);
         //llamamos a las publicaciones
-        postsList(true,"",true);
+        postsList(true,"",true,"");
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
         //EXAMPLE: Ejemplo para mostrar la animación de carga.

@@ -30,9 +30,10 @@
         if($result){
             $user_img_path = "../../assets/img/users/".$row["name_img"].".".$row["formato_img"];
         }        
-
     }else{       
-        //header("Location: ../login/login.php");                 
+        echo "<script>";
+            echo "$(location).attr('href', '../login/login.php')";                 
+        echo "</script>";    
     }
 ?>  
     </head>

@@ -3,7 +3,7 @@
     session_start();
     $usuario = $_SESSION['usuario_actual_id']; 
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
-    $query = "SELECT U.usuario_id,U.usuario,U.correo,U.nombres,U.nombres,U.pais,U.fecha_nacimiento FROM Usuarios As U WHERE U.usuario_id = $usuario";
+    $query = "SELECT U.usuario_id,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img FROM Usuarios As U WHERE U.usuario_id = $usuario";
     $result = pg_query($link, $query);
     $resultado = 0;
     $retorno = -1;
@@ -22,7 +22,7 @@
             $usuarios_info = array();
             while($row = pg_fetch_assoc($result)){
                 $grupo = $row["grupo_id"];
-                $query = "SELECT U.nombres,U.nombres,U.name_img, U.formato_img FROM Usuarios As U, PerteneceGrupo AS P WHERE P.grupo_id = $grupo AND P.usuario_id != $usuario AND P.usuario_id = U.usuario_id";   
+                $query = "SELECT U.usuario_id,U.nombres,U.nombres,U.name_img, U.formato_img FROM Usuarios As U, PerteneceGrupo AS P WHERE P.grupo_id = $grupo AND P.usuario_id != $usuario AND P.usuario_id = U.usuario_id";   
                 $result2 = pg_query($link, $query);
                 $a = 0;
                 $usuarios_info = array();

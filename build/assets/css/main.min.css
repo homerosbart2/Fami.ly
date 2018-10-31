@@ -1301,9 +1301,25 @@ body.disableScrollBar {
         width: 100%;
         display: flex; }
       .profile-section .central-container .profile-information-container .profile-information {
+        position: relative;
         display: flex;
         flex-direction: column;
         margin-bottom: 10px; }
+        .profile-section .central-container .profile-information-container .profile-information .btn-wishlist {
+          position: absolute;
+          right: 15px;
+          top: 15px;
+          font-size: 35px;
+          color: #FF6040;
+          cursor: pointer;
+          background: #ffebe7;
+          border-radius: 40px;
+          padding: 10px 10px;
+          transition: 0.2s ease; }
+          .profile-section .central-container .profile-information-container .profile-information .btn-wishlist:hover, .profile-section .central-container .profile-information-container .profile-information .btn-wishlist:active, .profile-section .central-container .profile-information-container .profile-information .btn-wishlist:focus {
+            color: #ffebe7;
+            background: #FF6040;
+            transform: scale(1.05); }
         .profile-section .central-container .profile-information-container .profile-information .birthday, .profile-section .central-container .profile-information-container .profile-information .gender, .profile-section .central-container .profile-information-container .profile-information .country {
           display: flex;
           flex-direction: row;
