@@ -10,7 +10,15 @@
     justify-content: center;
     flex-direction: column;
     input{
+        background: white;
         text-align: center;
+        color: $main-contrast;
+        &:focus,
+        &:hover,
+        &:active{
+            //background: $light-main;
+            transform: scale(1.05);
+        }
     }
     .login-buttons{
         width: 100%;

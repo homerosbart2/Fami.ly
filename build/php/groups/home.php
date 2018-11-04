@@ -26,7 +26,8 @@
 </html>
 
 <script>
-flexFont = function () {
+
+function flexFont() {
     var divs = document.getElementsByClassName("flexFont");
     for(var i = 0; i < divs.length; i++) {
         var relFontsize = divs[i].offsetWidth*0.12;
@@ -45,19 +46,20 @@ window.onresize = function(event) {
     //Función para generar las tarjetas de los grupos, que recibe el [id] del grupo, [name] del grupo, [images] que son 4 imágenes al azar de los miembros del grupo, podrían ser las imágenes de las primeras 4 personas del grupo e [invitationId] que es el identificador de la invitación. (Si no es una invitación, no se debe enviar el argumento [invitationId])
     function generateGroupCard(id, name, images, invitationId){
         rows = '';
+        var count = 0;
         var empty = (images.length == 0)? ' empty' : '';
         var invite = (invitationId !== undefined)? ' invitation' : '';
         rows += `<span id="${id}" class="group-card${empty}${invite}">`;
         for(i in images){
-            if(i == 0){
-                rows += `<img class="image top-left" src="${images[i]}">`;
-            }else if(i == 1){
-                rows += `<img class="image top-right" src="${images[i]}">`;
-            }else if(i == 2){
-                rows += `<img class="image bottom-left" src="${images[i]}">`;
-            }else if(i == 3){
-                rows += `<img class="image bottom-right" src="${images[i]}">`;
-            }
+            rows += '<span class="image flex-image">';
+            rows += `<img src="${images[i]}">`;
+            rows += '</span>';
+            count ++;
+        }
+        while(count < 4){
+            rows += '<span class="image flex-image">';
+            rows += '</span>';
+            count++;
         }
         rows += '<span class="information">';
         rows += `<span class="name flexFont">${name}</span>`;
@@ -71,10 +73,11 @@ window.onresize = function(event) {
         }
         rows += '</span>';
         $('.groups-container').append(rows);
+        flexImage($(`#${id}`));
         flexFont();
         if(invitationId !== undefined){
             $('#' + id).find('.options').find('.accept').click((event)=>{
-                alert("entra");
+                //alert("entra");
                 $.ajax({
                     url: "../rutas_ajax/invitaciones/cambiar_estado.php?invitacion=" + invitationId + "&tipo=1",
                     type: "POST",
@@ -98,6 +101,7 @@ window.onresize = function(event) {
                 });  ;
             });
         }
+        $(`#${id}`).css('opacity', '1');
     }
 
 function listGroups(){
@@ -142,6 +146,7 @@ function listInvitaciones(){
 
 
 $(document).ready(function(){
+    $('.options-container').css('opacity', '1');
     listInvitaciones();
     listGroups();
     object = $('.searchbox');

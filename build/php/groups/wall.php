@@ -70,7 +70,7 @@
             </span>
         </span>
     </span>
-    <span class="chatbox-container">
+    <span class="chatbox-container hidden">
         <span class="chatbox">
             <input type="text" class="chatbox-input" placeholder="Escribe un mensaje">
             <a class="btn-chat"><i class="fas fa-bars"></i></a>
@@ -117,7 +117,7 @@
                             <span class="form-title">
                                 <i class="fas fa-poll-h"></i> Votación
                             </span>
-                            <a class="btn-cancel" id="add-poll-option"><i class="fas fa-plus"></i> AÑADIR</a>
+                            <!-- <a class="btn-cancel" id="add-poll-option"><i class="fas fa-plus"></i> AÑADIR</a> -->
                             <input type="text" class="poll-option" id="poll-option-1" placeholder="Opción 1">
                             <input type="text" class="poll-option" id="poll-option-2" placeholder="Opción 2">
                             <input type="text" class="poll-option" id="poll-option-3" placeholder="Opción 3">
@@ -190,7 +190,6 @@
     var users = [];
     var options = [];
     var success = 1;
-    var months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
     var month;
     var year;
     var day;
@@ -669,7 +668,7 @@
                 $('#img-viewer').attr('height', 200)
                 $('#img-viewer').attr('width', 200)
                 imagenValida =  false;
-                alert("FORMATO NO VALIDO");
+                //alert("FORMATO NO VALIDO");
             }else {
                 imagenValida = true;
                 var reader = new FileReader();
@@ -866,14 +865,14 @@ function initWallListeners(){
                                 return response.text();
                             })
                             .then(function(data) {
-                                console.log('data = ', data);
+                                //console.log('data = ', data);
                                 if(data > 0) postsList(true,data);
                             })
                             .catch(function(err) {
-                                console.error(err);
+                                //console.error(err);
                             });
                         }else{
-                            alert("seleccione un archivo valido");
+                            //alert("seleccione un archivo valido");
                         }                        
                     }else if($('.btn-chat').hasClass('poll')){
                         //Esto sucede si es una votación
@@ -890,6 +889,8 @@ function initWallListeners(){
                             }
                         });
                         if(options.length > 1){
+                            $('.poll-option').val('');
+                            $('.poll-option').removeClass('with-text');
                             $.ajax({
                                 url: "../rutas_ajax/publicaciones/votaciones/insertar.php?grupo=" + groupId + "&informacion=" + text + "&opciones=" + options,
                                 type: "POST",
@@ -1108,7 +1109,7 @@ function initWallListeners(){
     var typePost = false;
     var contador = 0;   
     function postsList(createAt,postId,loading,tipo){   
-        if(loading == true) showChargingAnimation(true);
+        if(loading) showChargingAnimation(true);
         $.ajax({
             url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&publicacion=" + postId + "&last=" + lastPostId + "&tipo=" + tipo,
             type: "POST",
@@ -1279,13 +1280,18 @@ function initWallListeners(){
                     };  
                     lastPostId = publicacion_id;
                 }
-                if(loading == true) showChargingAnimation(false);    
+                if(loading){
+                    showChargingAnimation(false);
+                    $('.chatbox-container').removeClass('hidden');   
+                }
                 updatePosts();                                               
             },
-        });                   
+        });
+                        
     }
 
     $(document).ready(function(){
+        $('.group-title').css('opacity', '1');
         // showChargingAnimation(true);
         //llamamos a las publicaciones
         postsList(true,"",true,"");

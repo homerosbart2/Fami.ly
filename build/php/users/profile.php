@@ -6,11 +6,16 @@
     ?>
 </head>
 <body>
-    <section class="profile-section">
+    <section id="profile-section" class="profile-section">
     </section>
 </body>
 
 <script>
+    function formatBirthday(date){
+        var splittedDate = date.split("-");
+        return `${splittedDate[2]} de ${months[parseInt(splittedDate[1]) - 1]}`;
+    }
+
     function generateGroupCard(id, name, images){
         rows = '';
         rows += (images.length == 0)? `<span id="${id}" class="group-card empty">` : `<span id="${id}" class="group-card">`;
@@ -43,7 +48,7 @@
         rows += (following)? `<span class="profile-title following">` : `<span class="profile-title">`;
         rows += `<img class="title-bg" src="${image}">`;
         //#user-image-file es el input con la imagen.
-        rows += (type == 0)? `<span class="profile-img me"><input type="file" onchange="(readImg(this));" id="user-image-file">` : `<span class="profile-img">`;
+        rows += (type == 0)? `<span class="profile-img flex-image me"><input type="file" onchange="(readImg(this));" id="user-image-file">` : `<span class="profile-img flex-image">`;
         rows += `<img src="${image}">`;
         rows += `<span class="img-update"><i class="far fa-caret-square-up"></i> Subir imagen</span>`;
         rows += `</span>`;
@@ -122,8 +127,12 @@
                 $('#user-image-file').click();
             });
         }
-
+        flexImage($('#profile-section').find('.central-container').find('.profile-title'));
         callback();
+        $('.profile-title').css('opacity', '1');
+        $('.title-bg').css('opacity', '1');
+        $('.title-bg').css('transform', 'scale(1)');
+        $('.profile-information-container').css('opacity', '1');
     }
 
     //Función para generar las tarjetas de usuario, que recibe [id] del usuario, [name] primer nombre del usuario, [lastname] que es 0 si el apellido en común es el primer apellido del usuario que inició sesión, 1 si el segundo es el común y 2 si no tienen apellidos en común, [image] que es el path a la imagen del usuario y [following] que es true si el usuario actual está siguiendo a este.
@@ -152,7 +161,7 @@
             imageFile = file.type;
             var match = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
             if (!(imageFile == match[0] || imageFile == match[1] || imageFile == match[2] || imageFile == match[3])){
-                alert("FORMATO NO VALIDO");
+                //alert("FORMATO NO VALIDO");
             }else {
                 imagenValida = true;
                 // var reader = new FileReader();
@@ -179,14 +188,13 @@
                         return response.text();
                     })
                     .then(function(data) {
-                        // console.log('data = ', data);
-                        if(data = 1);
+                        location.reload();
                     })
                     .catch(function(err) {
-                        console.error(err);
+                        //console.error(err);
                     });
                 }else{
-                    alert("seleccione un archivo valido");
+                    //alert("seleccione un archivo valido");
                 }                  
             }
         }
@@ -237,7 +245,7 @@
                         groupNames.push(obj[i][0].apellido);
                     }
                 }
-                generateUserProfile(0, obj[0].usuario, nombreCompleto.split(" "), obj[0].fecha_nacimiento, 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, ()=>{
+                generateUserProfile(0, obj[0].usuario, nombreCompleto.split(" "), formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, ()=>{
                     for(i = 1; i < obj.length; i++){
                         for(var j = 0; j < obj[i][1].length; j++){
                             generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);

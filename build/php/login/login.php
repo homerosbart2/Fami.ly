@@ -22,8 +22,8 @@
                 <div class="form-container">
                     <form id="login-form" class="login-form">
                         <input type='hidden' name='add' value='G'>
-                        <input type='text'  id='login-username' name='' placeholder='Ingrese el usuario' required>
-                        <input type='password'  id='login-password' name='' placeholder='Ingrese la contraseña' required>
+                        <input type='text'  id='login-username' name='' placeholder='Usuario' required>
+                        <input type='password'  id='login-password' name='' placeholder='Contraseña' required>
                         <span class="login-buttons">
                             <a href="#" type='submit' id='btn_login' name='submit' value='Iniciar' class='btn-login iniciar_sesion'> LOGIN </a>
                             <a class='btn-register' onclick='updateFormContainer();'> Registrar</a> 
@@ -32,14 +32,14 @@
 
                     <form id="register-form" class="register-form">
                         <input type='hidden'name='add' value='G'>
-                        <input type='text' id='registro_nombre' name='' placeholder='Ingrese nombres' required>
-                        <input type='text' id='registro_lastname' name='' placeholder='Ingrese apellidos' required>
-                        <input type='text' id='registro_username' name='' placeholder='Ingrese el usuario' required>
-                        <input type='text' id='registro_email' name='' placeholder='Ingrese el email' required>
-                        <input type='date' id='registro_fecha' name='' placeholder='Ingrese fecha de nacimiento' required>
-                        <input type='text' id='registro_pais' name='' placeholder='Ingrese ciudad' required>
-                        <input type='password' id='registro_password1' name='' placeholder='Ingrese la contraseña' required>
-                        <input type='password'  id='registro_password2' name='' placeholder='Repita la contraseña' required>
+                        <input type='text' id='registro_nombre' name='' placeholder='Nombres' required>
+                        <input type='text' id='registro_lastname' name='' placeholder='Apellidos' required>
+                        <input type='text' id='registro_username' name='' placeholder='Usuario' required>
+                        <input type='text' id='registro_email' name='' placeholder='Correo' required>
+                        <input type='date' id='registro_fecha' name='' placeholder='Fecha de nacimiento' required>
+                        <input type='text' id='registro_pais' name='' placeholder='País' required>
+                        <input type='password' id='registro_password1' name='' placeholder='Contraseña' required>
+                        <input type='password'  id='registro_password2' name='' placeholder='Contraseña' required>
                         <span class="login-buttons">
                             <a class='btn-cancel' onclick='updateFormContainer();'>Cancelar</a>
                             <a href="#" type='submit' id='btn_registrar' name='submit' value='Iniciar' class='btn-login iniciar_sesion'> REGISTRAR </a>
@@ -146,5 +146,10 @@
             crearUsuario();
         });
     
+        $('#login-password').keyup((event)=>{
+            if(event.which == 13){
+                $('#btn_login').click();
+            }
+        });
     });
 </script>

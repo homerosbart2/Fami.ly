@@ -7,6 +7,8 @@
         display: flex;
         flex-direction: column;
         .profile-title{
+            transition: 0.2s ease;
+            opacity: 0;
             overflow: hidden;
             position: relative;
             display: flex;
@@ -53,10 +55,12 @@
                 cursor: pointer;
             }
             .title-bg{
-                transition: 0.2s ease;
+                transition: 0.6s ease;
                 filter: blur(30px) brightness(0.7);
                 position: absolute;
                 width: 100%;
+                opacity: 0;
+                transform: scale(1.5);
             }
             .profile-img{
                 position: relative;
@@ -66,7 +70,7 @@
                 border: 3px solid white;
                 margin: 10px 10px;
                 overflow: hidden;
-                transition: 0.5s ease;
+                transition: 0.6s ease;
                 &.me{
                     cursor: pointer;
                     .img-update{
@@ -86,10 +90,11 @@
                 }
                 img{
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    transition: 0.2s ease;
+                    top: 50%;
+                    left: 50%;
+                    opacity: 0;
+                    transition: opacity 0.4s ease;
+                    transition: filter 0.4s ease;
                 }
                 .img-update{
                     color: white;
@@ -181,6 +186,8 @@
             padding: 8px 3px;
             display: flex;
             flex-direction: column;
+            transition: 1s ease;
+            opacity: 0;
             .info-title{
                 font-size: 16px;
                 font-weight: bold;
