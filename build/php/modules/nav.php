@@ -1,6 +1,41 @@
-        <?php
-            include '../modules/links.php';
-        ?>
+<?php 
+    session_start();
+    include 'links.php'; 
+    $usuario_actual = "";
+    $correo_actual = "";
+    $usuario_actual_nombre = "";
+    if(isset($_SESSION['usuario_actual'])){
+        $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
+        $usuario_actual = $_SESSION['usuario_actual']; 
+        $usuario_actual_id = $_SESSION['usuario_actual_id'];
+        $correo_actual = $_SESSION['correo_actual'];
+        $usuario_actual_nombre = $_SESSION['usuario_actual_nombre'];
+        $group_array = array();
+        $query = "SELECT P.grupo_id FROM PerteneceGrupo As P WHERE P.usuario_id=$usuario_actual_id";
+        $result = pg_query($link, $query);
+        if($result){
+            $i = 0;
+            while($row = pg_fetch_assoc($result)){
+                $group_array[$i] = $row["grupo_id"];
+                $i++;
+            }
+            //se guardan los grupos del usuario se utilizara para seguridad
+            $_SESSION['grupos'] = json_encode($group_array);
+        }      
+        //solicitamos la informacion del usuario
+        $user_img_path = "../../assets/img/users/default.png";
+        $query = "SELECT U.formato_img,U.name_img FROM Usuarios As U WHERE U.usuario_id=$usuario_actual_id";
+        $result = pg_query($link, $query);
+        $row = pg_fetch_assoc($result);
+        if($result){
+            $user_img_path = "../../assets/img/users/".$row["name_img"].".".$row["formato_img"];
+        }        
+    }else{       
+        echo "<script>";
+            echo "$(location).attr('href', '../login/login.php')";                 
+        echo "</script>";    
+    }
+?>  
     </head>
     <body>
         <?php
@@ -14,14 +49,14 @@
                     <li><a href="" class="nav-logo">Fami.ly</a></li>
                 </span>
                 <span class="options-division">
-                    <span class="profile-img-preview">
+                    <span class="profile-img-preview flex-image">
                         <!-- Imagen del usuario. -->
-                        <img src="../../assets/img/users/profile.png">
+                        <img src=<?php echo $user_img_path?>>
                     </span>
                     <li class="nav-user">
                         <!-- Nombre de usuario. -->
                         <a>
-                            <span class="user-alias"><b>@</b>henry.campos97</span>
+                            <span class="user-alias"><b>@</b><?php echo $usuario_actual ?></span>
                         </a>
                         <span class="profile-link">Ver más</span>
                     </li>
@@ -41,7 +76,7 @@
                     <li><a href="../groups/home.php" class="nav-option"><span class="option-icon"><i class="fas fa-home"></i></span></a></li>
                     <!-- En el span .counter se debe colocar la cantidad de notificaciones sin descartar. -->
                     <li><a id="notification" class="nav-option"><span class="option-icon notification"><i class="fas fa-bell"></i></span><span id="nav-counter" class="counter">0</span></a></li>
-                    <li><a href="" class="nav-option"><span class="option-icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
+                    <li><a href="../rutas_ajax/session/logout.php" class="nav-option"><span class="option-icon"><i class="fas fa-sign-out-alt"></i></span></a></li>
                 </span>
                 
             </ul>
@@ -83,6 +118,7 @@ var text2;
 var searchArray = [];
 var searchIndex;
 var emojiRegex = /^(?:[\u2700-\u27bf]|(?:\ud83c[\udde6-\uddff]){2}|[\ud800-\udbff][\udc00-\udfff]|[\u0023-\u0039]\ufe0f?\u20e3|\u3299|\u3297|\u303d|\u3030|\u24c2|\ud83c[\udd70-\udd71]|\ud83c[\udd7e-\udd7f]|\ud83c\udd8e|\ud83c[\udd91-\udd9a]|\ud83c[\udde6-\uddff]|[\ud83c[\ude01\uddff]|\ud83c[\ude01-\ude02]|\ud83c\ude1a|\ud83c\ude2f|[\ud83c[\ude32\ude02]|\ud83c\ude1a|\ud83c\ude2f|\ud83c[\ude32-\ude3a]|[\ud83c[\ude50\ude3a]|\ud83c[\ude50-\ude51]|\u203c|\u2049|[\u25aa-\u25ab]|\u25b6|\u25c0|[\u25fb-\u25fe]|\u00a9|\u00ae|\u2122|\u2139|\ud83c\udc04|[\u2600-\u26FF]|\u2b05|\u2b06|\u2b07|\u2b1b|\u2b1c|\u2b50|\u2b55|\u231a|\u231b|\u2328|\u23cf|[\u23e9-\u23f3]|[\u23f8-\u23fa]|\ud83c\udccf|\u2934|\u2935|[\u2190-\u21ff])$/s;
+var months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
 //Funciones para activar y desactivar la máscara.
 function triggerMask(lmnt){
@@ -93,6 +129,24 @@ function triggerMask(lmnt){
 function deactivateMask(){
     $('.mask').css('z-index','-1');
     $('.mask').prop('id', '');
+}
+
+
+function flexImage(element) {
+    element.find('.flex-image').find('img').each((index, element)=>{
+        var width = element.width;
+        var height = element.height;
+        if(width > height){
+            $(element).css('height', '100%');
+        }else{
+            $(element).css('width', '100%');
+        }
+        height = element.height / 2;
+        width = element.width / 2;
+        $(element).css('margin-top', `-${height}px`);
+        $(element).css('margin-left', `-${width}px`);
+        $(element).css('opacity', '1');
+    });
 }
 
 function scrollToMiddle(id) {
@@ -147,7 +201,7 @@ function hideCreateGroupBar(){
 }
 
 //Función para generar un resultado de búsqueda, recibe [user] que es el nombre completo del usuario, [country] el país del usuario, [userImage] que es la ruta a la imagen del usuario e [invite] que es un booleano para saber si es un resultado de búsqueda para invitar a un grupo. Agrega los resultados dependiendo de [top], si es true los agrega al principio, si es false los agrega de último.
-function generatePeopleResult(user, country, userImage, invite, top){
+function generatePeopleResult(userId, user, country, userImage, invite, top){
     rows = '';
     rows += '<span class="people-result-container">';
     rows += '<img class="card-bg" src="'+userImage+'">';
@@ -161,7 +215,7 @@ function generatePeopleResult(user, country, userImage, invite, top){
     rows += '<span class="options">';
     rows += '<a class="btn-login profile">Perfil</a>';
     if(invite){
-        rows += '<a class="btn-login invite">Invitar</a>';
+        rows += '<a class="btn-login invite" id="' + userId + '">Invitar</a>';
     }
     rows += '</span>';
     rows += '</span>';
@@ -186,7 +240,24 @@ function noResultInSearch(){
 
 $(document).ready(function(){
 
+    flexImage($('#header'));
+
     noResultInSearch();
+
+    $(document).on('click', '.invite', function () {
+        id = $(this).attr("id");
+        $.ajax({
+            url: "../rutas_ajax/invitaciones/invitar.php?to=" + id + "&grupo=" + groupId,
+            type: "POST",
+            success: function(r){
+                if(r == 1){
+                    //alert("NOTIFICACION CREADA");
+                }else{
+                    //alert("EL USUARIO YA TIENE UNA SOLICITUD CREADA");
+                }
+            },
+        }); 
+    });
 
     $('.hide-search-people').click(function(){
         $('.search-people-container').removeClass('expanded');
@@ -254,7 +325,7 @@ $(document).ready(function(){
     });
     //Función que se llama al presionar el botón de búsqueda y muestra la barra en modo móvil.
     $('#search').click(function(){
-        showMobileSearchBar(true);
+        showMobileSearchBar(true);f
         //Autofocus al searchbox, pero no me gustó.
         //object.children('.search').children('.search-input').focus();
     });
@@ -333,6 +404,26 @@ $(document).ready(function(){
                     if(!$('.search-people-container').hasClass('expanded') && $(this).prop('id') == 'in-search-text'){
                         $('.search-people-container').addClass('expanded');
                     }
+
+                    clearPeopleSearch(); 
+                    var type = false;
+                    if(wall != 1) groupId = -1;
+                    $.ajax({
+                        url: "../rutas_ajax/personas/buscar.php?palabra=" + text + "&wall=" + wall + "&grupo=" + groupId,
+                        type: "POST",
+                        success: function(r){
+                            obj = JSON.parse(r);
+                            if(obj.length > 0){
+                                for(var i = 0; i < obj.length; i++){
+                                    var tipo = true;
+                                    if(obj[i].tipo == 'f') tipo = false;
+                                    generatePeopleResult(obj[i].usuario_id, obj[i].nombres + " " + obj[i].apellidos,obj[i].pais,'../../assets/img/users/' + obj[i].name_img+'.'+obj[i].formato_img,tipo,true);
+                                }
+                            }else{
+                                noResultInSearch();
+                            }
+                        },
+                    });                            
 
                     //EXAMPLE: ejemplo para agregar resultados de una búsqueda en otro lado que no sea wall.
                     /*clearPeopleSearch();

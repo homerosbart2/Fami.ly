@@ -2,18 +2,20 @@
 <head>
     <title>Inicio</title>
     <?php
-        include '../modules/links.php';
+        include '../modules/nav.php';
     ?>
 </head>
-<?php
-    include '../modules/nav.php';
-?>
 <body>
-    <section class="profile-section">
+    <section id="profile-section" class="profile-section">
     </section>
 </body>
 
 <script>
+    function formatBirthday(date){
+        var splittedDate = date.split("-");
+        return `${splittedDate[2]} de ${months[parseInt(splittedDate[1]) - 1]}`;
+    }
+
     function generateGroupCard(id, name, images){
         rows = '';
         rows += (images.length == 0)? `<span id="${id}" class="group-card empty">` : `<span id="${id}" class="group-card">`;
@@ -46,7 +48,7 @@
         rows += (following)? `<span class="profile-title following">` : `<span class="profile-title">`;
         rows += `<img class="title-bg" src="${image}">`;
         //#user-image-file es el input con la imagen.
-        rows += (type == 0)? `<span class="profile-img me"><input type="file" id="user-image-file">` : `<span class="profile-img">`;
+        rows += (type == 0)? `<span class="profile-img flex-image me"><input type="file" onchange="(readImg(this));" id="user-image-file">` : `<span class="profile-img flex-image">`;
         rows += `<img src="${image}">`;
         rows += `<span class="img-update"><i class="far fa-caret-square-up"></i> Subir imagen</span>`;
         rows += `</span>`;
@@ -125,8 +127,12 @@
                 $('#user-image-file').click();
             });
         }
-
+        flexImage($('#profile-section').find('.central-container').find('.profile-title'));
         callback();
+        $('.profile-title').css('opacity', '1');
+        $('.title-bg').css('opacity', '1');
+        $('.title-bg').css('transform', 'scale(1)');
+        $('.profile-information-container').css('opacity', '1');
     }
 
     //Función para generar las tarjetas de usuario, que recibe [id] del usuario, [name] primer nombre del usuario, [lastname] que es 0 si el apellido en común es el primer apellido del usuario que inició sesión, 1 si el segundo es el común y 2 si no tienen apellidos en común, [image] que es el path a la imagen del usuario y [following] que es true si el usuario actual está siguiendo a este.
@@ -143,10 +149,55 @@
                 element.append(rows);
                 element.find('.user-card').last().click((event)=>{
                     //TODO: Direccionar al perfil del usuario con el identificador [id].
-                    console.log(id);
                 });
             }
         });
+    }
+
+    var imagenValida = false;
+    function readImg(input) {
+        if (input.files && input.files[0]) {        
+            var file = input.files[0];
+            imageFile = file.type;
+            var match = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
+            if (!(imageFile == match[0] || imageFile == match[1] || imageFile == match[2] || imageFile == match[3])){
+                //alert("FORMATO NO VALIDO");
+            }else {
+                imagenValida = true;
+                // var reader = new FileReader();
+                // reader.onload = function (e) {
+                //     $('.image-input-container').addClass('image-selected');
+                //     $('#img-viewer').attr('src', e.target.result);
+                // };
+                // reader.readAsDataURL(input.files[0]);
+                if(imagenValida){
+                    //GUARDAMOS LA IMAGEN
+                    const files = document.querySelector('[type=file]').files;
+                    const formData = new FormData();
+                    for (let i = 0; i < files.length; i++) {
+                        let file = files[i];
+                        formData.append('files[]', file);
+                    }
+
+                    fetch("../rutas_ajax/perfiles/upload.php?", 
+                    {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(function(response) {
+                        return response.text();
+                    })
+                    .then(function(data) {
+                        location.reload();
+                    })
+                    .catch(function(err) {
+                        //console.error(err);
+                    });
+                }else{
+                    //alert("seleccione un archivo valido");
+                }                  
+            }
+        }
     }
 
     flexFont = function () {
@@ -177,7 +228,36 @@
         }
     }
 
+    function listUserInfo(){
+        $.ajax({
+            url: "../rutas_ajax/perfiles/informacion_usuario.php?",
+            type: "POST",
+            success: function(r){
+                obj = JSON.parse(r);
+                //en 0 viene la informacion del usuario actual
+                nombreCompleto = obj[0].nombres + " " + obj[0].apellidos;
+                var groups = [];
+                var groupNames = [];
+                var i;
+                for(i = 1; i < obj.length; i++){
+                    if(obj[i][1].length > 0){
+                        groups.push(obj[i][0].grupo_id);
+                        groupNames.push(obj[i][0].apellido);
+                    }
+                }
+                generateUserProfile(0, obj[0].usuario, nombreCompleto.split(" "), formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, ()=>{
+                    for(i = 1; i < obj.length; i++){
+                        for(var j = 0; j < obj[i][1].length; j++){
+                            generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);
+                        }
+                    }
+                });                         
+            },
+        });        
+    }
+
     $(document).ready(()=>{
+        listUserInfo();
         //EXAMPLE: Ejemplo para generar un perfil de usuario ajeno.
         /* generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', true, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de grupos como en la pantalla de inicio.
@@ -187,26 +267,27 @@
         }); */
 
         //EXAMPLE: Ejemplo para generar un perfil de usuario actual.
-        generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', [3,4,5], ['Prueba1', 'Prueba2', 'Prueba3'], false, ()=>{
-            //EXAMPLE: Ejemplos para generar tarjetas de usuario dependiendo del apellido.
-            //TODO: No sé cómo vamos a hacer esto, podríamos agregar un botón en el perfil para indicar si esa persona es familiar y si es tío o abuela, pero se necesita otra tabla de familiares y en esa indicar si se está siguiendo o no.
-            //TODO: Hay que verificar los apellidos y si se está siguiendo para mandar a llamar estas funciones.
-            generateUserCard(1, 'Alex', 3, '../../assets/img/users/face1.png', true);
-            generateUserCard(2, 'Dulce', 3, '../../assets/img/users/face5.png', true);
-            generateUserCard(3, 'Henry', 4, '../../assets/img/users/face4.png', false);
-            generateUserCard(4, 'Jhonathan', 4, '../../assets/img/users/face3.png', false);
+        // generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', [3,4,5], ['Prueba1', 'Prueba2', 'Prueba3'], false, ()=>{
+        //     //EXAMPLE: Ejemplos para generar tarjetas de usuario dependiendo del apellido.
+        //     //TODO: No sé cómo vamos a hacer esto, podríamos agregar un botón en el perfil para indicar si esa persona es familiar y si es tío o abuela, pero se necesita otra tabla de familiares y en esa indicar si se está siguiendo o no.
+        //     //TODO: Hay que verificar los apellidos y si se está siguiendo para mandar a llamar estas funciones.
+        //     generateUserCard(1, 'Alex', 3, '../../assets/img/users/face1.png', true);
+        //     generateUserCard(2, 'Dulce', 3, '../../assets/img/users/face5.png', true);
+        //     generateUserCard(3, 'Henry', 4, '../../assets/img/users/face4.png', false);
+        //     generateUserCard(4, 'Jhonathan', 4, '../../assets/img/users/face3.png', false);
             
-            generateUserCard(5, 'Lorena', 4, '../../assets/img/users/face7.png', false);
-            generateUserCard(6, 'Nuelmar', 4, '../../assets/img/users/face6.png', false);
+        //     generateUserCard(5, 'Lorena', 4, '../../assets/img/users/face7.png', false);
+        //     generateUserCard(6, 'Nuelmar', 4, '../../assets/img/users/face6.png', false);
 
-            generateUserCard(7, 'Julio', 5, '../../assets/img/users/face9.png', true);
-            generateUserCard(8, 'Luz', 5, '../../assets/img/users/face8.png', false);
-            generateUserCard(9, 'Vilma', 5, '../../assets/img/users/face2.png', false);
-        });
+        //     generateUserCard(7, 'Julio', 5, '../../assets/img/users/face9.png', true);
+        //     generateUserCard(8, 'Luz', 5, '../../assets/img/users/face8.png', false);
+        //     generateUserCard(9, 'Vilma', 5, '../../assets/img/users/face2.png', false);
+        // });
 
         $('.expand-profile-picture').click((event)=>{
             $('.profile-title').addClass('expanded');
         });
+
     });
 
 </script>
