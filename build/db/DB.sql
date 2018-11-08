@@ -1,7 +1,7 @@
 ﻿CREATE DATABASE FAMILY;
 
--- DROP TABLE GruposFamiliares;
--- DROP TABLE Usuarios;	
+-- DROP TABLE PerteneceGrupo;
+-- DROP TABLE Notificaciones;	
 -- DROP TABLE Sigue;
 -- DROP TABLE Eventos;
 -- DROP TABLE Asiste;
@@ -9,8 +9,14 @@
 -- DROP TABLE Opciones;
 -- DROP TABLE Votaciones;
 -- DROP TABLE Mensajes;
--- DROP TABLE Notificaciones;
+-- DROP TABLE Respuestas;
+-- DROP TABLE Preguntas;
+-- DROP TABLE Imagenes;
 -- DROP TABLE Publicaciones;
+-- DROP TABLE NotificacionesInvitaciones;
+-- DROP TABLE Invitaciones;
+-- DROP TABLE GruposFamiliares;
+-- DROP TABLE Usuarios;
 
 
 --quite el campo pais por que aun quiero ver bien algo
@@ -21,7 +27,7 @@ CREATE TABLE Usuarios(
 	nombre varchar(50),
 	apellido1 varchar(25),
 	apellido2 varchar(25),	
-	usuario_password varchar(25),
+	usuario_password varchar(255),
 	genero integer,
 	fecha_nacimiento date,
 	PRIMARY KEY(usuario_id),

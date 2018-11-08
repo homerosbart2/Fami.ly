@@ -14,7 +14,7 @@
         </span>
         <span class="wide-central-container options-container">
             <span class="options">
-                <a class="btn-login create-group"><i class="fas fa-th-large"></i> Crear Nuevo</a>
+                <a class="btn-login create-group"><i class="fas fa-th-large"></i> Crear Grupo</a>
             </span>
         </span>
         <span class="central-container">

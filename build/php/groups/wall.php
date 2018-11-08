@@ -279,7 +279,7 @@
         }else{
             rows += `<span class="post-container">`;
             rows += `<span id="${id}" class="post image">`;
-            rows += `<span class="user-name">${user}</span>`;
+            rows += `<span class="user-name">${user.split(' ')[0]}</span>`;
         }
         rows += `<span class="text searchable">${text}</span>`;
         rows += `<span class="image">`;
@@ -317,7 +317,7 @@
             }else{
                 rows += '<span id="'+id+'" evento="' + evento_id + '" class="post event">';
             }
-            rows += '<span class="user-name">'+user+'</span>';
+            rows += '<span class="user-name">'+user.split(' ')[0]+'</span>';
         }
         rows += '<span class="event-date">';
         rows += '<i class="far fa-calendar"></i> ' + eventDate;
@@ -397,7 +397,7 @@
             object.children('.post').append(rows);
             object.children('.post').children('.time').html(time);
         }else if(object.children('.post').hasClass('message')){
-            if(user == object.children('.post').children('.user-name').text()){
+            if(user.split(" ")[0] == object.children('.post').children('.user-name').text()){
                 for(i in texts){
                     if(texts[i].match(emojiRegex)){
                         rows += '<span class="text searchable"><span class="emoji">'+texts[i]+'</span></span>';
@@ -414,7 +414,7 @@
                 }else{
                     rows += '<span class="post-container">';
                     rows += '<span id="'+id+'" class="post message">';
-                    rows += '<span class="user-name">'+user+'</span>';
+                    rows += '<span class="user-name">'+user.split(" ")[0]+'</span>';
                 }
                 for(i in texts){
                     if(texts[i].match(emojiRegex)){
@@ -437,7 +437,7 @@
             }else{
                 rows += '<span class="post-container">';
                 rows += '<span id="'+id+'" class="post message">';
-                rows += '<span class="user-name">'+user+'</span>';
+                rows += '<span class="user-name">'+user.split(' ')[0]+'</span>';
             }
             for(i in texts){
                 if(texts[i].match(emojiRegex)){
@@ -477,7 +477,7 @@
         }else{
             rows += '<span class="post-container">';
             rows += '<span id="'+id+'" pregunta="' + pregunta_id + '" class="post question">';
-            rows += '<span class="user-name">'+user+'</span>';
+            rows += '<span class="user-name">'+user.split(" ")[0]+'</span>';
         }   
         rows += '<span class="text searchable">'+text+'</span>';
         rows += '<span class="options">';
@@ -491,7 +491,7 @@
                 //TODO: Esto pasa si la respuesta es del usuario actual (Hay que comparar si users[i] == usuarioActual).
                 rows += '<span class="answer me"><span class="searchable">'+answers[i]+'</span></span>';
             }else{
-                rows += '<span class="answer"><span class="user">'+users[i]+'</span><span class="searchable">'+answers[i]+'</span></span>';
+                rows += '<span class="answer"><span class="user">'+users[i].split(' ')[0]+'</span><span class="searchable">'+answers[i]+'</span></span>';
             }
         }
         rows += '</span>';
@@ -528,7 +528,7 @@
         }else{
             rows += '<span class="post-container">';
             rows += '<span id="'+id+'" votacion="' + votacion_id + '" class="post poll">';
-            rows += '<span class="user-name">'+user+'</span>';
+            rows += '<span class="user-name">'+user.split(' ')[0]+'</span>';
         }
         rows += '<span class="text searchable">'+text+'</span>';
         if(selected > -1){
@@ -1213,17 +1213,16 @@ function initWallListeners(){
                                 pregunta_id = obj[0][0].pregunta_id;
                                 informacion = obj[0][0].informacion;
                                 for(var b = 0; b < (obj[1]).length; b++){
-                                        //itero sobre las respuestas
-                                        respuesta_id = obj[1][b].respuesta_id;
-                                        usuario = obj[1][b].nombre;
-                                        usuario_id = obj[1][b].usuario_id;
-                                        informacion = obj[1][b].informacion;
-                                        usuarios.push(usuario);
-                                        respuestas.push(informacion);
-                                        if(usuario_id == usuarioId){
-                                            respuestasUsuario.push(b);
-                                        }
-                                    }               
+                                    //itero sobre las respuestas
+                                    respuesta_id = obj[1][b].respuesta_id;
+                                    usuario = obj[1][b].nombres;
+                                    usuario_id = obj[1][b].usuario_id;
+                                    usuarios.push(usuario);
+                                    respuestas.push(obj[1][b].informacion);
+                                    if(usuario_id == usuarioId){
+                                        respuestasUsuario.push(b);
+                                    }
+                                }      
                                 generateQuestion(publicacion_id, pregunta_id, usuario_creador_nombre, informacion,respuestas,usuarios,horario,respuestasUsuario,typePost,createAt);
                             },
                             async: false // <- this turns it into synchronous
