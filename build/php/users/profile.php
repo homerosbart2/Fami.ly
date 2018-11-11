@@ -251,6 +251,7 @@
         flexFont();
         flexImage();
     };
+    
 
     function follow(follow){
         if(!follow){
