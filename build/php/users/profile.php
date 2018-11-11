@@ -53,19 +53,21 @@
         if(wishes.length > 0){
             rows += '<span class="wishes">';
             for(i in wishes){
-                rows += `<span wish-id="${wishes[i].id}" class="wish">${wishes[i].wish} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                rows += (type == 0)? `<span wish-id="${wishes[i].id}" class="wish">${wishes[i].wish} <a class="wish-delete"><i class="fas fa-times"></i></a></span>` : `<span wish-id="${wishes[i].id}" class="wish">${wishes[i].wish}</span>`;
             }
             rows += '</span>';
         }else{
-            rows += `<span class="no-wishes"><i class="fas fa-box-open"></i> No tienes deseos</span>`;
+            rows += (type == 0)? `<span class="no-wishes"><i class="fas fa-box-open"></i> No tienes deseos</span>` : `<span class="no-wishes"><i class="fas fa-box-open"></i> Este usuario no tiene deseos</span>`;
         }
         rows += '</span>';
         rows += '</span>';
-        rows += '<span class="wide-central-container wish-creation-input-container expanded">';
-        rows += '<span class="wish-creation-input">';
-        rows += '<input class="wish-creation" type="text" placeholder="Nuevo deseo">';
-        rows += '</span>';
-        rows += '</span>';
+        if(type == 0){
+            rows += '<span class="wide-central-container wish-creation-input-container expanded">';
+            rows += '<span class="wish-creation-input">';
+            rows += '<input class="wish-creation" type="text" placeholder="Nuevo deseo">';
+            rows += '</span>';
+            rows += '</span>';
+        }
         rows += '<span class="title-bg-container">';
         rows += `<img class="title-bg" src="${image}">`;
         rows += '</span>';
@@ -171,15 +173,20 @@
             $('.title-bg').css('opacity', '1');
             $('.title-bg').css('transform', 'scale(1.2)');
             $('.profile-information-container').css('opacity', '1');
+
             $('#btn-wishlist').click((event)=>{
                 object = $('.wishlist-container');
                 if(object.hasClass('expanded')){
                     object.removeClass('expanded');
-                    $('.profile-information-container').removeClass('pushed-down');
+                    if(type == 0){
+                        $('.profile-information-container').removeClass('pushed-down');
+                    }
                     $('.btn-wishlist').removeClass('selected');
                 } else {
                     object.addClass('expanded');
-                    $('.profile-information-container').addClass('pushed-down');
+                    if(type == 0){
+                        $('.profile-information-container').addClass('pushed-down');
+                    }
                     $('.btn-wishlist').addClass('selected');
                     window.scroll({
                         top: 0, 
@@ -222,7 +229,7 @@
                 //TODO: Eliminar el deseo wishId de la DB
                 object = $(wish).parent().parent();
                 object.remove();
-                
+
                 var wishId = object.attr('wish-id'); 
 
                 if($('#wishlist').find('.wishes').find('.wish').length == 0){
