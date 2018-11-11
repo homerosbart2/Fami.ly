@@ -206,8 +206,7 @@
                             object.prepend(rows);
                         }
                         $('#wishlist').find('.wishes').find('.wish-delete').first().click((event)=>{
-                            $(event.target).parent().parent().remove();
-                            //TODO: Eliminar el deseo de la DB
+                            removeWish(event.target);
                         });
                         //TODO: Ingresar el deseo a la DB                           
                     }
@@ -215,9 +214,17 @@
             });
 
             $('#wishlist').find('.wishes').find('.wish-delete').click((event)=>{
-                $(event.target).parent().parent().remove();
-                //TODO: Eliminar el deseo de la DB
+                removeWish(event.target);
             });
+
+            function removeWish(wish){
+                //TODO: Eliminar el deseo de la DB
+                $(wish).parent().parent().remove();
+                if($('#wishlist').find('.wishes').find('.wish').length == 0){
+                    rows = '<span class="no-wishes"><i class="fas fa-box-open"></i> No tienes deseos</span>';
+                    $('#wishlist').html(rows);
+                }
+            }
         }, 10);
     }
 

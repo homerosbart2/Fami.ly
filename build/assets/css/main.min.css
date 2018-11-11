@@ -1292,7 +1292,8 @@ body.disableScrollBar {
               .profile-section .central-container .profile-title .wishlist-container .wishlist .wishes .wish .wish-delete {
                 color: #ffebe7;
                 cursor: pointer;
-                margin-left: 12px; }
+                margin-left: 12px;
+                padding: 6px 6px; }
       .profile-section .central-container .profile-title .expand-profile-picture {
         position: absolute;
         z-index: 3;
