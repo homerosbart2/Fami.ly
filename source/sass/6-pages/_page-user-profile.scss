@@ -46,6 +46,17 @@
                     }
                 }
             }
+            .wishlist-container{
+                &.expanded{
+                    & + .wide-central-container{
+                        &.wish-creation-input-container{
+                            opacity: 1;
+                            margin-top: 0px;
+                            z-index: 0;
+                        }
+                    }
+                }
+            }
             .wide-central-container{
                 &.wish-creation-input-container{
                     position: absolute;

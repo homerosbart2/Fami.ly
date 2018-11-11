@@ -23,7 +23,7 @@
         rows += `</span>`;
         rows += `<span class="wishlist-container expanded">`;
         rows += `<span class="wishlist-title"><i class="fas fa-gift"></i> ¿Por qué no le compras algo?</span>`;
-        rows += `<span id="wishlist" class="wishlist">`;
+        rows += `<span class="wishlist">`;
         if(wishes.length > 0){
             rows += '<span class="wishes">';
             for(i in wishes){

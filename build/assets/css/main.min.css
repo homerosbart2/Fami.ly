@@ -1373,6 +1373,10 @@ body.disableScrollBar {
               top: 10px;
               width: auto;
               height: 80vh; } }
+      .profile-section .central-container .profile-title .wishlist-container.expanded + .wide-central-container.wish-creation-input-container {
+        opacity: 1;
+        margin-top: 0px;
+        z-index: 0; }
       .profile-section .central-container .profile-title .wide-central-container.wish-creation-input-container {
         position: absolute;
         top: 100%;

@@ -51,7 +51,7 @@
 
         rows += `<span class="central-container">`;
         rows += (following)? `<span class="profile-title following">` : `<span class="profile-title">`;
-        rows += '<span class="wishlist-container">';
+        rows += '<span id="wishlist-container" class="wishlist-container">';
         rows += '<span class="wishlist-title"><i class="fas fa-gift"></i> Lista de Deseos</span>';
         rows += '<span id="wishlist" class="wishlist">';
         if(wishes.length > 0){
@@ -66,7 +66,7 @@
         rows += '</span>';
         rows += '</span>';
         if(type == 0){
-            rows += '<span class="wide-central-container wish-creation-input-container expanded">';
+            rows += '<span class="wide-central-container wish-creation-input-container">';
             rows += '<span class="wish-creation-input">';
             rows += '<input class="wish-creation" type="text" placeholder="Nuevo deseo">';
             rows += '</span>';
@@ -179,7 +179,7 @@
             $('.profile-information-container').css('opacity', '1');
 
             $('#btn-wishlist').click((event)=>{
-                object = $('.wishlist-container');
+                object = $('#wishlist-container');
                 if(object.hasClass('expanded')){
                     object.removeClass('expanded');
                     if(type == 0){
@@ -201,6 +201,7 @@
             });
 
             $('.wish-creation').keyup(function(e){
+                console.log('hola');
                 if(e.keyCode == 13){
                     text = $(this).val(); 
                     if(/\S/.test(text)){
