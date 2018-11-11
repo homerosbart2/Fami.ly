@@ -131,14 +131,24 @@ function deactivateMask(){
     $('.mask').prop('id', '');
 }
 
-
 function flexImage(element) {
-    element.find('.flex-image').find('img').each((index, element)=>{
+    //console.log(element);
+    if(element !== undefined){
+        setSize(element)
+    }else{
+        $(document).find('.flex-image').find('img').each((index, element)=>{
+            setSize(element);
+        });
+    }
+
+    function setSize(element){
         var width = element.width;
         var height = element.height;
         if(width > height){
             $(element).css('height', '100%');
+            $(element).css('width', 'auto');
         }else{
+            $(element).css('height', 'auto');
             $(element).css('width', '100%');
         }
         height = element.height / 2;
@@ -146,7 +156,7 @@ function flexImage(element) {
         $(element).css('margin-top', `-${height}px`);
         $(element).css('margin-left', `-${width}px`);
         $(element).css('opacity', '1');
-    });
+    }
 }
 
 function scrollToMiddle(id) {
@@ -205,7 +215,7 @@ function generatePeopleResult(userId, user, country, userImage, invite, top){
     rows = '';
     rows += '<span class="people-result-container">';
     rows += '<img class="card-bg" src="'+userImage+'">';
-    rows += '<span class="user-card">';
+    rows += '<span class="user-card flex-image">';
     rows += '<img src="'+userImage+'">';
     rows += '</span>';
     rows += '<span class="information">';
@@ -219,10 +229,15 @@ function generatePeopleResult(userId, user, country, userImage, invite, top){
     }
     rows += '</span>';
     rows += '</span>';
+        object = $('.search-people-result-container');
     if(top){
-        $('.search-people-result-container').prepend(rows);
+        object.prepend(rows);
+        object = object.find('.people-result-container').eq(0).find('.flex-image').find('img');
+        object[0].onload = (event)=>{
+            flexImage(event.target);
+        };
     }else{
-        $('.search-people-result-container').append(rows);
+        object.append(rows);
     }
 }
 
@@ -250,7 +265,9 @@ function showMessage(type,title,text){
 
 $(document).ready(function(){
 
-    flexImage($('#header'));
+    $('#header').find('.flex-image').find('img').each((index, element)=>{
+        flexImage(element);
+    });
 
     noResultInSearch();
 

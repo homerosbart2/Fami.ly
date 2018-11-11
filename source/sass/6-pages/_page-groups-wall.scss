@@ -246,13 +246,16 @@
                                     padding-bottom: 100%;
                                     top: 0;
                                     left: 0;
-                                    justify-content: center;
+                                    //justify-content: center;
                                     overflow: hidden;
                                     img{
                                         position: absolute;
                                         display: flex;
-                                        height: 100%;
-                                        transition: 0.2s ease;
+                                        top: 50%;
+                                        left: 50%;
+                                        opacity: 0;
+                                        //height: 100%;
+                                        transition: filter 0.2s ease, opacity 0.4s ease;
                                     }
                                 }
                             }
@@ -791,7 +794,8 @@
                     .image{
                         position: relative;
                         display: flex;
-                        justify-content: center;
+                        //justify-content: center;
+                        width: 100%;
                         padding-bottom: 100%;
                         overflow: hidden;
                         border-radius: 4px;
@@ -799,6 +803,10 @@
                         img{
                             position: absolute;
                             height: 100%;
+                            left: 50%;
+                            top: 50%;
+                            opacity: 0;
+                            transition: opacity 0.2s ease;
                         }
                     }
                 }
