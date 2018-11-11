@@ -209,6 +209,9 @@ ADD COLUMN formato_img varchar(10) DEFAULT 'png';
 ALTER TABLE Usuarios
 ADD COLUMN name_img varchar(25) DEFAULT 'default';
 
+ALTER TABLE Usuarios
+ALTER COLUMN usuario_password TYPE varchar(255);
+
 CREATE TABLE Invitaciones(
 	invitacion_id SERIAL,
 	usuario_emisor_id integer,
@@ -236,3 +239,19 @@ ALTER USER social WITH ENCRYPTED PASSWORD '%SocialAdmin18%';
 GRANT ALL PRIVILEGES ON DATABASE "FAMILY" TO social;
 GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas,Imagenes,Invitaciones,NotificacionesInvitaciones TO social;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to social;
+
+-- CAMBIOS HECHOS
+CREATE TABLE Deseos(
+	deseo_id SERIAL,
+	nombre text,
+	usuario_id integer,
+	PRIMARY KEY(deseo_id),
+	FOREIGN KEY(usuario_id) REFERENCES Usuarios(usuario_id),
+	UNIQUE(nombre,usuario_id)
+);
+
+ALTER USER social WITH ENCRYPTED PASSWORD '%SocialAdmin18%';
+GRANT ALL PRIVILEGES ON DATABASE "FAMILY" TO social;
+GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas,Imagenes,Invitaciones,NotificacionesInvitaciones,Deseos TO social;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to social;
+

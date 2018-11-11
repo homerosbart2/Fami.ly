@@ -12,9 +12,13 @@
 
 <script>
     var ActualUrl;
+    var profile;
     function formatBirthday(date){
-        var splittedDate = date.split("-");
-        return `${splittedDate[2]} de ${months[parseInt(splittedDate[1]) - 1]}`;
+        if(date != undefined){
+            var splittedDate = date.split("-");
+            return `${splittedDate[2]} de ${months[parseInt(splittedDate[1]) - 1]}`;            
+        }
+        else return "";
     }
 
     function generateGroupCard(id, name, images){
@@ -53,7 +57,7 @@
         if(wishes.length > 0){
             rows += '<span class="wishes">';
             for(i in wishes){
-                rows += (type == 0)? `<span wish-id="${wishes[i].id}" class="wish">${wishes[i].wish} <a class="wish-delete"><i class="fas fa-times"></i></a></span>` : `<span wish-id="${wishes[i].id}" class="wish">${wishes[i].wish}</span>`;
+                rows += (type == 0)? `<span wish-id="${wishes[i].deseo_id}" class="wish">${wishes[i].nombre} <a class="wish-delete"><i class="fas fa-times"></i></a></span>` : `<span wish-id="${wishes[i].deseo_id}" class="wish">${wishes[i].nombre}</span>`;
             }
             rows += '</span>';
         }else{
@@ -198,25 +202,34 @@
 
             $('.wish-creation').keyup(function(e){
                 if(e.keyCode == 13){
-                    text = $(this).val();
+                    text = $(this).val(); 
                     if(/\S/.test(text)){
-                        //TODO: Ingresar el deseo a la DB   
-                        var wishId = 123;
-                        object = $('#wishlist').find('.wishes');
-                        if(object.length == 0){
-                            rows = '';
-                            rows += '<span class="wishes">';
-                            rows += `<span wish-id="${wishId}" class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
-                            rows += '</span>';
-                            $('#wishlist').html(rows);
-                        }else{
-                            rows = '';
-                            rows += `<span wish-id="${wishId}" class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
-                            object.prepend(rows);
-                        }
-                        $('#wishlist').find('.wishes').find('.wish-delete').first().click((event)=>{
-                            removeWish(event.target);
-                        });                        
+                        $.ajax({
+                            url: "../rutas_ajax/perfiles/deseo.php?",
+                            type: "POST",
+                            data: 'nombre='+text+'&deseo=&tipo=1',
+                            success: function(r){
+                                if(r > 0){
+                                    //TODO: Ingresar el deseo a la DB   
+                                    var wishId = r;
+                                    object = $('#wishlist').find('.wishes');
+                                    if(object.length == 0){
+                                        rows = '';
+                                        rows += '<span class="wishes">';
+                                        rows += `<span wish-id="${wishId}" class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                                        rows += '</span>';
+                                        $('#wishlist').html(rows);
+                                    }else{
+                                        rows = '';
+                                        rows += `<span wish-id="${wishId}" class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                                        object.prepend(rows);
+                                    }
+                                    $('#wishlist').find('.wishes').find('.wish-delete').first().click((event)=>{
+                                        removeWish(event.target);
+                                    });    
+                                }                             
+                            },
+                        });                                                
                     }
                 }
             });
@@ -227,11 +240,16 @@
 
             function removeWish(wish){
                 //TODO: Eliminar el deseo wishId de la DB
-                object = $(wish).parent().parent();
+                object = $(wish).parent().parent();  
+                var wishId = object.attr('wish-id');
                 object.remove();
-
-                var wishId = object.attr('wish-id'); 
-
+                $.ajax({
+                    url: "../rutas_ajax/perfiles/deseo.php?",
+                    type: "POST",
+                    data: 'nombre='+text+'&deseo='+ wishId + '&tipo=2',
+                    success: function(r){
+                    },
+                });
                 if($('#wishlist').find('.wishes').find('.wish').length == 0){
                     rows = '<span class="no-wishes"><i class="fas fa-box-open"></i> No tienes deseos</span>';
                     $('#wishlist').html(rows);
@@ -328,10 +346,24 @@
 
     function follow(follow){
         if(!follow){
+            $.ajax({
+                url: "../rutas_ajax/perfiles/seguir.php?",
+                type: "POST",
+                data: 'tipo=2&perfil='+profile,
+                success: function(r){                        
+                },
+            }); 
             //TODO: Eliminar el follow al usuario.
             $('.profile-title').removeClass('following');
             $('.button-section').find('.follow').html('Seguir');
         }else{
+            $.ajax({
+                url: "../rutas_ajax/perfiles/seguir.php?",
+                type: "POST",
+                data: 'tipo=1&perfil='+profile,
+                success: function(r){
+                },
+            });             
             //TODO: Hacer follow al usuario.
             $('.profile-title').addClass('following');
             $('.button-section').find('.follow').html('<i class="fas fa-check-circle"></i> Siguiendo');
@@ -353,17 +385,27 @@
                 // nombreCompleto = obj[0].nombres + " " + obj[0].apellidos;
                 var groups = [];
                 var groupNames = [];
+                var wishes = [];
                 var i;
-                for(i = 1; i < obj.length; i++){
+                for(i = 1; i < obj.length - 1; i++){
                     // if(obj[i][1].length > 0){
                         groups.push(obj[i][0].grupo_id);
                         groupNames.push(obj[i][0].apellido);
                     // }
                 }
-                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, [{id: '1', wish: 'Dinero'}, {id: '2', wish: 'Carro'}], ()=>{
-                    for(i = 1; i < obj.length; i++){
+
+                //recorremos los deseos
+                i = 0;
+                for(i = 0; i < obj[obj.length - 1].length; i++){
+                    wishes.push(obj[obj.length - 1][i]);
+                }
+
+                isfollow = false;
+                if(obj[0].isfollow == 1)  isfollow = true;
+                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false,wishes, ()=>{
+                    for(i = 1; i < (obj.length - 1); i++){
                         for(var j = 0; j < obj[i][1].length; j++){
-                            generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);
+                            generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, isfollow);
                         }
                     }
                 });                         
@@ -376,14 +418,14 @@
         profile = (actualUrl.split("=")[1]);
         listUserInfo(profile);
         //EXAMPLE: Ejemplo para generar un perfil de usuario ajeno.
-        /* generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', true, ()=>{
+        /* generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', [], true, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de grupos como en la pantalla de inicio.
             generateGroupCard(1, 'Hogar', ['../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face3.png','../../assets/img/users/face4.png']);
             generateGroupCard(2, 'Campos', ['../../assets/img/users/face3.png','../../assets/img/users/face5.png','../../assets/img/users/face6.png','../../assets/img/users/face7.png']);
             generateGroupCard(3, 'Ogáldez', ['../../assets/img/users/face8.png','../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face9.png']);
         }); */
 
-        //EXAMPLE: Ejemplo para generar un perfil de usuario actual.
+        // EXAMPLE: Ejemplo para generar un perfil de usuario actual.
         // generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', [3,4,5], ['Prueba1', 'Prueba2', 'Prueba3'], false, ()=>{
         //     //EXAMPLE: Ejemplos para generar tarjetas de usuario dependiendo del apellido.
         //     //TODO: No sé cómo vamos a hacer esto, podríamos agregar un botón en el perfil para indicar si esa persona es familiar y si es tío o abuela, pero se necesita otra tabla de familiares y en esa indicar si se está siguiendo o no.
