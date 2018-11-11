@@ -115,12 +115,23 @@
                 break;
             //Cualquier otro usuario.
             case 1:
-                rows += `<span class="groups-information">`;
-                rows += `<span class="info-title">Grupos en Común</span>`;
-                rows += `<span class="groups-container">`;
-                rows += `</span>`;
+                rows += `<span class="family-information">`;
+                rows += `<span class="info-title relatives">Grupos en común</span>`;
+                for(i in groupsIds){
+                    rows += `<span group-id="${groupsIds[i]}" class="users-container">`;
+                    rows += `<span class="users-lastname">${groupsNames[i]}</span>`;
+                    rows += `</span>`;
+                }
+                //rows += `<span class="info-title friends">Amigos</span>`;
+                rows += `<span class="users-container">`;
                 rows += `</span>`;
                 break;
+                // rows += `<span class="groups-information">`;
+                // rows += `<span class="info-title">Grupos en Común</span>`;
+                // rows += `<span class="groups-container">`;
+                // rows += `</span>`;
+                // rows += `</span>`;
+                // break;
             rows += `</span>`;
         }
         rows += `</span>`;
@@ -251,7 +262,6 @@
         flexFont();
         flexImage();
     };
-    
 
     function follow(follow){
         if(!follow){
