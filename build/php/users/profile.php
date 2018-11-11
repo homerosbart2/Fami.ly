@@ -12,9 +12,13 @@
 
 <script>
     var ActualUrl;
+    var profile;
     function formatBirthday(date){
-        var splittedDate = date.split("-");
-        return `${splittedDate[2]} de ${months[parseInt(splittedDate[1]) - 1]}`;
+        if(date != undefined){
+            var splittedDate = date.split("-");
+            return `${splittedDate[2]} de ${months[parseInt(splittedDate[1]) - 1]}`;            
+        }
+        else return "";
     }
 
     function generateGroupCard(id, name, images){
@@ -115,7 +119,7 @@
                 break;
             //Cualquier otro usuario.
             case 1:
-            rows += `<span class="family-information">`;
+                rows += `<span class="family-information">`;
                 rows += `<span class="info-title relatives">Grupos en común</span>`;
                 for(i in groupsIds){
                     rows += `<span group-id="${groupsIds[i]}" class="users-container">`;
@@ -126,6 +130,12 @@
                 rows += `<span class="users-container">`;
                 rows += `</span>`;
                 break;
+                // rows += `<span class="groups-information">`;
+                // rows += `<span class="info-title">Grupos en Común</span>`;
+                // rows += `<span class="groups-container">`;
+                // rows += `</span>`;
+                // rows += `</span>`;
+                // break;
             rows += `</span>`;
         }
         rows += `</span>`;
@@ -259,10 +269,24 @@
 
     function follow(follow){
         if(!follow){
+            $.ajax({
+                url: "../rutas_ajax/perfiles/seguir.php?",
+                type: "POST",
+                data: 'tipo=2&perfil='+profile,
+                success: function(r){                        
+                },
+            }); 
             //TODO: Eliminar el follow al usuario.
             $('.profile-title').removeClass('following');
             $('.button-section').find('.follow').html('Seguir');
         }else{
+            $.ajax({
+                url: "../rutas_ajax/perfiles/seguir.php?",
+                type: "POST",
+                data: 'tipo=1&perfil='+profile,
+                success: function(r){
+                },
+            });             
             //TODO: Hacer follow al usuario.
             $('.profile-title').addClass('following');
             $('.button-section').find('.follow').html('<i class="fas fa-check-circle"></i> Siguiendo');
@@ -292,7 +316,9 @@
                         groupNames.push(obj[i][0].apellido);
                     // }
                 }
-                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, ['Dinero', 'Carro', 'Ropa', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro'], ()=>{
+                isfollow = false;
+                if(obj[0].isfollow == 1)  isfollow = true;
+                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,isfollow, ['Dinero', 'Carro', 'Ropa', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro'], ()=>{
                     for(i = 1; i < obj.length; i++){
                         for(var j = 0; j < obj[i][1].length; j++){
                             generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);
@@ -308,14 +334,14 @@
         profile = (actualUrl.split("=")[1]);
         listUserInfo(profile);
         //EXAMPLE: Ejemplo para generar un perfil de usuario ajeno.
-        /* generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', true, ()=>{
+        /* generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', [], true, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de grupos como en la pantalla de inicio.
             generateGroupCard(1, 'Hogar', ['../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face3.png','../../assets/img/users/face4.png']);
             generateGroupCard(2, 'Campos', ['../../assets/img/users/face3.png','../../assets/img/users/face5.png','../../assets/img/users/face6.png','../../assets/img/users/face7.png']);
             generateGroupCard(3, 'Ogáldez', ['../../assets/img/users/face8.png','../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face9.png']);
         }); */
 
-        //EXAMPLE: Ejemplo para generar un perfil de usuario actual.
+        // EXAMPLE: Ejemplo para generar un perfil de usuario actual.
         // generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', [3,4,5], ['Prueba1', 'Prueba2', 'Prueba3'], false, ()=>{
         //     //EXAMPLE: Ejemplos para generar tarjetas de usuario dependiendo del apellido.
         //     //TODO: No sé cómo vamos a hacer esto, podríamos agregar un botón en el perfil para indicar si esa persona es familiar y si es tío o abuela, pero se necesita otra tabla de familiares y en esa indicar si se está siguiendo o no.
