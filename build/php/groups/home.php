@@ -27,21 +27,21 @@
 
 <script>
 
-function flexFont() {
-    var divs = document.getElementsByClassName("flexFont");
-    for(var i = 0; i < divs.length; i++) {
-        var relFontsize = divs[i].offsetWidth*0.12;
-        divs[i].style.fontSize = relFontsize+'px';
-    }
-};
+    function flexFont() {
+        var divs = document.getElementsByClassName("flexFont");
+        for(var i = 0; i < divs.length; i++) {
+            var relFontsize = divs[i].offsetWidth*0.12;
+            divs[i].style.fontSize = relFontsize+'px';
+        }
+    };
 
-window.onload = function(event) {
-    flexFont();
-};
+    window.onload = function(event) {
+        flexFont();
+    };
 
-window.onresize = function(event) {
-    flexFont();
-};
+    window.onresize = function(event) {
+        flexFont();
+    };
 
     //Función para generar las tarjetas de los grupos, que recibe el [id] del grupo, [name] del grupo, [images] que son 4 imágenes al azar de los miembros del grupo, podrían ser las imágenes de las primeras 4 personas del grupo e [invitationId] que es el identificador de la invitación. (Si no es una invitación, no se debe enviar el argumento [invitationId])
     function generateGroupCard(id, name, images, invitationId){
@@ -73,7 +73,12 @@ window.onresize = function(event) {
         }
         rows += '</span>';
         $('.groups-container').append(rows);
-        flexImage($(`#${id}`));
+        object = $(`#${id}`).find('.flex-image').find('img');
+        object.each((index, element)=>{
+            element.onload = ()=>{
+                flexImage(element);
+            };
+        });
         flexFont();
         if(invitationId !== undefined){
             $('#' + id).find('.options').find('.accept').click((event)=>{

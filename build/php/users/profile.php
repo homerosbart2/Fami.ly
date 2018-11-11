@@ -41,11 +41,25 @@
     }
 
     //Función para generar los perfiles de los usuarios, recibe [type] que es el tipo de usuario (0 si es el usuario actual y 1 si es cualquier otro usuario), [username] que es el nombre de usuario, [name] que es un arreglo con los nombres y apellidos (['nombre', 'nombre', 'apellido', 'apellido']), [birthday] que es el cumpleaños (como 27 de marzo), [gender] que es el género, [country] que es el país, [image] que es el path de la imagen del usuario, [following] booleano que indica si se está siguiendo (debe ser false si es el perfil del usuario actual) y [callback] que es una función que se ejecuta al finalizar la generación del perfil (En el callback podes llamar a los métodos de generación de tarjetas).
-    function generateUserProfile(type, username, name, birthday, gender, country, image, groupsIds, groupsNames, following, callback){
+    function generateUserProfile(type, username, name, birthday, gender, country, image, groupsIds, groupsNames, following, wishes, callback){
         rows = '';
 
         rows += `<span class="central-container">`;
         rows += (following)? `<span class="profile-title following">` : `<span class="profile-title">`;
+        rows += '<span class="wishlist-container">';
+        rows += '<span class="wishlist-title"><i class="fas fa-gift"></i> Lista de Deseos</span>';
+        rows += '<span class="wishlist">';
+        if(wishes.length > 0){
+            rows += '<span class="wishes">';
+            for(i in wishes){
+                rows += `<span class="wish">${wishes[i]} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+            }
+            rows += '</span>';
+        }else{
+            rows += `<span class="no-wishes"><i class="fas fa-box-open"></i> No tienes deseos</span>`;
+        }
+        rows += '</span>';
+        rows += '</span>';
         rows += `<img class="title-bg" src="${image}">`;
         //#user-image-file es el input con la imagen.
         rows += (type == 0)? `<span class="profile-img flex-image me"><input type="file" onchange="(readImg(this));" id="user-image-file">` : `<span class="profile-img flex-image">`;
@@ -78,7 +92,7 @@
         rows += `</span>`;
         rows += `<span class="profile-information-container">`;
         rows += `<span class="profile-information">`;
-        rows += `<span class="btn-wishlist"><i class="fas fa-gift"></i></span>`;
+        rows += `<span id="btn-wishlist" class="btn-wishlist"><i class="fas fa-gift"></i></span>`;
         rows += `<span class="info-title">Información</span>`;
         rows += `<span class="birthday"><span class="icon"><i class="fas fa-birthday-cake"></i></span> ${birthday}</span>`;
         rows += `<span class="gender"><span class="icon"><i class="fas fa-mars"></i></span> ${gender}</span>`;
@@ -127,18 +141,34 @@
                 $('#user-image-file').click();
             });
         }
-        flexImage($('#profile-section').find('.central-container').find('.profile-title'));
-        callback();
-        $('.profile-title').css('opacity', '1');
-        $('.title-bg').css('opacity', '1');
-        $('.title-bg').css('transform', 'scale(1)');
-        $('.profile-information-container').css('opacity', '1');
+        object = $('#profile-section').find('.central-container').find('.profile-title').find('.flex-image').find('img');
+        object[0].onload = (event)=>{
+            flexImage(event.target);
+        }
+        //flexImage($('#profile-section').find('.central-container').find('.profile-title').find('.flex-image'));
+        setTimeout(() => {
+            callback();
+            $('.profile-title').css('opacity', '1');
+            $('.title-bg').css('opacity', '1');
+            $('.title-bg').css('transform', 'scale(1.2)');
+            $('.profile-information-container').css('opacity', '1');
+            $('#btn-wishlist').click((event)=>{
+                object = $('.wishlist-container');
+                if(object.hasClass('expanded')){
+                    object.removeClass('expanded');
+                    $('.btn-wishlist').removeClass('selected');
+                } else {
+                    object.addClass('expanded');
+                    $('.btn-wishlist').addClass('selected');
+                }
+            });
+        }, 10);
     }
 
     //Función para generar las tarjetas de usuario, que recibe [id] del usuario, [name] primer nombre del usuario, [lastname] que es 0 si el apellido en común es el primer apellido del usuario que inició sesión, 1 si el segundo es el común y 2 si no tienen apellidos en común, [image] que es el path a la imagen del usuario y [following] que es true si el usuario actual está siguiendo a este.
     function generateUserCard(id, name, group, image, following){
         rows = '';
-        rows += (following)? `<span user-id="${id}" class="user-card following">` : `<span user-id="${id}" class="user-card">`;
+        rows += (following)? `<span user-id="${id}" class="user-card following flex-image">` : `<span user-id="${id}" class="user-card flex-image">`;
         //rows += `<span class="follow-indicator"><i class="fas fa-check-circle"></i></span>`;
         rows += `<img class="image top-left" src="${image}">`;
         rows += `<span class="name">${name}</span>`;
@@ -147,7 +177,11 @@
             var element = $(element);
             if(element.attr('group-id') == group){
                 element.append(rows);
-                element.find('.user-card').last().click((event)=>{
+                object = element.find('.user-card').last();
+                (object.find('img')[0]).onload = (event)=>{
+                    flexImage(event.target);
+                };
+                object.click((event)=>{
                     //TODO: Direccionar al perfil del usuario con el identificador [id].
                 });
             }
@@ -214,6 +248,7 @@
 
     window.onresize = function(event) {
         flexFont();
+        flexImage();
     };
 
     function follow(follow){
@@ -245,7 +280,7 @@
                         groupNames.push(obj[i][0].apellido);
                     }
                 }
-                generateUserProfile(0, obj[0].usuario, nombreCompleto.split(" "), formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, ()=>{
+                generateUserProfile(0, obj[0].usuario, nombreCompleto.split(" "), formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, ['Dinero', 'Carro', 'Ropa', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro'], ()=>{
                     for(i = 1; i < obj.length; i++){
                         for(var j = 0; j < obj[i][1].length; j++){
                             generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);

@@ -9,6 +9,7 @@
     z-index: 2000;
     top: -100vh;
     overflow: hidden;
+    transition: 0.2s ease;
     &.expanded{
         top: 0;
     }

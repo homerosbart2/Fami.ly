@@ -16,7 +16,7 @@
             justify-content: flex-start;
             width: 100%;
             //background-image: linear-gradient(-45deg, $main, $secondary);
-            background: gray;
+            //background: gray;
             &.following{
                 .profile-img{
                     border: 5px solid $light-main;
@@ -46,6 +46,82 @@
                     }
                 }
             }
+            .wishlist-container{
+                position: absolute;
+                z-index: 0;
+                opacity: 0;
+                display: flex;
+                flex-direction: column;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                overflow-y: scroll;
+                background: $main-contrast;
+                color: $light-main;
+                transition: opacity 0.2s ease;
+                &.expanded{
+                    z-index: 2;
+                    opacity: 1;
+                }
+                .wishlist-title{
+                    display: flex;
+                    align-items: center;
+                    margin-top: 15px;
+                    margin-left: 25px;
+                    display: flex;
+                    height: 25px;
+                    flex-shrink: 0;
+                    //text-align: center;
+                    font-size: 16px;
+                    font-weight: bold;
+                    //text-transform: uppercase;
+                    i, svg{
+                        font-size: 20px;
+                        margin-right: 9px;
+                    }
+                }
+                .wishlist{
+                    margin-left: 25px;
+                    display: flex;
+                    justify-content: center;
+                    .no-wishes{
+                        color: rgb(204, 204, 204);
+                        display: flex;
+                        height: 120px;
+                        justify-content: center;
+                        align-items: center;
+                        i, svg{
+                            margin-right: 3px;
+                        }
+                    }
+                    .wishes{
+                        display: flex;
+                        flex-direction: column;
+                        min-width: 200px;
+                        overflow-y: scroll;
+                        border-left: 3px solid $light-main;
+                        margin-bottom: 12px;
+                        .wish{
+                            margin: 6.5px 12px;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            flex-shrink: 0;
+                            &:first-child{
+                                margin-top: 0px;
+                            }
+                            &:last-child{
+                                margin-bottom: 0px;
+                            }
+                            .wish-delete{
+                                color: $light-main;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
             .expand-profile-picture{
                 position: absolute;
                 z-index: 3;
@@ -60,7 +136,7 @@
                 position: absolute;
                 width: 100%;
                 opacity: 0;
-                transform: scale(1.5);
+                transform: scale(3);
             }
             .profile-img{
                 position: relative;
@@ -132,7 +208,6 @@
                 }
                 .user-lastnames{
                     font-weight: 600;
-                    text-transform: uppercase;
                 }
                 .user-alias{
                     font-size: 16px;
@@ -211,6 +286,19 @@
                     border-radius: 40px;
                     padding: 10px 10px;
                     transition: 0.2s ease;
+                    &.selected{
+                        color: $light-main;
+                        background: $main-contrast;
+                        //transform: scale(1.05);
+                        &:hover,
+                        &:active,
+                        &:focus{
+                            color: $light-main;
+                            background: $main-contrast;
+                            transform: scale(1.05);
+                            //box-shadow: 0 5px 10px rgba(0, 0, 0, 0.089);
+                        }
+                    }
                     &:hover,
                     &:active,
                     &:focus{

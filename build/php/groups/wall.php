@@ -137,7 +137,7 @@
                             </span>                         
                             <!-- NECESITO ESTE DIV CON ID "img-viewer" AQUI VOY A MOSTRAR AL CARGAR LA IMAGEN --> 
                             <span class="centered-image-container">
-                                <span class="image-viewer-container">
+                                <span class="image-viewer-container flex-image">
                                     <img id="img-viewer"/>
                                 </span>   
                             </span>                                
@@ -199,6 +199,10 @@
     var ubication;
     var windowWidth;
     var option;
+
+    window.onresize = function(event) {
+        flexImage();
+    };
 
     function updatePercents(post){
         object = $('#' + post).children('.answers').find('.answer');
@@ -282,7 +286,7 @@
             rows += `<span class="user-name">${user.split(' ')[0]}</span>`;
         }
         rows += `<span class="text searchable">${text}</span>`;
-        rows += `<span class="image">`;
+        rows += `<span class="image flex-image">`;
         rows += `<img src="${image}">`;
         rows += `</span>`;
         rows += `<span class="time">${time}</span>`;
@@ -293,6 +297,12 @@
         hidePostCreatorForm();
         $('.image-input-container').removeClass('image-selected');
         $('#img-viewer').attr('src', '');
+        object = $(`#${id}`).find('img');
+        object.each((index, element)=>{
+            element.onload = ()=>{
+                flexImage(element);
+            }
+        });
         window.scroll({
             top: 0, 
             left: 0, 
@@ -674,7 +684,11 @@
                 var reader = new FileReader();
                 reader.onload = function (e) {
                     $('.image-input-container').addClass('image-selected');
-                    $('#img-viewer').attr('src', e.target.result);
+                    object = $('#img-viewer');
+                    object.attr('src', e.target.result);
+                    object[0].onload = (event)=>{
+                        flexImage(event.target);
+                    };
                 };
                 reader.readAsDataURL(input.files[0]);
             }
@@ -1032,7 +1046,6 @@ function initWallListeners(){
 
         //Función que se llama al presionar la flecha izquierda, que cambia de formulario.
         $('.left-arrow').children('.button').click(function(){
-            console.log('hola');
             $('.inputs-right').css('opacity', '1');
             $('.inputs-left').css('opacity', '0');
             object = $('.inputs-center');
@@ -1281,6 +1294,7 @@ function initWallListeners(){
                 }
                 if(loading){
                     showChargingAnimation(false);
+                    //flexImage();
                     $('.chatbox-container').removeClass('hidden');   
                 }
                 updatePosts();                                               
