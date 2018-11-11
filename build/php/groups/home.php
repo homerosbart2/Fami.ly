@@ -49,7 +49,8 @@ window.onresize = function(event) {
         var count = 0;
         var empty = (images.length == 0)? ' empty' : '';
         var invite = (invitationId !== undefined)? ' invitation' : '';
-        rows += `<span id="${id}" class="group-card${empty}${invite}">`;
+        if(invitationId == undefined) rows += `<span id="${id}" tipo="1" class="group-card${empty}${invite}">`;
+        else  rows += `<span id="${id}"  tipo="2" class="group-card${empty}${invite}">`;
         for(i in images){
             rows += '<span class="image flex-image">';
             rows += `<img src="${images[i]}">`;
@@ -77,13 +78,12 @@ window.onresize = function(event) {
         flexFont();
         if(invitationId !== undefined){
             $('#' + id).find('.options').find('.accept').click((event)=>{
-                //alert("entra");
                 $.ajax({
                     url: "../rutas_ajax/invitaciones/cambiar_estado.php?invitacion=" + invitationId + "&tipo=1",
                     type: "POST",
                     success: function(r){
                         if(r > 0){
-                            // $(location).attr('href', 'wall.php?id=' + r);
+                            $(location).attr('href', 'wall.php?id=' + r);
                         }
                     },
                 });                
@@ -95,10 +95,10 @@ window.onresize = function(event) {
                     type: "POST",
                     success: function(r){
                         if(r == -1){
-                            // $(location).attr('href', 'home.php?');
+                            $(location).attr('href', 'home.php?');
                         }
                     },
-                });  ;
+                });  
             });
         }
         $(`#${id}`).css('opacity', '1');
@@ -159,7 +159,8 @@ $(document).ready(function(){
 
         $(document).on('click', '.group-card', function () {
             id = $(this).attr("id");
-            $(location).attr('href', 'wall.php?id=' + id);
+            tipo = $(this).attr("tipo");
+            if(tipo == 1) $(location).attr('href', 'wall.php?id=' + id);
         });
 
         $('.create-group').click(function(){

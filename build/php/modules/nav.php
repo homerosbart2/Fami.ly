@@ -213,7 +213,7 @@ function generatePeopleResult(userId, user, country, userImage, invite, top){
     rows += '<span class="user-country"><i class="fas fa-globe-americas"></i> '+country+'</span>';
     rows += '</span>';
     rows += '<span class="options">';
-    rows += '<a class="btn-login profile">Perfil</a>';
+    rows += '<a class="btn-login profile" id="'+ userId + '">Perfil</a>';
     if(invite){
         rows += '<a class="btn-login invite" id="' + userId + '">Invitar</a>';
     }
@@ -238,14 +238,34 @@ function noResultInSearch(){
     $('.search-people-result-container').html(rows);
 }
 
+function showMessage(type,title,text){
+    var opts = {
+    };
+    opts.title = title;
+    opts.text = text;
+    opts.type = type;
+    opts.styling = 'bootstrap3';
+    new PNotify(opts);
+}
+
 $(document).ready(function(){
 
     flexImage($('#header'));
 
     noResultInSearch();
 
+    $(document).on('click', '.profile', function() {
+        id = $(this).attr("id"); //id de usuario
+        // var params = "id=" + id;
+        // code = btoa(params);
+        // decode = atob(code);
+        // console.log("code " + code);
+        // console.log("decode " + decode);
+        $(location).attr('href', '../users/profile.php?id=' + id);  
+    });
+
     $(document).on('click', '.invite', function () {
-        id = $(this).attr("id");
+        id = $(this).attr("id"); //id de usuario
         $.ajax({
             url: "../rutas_ajax/invitaciones/invitar.php?to=" + id + "&grupo=" + groupId,
             type: "POST",
@@ -253,7 +273,7 @@ $(document).ready(function(){
                 if(r == 1){
                     //alert("NOTIFICACION CREADA");
                 }else{
-                    //alert("EL USUARIO YA TIENE UNA SOLICITUD CREADA");
+                    showMessage("warning","Invitación.","El usuario ya tiene una invitación al grupo pendiente.");
                 }
             },
         }); 

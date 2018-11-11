@@ -15,7 +15,6 @@
             if(password_verify($password, $row["usuario_password"])){
                 session_start();
                 //creamos las variables de sesion
-                
                 $usuario = $row["usuario_id"];
                 $_SESSION['usuario_actual_nombre'] = $row["nombres"];
                 $_SESSION['usuario_actual'] = $row["usuario"];

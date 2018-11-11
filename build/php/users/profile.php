@@ -2,7 +2,7 @@
 <head>
     <title>Inicio</title>
     <?php
-        include '../modules/nav.php';
+        include '../modules/nav.php';   
     ?>
 </head>
 <body>
@@ -11,6 +11,7 @@
 </body>
 
 <script>
+    var ActualUrl;
     function formatBirthday(date){
         var splittedDate = date.split("-");
         return `${splittedDate[2]} de ${months[parseInt(splittedDate[1]) - 1]}`;
@@ -41,7 +42,7 @@
     }
 
     //Función para generar los perfiles de los usuarios, recibe [type] que es el tipo de usuario (0 si es el usuario actual y 1 si es cualquier otro usuario), [username] que es el nombre de usuario, [name] que es un arreglo con los nombres y apellidos (['nombre', 'nombre', 'apellido', 'apellido']), [birthday] que es el cumpleaños (como 27 de marzo), [gender] que es el género, [country] que es el país, [image] que es el path de la imagen del usuario, [following] booleano que indica si se está siguiendo (debe ser false si es el perfil del usuario actual) y [callback] que es una función que se ejecuta al finalizar la generación del perfil (En el callback podes llamar a los métodos de generación de tarjetas).
-    function generateUserProfile(type, username, name, birthday, gender, country, image, groupsIds, groupsNames, following, callback){
+    function generateUserProfile(type, username, name, lastname, birthday, gender, country, image, groupsIds, groupsNames, following, callback){
         rows = '';
 
         rows += `<span class="central-container">`;
@@ -54,10 +55,10 @@
         rows += `</span>`;
         rows += `<span class="name-container">`;
         rows += `<span class="user-lastnames">`;
-        rows += `${name[2]} ${name[3]}`;
+        rows += `${lastname}`;
         rows += `</span>`;
         rows += `<span class="user-names">`;
-        rows += `${name[0]} ${name[1]}`;
+        rows += `${name}`;
         rows += `</span>`;
         rows += `<span class="user-alias">`;
         rows += `<b>@</b>${username}`;
@@ -228,9 +229,14 @@
         }
     }
 
-    function listUserInfo(){
+    function listUserInfo(profile){
+        var type = 1;
+        if(profile == undefined) {
+            profile="";
+            type = 0;
+        }
         $.ajax({
-            url: "../rutas_ajax/perfiles/informacion_usuario.php?",
+            url: "../rutas_ajax/perfiles/informacion_usuario.php?perfil=" + profile,
             type: "POST",
             success: function(r){
                 obj = JSON.parse(r);
@@ -240,12 +246,12 @@
                 var groupNames = [];
                 var i;
                 for(i = 1; i < obj.length; i++){
-                    if(obj[i][1].length > 0){
+                    // if(obj[i][1].length > 0){
                         groups.push(obj[i][0].grupo_id);
                         groupNames.push(obj[i][0].apellido);
-                    }
+                    // }
                 }
-                generateUserProfile(0, obj[0].usuario, nombreCompleto.split(" "), formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, ()=>{
+                generateUserProfile(type, obj[0].usuario, obj[0].nombres, obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, ()=>{
                     for(i = 1; i < obj.length; i++){
                         for(var j = 0; j < obj[i][1].length; j++){
                             generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);
@@ -257,7 +263,9 @@
     }
 
     $(document).ready(()=>{
-        listUserInfo();
+        actualUrl = window.location.href;
+        profile = (actualUrl.split("=")[1]);
+        listUserInfo(profile);
         //EXAMPLE: Ejemplo para generar un perfil de usuario ajeno.
         /* generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', true, ()=>{
             //EXAMPLE: Ejemplos para generar tarjetas de grupos como en la pantalla de inicio.
