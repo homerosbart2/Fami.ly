@@ -49,7 +49,7 @@
         rows += (following)? `<span class="profile-title following">` : `<span class="profile-title">`;
         rows += '<span class="wishlist-container">';
         rows += '<span class="wishlist-title"><i class="fas fa-gift"></i> Lista de Deseos</span>';
-        rows += '<span class="wishlist">';
+        rows += '<span id="wishlist" class="wishlist">';
         if(wishes.length > 0){
             rows += '<span class="wishes">';
             for(i in wishes){
@@ -61,7 +61,14 @@
         }
         rows += '</span>';
         rows += '</span>';
+        rows += '<span class="wide-central-container wish-creation-input-container expanded">';
+        rows += '<span class="wish-creation-input">';
+        rows += '<input class="wish-creation" type="text" placeholder="Nuevo deseo">';
+        rows += '</span>';
+        rows += '</span>';
+        rows += '<span class="title-bg-container">';
         rows += `<img class="title-bg" src="${image}">`;
+        rows += '</span>';
         //#user-image-file es el input con la imagen.
         rows += (type == 0)? `<span class="profile-img flex-image me"><input type="file" onchange="(readImg(this));" id="user-image-file">` : `<span class="profile-img flex-image">`;
         rows += `<img src="${image}">`;
@@ -168,11 +175,48 @@
                 object = $('.wishlist-container');
                 if(object.hasClass('expanded')){
                     object.removeClass('expanded');
+                    $('.profile-information-container').removeClass('pushed-down');
                     $('.btn-wishlist').removeClass('selected');
                 } else {
                     object.addClass('expanded');
+                    $('.profile-information-container').addClass('pushed-down');
                     $('.btn-wishlist').addClass('selected');
+                    window.scroll({
+                        top: 0, 
+                        left: 0, 
+                        behavior: 'smooth' 
+                    });
                 }
+            });
+
+            $('.wish-creation').keyup(function(e){
+                if(e.keyCode == 13){
+                    text = $(this).val();
+                    if(/\S/.test(text)){
+                        object = $('#wishlist').find('.wishes');
+                        if(object.length == 0){
+                            rows = '';
+                            rows += '<span class="wishes">';
+                            rows += `<span class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                            rows += '</span>';
+                            $('#wishlist').html(rows);
+                        }else{
+                            rows = '';
+                            rows += `<span class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                            object.prepend(rows);
+                        }
+                        $('#wishlist').find('.wishes').find('.wish-delete').first().click((event)=>{
+                            $(event.target).parent().parent().remove();
+                            //TODO: Eliminar el deseo de la DB
+                        });
+                        //TODO: Ingresar el deseo a la DB                           
+                    }
+                }
+            });
+
+            $('#wishlist').find('.wishes').find('.wish-delete').click((event)=>{
+                $(event.target).parent().parent().remove();
+                //TODO: Eliminar el deseo de la DB
             });
         }, 10);
     }
@@ -297,7 +341,7 @@
                         groupNames.push(obj[i][0].apellido);
                     // }
                 }
-                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, ['Dinero', 'Carro', 'Ropa', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro'], ()=>{
+                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, [/* 'Dinero', 'Carro', 'Ropa', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro' */], ()=>{
                     for(i = 1; i < obj.length; i++){
                         for(var j = 0; j < obj[i][1].length; j++){
                             generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);

@@ -939,7 +939,7 @@ body.disableScrollBar {
     top: 50%;
     left: 50%;
     opacity: 0;
-    transition: transform 0.4s ease, filter 0.2s ease, opacity 0.2s ease;
+    transition: transform 0.4s ease, filter 0.4s ease, opacity 0.2s ease;
     transform: scale(1.3);
     filter: blur(10px) brightness(0.7); }
   .user-card .name {
@@ -1002,11 +1002,14 @@ body.disableScrollBar {
         display: flex;
         justify-content: space-between;
         flex-shrink: 0;
-        margin-bottom: 9px; }
+        margin-bottom: 9px;
+        opacity: 0;
+        transition: 0.3s ease; }
         .search-people-container .search-people .search-people-result-container .people-result-container .card-bg {
           position: absolute;
           width: 100%;
-          filter: blur(30px) brightness(0.8); }
+          filter: blur(30px) brightness(0.8);
+          transform: scale(1.1); }
         .search-people-container .search-people .search-people-result-container .people-result-container .user-card {
           cursor: default;
           flex-shrink: 0;
@@ -1171,7 +1174,6 @@ body.disableScrollBar {
     .profile-section .central-container .profile-title {
       transition: 0.2s ease;
       opacity: 0;
-      overflow: hidden;
       position: relative;
       display: flex;
       align-items: center;
@@ -1195,6 +1197,35 @@ body.disableScrollBar {
               top: 10px;
               width: auto;
               height: 80vh; } }
+      .profile-section .central-container .profile-title .wide-central-container.wish-creation-input-container {
+        position: absolute;
+        top: 100%;
+        margin-top: -58px;
+        display: flex;
+        background: #000B2B;
+        transition: 0.2s ease;
+        z-index: 0;
+        opacity: 0; }
+        .profile-section .central-container .profile-title .wide-central-container.wish-creation-input-container .wish-creation-input {
+          width: 100%;
+          max-width: 500px;
+          display: flex; }
+          .profile-section .central-container .profile-title .wide-central-container.wish-creation-input-container .wish-creation-input .wish-creation {
+            color: #000B2B;
+            height: 38px;
+            background: white;
+            width: 100%;
+            border-radius: 0;
+            text-align: left;
+            padding: 0 10px;
+            margin: 10px 10px; }
+            @media only screen and (max-width: 500px) {
+              .profile-section .central-container .profile-title .wide-central-container.wish-creation-input-container .wish-creation-input .wish-creation {
+                border-radius: 3px; }
+                .profile-section .central-container .profile-title .wide-central-container.wish-creation-input-container .wish-creation-input .wish-creation:active, .profile-section .central-container .profile-title .wide-central-container.wish-creation-input-container .wish-creation-input .wish-creation:focus {
+                  margin: 0 0;
+                  height: 58px;
+                  border-radius: 0; } }
       .profile-section .central-container .profile-title .wishlist-container {
         position: absolute;
         z-index: 0;
@@ -1212,6 +1243,10 @@ body.disableScrollBar {
         .profile-section .central-container .profile-title .wishlist-container.expanded {
           z-index: 2;
           opacity: 1; }
+          .profile-section .central-container .profile-title .wishlist-container.expanded + .wide-central-container.wish-creation-input-container {
+            opacity: 1;
+            margin-top: 0px;
+            z-index: 0; }
         .profile-section .central-container .profile-title .wishlist-container .wishlist-title {
           display: flex;
           align-items: center;
@@ -1232,7 +1267,7 @@ body.disableScrollBar {
           .profile-section .central-container .profile-title .wishlist-container .wishlist .no-wishes {
             color: #cccccc;
             display: flex;
-            height: 120px;
+            height: 140px;
             justify-content: center;
             align-items: center; }
             .profile-section .central-container .profile-title .wishlist-container .wishlist .no-wishes i, .profile-section .central-container .profile-title .wishlist-container .wishlist .no-wishes svg {
@@ -1256,7 +1291,8 @@ body.disableScrollBar {
                 margin-bottom: 0px; }
               .profile-section .central-container .profile-title .wishlist-container .wishlist .wishes .wish .wish-delete {
                 color: #ffebe7;
-                cursor: pointer; }
+                cursor: pointer;
+                margin-left: 12px; }
       .profile-section .central-container .profile-title .expand-profile-picture {
         position: absolute;
         z-index: 3;
@@ -1264,13 +1300,19 @@ body.disableScrollBar {
         bottom: 10px;
         color: white;
         cursor: pointer; }
-      .profile-section .central-container .profile-title .title-bg {
-        transition: 0.6s ease;
-        filter: blur(30px) brightness(0.7);
+      .profile-section .central-container .profile-title .title-bg-container {
         position: absolute;
+        display: flex;
         width: 100%;
-        opacity: 0;
-        transform: scale(3); }
+        height: 100%;
+        overflow: hidden; }
+        .profile-section .central-container .profile-title .title-bg-container .title-bg {
+          transition: 0.6s ease;
+          filter: blur(30px) brightness(0.7);
+          position: absolute;
+          width: 100%;
+          opacity: 0;
+          transform: scale(3); }
       .profile-section .central-container .profile-title .profile-img {
         position: relative;
         width: 20%;
@@ -1362,14 +1404,19 @@ body.disableScrollBar {
       padding: 8px 3px;
       display: flex;
       flex-direction: column;
-      transition: 1s ease;
+      transition: opacity 1s ease, margin 0.2s ease;
       opacity: 0; }
+      .profile-section .central-container .profile-information-container.pushed-down {
+        margin-top: 58px; }
+        .profile-section .central-container .profile-information-container.pushed-down .profile-information .btn-wishlist {
+          top: -43px; }
       .profile-section .central-container .profile-information-container .info-title {
         font-size: 16px;
         font-weight: bold;
         color: #000B2B;
         width: 100%;
-        display: flex; }
+        display: flex;
+        z-index: -1; }
       .profile-section .central-container .profile-information-container .profile-information {
         position: relative;
         display: flex;
@@ -1400,7 +1447,8 @@ body.disableScrollBar {
         .profile-section .central-container .profile-information-container .profile-information .birthday, .profile-section .central-container .profile-information-container .profile-information .gender, .profile-section .central-container .profile-information-container .profile-information .country {
           display: flex;
           flex-direction: row;
-          align-items: center; }
+          align-items: center;
+          z-index: -1; }
           .profile-section .central-container .profile-information-container .profile-information .birthday .icon, .profile-section .central-container .profile-information-container .profile-information .gender .icon, .profile-section .central-container .profile-information-container .profile-information .country .icon {
             display: flex;
             width: 20px;
