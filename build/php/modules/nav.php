@@ -38,8 +38,38 @@
 ?>  
     </head>
     <body>
+        <script>
+            function flexImage(element) {
+                //console.log(element);
+                if(element !== undefined){
+                    setSize(element)
+                }else{
+                    $(document).find('.flex-image').find('img').each((index, element)=>{
+                        setSize(element);
+                    });
+                }
+
+                function setSize(element){
+                    var width = element.width;
+                    var height = element.height;
+                    if(width > height){
+                        $(element).css('height', '100%');
+                        $(element).css('width', 'auto');
+                    }else{
+                        $(element).css('height', 'auto');
+                        $(element).css('width', '100%');
+                    }
+                    height = element.height / 2;
+                    width = element.width / 2;
+                    $(element).css('margin-top', `-${height}px`);
+                    $(element).css('margin-left', `-${width}px`);
+                    $(element).css('opacity', '1');
+                }
+            }
+        </script>
         <?php
             include '../modules/notification-wall.php';
+            include '../modules/reminder.php';
         ?>
         <span class="mask"></span>
         <span class="the-line"></span>
@@ -129,34 +159,6 @@ function triggerMask(lmnt){
 function deactivateMask(){
     $('.mask').css('z-index','-1');
     $('.mask').prop('id', '');
-}
-
-function flexImage(element) {
-    //console.log(element);
-    if(element !== undefined){
-        setSize(element)
-    }else{
-        $(document).find('.flex-image').find('img').each((index, element)=>{
-            setSize(element);
-        });
-    }
-
-    function setSize(element){
-        var width = element.width;
-        var height = element.height;
-        if(width > height){
-            $(element).css('height', '100%');
-            $(element).css('width', 'auto');
-        }else{
-            $(element).css('height', 'auto');
-            $(element).css('width', '100%');
-        }
-        height = element.height / 2;
-        width = element.width / 2;
-        $(element).css('margin-top', `-${height}px`);
-        $(element).css('margin-left', `-${width}px`);
-        $(element).css('opacity', '1');
-    }
 }
 
 function scrollToMiddle(id) {

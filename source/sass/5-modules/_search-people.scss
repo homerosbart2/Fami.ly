@@ -7,6 +7,7 @@
     background: white;
     z-index: 12;
     transition: 0.2s ease;
+    transition: filter 1s ease;
     &.expanded{
         top: 0;
     }

@@ -207,7 +207,7 @@ body {
 section {
   display: -webkit-box; }
 
-.btn-register, .btn-chat, .btn-exit-popup, .btn-cancel, .btn-login, .btn-menu, .admin-shop-form label {
+.btn-register, .btn-chat, .btn-exit-popup, .btn-cancel, .btn-login, .btn-floating, .btn-menu, .admin-shop-form label {
   display: inline-block;
   padding: 5px 10px;
   color: black;
@@ -223,7 +223,7 @@ section {
   border: 1px solid;
   cursor: pointer;
   transition: all 0.2s ease; }
-  .btn-register:hover, .btn-chat:hover, .btn-exit-popup:hover, .btn-cancel:hover, .btn-login:hover, .btn-menu:hover, .admin-shop-form label:hover, .btn-register:active, .btn-chat:active, .btn-exit-popup:active, .btn-cancel:active, .btn-login:active, .btn-menu:active, .admin-shop-form label:active, .btn-register:focus, .btn-chat:focus, .btn-exit-popup:focus, .btn-cancel:focus, .btn-login:focus, .btn-menu:focus, .admin-shop-form label:focus {
+  .btn-register:hover, .btn-chat:hover, .btn-exit-popup:hover, .btn-cancel:hover, .btn-login:hover, .btn-floating:hover, .btn-menu:hover, .admin-shop-form label:hover, .btn-register:active, .btn-chat:active, .btn-exit-popup:active, .btn-cancel:active, .btn-login:active, .btn-floating:active, .btn-menu:active, .admin-shop-form label:active, .btn-register:focus, .btn-chat:focus, .btn-exit-popup:focus, .btn-cancel:focus, .btn-login:focus, .btn-floating:focus, .btn-menu:focus, .admin-shop-form label:focus {
     outline: 0; }
 
 .btn-register {
@@ -275,11 +275,11 @@ section {
   .btn-cancel:hover, .btn-cancel:active, .btn-cancel:focus {
     color: #FF6040; }
 
-.btn-login {
+.btn-login, .btn-floating {
   color: #fff;
   background: none;
   border-color: #fff; }
-  .btn-login:hover, .btn-login:active, .btn-login:focus {
+  .btn-login:hover, .btn-login:active, .btn-login:focus, .btn-floating:hover, .btn-floating:active, .btn-floating:focus {
     background: white;
     color: black;
     text-decoration: none !important; }
@@ -492,6 +492,9 @@ html {
 nav {
   width: 100%; }
 
+#header {
+  transition: 1s ease; }
+
 .the-line {
   position: fixed;
   top: 0;
@@ -500,7 +503,8 @@ nav {
   display: flex;
   background-image: linear-gradient(45deg, #FF6040, #203E99);
   z-index: 2000;
-  transition: 0.3s ease; }
+  transition: 0.3s ease;
+  transition: filter 1s ease; }
 
 .main-nav {
   position: fixed;
@@ -963,7 +967,8 @@ body.disableScrollBar {
   display: flex;
   background: white;
   z-index: 12;
-  transition: 0.2s ease; }
+  transition: 0.2s ease;
+  transition: filter 1s ease; }
   .search-people-container.expanded {
     top: 0; }
   .search-people-container .search-people {
@@ -1049,6 +1054,177 @@ body.disableScrollBar {
         color: white; }
         .search-people-container .search-people .wide-central-container .btn-exit-popup:hover, .search-people-container .search-people .wide-central-container .btn-exit-popup:active, .search-people-container .search-people .wide-central-container .btn-exit-popup:focus {
           color: white; }
+
+.reminder-outer-container {
+  position: fixed;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.267);
+  transition: 0.5s ease; }
+  .reminder-outer-container.expanded {
+    z-index: 5000;
+    opacity: 1; }
+  .reminder-outer-container .reminder-inner-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-right: 15px;
+    margin-left: 15px; }
+    .reminder-outer-container .reminder-inner-container .reminder {
+      position: absolute;
+      display: flex;
+      max-width: 500px;
+      width: 100%;
+      height: 350px;
+      background: #ffebe7; }
+      .reminder-outer-container .reminder-inner-container .reminder .user-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 150px; }
+        .reminder-outer-container .reminder-inner-container .reminder .user-container .card-container {
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          width: 100%;
+          height: 100%;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column; }
+          .reminder-outer-container .reminder-inner-container .reminder .user-container .card-container img {
+            position: absolute;
+            width: 100%;
+            transform: scale(1.2);
+            filter: blur(30px) brightness(0.8); }
+          .reminder-outer-container .reminder-inner-container .reminder .user-container .card-container .text {
+            color: white;
+            z-index: 1;
+            font-size: 18px;
+            margin: 50px 10px 0 10px; }
+            .reminder-outer-container .reminder-inner-container .reminder .user-container .card-container .text .icon {
+              font-size: 23px; }
+          .reminder-outer-container .reminder-inner-container .reminder .user-container .card-container .birthday-text {
+            color: white;
+            z-index: 1;
+            font-size: 23px;
+            font-weight: bold; }
+        .reminder-outer-container .reminder-inner-container .reminder .user-container .user-card {
+          position: absolute;
+          left: 50%;
+          margin-left: -48px;
+          top: -48px;
+          border: 5px solid #ffebe7; }
+          .reminder-outer-container .reminder-inner-container .reminder .user-container .user-card img {
+            filter: blur(0) brightness(1);
+            transform: scale(1); }
+      .reminder-outer-container .reminder-inner-container .reminder .wishlist-container {
+        top: 150px;
+        background: #ffebe7;
+        color: #000B2B; }
+        .reminder-outer-container .reminder-inner-container .reminder .wishlist-container .wishlist {
+          margin-top: 20px; }
+          .reminder-outer-container .reminder-inner-container .reminder .wishlist-container .wishlist .wishes {
+            min-width: 0;
+            border-left: 3px solid #000B2B; }
+      .reminder-outer-container .reminder-inner-container .reminder .options {
+        position: absolute;
+        display: flex;
+        top: 320px;
+        z-index: 3;
+        width: 100%;
+        justify-content: flex-end; }
+        .reminder-outer-container .reminder-inner-container .reminder .options a {
+          background: #000B2B;
+          border: 1px solid #000B2B;
+          color: #e9eeff;
+          font-size: 25px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 40px;
+          height: 30px;
+          width: 20px;
+          margin: 9px 12px; }
+          .reminder-outer-container .reminder-inner-container .reminder .options a:hover, .reminder-outer-container .reminder-inner-container .reminder .options a:active, .reminder-outer-container .reminder-inner-container .reminder .options a:focus {
+            transform: scale(1.1); }
+
+.wishlist-container {
+  position: absolute;
+  z-index: 0;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: scroll;
+  background: #000B2B;
+  color: #ffebe7;
+  transition: opacity 0.2s ease; }
+  .wishlist-container.expanded {
+    z-index: 2;
+    opacity: 1; }
+    .wishlist-container.expanded + .wide-central-container.wish-creation-input-container {
+      opacity: 1;
+      margin-top: 0px;
+      z-index: 0; }
+  .wishlist-container .wishlist-title {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-left: 25px;
+    display: flex;
+    height: 25px;
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: bold; }
+    .wishlist-container .wishlist-title i, .wishlist-container .wishlist-title svg {
+      font-size: 20px;
+      margin-right: 9px; }
+  .wishlist-container .wishlist {
+    margin-left: 25px;
+    display: flex;
+    justify-content: center; }
+    .wishlist-container .wishlist .no-wishes {
+      color: #cccccc;
+      display: flex;
+      height: 140px;
+      justify-content: center;
+      align-items: center; }
+      .wishlist-container .wishlist .no-wishes i, .wishlist-container .wishlist .no-wishes svg {
+        margin-right: 3px; }
+    .wishlist-container .wishlist .wishes {
+      display: flex;
+      flex-direction: column;
+      min-width: 200px;
+      overflow-y: scroll;
+      border-left: 3px solid #ffebe7;
+      margin-bottom: 12px; }
+      .wishlist-container .wishlist .wishes .wish {
+        margin: 6.5px 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0; }
+        .wishlist-container .wishlist .wishes .wish:first-child {
+          margin-top: 0px; }
+        .wishlist-container .wishlist .wishes .wish:last-child {
+          margin-bottom: 0px; }
+        .wishlist-container .wishlist .wishes .wish .wish-delete {
+          color: #ffebe7;
+          cursor: pointer;
+          margin-left: 12px;
+          padding: 6px 6px; }
 
 #header-login {
   background: url("../img/bg.jpg") no-repeat;
@@ -1226,74 +1402,6 @@ body.disableScrollBar {
                   margin: 0 0;
                   height: 58px;
                   border-radius: 0; } }
-      .profile-section .central-container .profile-title .wishlist-container {
-        position: absolute;
-        z-index: 0;
-        opacity: 0;
-        display: flex;
-        flex-direction: column;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        overflow-y: scroll;
-        background: #000B2B;
-        color: #ffebe7;
-        transition: opacity 0.2s ease; }
-        .profile-section .central-container .profile-title .wishlist-container.expanded {
-          z-index: 2;
-          opacity: 1; }
-          .profile-section .central-container .profile-title .wishlist-container.expanded + .wide-central-container.wish-creation-input-container {
-            opacity: 1;
-            margin-top: 0px;
-            z-index: 0; }
-        .profile-section .central-container .profile-title .wishlist-container .wishlist-title {
-          display: flex;
-          align-items: center;
-          margin-top: 15px;
-          margin-left: 25px;
-          display: flex;
-          height: 25px;
-          flex-shrink: 0;
-          font-size: 16px;
-          font-weight: bold; }
-          .profile-section .central-container .profile-title .wishlist-container .wishlist-title i, .profile-section .central-container .profile-title .wishlist-container .wishlist-title svg {
-            font-size: 20px;
-            margin-right: 9px; }
-        .profile-section .central-container .profile-title .wishlist-container .wishlist {
-          margin-left: 25px;
-          display: flex;
-          justify-content: center; }
-          .profile-section .central-container .profile-title .wishlist-container .wishlist .no-wishes {
-            color: #cccccc;
-            display: flex;
-            height: 140px;
-            justify-content: center;
-            align-items: center; }
-            .profile-section .central-container .profile-title .wishlist-container .wishlist .no-wishes i, .profile-section .central-container .profile-title .wishlist-container .wishlist .no-wishes svg {
-              margin-right: 3px; }
-          .profile-section .central-container .profile-title .wishlist-container .wishlist .wishes {
-            display: flex;
-            flex-direction: column;
-            min-width: 200px;
-            overflow-y: scroll;
-            border-left: 3px solid #ffebe7;
-            margin-bottom: 12px; }
-            .profile-section .central-container .profile-title .wishlist-container .wishlist .wishes .wish {
-              margin: 6.5px 12px;
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              flex-shrink: 0; }
-              .profile-section .central-container .profile-title .wishlist-container .wishlist .wishes .wish:first-child {
-                margin-top: 0px; }
-              .profile-section .central-container .profile-title .wishlist-container .wishlist .wishes .wish:last-child {
-                margin-bottom: 0px; }
-              .profile-section .central-container .profile-title .wishlist-container .wishlist .wishes .wish .wish-delete {
-                color: #ffebe7;
-                cursor: pointer;
-                margin-left: 12px;
-                padding: 6px 6px; }
       .profile-section .central-container .profile-title .expand-profile-picture {
         position: absolute;
         z-index: 3;

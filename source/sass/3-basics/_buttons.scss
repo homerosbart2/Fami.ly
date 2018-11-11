@@ -93,7 +93,7 @@
 
 
 
-.btn-login{
+.btn-login, .btn-floating{
     @extend %btn;
     color: $white;
     background: none;
