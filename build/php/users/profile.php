@@ -53,7 +53,7 @@
         if(wishes.length > 0){
             rows += '<span class="wishes">';
             for(i in wishes){
-                rows += `<span class="wish">${wishes[i]} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                rows += `<span wish-id="${wishes[i].id}" class="wish">${wishes[i].wish} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
             }
             rows += '</span>';
         }else{
@@ -193,22 +193,23 @@
                 if(e.keyCode == 13){
                     text = $(this).val();
                     if(/\S/.test(text)){
+                        //TODO: Ingresar el deseo a la DB   
+                        var wishId = 123;
                         object = $('#wishlist').find('.wishes');
                         if(object.length == 0){
                             rows = '';
                             rows += '<span class="wishes">';
-                            rows += `<span class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                            rows += `<span wish-id="${wishId}" class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
                             rows += '</span>';
                             $('#wishlist').html(rows);
                         }else{
                             rows = '';
-                            rows += `<span class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                            rows += `<span wish-id="${wishId}" class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
                             object.prepend(rows);
                         }
                         $('#wishlist').find('.wishes').find('.wish-delete').first().click((event)=>{
                             removeWish(event.target);
-                        });
-                        //TODO: Ingresar el deseo a la DB                           
+                        });                        
                     }
                 }
             });
@@ -218,8 +219,12 @@
             });
 
             function removeWish(wish){
-                //TODO: Eliminar el deseo de la DB
-                $(wish).parent().parent().remove();
+                //TODO: Eliminar el deseo wishId de la DB
+                object = $(wish).parent().parent();
+                object.remove();
+                
+                var wishId = object.attr('wish-id'); 
+
                 if($('#wishlist').find('.wishes').find('.wish').length == 0){
                     rows = '<span class="no-wishes"><i class="fas fa-box-open"></i> No tienes deseos</span>';
                     $('#wishlist').html(rows);
@@ -348,7 +353,7 @@
                         groupNames.push(obj[i][0].apellido);
                     // }
                 }
-                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, [/* 'Dinero', 'Carro', 'Ropa', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro' */], ()=>{
+                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false, [{id: '1', wish: 'Dinero'}, {id: '2', wish: 'Carro'}], ()=>{
                     for(i = 1; i < obj.length; i++){
                         for(var j = 0; j < obj[i][1].length; j++){
                             generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);
