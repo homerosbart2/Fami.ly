@@ -53,19 +53,28 @@
         rows += (following)? `<span class="profile-title following">` : `<span class="profile-title">`;
         rows += '<span class="wishlist-container">';
         rows += '<span class="wishlist-title"><i class="fas fa-gift"></i> Lista de Deseos</span>';
-        rows += '<span class="wishlist">';
+        rows += '<span id="wishlist" class="wishlist">';
         if(wishes.length > 0){
             rows += '<span class="wishes">';
             for(i in wishes){
-                rows += `<span class="wish">${wishes[i]} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                rows += (type == 0)? `<span wish-id="${wishes[i].deseo_id}" class="wish">${wishes[i].nombre} <a class="wish-delete"><i class="fas fa-times"></i></a></span>` : `<span wish-id="${wishes[i].deseo_id}" class="wish">${wishes[i].nombre}</span>`;
             }
             rows += '</span>';
         }else{
-            rows += `<span class="no-wishes"><i class="fas fa-box-open"></i> No tienes deseos</span>`;
+            rows += (type == 0)? `<span class="no-wishes"><i class="fas fa-box-open"></i> No tienes deseos</span>` : `<span class="no-wishes"><i class="fas fa-box-open"></i> Este usuario no tiene deseos</span>`;
         }
         rows += '</span>';
         rows += '</span>';
+        if(type == 0){
+            rows += '<span class="wide-central-container wish-creation-input-container expanded">';
+            rows += '<span class="wish-creation-input">';
+            rows += '<input class="wish-creation" type="text" placeholder="Nuevo deseo">';
+            rows += '</span>';
+            rows += '</span>';
+        }
+        rows += '<span class="title-bg-container">';
         rows += `<img class="title-bg" src="${image}">`;
+        rows += '</span>';
         //#user-image-file es el input con la imagen.
         rows += (type == 0)? `<span class="profile-img flex-image me"><input type="file" onchange="(readImg(this));" id="user-image-file">` : `<span class="profile-img flex-image">`;
         rows += `<img src="${image}">`;
@@ -168,16 +177,84 @@
             $('.title-bg').css('opacity', '1');
             $('.title-bg').css('transform', 'scale(1.2)');
             $('.profile-information-container').css('opacity', '1');
+
             $('#btn-wishlist').click((event)=>{
                 object = $('.wishlist-container');
                 if(object.hasClass('expanded')){
                     object.removeClass('expanded');
+                    if(type == 0){
+                        $('.profile-information-container').removeClass('pushed-down');
+                    }
                     $('.btn-wishlist').removeClass('selected');
                 } else {
                     object.addClass('expanded');
+                    if(type == 0){
+                        $('.profile-information-container').addClass('pushed-down');
+                    }
                     $('.btn-wishlist').addClass('selected');
+                    window.scroll({
+                        top: 0, 
+                        left: 0, 
+                        behavior: 'smooth' 
+                    });
                 }
             });
+
+            $('.wish-creation').keyup(function(e){
+                if(e.keyCode == 13){
+                    text = $(this).val(); 
+                    if(/\S/.test(text)){
+                        $.ajax({
+                            url: "../rutas_ajax/perfiles/deseo.php?",
+                            type: "POST",
+                            data: 'nombre='+text+'&deseo=&tipo=1',
+                            success: function(r){
+                                if(r > 0){
+                                    //TODO: Ingresar el deseo a la DB   
+                                    var wishId = r;
+                                    object = $('#wishlist').find('.wishes');
+                                    if(object.length == 0){
+                                        rows = '';
+                                        rows += '<span class="wishes">';
+                                        rows += `<span wish-id="${wishId}" class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                                        rows += '</span>';
+                                        $('#wishlist').html(rows);
+                                    }else{
+                                        rows = '';
+                                        rows += `<span wish-id="${wishId}" class="wish">${text} <a class="wish-delete"><i class="fas fa-times"></i></a></span>`;
+                                        object.prepend(rows);
+                                    }
+                                    $('#wishlist').find('.wishes').find('.wish-delete').first().click((event)=>{
+                                        removeWish(event.target);
+                                    });    
+                                }                             
+                            },
+                        });                                                
+                    }
+                }
+            });
+
+            $('#wishlist').find('.wishes').find('.wish-delete').click((event)=>{
+                removeWish(event.target);
+            });
+
+            function removeWish(wish){
+                //TODO: Eliminar el deseo wishId de la DB
+                object = $(wish).parent().parent();  
+                var wishId = object.attr('wish-id');
+                object.remove();
+                $.ajax({
+                    url: "../rutas_ajax/perfiles/deseo.php?",
+                    type: "POST",
+                    data: 'nombre='+text+'&deseo='+ wishId + '&tipo=2',
+                    success: function(r){
+                    },
+                });
+                if($('#wishlist').find('.wishes').find('.wish').length == 0){
+                    rows = '<span class="no-wishes"><i class="fas fa-box-open"></i> No tienes deseos</span>';
+                    $('#wishlist').html(rows);
+                }
+            }
         }, 10);
     }
 
@@ -308,20 +385,27 @@
                 // nombreCompleto = obj[0].nombres + " " + obj[0].apellidos;
                 var groups = [];
                 var groupNames = [];
+                var wishes = [];
                 var i;
-                for(i = 1; i < obj.length; i++){
+                for(i = 1; i < obj.length - 1; i++){
                     // if(obj[i][1].length > 0){
-                        console.log(obj[i][0].apellido);
                         groups.push(obj[i][0].grupo_id);
                         groupNames.push(obj[i][0].apellido);
                     // }
                 }
+
+                //recorremos los deseos
+                i = 0;
+                for(i = 0; i < obj[obj.length - 1].length; i++){
+                    wishes.push(obj[obj.length - 1][i]);
+                }
+
                 isfollow = false;
                 if(obj[0].isfollow == 1)  isfollow = true;
-                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,isfollow, ['Dinero', 'Carro', 'Ropa', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro', 'Otro'], ()=>{
-                    for(i = 1; i < obj.length; i++){
+                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,false,wishes, ()=>{
+                    for(i = 1; i < (obj.length - 1); i++){
                         for(var j = 0; j < obj[i][1].length; j++){
-                            generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);
+                            generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, isfollow);
                         }
                     }
                 });                         

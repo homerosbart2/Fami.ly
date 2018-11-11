@@ -229,15 +229,25 @@ function generatePeopleResult(userId, user, country, userImage, invite, top){
     }
     rows += '</span>';
     rows += '</span>';
-        object = $('.search-people-result-container');
+    object = $('.search-people-result-container');
     if(top){
         object.prepend(rows);
-        object = object.find('.people-result-container').eq(0).find('.flex-image').find('img');
+        object = object.find('.people-result-container').first().find('.flex-image').find('img');
         object[0].onload = (event)=>{
             flexImage(event.target);
         };
+        setTimeout(() => {
+            $('.search-people-result-container').find('.people-result-container').first().css('opacity', '1');
+        }, 10);
     }else{
         object.append(rows);
+        object = object.find('.people-result-container').last().find('.flex-image').find('img');
+        object[0].onload = (event)=>{
+            flexImage(event.target);
+        };
+        setTimeout(() => {
+            $('.search-people-result-container').find('.people-result-container').last().css('opacity', '1');
+        }, 10);
     }
 }
 

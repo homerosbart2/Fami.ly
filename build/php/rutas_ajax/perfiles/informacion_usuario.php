@@ -8,18 +8,15 @@
     $perfil = $_GET["perfil"];
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     $userInfo = $usuario;
-    $queryFollow = "SELECT * FROM Sigue AS S WHERE S.usuario_seguidor_id = $usuario AND S.usuario_seguido_id = $perfil";
-    $result = pg_query($link, $queryFollow);
-    if(pg_num_rows($result) > 0) $isFollowing = 1;
-    echo " ";
     if(!(empty($perfil))){
         $query = "SELECT U.usuario_id,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img, '$isFollowing' AS isfollow FROM Usuarios As U WHERE U.usuario_id = $perfil";
         $userInfo = $perfil;      
+        $queryFollow = "SELECT * FROM Sigue AS S WHERE S.usuario_seguidor_id = $usuario AND S.usuario_seguido_id = $perfil";
+        $result = pg_query($link, $queryFollow);
+        if(pg_num_rows($result) > 0) $isFollowing = 1;    
     }else{ 
         $query = "SELECT U.usuario_id,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img,'TRUE' AS isfollow FROM Usuarios As U WHERE U.usuario_id = $usuario";
     }
-
-
     $result = pg_query($link, $query);
     $resultado = 0;
     $retorno = -1;
@@ -53,6 +50,19 @@
                 $i++;
             }
         }
+
+        $queryWishes = "SELECT D.deseo_id, D.nombre FROM Deseos AS D WHERE D.usuario_id = $userInfo";
+        $result = pg_query($link, $queryWishes);
+        if ($result) {
+            $a = 0;
+            //informacion del usuario se manda en 0
+            $deseos_info = array();
+            while($row = pg_fetch_assoc($result)){
+                $deseos_info[$a] = $row;
+                $a++; 
+            }
+        }
+        $retorno[$i] = $deseos_info;
     }  
     pg_close($link);
     echo json_encode($retorno);

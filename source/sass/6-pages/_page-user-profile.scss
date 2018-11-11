@@ -9,12 +9,12 @@
         .profile-title{
             transition: 0.2s ease;
             opacity: 0;
-            overflow: hidden;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: flex-start;
             width: 100%;
+            //z-index: 10;
             //background-image: linear-gradient(-45deg, $main, $secondary);
             //background: gray;
             &.following{
@@ -46,6 +46,42 @@
                     }
                 }
             }
+            .wide-central-container{
+                &.wish-creation-input-container{
+                    position: absolute;
+                    top: 100%;
+                    margin-top: -58px;
+                    display: flex;
+                    background: $main-contrast;
+                    transition: 0.2s ease;
+                    z-index: 0;
+                    opacity: 0;
+                    .wish-creation-input{
+                        width: 100%;
+                        max-width: 500px;
+                        display: flex;
+                        .wish-creation{
+                            color: $main-contrast;
+                            height: 38px;
+                            background: white;
+                            width: 100%;
+                            border-radius: 0;
+                            text-align: left;
+                            padding: 0 10px;
+                            margin: 10px 10px;
+                            @include media-max(500px){
+                                border-radius: 3px;
+                                &:active,
+                                &:focus{
+                                    margin: 0 0;
+                                    height: 58px;
+                                    border-radius: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             .wishlist-container{
                 position: absolute;
                 z-index: 0;
@@ -63,6 +99,13 @@
                 &.expanded{
                     z-index: 2;
                     opacity: 1;
+                    & + .wide-central-container{
+                        &.wish-creation-input-container{
+                            opacity: 1;
+                            margin-top: 0px;
+                            z-index: 0;
+                        }
+                    }
                 }
                 .wishlist-title{
                     display: flex;
@@ -88,7 +131,7 @@
                     .no-wishes{
                         color: rgb(204, 204, 204);
                         display: flex;
-                        height: 120px;
+                        height: 140px;
                         justify-content: center;
                         align-items: center;
                         i, svg{
@@ -117,6 +160,8 @@
                             .wish-delete{
                                 color: $light-main;
                                 cursor: pointer;
+                                margin-left: 12px;
+                                padding: 6px 6px;
                             }
                         }
                     }
@@ -130,13 +175,20 @@
                 color: white;
                 cursor: pointer;
             }
-            .title-bg{
-                transition: 0.6s ease;
-                filter: blur(30px) brightness(0.7);
+            .title-bg-container{
                 position: absolute;
+                display: flex;
                 width: 100%;
-                opacity: 0;
-                transform: scale(3);
+                height: 100%;
+                overflow: hidden;
+                .title-bg{
+                    transition: 0.6s ease;
+                    filter: blur(30px) brightness(0.7);
+                    position: absolute;
+                    width: 100%;
+                    opacity: 0;
+                    transform: scale(3);
+                }
             }
             .profile-img{
                 position: relative;
@@ -261,14 +313,23 @@
             padding: 8px 3px;
             display: flex;
             flex-direction: column;
-            transition: 1s ease;
+            transition: opacity 1s ease, margin 0.2s ease;
             opacity: 0;
+            &.pushed-down{
+                margin-top: 58px;
+                .profile-information{
+                    .btn-wishlist{
+                        top: -43px;
+                    }
+                }
+            }
             .info-title{
                 font-size: 16px;
                 font-weight: bold;
                 color: $main-contrast;
                 width: 100%;
                 display: flex;
+                z-index: -1;
             }
             .profile-information{
                 position: relative;
@@ -312,6 +373,7 @@
                     display: flex;
                     flex-direction: row;
                     align-items: center;
+                    z-index: -1;
                     .icon{
                         display: flex;
                         width: 20px;
