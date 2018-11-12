@@ -275,3 +275,7 @@ GRANT ALL PRIVILEGES ON DATABASE "FAMILY" TO social;
 GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas,Imagenes,Invitaciones,NotificacionesInvitaciones,Deseos TO social;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to social;
 
+-- CAMBIOS HECHOS 12/11/18 2:52 AM
+ALTER TABLE Usuarios
+ADD COLUMN genero varchar(25) DEFAULT 'default';
+

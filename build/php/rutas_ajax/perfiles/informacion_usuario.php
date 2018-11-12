@@ -12,10 +12,10 @@
         $queryFollow = "SELECT * FROM Sigue AS S WHERE S.usuario_seguidor_id = $usuario AND S.usuario_seguido_id = $perfil";
         $result = pg_query($link, $queryFollow);
         if(pg_num_rows($result) > 0) $isFollowing = 1; 
-        $query = "SELECT U.usuario_id,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img, '$isFollowing' AS isfollow FROM Usuarios As U WHERE U.usuario_id = $perfil";
+        $query = "SELECT U.usuario_id,U.genero,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img, '$isFollowing' AS isfollow FROM Usuarios As U WHERE U.usuario_id = $perfil";
         $userInfo = $perfil;         
     }else{ 
-        $query = "SELECT U.usuario_id,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img,0 AS isfollow FROM Usuarios As U WHERE U.usuario_id = $usuario";
+        $query = "SELECT U.usuario_id,U.genero,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img,0 AS isfollow FROM Usuarios As U WHERE U.usuario_id = $usuario";
     }
     $result = pg_query($link, $query);
     $resultado = 0;
@@ -36,7 +36,8 @@
             $usuarios_info = array();
             while($row = pg_fetch_assoc($result)){
                 $grupo = $row["grupo_id"];
-                $query = "SELECT U.usuario_id,U.nombres,U.nombres,U.name_img, U.formato_img FROM Usuarios As U, PerteneceGrupo AS P WHERE P.grupo_id = $grupo AND P.usuario_id != $usuario AND P.usuario_id != $userInfo AND P.usuario_id = U.usuario_id";   
+                if(!(empty($perfil))) $query = "SELECT U.usuario_id,U.nombres,U.nombres,U.name_img, U.formato_img FROM Usuarios As U, PerteneceGrupo AS P WHERE P.grupo_id = $grupo AND P.usuario_id != $userInfo AND P.usuario_id = U.usuario_id";   
+                else $query = "SELECT U.usuario_id,U.nombres,U.nombres,U.name_img, U.formato_img FROM Usuarios As U, PerteneceGrupo AS P WHERE P.grupo_id = $grupo AND P.usuario_id != $usuario AND P.usuario_id = U.usuario_id"; 
                 $result2 = pg_query($link, $query);
                 $a = 0;
                 $usuarios_info = array();

@@ -73,9 +73,10 @@
     }
 
     //Función para generar los perfiles de los usuarios, recibe [type] que es el tipo de usuario (0 si es el usuario actual y 1 si es cualquier otro usuario), [username] que es el nombre de usuario, [name] que es un arreglo con los nombres y apellidos (['nombre', 'nombre', 'apellido', 'apellido']), [birthday] que es el cumpleaños (como 27 de marzo), [gender] que es el género, [country] que es el país, [image] que es el path de la imagen del usuario, [following] booleano que indica si se está siguiendo (debe ser false si es el perfil del usuario actual) y [callback] que es una función que se ejecuta al finalizar la generación del perfil (En el callback podes llamar a los métodos de generación de tarjetas).
-    function generateUserProfile(type, username, name, lastname, birthday, gender, country, image, groupsIds, groupsNames, following, wishes, callback){
+    function generateUserProfile(type, correo, username, name, lastname, birthday, gender, country, image, groupsIds, groupsNames, following, wishes, callback){
+        birthdayUser = birthday;
+        birthday = formatBirthday(obj[0].fecha_nacimiento)
         rows = '';
-
         rows += `<span class="central-container">`;
         rows += (following)? `<span class="profile-title following">` : `<span class="profile-title">`;
         rows += '<span id="wishlist-container" class="wishlist-container">';
@@ -210,6 +211,9 @@
                     object = $('#configuration');
                     object.find('#config-names').val($('#names').text());
                     object.find('#config-lastnames').val($('#lastnames').text());
+                    object.find('#config-email').val(correo);
+                    object.find('#config-gender').val(gender);
+                    object.find('#config-date').val(birthdayUser);
                     object.find('#config-country').val($('#country').text());
                     object.addClass('expanded');
                 });
@@ -442,7 +446,7 @@
 
                 isfollow = false;
                 if(obj[0].isfollow == 1)  isfollow = true;
-                generateUserProfile(type, obj[0].usuario, obj[0].nombres,obj[0].apellidos, formatBirthday(obj[0].fecha_nacimiento), 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,isfollow,wishes, ()=>{
+                generateUserProfile(type, obj[0].correo, obj[0].usuario, obj[0].nombres,obj[0].apellidos, obj[0].fecha_nacimiento, 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,isfollow,wishes, ()=>{
                     for(i = 1; i < (obj.length - 1); i++){
                         for(var j = 0; j < obj[i][1].length; j++){
                             generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);
@@ -469,28 +473,26 @@
             lastPassword = $("#config-old-pass").val();
             newPassword1 = $("#config-new-pass").val();
             newPassword2 = $("#config-repeat-pass").val();
-            alert(nombres);
-            alert(apellidos);
-            alert(correo);
-            alert(fecha);
-            alert(genero);
-            alert(pais);
-            alert(lastPassword);
-            alert(newPassword1);
-            alert(newPassword2);
-            if(newPassword1 != newPassword2) showMessage("warning","Configuración.","Las nuevas contraseñas no coinciden.");
+            if(newPassword1 != newPassword2){
+                showMessage("warning","Configuración.","Las nuevas contraseñas no coinciden.");
+                newPassword1 = $("#config-new-pass").val() = "";
+                newPassword2 = $("#config-repeat-pass").val() = "";
+            }
             else{
                 $.ajax({
-                    url: "../rutas_ajax/perfiles/deseo.php?",
+                    url: "../rutas_ajax/perfiles/update.php?",
                     type: "POST",
-                    data: 'nombres='+nombres+'&apellidos='+ apellidos + '&correo=' + correo + '&fecha=' + fecha + '&genero=' + genero + '&pais=' + pais + '&last=' + lastPassword + '&new=' + newPassword,
+                    data: 'nombres='+nombres+'&apellidos='+ apellidos + '&correo=' + correo + '&fecha=' + fecha + '&genero=' + genero + '&pais=' + pais + '&last=' + lastPassword + '&new=' + newPassword1,
                     success: function(r){
+                        console.log(r);
                         if(r == 1){
                             //cambios exitosamente
+                            showMessage("success","Configuración.","Información actualizada exitosamente.");
                             $('#configuration').removeClass('expanded');    
                         }else if(r == 0){
                             //error old password
                             showMessage("error","Configuración.","Escriba correctamente la contraseña anterior.");
+                            $("#config-old-pass").val() = "";
                         }
                     },
                 });        
