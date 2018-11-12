@@ -1598,6 +1598,68 @@ body.disableScrollBar {
             width: 100%;
             display: flex; }
 
+.configuration-outer-container {
+  position: fixed;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0;
+  transition: 0.2s ease; }
+  .configuration-outer-container.expanded {
+    z-index: 10;
+    opacity: 1; }
+  .configuration-outer-container .configuration-inner-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%; }
+    .configuration-outer-container .configuration-inner-container .configuration {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 350px;
+      height: 575px;
+      background: #000B2B; }
+      .configuration-outer-container .configuration-inner-container .configuration .configuration-title {
+        display: flex;
+        color: #e9eeff;
+        width: 82%;
+        margin-top: 15px;
+        justify-content: center; }
+        .configuration-outer-container .configuration-inner-container .configuration .configuration-title i, .configuration-outer-container .configuration-inner-container .configuration .configuration-title svg {
+          margin-right: 3px; }
+      .configuration-outer-container .configuration-inner-container .configuration .inputs-container {
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+        margin-top: 5px; }
+        .configuration-outer-container .configuration-inner-container .configuration .inputs-container input[type=text], .configuration-outer-container .configuration-inner-container .configuration .inputs-container input[type=password], .configuration-outer-container .configuration-inner-container .configuration .inputs-container input[type=date], .configuration-outer-container .configuration-inner-container .configuration .inputs-container select {
+          background: white;
+          color: #000B2B;
+          border-radius: 0; }
+      .configuration-outer-container .configuration-inner-container .configuration .options {
+        display: flex;
+        margin-top: 5px; }
+        .configuration-outer-container .configuration-inner-container .configuration .options a {
+          background: #e9eeff;
+          border: 1px solid #e9eeff;
+          color: #000B2B;
+          font-size: 25px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 40px;
+          height: 30px;
+          width: 20px;
+          margin: 9px 12px; }
+          .configuration-outer-container .configuration-inner-container .configuration .options a:hover, .configuration-outer-container .configuration-inner-container .configuration .options a:active, .configuration-outer-container .configuration-inner-container .configuration .options a:focus {
+            transform: scale(1.1); }
+
 .chatbox-container {
   position: fixed;
   bottom: 0;
