@@ -2,13 +2,11 @@
     session_start();
     include 'links.php'; 
     $usuario_actual = "";
-    $correo_actual = "";
     $usuario_actual_nombre = "";
     if(isset($_SESSION['usuario_actual'])){
         $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
         $usuario_actual = $_SESSION['usuario_actual']; 
         $usuario_actual_id = $_SESSION['usuario_actual_id'];
-        $correo_actual = $_SESSION['correo_actual'];
         $usuario_actual_nombre = $_SESSION['usuario_actual_nombre'];
         $recordatorio = $_SESSION['recordatorio'];
         $group_array = array();
@@ -272,6 +270,7 @@ function noResultInSearch(){
 
 function showMessage(type,title,text){
     var opts = {
+
     };
     opts.title = title;
     opts.text = text;
@@ -479,7 +478,15 @@ $(document).ready(function(){
                                 noResultInSearch();
                             }
                         },
-                    });
+                    });                            
+
+                    //EXAMPLE: ejemplo para agregar resultados de una búsqueda en otro lado que no sea wall.
+                    /*clearPeopleSearch();
+                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', false, true);
+                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face4.png', false, true);
+                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face3.png', false, true);
+                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face5.png', false, true);
+                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', false, true);*/
                 }
                 $(this).trigger("enterKey");
             }

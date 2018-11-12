@@ -19,7 +19,6 @@
                 $_SESSION['usuario_actual_nombre'] = $row["nombres"];
                 $_SESSION['usuario_actual'] = $row["usuario"];
                 $_SESSION['recordatorio'] = 1;
-                $_SESSION['correo_actual'] = $row["correo"];
                 $_SESSION['usuario_actual_id'] = $usuario;
                 $query = "SELECT P.grupo_id FROM PerteneceGrupo As P WHERE P.usuario_id=$usuario";
                 $result = pg_query($link, $query);

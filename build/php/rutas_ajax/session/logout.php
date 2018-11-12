@@ -2,7 +2,6 @@
     session_start();
     if(isset($_SESSION['usuario_actual'])){
         unset($_SESSION['usuario_actual']);
-        unset($_SESSION['correo_actual']);
         unset($_SESSION['recordatorio']);
         unset($_SESSION['usuario_actual_nombre']);
         unset($_SESSION['usuario_actual_id']);
