@@ -27,7 +27,7 @@
         if(wishes.length > 0){
             rows += '<span class="wishes">';
             for(i in wishes){
-                rows += `<span wish-id="${wishes[i].id}" class="wish">${wishes[i].wish}</span>`;
+                rows += `<span wish-id="${wishes[i].deseo_id}" class="wish">${wishes[i].nombre}</span>`;
             }
             rows += '</span>';
         }else{
@@ -48,7 +48,14 @@
 
         $('#reminder').find('.options').find('.reminder-accept').click((event)=>{
             //TODO Que ya no le siga recordando.
-            console.log('Eliminar recordatorio: ' + reminderId);
+            $.ajax({
+                url: "../rutas_ajax/perfiles/recordatorio_deshabilitar.php?",
+                type: "POST",
+                data: 'sigue=' + reminderId,
+                success: function(r){
+                    showMessage("success","Recordatorio.","Recordatorio deshabilitado correctamente.");                      
+                },
+            });         
             hideReminder();
         });
 
@@ -75,7 +82,40 @@
         }
     }
 
+    function showMessage(type,title,text){
+        var opts = {
+        };
+        opts.title = title;
+        opts.text = text;
+        opts.type = type;
+        opts.styling = 'bootstrap3';
+        new PNotify(opts);
+    }
+
+    function searchReminder(){
+        $.ajax({
+            url: "../rutas_ajax/perfiles/recordatorios.php?",
+            type: "POST",
+            data: '',
+            success: function(r){                        
+                obj = JSON.parse(r);
+                for(var i = 0; i < obj.length; i++){
+                    wishes = []
+                    userImg = '../../assets/img/users/' + obj[i][0].name_img + "." + obj[i][0].formato_img;
+                    //recorremos los deseos
+                    for(var a = 0; a < obj[i][1].length; a++){
+                        wishes.push(obj[i][1][a]);
+                    }
+                    generateReminder(obj[i][0].sigue_id, obj[i][0].nombres + " " + obj[i][0].apellidos, userImg, formatBirthday(obj[0].fecha_nacimiento), wishes, true);                
+                } 
+            },
+        });     
+    }
+
     $(document).ready(()=>{
-        generateReminder(234, 'Henry Campos', '../../assets/img/users/face9.png', '27 de marzo', [{id: '1', wish: 'Dinero'}, {id: '2', wish: 'Carrosss'}], true);
+        if(recordatorio == 1){
+            searchReminder();
+        }
+        // generateReminder(235, 'Diego Alay', '../../assets/img/users/face9.png', '28 de marzo', [{id: '1', wish: 'Dinero'}, {id: '2', wish: 'Carrosss'}], true);
     });
 </script>

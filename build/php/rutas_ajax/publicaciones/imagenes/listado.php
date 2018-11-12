@@ -3,8 +3,8 @@
     session_start();
     $usuario = $_SESSION['usuario_actual_id']; 
     //parametros
-    $grupo = $_GET["grupo"];
-    $publicacion = $_GET["publicacion_id"];
+    $grupo = $_POST["grupo"];
+    $publicacion = $_POST["publicacion_id"];
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     $query = "SELECT * FROM  Imagenes AS I WHERE I.publicacion_id = $publicacion";
     $result = pg_query($link, $query);

@@ -255,3 +255,23 @@ GRANT ALL PRIVILEGES ON DATABASE "FAMILY" TO social;
 GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas,Imagenes,Invitaciones,NotificacionesInvitaciones,Deseos TO social;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to social;
 
+
+-- CAMBIOS HECHOS 11/11/18 7:49 PM
+DROP TABLE Sigue;
+
+CREATE TABLE Sigue(
+	sigue_id SERIAL,
+	usuario_seguidor_id integer,
+	usuario_seguido_id integer,
+	mostrar boolean DEFAULT 'True',
+	PRIMARY KEY(sigue_id),
+	UNIQUE(usuario_seguidor_id,usuario_seguido_id),
+	FOREIGN KEY(usuario_seguidor_id) REFERENCES Usuarios(usuario_id),
+	FOREIGN KEY(usuario_seguido_id) REFERENCES Usuarios(usuario_id)
+);
+
+ALTER USER social WITH ENCRYPTED PASSWORD '%SocialAdmin18%';
+GRANT ALL PRIVILEGES ON DATABASE "FAMILY" TO social;
+GRANT ALL PRIVILEGES ON TABLE Usuarios,GruposFamiliares,PerteneceGrupo,Sigue,Publicaciones,Notificaciones,Publicaciones,Eventos,Asiste,Votaciones,Opciones,Votos,Mensajes,Preguntas,Respuestas,Imagenes,Invitaciones,NotificacionesInvitaciones,Deseos TO social;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to social;
+

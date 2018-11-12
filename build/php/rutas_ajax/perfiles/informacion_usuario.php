@@ -5,7 +5,7 @@
     //variables
     $isFollowing = 0;
     //paramatetros
-    $perfil = $_GET["perfil"];
+    $perfil = $_POST["perfil"];
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     $userInfo = $usuario;
     if(!(empty($perfil))){

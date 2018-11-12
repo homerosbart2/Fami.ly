@@ -251,8 +251,9 @@
         updatePercents(postId);     
         // TODO: almacenar en la base de datos que el usuario actual votó en la opción [option] después de la llamada a updatePercents.
         $.ajax({
-            url: "../rutas_ajax/publicaciones/votaciones/insertar_votos.php?grupo=" + groupId + "&votacion=" + votacionId + "&opcion=" + optionId,
+            url: "../rutas_ajax/publicaciones/votaciones/insertar_votos.php?",
             type: "POST",
+            data: "grupo=" + groupId + "&votacion=" + votacionId + "&opcion=" + optionId,
             success: function(r){
                 // if(r == 1) //creada
                 // else if(r == 2) //editada
@@ -658,7 +659,8 @@
         }
         //TODO: almacenar o eliminar en la base de datos la entrada que indica que el usuario actual asistirá al evento con id [postId].
         $.ajax({
-            url: "../rutas_ajax/publicaciones/eventos/insertar_asistencia.php?grupo=" + groupId + "&evento=" + eventId,
+            url: "../rutas_ajax/publicaciones/eventos/insertar_asistencia.php?",
+            data: "grupo=" + groupId + "&evento=" + eventId,
             type: "POST",
             success: function(r){
                 // if(r == 1) //creada
@@ -850,7 +852,8 @@ function initWallListeners(){
                         //TODO: Hay que verificar si la hora es AM o PM y si está entre 0 y 24.
                         //GUARDAMOS EL EVENTO
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/eventos/insertar.php?grupo=" + groupId + "&titulo=" + text + "&fecha=" + dateEvento + "&horario=" + hourEvento + "&ubicacion=" + ubication + "&descripcion=" + description,
+                            url: "../rutas_ajax/publicaciones/eventos/insertar.php?",
+                            data: "grupo=" + groupId + "&titulo=" + text + "&fecha=" + dateEvento + "&horario=" + hourEvento + "&ubicacion=" + ubication + "&descripcion=" + description,
                             type: "POST",
                             success: function(r){
                                 if(r > 0){
@@ -906,7 +909,8 @@ function initWallListeners(){
                             $('.poll-option').val('');
                             $('.poll-option').removeClass('with-text');
                             $.ajax({
-                                url: "../rutas_ajax/publicaciones/votaciones/insertar.php?grupo=" + groupId + "&informacion=" + text + "&opciones=" + options,
+                                url: "../rutas_ajax/publicaciones/votaciones/insertar.php?",
+                                data: "grupo=" + groupId + "&informacion=" + text + "&opciones=" + options,
                                 type: "POST",
                                 success: function(r){
                                     if(r > 0){
@@ -940,7 +944,8 @@ function initWallListeners(){
                         }
                         //TODO: almacenar en la base de datos la respuesta a la pregunta con id [postId].
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/preguntas/insertar_respuestas.php?grupo=" + groupId + "&pregunta=" + questionId + "&informacion=" + text,
+                            url: "../rutas_ajax/publicaciones/preguntas/insertar_respuestas.php?",
+                            data: "grupo=" + groupId + "&pregunta=" + questionId + "&informacion=" + text,
                             type: "POST",
                             success: function(r){
                                 // if(r == 1) //creada
@@ -951,7 +956,8 @@ function initWallListeners(){
                         //Esto sucede si es una pregunta
                         //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/preguntas/insertar.php?grupo=" + groupId + "&informacion=" + [text],
+                            url: "../rutas_ajax/publicaciones/preguntas/insertar.php?",
+                            data: "grupo=" + groupId + "&informacion=" + [text],
                             type: "POST",
                             success: function(r){
                                 // alert(r);
@@ -969,7 +975,8 @@ function initWallListeners(){
                         //GUARDAMOS EL MENSAJE
                         time = '12:21 PM';
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/mensajes/insertar.php?grupo=" + groupId + "&informacion=" + [text],
+                            url: "../rutas_ajax/publicaciones/mensajes/insertar.php?",
+                            data: "grupo=" + groupId + "&informacion=" + [text],
                             type: "POST",
                             success: function(r){
                                 // alert(r);
@@ -1124,7 +1131,8 @@ function initWallListeners(){
     function postsList(createAt,postId,loading,tipo){   
         if(loading) showChargingAnimation(true);
         $.ajax({
-            url: "../rutas_ajax/publicaciones/listado.php?grupo=" + groupId + "&publicacion=" + postId + "&last=" + lastPostId + "&tipo=" + tipo,
+            url: "../rutas_ajax/publicaciones/listado.php?",
+            data: "grupo=" + groupId + "&publicacion=" + postId + "&last=" + lastPostId + "&tipo=" + tipo,
             type: "POST",
             success: function(r){
                 objParent = JSON.parse(r);
@@ -1164,7 +1172,8 @@ function initWallListeners(){
                         var asistenciaImagenes = [];
                         var imIn = false;
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/eventos/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
+                            url: "../rutas_ajax/publicaciones/eventos/listado.php?",
+                            data: "grupo=" + groupId + "&publicacion_id=" + publicacion_id,
                             type: "POST",
                             success: function(r){
                                 obj = JSON.parse(r);
@@ -1201,7 +1210,8 @@ function initWallListeners(){
                     }else if(tipo == "I"){
                         //IMAGENES                    
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/imagenes/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
+                            url: "../rutas_ajax/publicaciones/imagenes/listado.php?",
+                            data: "grupo=" + groupId + "&publicacion_id=" + publicacion_id,
                             type: "POST",
                             success: function(r){
                                 obj = JSON.parse(r);
@@ -1216,7 +1226,8 @@ function initWallListeners(){
                     }else if(tipo == "P"){
                         //PREGUNTAS
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/preguntas/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
+                            url: "../rutas_ajax/publicaciones/preguntas/listado.php?",
+                            data: "grupo=" + groupId + "&publicacion_id=" + publicacion_id,
                             type: "POST",
                             success: function(r){
                                 var respuestas = [];
@@ -1247,7 +1258,8 @@ function initWallListeners(){
                         var optionsIds = [];
                         var eligeUsuario = -1;
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/votaciones/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
+                            url: "../rutas_ajax/publicaciones/votaciones/listado.php?",
+                            data: "grupo=" + groupId + "&publicacion_id=" + publicacion_id,
                             type: "POST",
                             success: function(r){
                                 obj = JSON.parse(r);
@@ -1275,7 +1287,8 @@ function initWallListeners(){
                     }else if(tipo == "M"){
                         //MENSAJES                    
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + groupId + "&publicacion_id=" + publicacion_id,
+                            url: "../rutas_ajax/publicaciones/mensajes/listado.php?",
+                            data: "grupo=" + groupId + "&publicacion_id=" + publicacion_id,
                             type: "POST",
                             success: function(r){
                                 obj = JSON.parse(r);

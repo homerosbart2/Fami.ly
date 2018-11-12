@@ -90,7 +90,8 @@
         password = document.getElementById("login-password").value;
         if(username != "" && password != ""){
             $.ajax({
-                url: '../rutas_ajax/session/validar_login.php?username=' + username + '&password=' + password,
+                url: '../rutas_ajax/session/validar_login.php?',
+                data: 'username=' + username + '&password=' + password,
                 type: 'POST',
                 success: function(r){
                     if(r == 1){
@@ -118,7 +119,8 @@
         if((password1 == password2) && password1 != "" && password2 != ""){
             if(username != "" && nombre != ""){
                 $.ajax({
-                    url: '../rutas_ajax/session/nuevo_usuario.php?name=' + nombre + '&username=' + username + '&password=' + password1 + "&email=" + email + "&fecha=" + fecha + "&pais=" + pais + "&lastname=" + lastname,
+                    url: '../rutas_ajax/session/nuevo_usuario.php?',
+                    data: 'name=' + nombre + '&username=' + username + '&password=' + password1 + "&email=" + email + "&fecha=" + fecha + "&pais=" + pais + "&lastname=" + lastname,
                     type: 'POST',
                     success: function(r){
                         if(r == 1){

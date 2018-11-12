@@ -4,7 +4,7 @@
     $usuario = $_SESSION['usuario_actual_id']; 
     $group_array = json_decode($_SESSION['grupos']); 
     //parametros
-    $show = $_GET["show"];
+    $show = $_POST["show"];
     //busco las notificaciones pertenecientes al usuario
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     if($show == 1){

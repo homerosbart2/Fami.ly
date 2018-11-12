@@ -188,7 +188,7 @@
                     $('.btn-wishlist').removeClass('selected');
                 } else {
                     object.addClass('expanded');
-                    if(type == 0){
+                    if(type == 0){  
                         $('.profile-information-container').addClass('pushed-down');
                     }
                     $('.btn-wishlist').addClass('selected');
@@ -201,8 +201,8 @@
             });
 
             $('.wish-creation').keyup(function(e){
-                console.log('hola');
                 if(e.keyCode == 13){
+                    var objectClass = $(this);
                     text = $(this).val(); 
                     if(/\S/.test(text)){
                         $.ajax({
@@ -227,7 +227,8 @@
                                     }
                                     $('#wishlist').find('.wishes').find('.wish-delete').first().click((event)=>{
                                         removeWish(event.target);
-                                    });    
+                                    });
+                                    objectClass.val("");
                                 }                             
                             },
                         });                                                
@@ -378,8 +379,9 @@
             type = 0;
         }
         $.ajax({
-            url: "../rutas_ajax/perfiles/informacion_usuario.php?perfil=" + profile,
+            url: "../rutas_ajax/perfiles/informacion_usuario.php?",
             type: "POST",
+            data: "perfil=" + profile,
             success: function(r){
                 obj = JSON.parse(r);
                 //en 0 viene la informacion del usuario actual

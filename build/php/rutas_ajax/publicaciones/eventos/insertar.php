@@ -6,12 +6,12 @@
     session_start();
     $usuario = $_SESSION['usuario_actual_id']; 
     //parametros
-    $titulo = $_GET["titulo"];
-    $fecha = $_GET["fecha"];
-    $horario = $_GET["horario"];
-    $ubicacion = $_GET["ubicacion"];
-    $descripcion = $_GET["descripcion"];
-    $grupo = $_GET["grupo"];
+    $titulo = $_POST["titulo"];
+    $fecha = $_POST["fecha"];
+    $horario = $_POST["horario"];
+    $ubicacion = $_POST["ubicacion"];
+    $descripcion = $_POST["descripcion"];
+    $grupo = $_POST["grupo"];
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //variables
     $create = -1;

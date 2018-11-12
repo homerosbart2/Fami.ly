@@ -3,9 +3,9 @@
     session_start();
     $usuario = $_SESSION['usuario_actual_id'];  
     //parametros
-    $palabra = $_GET["palabra"];
-    $wall = $_GET["wall"];
-    $grupo = $_GET["grupo"];
+    $palabra = $_POST["palabra"];
+    $wall = $_POST["wall"];
+    $grupo = $_POST["grupo"];
     //wall = 1 -> mural de lo contrario estamos afuera
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //buscare los usuarios que ya estan en el grupo

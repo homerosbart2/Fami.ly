@@ -1,10 +1,12 @@
+
+
 <?php 
     //variable que se obtiene con la cookie
     session_start();
     $usuario = $_SESSION['usuario_actual_id']; 
     //parametros
-    $informacion = $_GET["informacion"];
-    $grupo = $_GET["grupo"];
+    $informacion = $_POST["informacion"];
+    $grupo = $_POST["grupo"];
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //variables
     $create = -1;

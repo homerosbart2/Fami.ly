@@ -3,7 +3,7 @@
     session_start();
     $usuario = $_SESSION['usuario_actual_id'];
     //parametros
-    $notificacion = $_GET["notificacion"];  
+    $notificacion = $_POST["notificacion"];  
     //variables 
     $create = -1;
     //se cambia el estado de la notificacion

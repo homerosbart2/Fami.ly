@@ -1,16 +1,16 @@
 <?php
     //creacion y validacion de nuevo usuario
-    $password = $_GET["password"];
+    $password = $_POST["password"];
     $options = [
         'cost' => 9,
     ];
     $hash = password_hash($password, PASSWORD_BCRYPT, $options);
-    $username = $_GET["username"];
-    $email = $_GET["email"];
-    $name = $_GET["name"];
-    $lastname = $_GET["lastname"];
-    $fecha = $_GET["fecha"];
-    $pais = $_GET["pais"];    
+    $username = $_POST["username"];
+    $email = $_POST["email"];
+    $name = $_POST["name"];
+    $lastname = $_POST["lastname"];
+    $fecha = $_POST["fecha"];
+    $pais = $_POST["pais"];    
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //buscamos existencia
     $query = "SELECT * FROM Usuarios AS U WHERE (usuario = '$username') OR (correo = '$email')";

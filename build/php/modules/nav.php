@@ -10,6 +10,7 @@
         $usuario_actual_id = $_SESSION['usuario_actual_id'];
         $correo_actual = $_SESSION['correo_actual'];
         $usuario_actual_nombre = $_SESSION['usuario_actual_nombre'];
+        $recordatorio = $_SESSION['recordatorio'];
         $group_array = array();
         $query = "SELECT P.grupo_id FROM PerteneceGrupo As P WHERE P.usuario_id=$usuario_actual_id";
         $result = pg_query($link, $query);
@@ -29,7 +30,11 @@
         $row = pg_fetch_assoc($result);
         if($result){
             $user_img_path = "../../assets/img/users/".$row["name_img"].".".$row["formato_img"];
-        }        
+        }
+        if($recordatorio == 1) $_SESSION['recordatorio'] = 0;
+        echo "<script>";
+            echo "var recordatorio=".$recordatorio.";";                 
+        echo "</script>";                
     }else{       
         echo "<script>";
             echo "$(location).attr('href', '../login/login.php')";                 
@@ -296,8 +301,9 @@ $(document).ready(function(){
     $(document).on('click', '.invite', function () {
         id = $(this).attr("id"); //id de usuario
         $.ajax({
-            url: "../rutas_ajax/invitaciones/invitar.php?to=" + id + "&grupo=" + groupId,
+            url: "../rutas_ajax/invitaciones/invitar.php?",
             type: "POST",
+            data: "to=" + id + "&grupo=" + groupId,
             success: function(r){
                 if(r == 1){
                     //alert("NOTIFICACION CREADA");
@@ -458,8 +464,9 @@ $(document).ready(function(){
                     var type = false;
                     if(wall != 1) groupId = -1;
                     $.ajax({
-                        url: "../rutas_ajax/personas/buscar.php?palabra=" + text + "&wall=" + wall + "&grupo=" + groupId,
+                        url: "../rutas_ajax/personas/buscar.php?",
                         type: "POST",
+                        data: "palabra=" + text + "&wall=" + wall + "&grupo=" + groupId,
                         success: function(r){
                             obj = JSON.parse(r);
                             if(obj.length > 0){

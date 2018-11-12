@@ -143,7 +143,8 @@
             //invitacion
                 //cambiamos el estado de la notificacion a leida
                 $.ajax({
-                    url: "../rutas_ajax/notificaciones_invitaciones/cambiar_estado.php?notificacion=" + notifyId,
+                    url: "../rutas_ajax/notificaciones_invitaciones/cambiar_estado.php?",
+                    data: "notificacion=" + notifyId,
                     type: "POST",
                     success: function(r){
                     }
@@ -152,7 +153,8 @@
             //publicacion               
                 //cambiamos el estado de la notificacion a leida
                 $.ajax({
-                    url: "../rutas_ajax/notificaciones/cambiar_estado.php?notificacion=" + notifyId,
+                    url: "../rutas_ajax/notificaciones/cambiar_estado.php?",
+                    data: "notificacion=" + notifyId,
                     type: "POST",
                     success: function(r){
                     }
@@ -215,7 +217,8 @@
 
     function listNotificationsInvitaciones(show){
         $.ajax({
-            url: "../rutas_ajax/notificaciones_invitaciones/listado.php?show=" + show,
+            url: "../rutas_ajax/notificaciones_invitaciones/listado.php?",
+            data: "show=" + show,
             type: "POST",
             success: function(r){
                 objParent2 = JSON.parse(r);
@@ -235,7 +238,8 @@
 
     function listNotifications(show){
         $.ajax({
-            url: "../rutas_ajax/notificaciones/listado.php?show=" + show,
+            url: "../rutas_ajax/notificaciones/listado.php?",
+            data: "show=" + show,
             type: "POST",
             success: function(r){
                 objParent = JSON.parse(r);
@@ -251,7 +255,8 @@
                     if(tipo == "E"){
                         //EVENTOS
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/eventos/listado.php?grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
+                            url: "../rutas_ajax/publicaciones/eventos/listado.php?",
+                            data: "grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
                             type: "POST",
                             success: function(r){
                                 obj = JSON.parse(r);
@@ -266,11 +271,25 @@
                         });               
                     }else if(tipo == "I"){
                         //IMAGENES
-                    
+                        $.ajax({
+                            url: "../rutas_ajax/publicaciones/imagenes/listado.php?",
+                            data: "grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
+                            type: "POST",
+                            success: function(r){
+                                // var respuestas = [];
+                                // var usuarios = [];
+                                // var respuestasUsuario = [];
+                                obj = JSON.parse(r);
+                                // pregunta_id = obj[0][0].pregunta_id;
+                                informacion = obj[0].informacion;
+                            },
+                            async: false // <- this turns it into synchronous
+                        });                     
                     }else if(tipo == "P"){
                         //PREGUNTAS
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/preguntas/listado.php?grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
+                            url: "../rutas_ajax/publicaciones/preguntas/listado.php?",
+                            data: "grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
                             type: "POST",
                             success: function(r){
                                 // var respuestas = [];
@@ -285,7 +304,8 @@
                     }else if(tipo == "V"){
                         //VOTOS
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/votaciones/listado.php?grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
+                            url: "../rutas_ajax/publicaciones/votaciones/listado.php?",
+                            data: "grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
                             type: "POST",
                             success: function(r){
                                 obj = JSON.parse(r);
@@ -297,7 +317,8 @@
                     }else if(tipo == "M"){
                         //MENSAJES                    
                         $.ajax({
-                            url: "../rutas_ajax/publicaciones/mensajes/listado.php?grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
+                            url: "../rutas_ajax/publicaciones/mensajes/listado.php?",
+                            data: "grupo=" + grupo_id + "&publicacion_id=" + publicacion_id,
                             type: "POST",
                             success: function(r){
                                 obj = JSON.parse(r);

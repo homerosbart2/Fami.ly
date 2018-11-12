@@ -3,8 +3,8 @@
     session_start();
     $usuario = $_SESSION['usuario_actual_id'];
     //parametros
-    $invitacion = $_GET["invitacion"];
-    $tipo = $_GET["tipo"];  
+    $invitacion = $_POST["invitacion"];
+    $tipo = $_POST["tipo"];  
     //variables 
     $create = -1;
     //se cambia el estado de la notificacion

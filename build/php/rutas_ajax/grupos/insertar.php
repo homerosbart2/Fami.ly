@@ -3,7 +3,7 @@
     session_start();
     $usuario = $_SESSION['usuario_actual_id']; 
     //parametros
-    $apellido = $_GET["apellido"];
+    $apellido = $_POST["apellido"];
     $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
     //variables
     $create = -1;

@@ -3,9 +3,9 @@
     session_start();
     $usuario = $_SESSION['usuario_actual_id']; 
     //parametros
-    $pregunta = $_GET["pregunta"];
-    $informacion = $_GET["informacion"];
-    $grupo = $_GET["grupo"];
+    $pregunta = $_POST["pregunta"];
+    $informacion = $_POST["informacion"];
+    $grupo = $_POST["grupo"];
     //variables
     $create = -1;
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");

@@ -3,8 +3,8 @@
     session_start();
     $usuario = $_SESSION['usuario_actual_id']; 
     //parametros
-    $grupo = $_GET["grupo"];
-    $publicacion = $_GET["publicacion_id"];
+    $grupo = $_POST["grupo"];
+    $publicacion = $_POST["publicacion_id"];
     //variables
     $retorno = array();
     $preguntas_array = array();

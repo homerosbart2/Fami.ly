@@ -3,15 +3,10 @@
     session_start();
     $usuario = $_SESSION['usuario_actual_id'];
     //parametros
-    $notificacion = $_POST["notificacion"];  
-    //variables 
-    $create = -1;
-    //se cambia el estado de la notificacion
+    $sigue = $_POST["sigue"];  
+    //se cambia el estado del recordatorio
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
-    $query = "UPDATE Notificaciones SET estado='FALSE' WHERE notificacion_id = $notificacion";
+    $query = "UPDATE Sigue SET mostrar='FALSE' WHERE sigue_id = $sigue";
     $result = pg_query($link, $query);
-    if($result){
-        $create = 1;
-    }        
     echo $create;
 ?>

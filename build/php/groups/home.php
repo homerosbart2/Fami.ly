@@ -84,7 +84,8 @@
         if(invitationId !== undefined){
             $('#' + id).find('.options').find('.accept').click((event)=>{
                 $.ajax({
-                    url: "../rutas_ajax/invitaciones/cambiar_estado.php?invitacion=" + invitationId + "&tipo=1",
+                    url: "../rutas_ajax/invitaciones/cambiar_estado.php?",
+                    data: "invitacion=" + invitationId + "&tipo=1",
                     type: "POST",
                     success: function(r){
                         if(r > 0){
@@ -96,7 +97,8 @@
 
             $('#' + id).find('.options').find('.cancel').click((event)=>{
                 $.ajax({
-                    url: "../rutas_ajax/invitaciones/cambiar_estado.php?invitacion=" + invitationId + "&tipo=0",
+                    url: "../rutas_ajax/invitaciones/cambiar_estado.php?",
+                    data: "invitacion=" + invitationId + "&tipo=0",
                     type: "POST",
                     success: function(r){
                         if(r == -1){
@@ -186,7 +188,8 @@ $(document).ready(function(){
             if(/\S/.test(text)){
                 //CREAMOS EL GRUPO EN LA DB             
                 $.ajax({
-                    url: "../rutas_ajax/grupos/insertar.php?apellido=" + text,
+                    url: "../rutas_ajax/grupos/insertar.php?",
+                    data: "apellido=" + text,
                     type: "POST",
                     success: function(r){
                         if(r > 0){

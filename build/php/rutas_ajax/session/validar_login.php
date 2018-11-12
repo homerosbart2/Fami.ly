@@ -1,7 +1,7 @@
 <?php
     //encargado de crear la sesion del usuario y ver que si se haya creado una sesion
-    $password = $_GET["password"];
-    $username = $_GET["username"];
+    $password = $_POST["password"];
+    $username = $_POST["username"];
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     $query = "SELECT U.usuario,U.usuario_id,U.correo,U.nombres,U.usuario_password FROM Usuarios As U WHERE U.usuario='$username'";
     $result = pg_query($link, $query);
@@ -18,6 +18,7 @@
                 $usuario = $row["usuario_id"];
                 $_SESSION['usuario_actual_nombre'] = $row["nombres"];
                 $_SESSION['usuario_actual'] = $row["usuario"];
+                $_SESSION['recordatorio'] = 1;
                 $_SESSION['correo_actual'] = $row["correo"];
                 $_SESSION['usuario_actual_id'] = $usuario;
                 $query = "SELECT P.grupo_id FROM PerteneceGrupo As P WHERE P.usuario_id=$usuario";
