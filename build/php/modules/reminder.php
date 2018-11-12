@@ -106,7 +106,7 @@
                     for(var a = 0; a < obj[i][1].length; a++){
                         wishes.push(obj[i][1][a]);
                     }
-                    generateReminder(obj[i][0].sigue_id, obj[i][0].nombres + " " + obj[i][0].apellidos, userImg, formatBirthday(obj[0].fecha_nacimiento), wishes, true);                
+                    generateReminder(obj[i][0].sigue_id, obj[i][0].nombres.split(" ")[0] + " " + obj[i][0].apellidos, userImg, formatBirthday(obj[i][0].fecha_nacimiento), wishes, true);                
                 } 
             },
         });     

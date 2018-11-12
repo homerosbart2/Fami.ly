@@ -841,6 +841,7 @@ function initWallListeners(){
                         confirmedPeopleNames = [];
                         confirmedPeopleImages = [];
                         day = $('.day').val();
+                        alert(day);
                         month = months[(parseInt($('.month').val()) - 1)];
                         year = $('.year').val();
                         description = $('.event-description').val();
@@ -1199,8 +1200,8 @@ function initWallListeners(){
                                     }
                                 }
                                 var dateEvent = new Date(fecha);       
-                                dayEvent = dateEvent.getDate();
-                                 monthEvent = months[(parseInt(dateEvent.getMonth()))];
+                                dayEvent = dateEvent.getDate() + 1;
+                                monthEvent = months[(parseInt(dateEvent.getMonth()))];
                                 yearEvent = dateEvent.getFullYear();
                                 dateInLettersEvent = dayEvent + ' de ' + monthEvent + ' del ' + year;
                                 generateEvent(publicacion_id, evento_id, usuario_creador_nombre, titulo, informacion, lugar, dateInLettersEvent,hora, asistencia, asistenciaImagenes, imIn, horario, typePost, createAt);                                   

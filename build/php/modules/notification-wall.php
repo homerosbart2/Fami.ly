@@ -70,69 +70,6 @@
         }
     }
 
-    function generateNotification22(id, user, text, type, groupRef, groupName,typeNotification, createdLater){
-        //tipoNotificacion = "P" -> POST
-        //tipoNotificacion = "I" -> INVITACION
-        var finded = 0;
-        var inserted = 0;
-        rows = '';
-        if($('.notifications-container').has('.no-notification')){
-            $('.notifications-container').html('');
-        }
-        $('.group-notification').each(function(){
-            if($(this).attr('group-ref') == groupRef){
-                finded = 1;
-                $(this).find('.notification').each(function(){
-                    if($(this).find('.type').text() == (' Mensaje') && $(this).find('.user-name').text() == user){
-                        rows += `<span notification-id="${id}" notification-type="${typeNotification}" class="text">${text}</span>`;
-                        $(this).append(rows);
-                        inserted = 1;
-                    }
-                });
-                if(inserted == 0){
-                    rows += `<span class="notification">`;
-                    rows += `<span class="user-name">${user}</span>`;
-                    rows += `<a class="delete-notification"><i class="far fa-eye-slash"></i></a>`;
-                    rows += `<span class="type"><i class="fas fa-circle"></i> ${type}</span>`;
-                    rows += `<span notification-id="${id}" notification-type="${typeNotification}" class="text">${text}</span>`;
-                    rows += `</span>`;
-                    object = $(this).find('.group-name');
-                    object.after(rows);
-                    object = object.find('.number');
-                    object.html((parseInt(object.text().split(' ')[0]) + 1) + ' NUEVAS');
-                    object = $('#nav-counter');
-                    object.html(parseInt(object.text()) + 1);
-                    if(createdLater){
-                        $(this).find('.delete-notification').eq(0).click(function(){
-                            removeNotification($(this));
-                        });
-                    }
-                }
-            }
-        });
-        if(finded == 0){
-            rows += `<span class="group-notification" group-ref="${groupRef}">`;
-            rows += `<span class="group-name">`;
-            rows += `${groupName} <span class="number">1 Nueva</span>`;
-            rows += `</span>`;
-            rows += `<span class="notification">`;
-            rows += `<span class="user-name">${user}</span>`;
-            rows += `<a class="delete-notification"><i class="far fa-eye-slash"></i></a>`;
-            rows += `<span class="type"><i class="fas fa-circle"></i> ${type}</span>`;
-            rows += `<span notification-id="${id}" notification-type="${typeNotification}" class="text">${text}</span>`;
-            rows += `</span>`;
-            rows += `</span>`;
-            $('.notifications-container').append(rows);
-            object = $('#nav-counter');
-            object.html(parseInt(object.text()) + 1);
-            if(createdLater){
-                $('.notifications-container').find('.group-notification').eq(-1).find('.delete-notification').eq(0).click(function(){
-                    removeNotification($(this));
-                });
-            }
-        }
-    }
-
     //Función que elimina la notificación.
     //TODO: Hay que eliminar la notificación de la base de datos, pero se necesita tomar en cuenta el id para esto, me comentas cuando vayas por esta parte.
     function removeNotification(lmnt){
