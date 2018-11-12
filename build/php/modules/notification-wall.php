@@ -71,7 +71,6 @@
     }
 
     //Función que elimina la notificación.
-    //TODO: Hay que eliminar la notificación de la base de datos, pero se necesita tomar en cuenta el id para esto, me comentas cuando vayas por esta parte.
     function removeNotification(lmnt){
         lmnt.parent().find('.text').each((index, element)=>{
             notifyId = $(element).attr('notification-id');

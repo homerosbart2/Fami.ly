@@ -47,7 +47,6 @@
         };
 
         $('#reminder').find('.options').find('.reminder-accept').click((event)=>{
-            //TODO Que ya no le siga recordando.
             $.ajax({
                 url: "../rutas_ajax/perfiles/recordatorio_deshabilitar.php?",
                 type: "POST",

@@ -247,8 +247,7 @@
                             type: "POST",
                             data: 'nombre='+text+'&deseo=&tipo=1',
                             success: function(r){
-                                if(r > 0){
-                                    //TODO: Ingresar el deseo a la DB   
+                                if(r > 0){  
                                     var wishId = r;
                                     object = $('#wishlist').find('.wishes');
                                     if(object.length == 0){
@@ -278,7 +277,6 @@
             });
 
             function removeWish(wish){
-                //TODO: Eliminar el deseo wishId de la DB
                 object = $(wish).parent().parent();  
                 var wishId = object.attr('wish-id');
                 object.remove();
@@ -314,7 +312,6 @@
                     flexImage(event.target);
                 };
                 object.click((event)=>{
-                    //TODO: Direccionar al perfil del usuario con el identificador [id].
                 });
             }
         });
@@ -392,7 +389,6 @@
                 success: function(r){                        
                 },
             }); 
-            //TODO: Eliminar el follow al usuario.
             $('.profile-title').removeClass('following');
             $('.button-section').find('.follow').html('Seguir');
         }else{
@@ -403,7 +399,6 @@
                 success: function(r){
                 },
             });             
-            //TODO: Hacer follow al usuario.
             $('.profile-title').addClass('following');
             $('.button-section').find('.follow').html('<i class="fas fa-check-circle"></i> Siguiendo');
         }
@@ -459,7 +454,6 @@
         });
 
         $('.configuration-accept').click((event)=>{
-            //TODO: Cambiar la configuración en la DB. 
             nombres = $("#config-names").val();
             apellidos = $("#config-lastnames").val();
             correo = $("#config-email").val();
@@ -505,31 +499,6 @@
         actualUrl = window.location.href;
         profile = (actualUrl.split("=")[1]);
         listUserInfo(profile);
-        //EXAMPLE: Ejemplo para generar un perfil de usuario ajeno.
-        /* generateUserProfile(1, 'fernando.campos', ['Fernando', 'Andrés', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/face9.png', [], true, ()=>{
-            //EXAMPLE: Ejemplos para generar tarjetas de grupos como en la pantalla de inicio.
-            generateGroupCard(1, 'Hogar', ['../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face3.png','../../assets/img/users/face4.png']);
-            generateGroupCard(2, 'Campos', ['../../assets/img/users/face3.png','../../assets/img/users/face5.png','../../assets/img/users/face6.png','../../assets/img/users/face7.png']);
-            generateGroupCard(3, 'Ogáldez', ['../../assets/img/users/face8.png','../../assets/img/users/face1.png','../../assets/img/users/face2.png','../../assets/img/users/face9.png']);
-        }); */
-
-        // EXAMPLE: Ejemplo para generar un perfil de usuario actual.
-        // generateUserProfile(0, 'henry.campos98', ['Henry', 'Alejandro', 'Campos', 'Ogáldez'], '20 de febrero', 'Hombre', 'Guatemala', '../../assets/img/users/profile.png', [3,4,5], ['Prueba1', 'Prueba2', 'Prueba3'], false, ()=>{
-        //     //EXAMPLE: Ejemplos para generar tarjetas de usuario dependiendo del apellido.
-        //     //TODO: No sé cómo vamos a hacer esto, podríamos agregar un botón en el perfil para indicar si esa persona es familiar y si es tío o abuela, pero se necesita otra tabla de familiares y en esa indicar si se está siguiendo o no.
-        //     //TODO: Hay que verificar los apellidos y si se está siguiendo para mandar a llamar estas funciones.
-        //     generateUserCard(1, 'Alex', 3, '../../assets/img/users/face1.png', true);
-        //     generateUserCard(2, 'Dulce', 3, '../../assets/img/users/face5.png', true);
-        //     generateUserCard(3, 'Henry', 4, '../../assets/img/users/face4.png', false);
-        //     generateUserCard(4, 'Jhonathan', 4, '../../assets/img/users/face3.png', false);
-            
-        //     generateUserCard(5, 'Lorena', 4, '../../assets/img/users/face7.png', false);
-        //     generateUserCard(6, 'Nuelmar', 4, '../../assets/img/users/face6.png', false);
-
-        //     generateUserCard(7, 'Julio', 5, '../../assets/img/users/face9.png', true);
-        //     generateUserCard(8, 'Luz', 5, '../../assets/img/users/face8.png', false);
-        //     generateUserCard(9, 'Vilma', 5, '../../assets/img/users/face2.png', false);
-        // });
 
         $('.expand-profile-picture').click((event)=>{
             $('.profile-title').addClass('expanded');
