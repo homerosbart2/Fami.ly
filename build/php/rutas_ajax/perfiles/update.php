@@ -23,8 +23,14 @@
             $options = [
                 'cost' => 9,
             ];
-            $hash = password_hash($new, PASSWORD_BCRYPT, $options);
-            $query = "UPDATE Usuarios AS U SET nombres = '$nombre', apellidos = '$apellido', genero = '$genero', correo = '$correo', fecha_nacimiento = '$fecha', pais = '$pais', usuario_password = '$hash' WHERE U.usuario_id = $usuario";
+            $hash = "";
+            $query = "";
+            if(!(empty($new))){
+                $hash = password_hash($new, PASSWORD_BCRYPT, $options);
+                $query = "UPDATE Usuarios AS U SET nombres = '$nombre', apellidos = '$apellido', genero = '$genero', correo = '$correo', fecha_nacimiento = '$fecha', pais = '$pais', usuario_password = '$hash' WHERE U.usuario_id = $usuario";
+            }else{
+                $query = "UPDATE Usuarios AS U SET nombres = '$nombre', apellidos = '$apellido', genero = '$genero', correo = '$correo', fecha_nacimiento = '$fecha', pais = '$pais' WHERE U.usuario_id = $usuario";
+            }
             $result = pg_query($link, $query);
             $rows = pg_num_rows($result);
             $retorno = 1;
