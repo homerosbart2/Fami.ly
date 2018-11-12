@@ -1,17 +1,24 @@
 <?php
-    //creacion y validacion de nuevo usuario
+    //variables que se obtienen con la cookie
+    session_start();
+    $usuario = $_SESSION['usuario_actual_id'];
+    //parametros  
     $password = $_POST["password"];
+    $name = $_POST["nombres"];
+    $lastname = $_POST["apellidos"];
+    $correo = $_POST["correo"];
+    $genero = $_POST["genero"];
+    $pais = $_POST["pais"];
+    $last = $_POST["last"]; //contraseña antigua
+    $new = $_POST["new"]; //contraseña nueva
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
+    //actualizamos usuario
+    $new = $_POST["password"];
     $options = [
         'cost' => 9,
     ];
-    $hash = password_hash($password, PASSWORD_BCRYPT, $options);
-    $username = $_POST["username"];
-    $name = $_POST["name"];
-    $lastname = $_POST["lastname"];
-    $fecha = $_POST["fecha"];
-    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
-    //buscamos existencia
-    $query = "SELECT * FROM Usuarios AS U WHERE (usuario = '$username') OR (correo = '$email')";
+    $hash = password_hash($new, PASSWORD_BCRYPT, $options);
+    $query = "UPDATE Usuarios AS U WHERE usuario = '$username' SET U.nombres = $nombre, U.apellidos = $apellidos, U.correo = $correo, U.fecha_nacimiento = $fecha, U.pais = $pais, U.usuario_password = $hash";
     $result = pg_query($link, $query);
     $rows = pg_num_rows($result);
     $create = 0;

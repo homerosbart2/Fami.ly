@@ -35,11 +35,9 @@
                         <input type='text' id='registro_nombre' name='' placeholder='Nombres' required>
                         <input type='text' id='registro_lastname' name='' placeholder='Apellidos' required>
                         <input type='text' id='registro_username' name='' placeholder='Usuario' required>
-                        <input type='text' id='registro_email' name='' placeholder='Correo' required>
                         <input type='date' id='registro_fecha' name='' placeholder='Fecha de nacimiento' required>
-                        <input type='text' id='registro_pais' name='' placeholder='País' required>
-                        <input type='password' id='registro_password1' name='' placeholder='Contraseña' required>
-                        <input type='password'  id='registro_password2' name='' placeholder='Contraseña' required>
+                        <input type='password' id='registro_password1' name='' placeholder='Ingrese contraseña' required>
+                        <input type='password'  id='registro_password2' name='' placeholder='Repita Contraseña' required>
                         <span class="login-buttons">
                             <a class='btn-cancel' onclick='updateFormContainer();'>Cancelar</a>
                             <a href="#" type='submit' id='btn_registrar' name='submit' value='Iniciar' class='btn-login iniciar_sesion'> REGISTRAR </a>
@@ -112,15 +110,13 @@
         username = document.getElementById("registro_username").value;
         password1 = document.getElementById("registro_password1").value;
         password2 = document.getElementById("registro_password2").value;
-        email = document.getElementById("registro_email").value;
-        pais = document.getElementById("registro_pais").value;
         fecha = document.getElementById("registro_fecha").value;
         lastname = document.getElementById("registro_lastname").value;
         if((password1 == password2) && password1 != "" && password2 != ""){
             if(username != "" && nombre != ""){
                 $.ajax({
                     url: '../rutas_ajax/session/nuevo_usuario.php?',
-                    data: 'name=' + nombre + '&username=' + username + '&password=' + password1 + "&email=" + email + "&fecha=" + fecha + "&pais=" + pais + "&lastname=" + lastname,
+                    data: 'name=' + nombre + '&username=' + username + '&password=' + password1 + "&fecha=" + fecha + "&lastname=" + lastname,
                     type: 'POST',
                     success: function(r){
                         if(r == 1){

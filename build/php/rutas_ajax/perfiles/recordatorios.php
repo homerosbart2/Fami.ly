@@ -8,7 +8,7 @@
     $i = 0;
     //busco a todas las personas que sigo y donde el estado mostrar es igual a true
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
-    $query = "SELECT S.sigue_id, U.usuario_id, U.nombres, U.apellidos, U.fecha_nacimiento, U.pais, U.formato_img, U.name_img FROM Usuarios AS U, Sigue AS S WHERE S.mostrar = TRUE AND U.usuario_id = S.usuario_seguido_id AND S.usuario_seguidor_id = $usuario";
+    $query = "SELECT S.sigue_id, U.usuario_id, U.nombres, U.apellidos, U.fecha_nacimiento, U.pais, U.formato_img, U.name_img FROM Usuarios AS U, Sigue AS S WHERE S.mostrar = TRUE AND U.usuario_id = S.usuario_seguido_id AND S.usuario_seguidor_id = $usuario AND (to_char(U.fecha_nacimiento, 'MMDD') BETWEEN to_char(CURRENT_TIMESTAMP, 'MMDD') AND to_char((CURRENT_TIMESTAMP +  INTERVAL '15 days'), 'MMDD'))";
     $result = pg_query($link, $query);
     if($result){
         while($row = pg_fetch_assoc($result)){

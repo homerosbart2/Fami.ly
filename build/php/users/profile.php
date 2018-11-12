@@ -19,9 +19,9 @@
                     <input type="date" id="config-date">
                     <select id="config-gender">
                         <option value="" selected disabled hidden>Género</option>
-                        <option value="male">Hombre</option>
-                        <option value="female">Mujer</option>
-                        <option value="Other">Otro</option>
+                        <option value="Hombre">Hombre</option>
+                        <option value="Mujer">Mujer</option>
+                        <option value="Otro">Otro</option>
                     </select>
                     <input type="text" id="config-country" placeholder="País">
                     <input type="password" id="config-old-pass" placeholder="Contraseña antigua">
@@ -459,8 +459,47 @@
         });
 
         $('.configuration-accept').click((event)=>{
-            $('#configuration').removeClass('expanded');
-            //TODO: Cambiar la configuración en la DB.
+            //TODO: Cambiar la configuración en la DB. 
+            nombres = $("#config-names").val();
+            apellidos = $("#config-lastnames").val();
+            correo = $("#config-email").val();
+            fecha = $("#config-date").val();
+            genero = $("#config-gender").val();
+            pais = $("#config-country").val();
+            lastPassword = $("#config-old-pass").val();
+            newPassword1 = $("#config-new-pass").val();
+            newPassword2 = $("#config-repeat-pass").val();
+            alert(nombres);
+            alert(apellidos);
+            alert(correo);
+            alert(fecha);
+            alert(genero);
+            alert(pais);
+            alert(lastPassword);
+            alert(newPassword1);
+            alert(newPassword2);
+            if(newPassword1 != newPassword2) showMessage("warning","Configuración.","Las nuevas contraseñas no coinciden.");
+            else{
+                $.ajax({
+                    url: "../rutas_ajax/perfiles/deseo.php?",
+                    type: "POST",
+                    data: 'nombres='+nombres+'&apellidos='+ apellidos + '&correo=' + correo + '&fecha=' + fecha + '&genero=' + genero + '&pais=' + pais + '&last=' + lastPassword + '&new=' + newPassword,
+                    success: function(r){
+                        if(r == 1){
+                            //cambios exitosamente
+                            $('#configuration').removeClass('expanded');    
+                        }else if(r == 0){
+                            //error old password
+                            showMessage("error","Configuración.","Escriba correctamente la contraseña anterior.");
+                        }
+                    },
+                });        
+            }    
+        });
+
+        $(document).on('click', '.user-card', function () {
+            id = $(this).attr("user-id");
+            $(location).attr('href', 'profile.php?id=' + id);
         });
 
         actualUrl = window.location.href;
