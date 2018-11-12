@@ -4,7 +4,7 @@
     $usuario = $_SESSION['usuario_actual_id']; 
     //parametros
     $apellido = $_POST["apellido"];
-    $link = pg_connect("host=localhost dbname=FAMILY user=tienda password=%SocialAdmin18%");
+    $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //variables
     $create = -1;
     //creacion de grupo
