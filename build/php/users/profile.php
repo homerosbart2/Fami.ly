@@ -8,6 +8,33 @@
 <body>
     <section id="profile-section" class="profile-section">
     </section>
+    <span id="configuration" class="configuration-outer-container">
+        <span class="configuration-inner-container">
+            <span class="configuration">
+                <span class="configuration-title">Configuración</span>
+                <span class="inputs-container">
+                    <input type="text" id="config-names" placeholder="Nombres">
+                    <input type="text" id="config-lastnames" placeholder="Apellidos">
+                    <input type="text" id="config-email" placeholder="Correo">
+                    <input type="date" id="config-date">
+                    <select id="config-gender">
+                        <option value="" selected disabled hidden>Género</option>
+                        <option value="male">Hombre</option>
+                        <option value="female">Mujer</option>
+                        <option value="Other">Otro</option>
+                    </select>
+                    <input type="text" id="config-country" placeholder="País">
+                    <input type="password" id="config-old-pass" placeholder="Contraseña antigua">
+                    <input type="password" id="config-new-pass" placeholder="Nueva contraseña">
+                    <input type="password" id="config-repeat-pass" placeholder="Repetir contraseña">
+                </span>
+                <span class="options">
+                    <a class="configuration-cancel btn-floating"><i class="far fa-times-circle"></i></a>
+                    <a class="configuration-accept btn-floating"><i class="far fa-check-circle"></i></a>
+                </span>
+            </span>
+        </span>
+    </span>
 </body>
 
 <script>
@@ -81,10 +108,10 @@
         rows += `<span class="img-update"><i class="far fa-caret-square-up"></i> Subir imagen</span>`;
         rows += `</span>`;
         rows += `<span class="name-container">`;
-        rows += `<span class="user-lastnames">`;
+        rows += `<span id="lastnames" class="user-lastnames">`;
         rows += `${lastname}`;
         rows += `</span>`;
-        rows += `<span class="user-names">`;
+        rows += `<span id="names" class="user-names">`;
         rows += `${name}`;
         rows += `</span>`;
         rows += `<span class="user-alias">`;
@@ -99,7 +126,7 @@
                 rows += `<a class="follow btn-login">Seguir</a>`
             }
         }else if(type == 0){
-            rows += `<a class="config btn-login"><i class="fas fa-cog"></i> Configuración</a>`;
+            rows += `<a id="profile-config" class="config btn-login"><i class="fas fa-cog"></i> Configuración</a>`;
         }
         rows += `</span>`;
         rows += `</span>`;
@@ -108,9 +135,9 @@
         rows += `<span class="profile-information">`;
         rows += `<span id="btn-wishlist" class="btn-wishlist"><i class="fas fa-gift"></i></span>`;
         rows += `<span class="info-title">Información</span>`;
-        rows += `<span class="birthday"><span class="icon"><i class="fas fa-birthday-cake"></i></span> ${birthday}</span>`;
-        rows += `<span class="gender"><span class="icon"><i class="fas fa-mars"></i></span> ${gender}</span>`;
-        rows += `<span class="country"><span class="icon"><i class="fas fa-globe-americas"></i></span> ${country}</span>`;
+        rows += `<span id="birthday" class="birthday"><span class="icon"><i class="fas fa-birthday-cake"></i></span> ${birthday}</span>`;
+        rows += `<span id="gender" class="gender"><span class="icon"><i class="fas fa-mars"></i></span> ${gender}</span>`;
+        rows += `<span id="country" class="country"><span class="icon"><i class="fas fa-globe-americas"></i></span> ${country}</span>`;
         rows += `</span>`;
         switch(type){
             //Usuario que inició sesión.
@@ -177,6 +204,16 @@
             $('.title-bg').css('opacity', '1');
             $('.title-bg').css('transform', 'scale(1.2)');
             $('.profile-information-container').css('opacity', '1');
+
+            if(type == 0){
+                $('#profile-config').click((event)=>{
+                    object = $('#configuration');
+                    object.find('#config-names').val($('#names').text());
+                    object.find('#config-lastnames').val($('#lastnames').text());
+                    object.find('#config-country').val($('#country').text());
+                    object.addClass('expanded');
+                });
+            }
 
             $('#btn-wishlist').click((event)=>{
                 object = $('#wishlist-container');
@@ -415,6 +452,15 @@
     }
 
     $(document).ready(()=>{
+        $('.configuration-cancel').click((event)=>{
+            $('#configuration').removeClass('expanded');
+        });
+
+        $('.configuration-accept').click((event)=>{
+            $('#configuration').removeClass('expanded');
+            //TODO: Cambiar la configuración en la DB.
+        });
+
         actualUrl = window.location.href;
         profile = (actualUrl.split("=")[1]);
         listUserInfo(profile);
