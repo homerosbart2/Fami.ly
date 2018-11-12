@@ -249,7 +249,6 @@
         }
         sum = 0;
         updatePercents(postId);     
-        // TODO: almacenar en la base de datos que el usuario actual votó en la opción [option] después de la llamada a updatePercents.
         $.ajax({
             url: "../rutas_ajax/publicaciones/votaciones/insertar_votos.php?",
             type: "POST",
@@ -363,7 +362,6 @@
         }
         rows += '<span class="user-container me">';
         rows += '<i class="far fa-check-square"></i>';
-        //TODO: Aquí hay que poner la imagen del usuario que inició sesión.
         rows += '<img class="user" src="' + imPath + '">';
         rows += '<span class="name">Asistirás a este evento.</span>';
         rows += '</span>';
@@ -499,7 +497,6 @@
         //Lista de respuestas de la pregunta
         for(i in answers){
             if(IsInArray(respuestasUsuario,i)){
-                //TODO: Esto pasa si la respuesta es del usuario actual (Hay que comparar si users[i] == usuarioActual).
                 rows += '<span class="answer me"><span class="searchable">'+answers[i]+'</span></span>';
             }else{
                 rows += '<span class="answer"><span class="user">'+users[i].split(' ')[0]+'</span><span class="searchable">'+answers[i]+'</span></span>';
@@ -657,7 +654,6 @@
             object.addClass('im-in');
             lmnt.html('No Asistiré');
         }
-        //TODO: almacenar o eliminar en la base de datos la entrada que indica que el usuario actual asistirá al evento con id [postId].
         $.ajax({
             url: "../rutas_ajax/publicaciones/eventos/insertar_asistencia.php?",
             data: "grupo=" + groupId + "&evento=" + eventId,
@@ -835,7 +831,6 @@ function initWallListeners(){
                 if(/\S/.test(text)){
                     if($('.btn-chat').hasClass('event')){
                         //Esto sucede si es un evento
-                        //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         postId = 321;
                         time = '12:21 PM';
                         confirmedPeopleNames = [];
@@ -850,7 +845,6 @@ function initWallListeners(){
                         minutes = $('.minutes').val();
                         dateEvento = ($('.month').val())+"/"+day+"/"+year;
                         hourEvento = hour+":"+minutes+":00";
-                        //TODO: Hay que verificar si la hora es AM o PM y si está entre 0 y 24.
                         //GUARDAMOS EL EVENTO
                         $.ajax({
                             url: "../rutas_ajax/publicaciones/eventos/insertar.php?",
@@ -894,7 +888,6 @@ function initWallListeners(){
                         }                        
                     }else if($('.btn-chat').hasClass('poll')){
                         //Esto sucede si es una votación
-                        //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         postId = 321;
                         time = '12:21 PM';
                         options = [];
@@ -923,7 +916,6 @@ function initWallListeners(){
                                 }
                             });                              
                         }else{
-                            //TODO: Debe aparecer una notificación si no ingresa dos opciones o más.
                             showMessage("warning","Votación.","Debe ingresar 2 o más opciones.");
                             success = 0;
                         }
@@ -943,7 +935,6 @@ function initWallListeners(){
                         if(!object.hasClass('expanded')){
                             showQuestionAnswers(object);
                         }
-                        //TODO: almacenar en la base de datos la respuesta a la pregunta con id [postId].
                         $.ajax({
                             url: "../rutas_ajax/publicaciones/preguntas/insertar_respuestas.php?",
                             data: "grupo=" + groupId + "&pregunta=" + questionId + "&informacion=" + text,
@@ -955,7 +946,6 @@ function initWallListeners(){
                         scrollToMiddle($('#'+postId));
                     }else if(text.search('\\?')!=-1){
                         //Esto sucede si es una pregunta
-                        //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         $.ajax({
                             url: "../rutas_ajax/publicaciones/preguntas/insertar.php?",
                             data: "grupo=" + groupId + "&informacion=" + [text],
@@ -969,10 +959,8 @@ function initWallListeners(){
                                 }
                             }
                         }); 
-                        //TODO: almacenar en la base de datos después de la llamada a generateQuestion.
                     }else{
                         //Esto sucede si es un mensaje simple.
-                        //TODO: Hay que generar un nuevo id y obtener la hora del servidor.
                         //GUARDAMOS EL MENSAJE
                         time = '12:21 PM';
                         $.ajax({
@@ -1324,43 +1312,6 @@ function initWallListeners(){
         postsList(true,"",true,"");
         //Variable que indica que estamos en el wall de un grupo.
         wall = 1;
-        //EXAMPLE: Ejemplo para mostrar la animación de carga.
-        //showChargingAnimation(true);
-        
-        //EXAMPLE: Ejemplos para agregar un resultado a la búsqueda.
-        // clearPeopleSearch();
-        // generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', true, true);
-        // generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face4.png', true, true);
-        // generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face3.png', true, true);
-        // generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face5.png', true, true);
-        // generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', true, true);
-        
-        //EXAMPLE: Ejemplo para decir que no hubo resultado en la búsqueda (Esta instrucción elimina los resultados agregados del ejemplo de arriba).
-        // noResultInSearch();
-
-        //EXAMPLE: Ejemplos para cada tipo de publicación:
-        //EXAMPLE: Ejemplo mensaje simple.
-        // generateMessage(74, 'Vilma', ['Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuuuu', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'zzz'], '3:15 PM', false)
-
-        // generateMessage(100, 'DIego', ['Hola ¿Cómo estás? ¿Cómo te ha ido? aaaaaaaa jajajaja wuuuuuuuuuuuuu', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'Adiós 😢', 'zzz'], '3:20 PM', false)
-
-            // //EXAMPLE: Ejemplo pregunta.
-            // generateQuestion(75, '', '¿A dónde quieren salir en la noche?', ['A Nais!!!', 'No sé de qué tengo ganas jajaja', 'Mejor a Pollo Campero, más barato'], ['Alex', 'Fernando', 'Vilma'], '10:27 AM', true, false)
-
-            // //EXAMPLE: Ejemplo evento.
-            // generateEvent(77, 'Marco', '¡Cumpleaños de Fernando!', 'Va a estar muy alegre, vengan todos!!', 'Villas de Fátima', '20 de marzo', '1:00 PM', ['Jhonathan', 'Vilma', 'Alex', 'Lilly'], ['../../assets/img/users/face9.png', '../../assets/img/users/face2.png', '../../assets/img/users/face1.png', '../../assets/img/users/face8.png'], true, '10:27 PM', false, false);
-
-            // //EXAMPLE: Ejemplo separador.
-            // generateDateSeparator('27 de septiembre de 2018');
-
-            // //EXAMPLE: Ejemplo votación.
-            // generatePoll(76, 'Henry', '¿A dónde quieren salir en la noche?', ['Pollo Campero', 'Nais', 'La Estancia'], [3, 1, 1], 1, '12:35', false, false);
-
-        //EXAMPLE: Ejemplo imagen.
-        // generateImage(78, 'Henry', 'Recuerdo familiar', '../../assets/img/fam1.jpg', '3:52 PM', true, false);
-
-        //EXAMPLE: Ejemplo separador.
-        // generateDateSeparator('Hoy');
 
         //Función que asigna todos los eventos de los elementos en el mural.
         initWallListeners();
