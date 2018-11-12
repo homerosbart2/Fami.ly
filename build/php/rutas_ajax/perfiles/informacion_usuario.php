@@ -9,13 +9,13 @@
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     $userInfo = $usuario;
     if(!(empty($perfil))){
-        $query = "SELECT U.usuario_id,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img, '$isFollowing' AS isfollow FROM Usuarios As U WHERE U.usuario_id = $perfil";
-        $userInfo = $perfil;      
         $queryFollow = "SELECT * FROM Sigue AS S WHERE S.usuario_seguidor_id = $usuario AND S.usuario_seguido_id = $perfil";
         $result = pg_query($link, $queryFollow);
-        if(pg_num_rows($result) > 0) $isFollowing = 1;    
+        if(pg_num_rows($result) > 0) $isFollowing = 1; 
+        $query = "SELECT U.usuario_id,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img, '$isFollowing' AS isfollow FROM Usuarios As U WHERE U.usuario_id = $perfil";
+        $userInfo = $perfil;         
     }else{ 
-        $query = "SELECT U.usuario_id,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img,'TRUE' AS isfollow FROM Usuarios As U WHERE U.usuario_id = $usuario";
+        $query = "SELECT U.usuario_id,U.usuario,U.correo,U.nombres,U.apellidos,U.pais,U.fecha_nacimiento,U.name_img,U.formato_img,0 AS isfollow FROM Usuarios As U WHERE U.usuario_id = $usuario";
     }
     $result = pg_query($link, $query);
     $resultado = 0;
