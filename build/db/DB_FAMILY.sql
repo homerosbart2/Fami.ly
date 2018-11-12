@@ -1,5 +1,26 @@
 CREATE DATABASE FAMILY;
 
+
+--DROP TABLE
+-- DROP TABLE Deseos;
+-- DROP TABLE NotificacionesInvitaciones;
+-- DROP TABLE Invitaciones;
+-- DROP TABLE Imagenes;
+-- DROP TABLE Respuestas;
+-- DROP TABLE Preguntas;
+-- DROP TABLE Mensajes;
+-- DROP TABLE Votos;
+-- DROP TABLE Opciones;
+-- DROP TABLE Votaciones;
+-- DROP TABLE Asiste;
+-- DROP TABLE Eventos;
+-- DROP TABLE Notificaciones;
+-- DROP TABLE Publicaciones;
+-- DROP TABLE Sigue;
+-- DROP TABLE PerteneceGrupo;
+-- DROP TABLE GruposFamiliares;
+-- DROP TABLE Usuarios;
+
 --USUARIOS
 CREATE TABLE Usuarios( 
 	usuario_id SERIAL,

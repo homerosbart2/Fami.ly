@@ -120,10 +120,12 @@
                     type: 'POST',
                     success: function(r){
                         if(r == 1){
-                            showMessage("success","Nuevo usuario","Usuario registrado correctamente.");
+                            showMessage("success","Nuevo usuario.","Usuario registrado correctamente.");
                             setTimeout("renderProfile()",1000);   
+                        }else if(r == -1){
+                            showMessage("error","Nuevo usuario.","Error al crear usuario, el usuario ya ha sido tomado.");
                         }else{
-                            showMessage("error","Nuevo usuario","Error al crear usuario, verifique sus datos!.");
+                            showMessage("error","Nuevo usuario.","Error al crear usuario, verifique sus datos!.");
                         }
                     }
                 });

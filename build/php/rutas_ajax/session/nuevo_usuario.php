@@ -29,6 +29,8 @@
             $_SESSION['usuario_actual_id'] = $row["usuario_id"];
             pg_close($link);
         }
-    }  
-    echo $create
+    }else{
+        $create = -1;
+    }
+    echo $create;
 ?>
