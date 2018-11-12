@@ -608,10 +608,11 @@
                         return response.text();
                     })
                     .then(function(data) {
-                        location.reload();
+                        console.log(data);
+                        // location.reload();
                     })
                     .catch(function(err) {
-                        //console.error(err);
+                        console.error(err);
                     });
                 }else{
                     //alert("seleccione un archivo valido");
@@ -733,7 +734,7 @@
                     type: "POST",
                     data: 'nombres='+nombres+'&apellidos='+ apellidos + '&correo=' + correo + '&fecha=' + fecha + '&genero=' + genero + '&pais=' + pais + '&last=' + lastPassword + '&new=' + newPassword1,
                     success: function(r){
-                        console.log(r);
+                        // console.log(r);
                         if(r == 1){
                             //cambios exitosamente
                             showMessage("success","Configuración.","Información actualizada exitosamente.");
