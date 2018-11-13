@@ -243,18 +243,14 @@ function generatePeopleResult(userId, user, country, userImage, invite, top){
         object[0].onload = (event)=>{
             flexImage(event.target);
         };
-        setTimeout(() => {
-            $('.search-people-result-container').find('.people-result-container').first().css('opacity', '1');
-        }, 10);
+        $('.search-people-result-container').find('.people-result-container').first().css('opacity', '1');
     }else{
         object.append(rows);
         object = object.find('.people-result-container').last().find('.flex-image').find('img');
         object[0].onload = (event)=>{
             flexImage(event.target);
         };
-        setTimeout(() => {
-            $('.search-people-result-container').find('.people-result-container').last().css('opacity', '1');
-        }, 10);
+        $('.search-people-result-container').find('.people-result-container').last().css('opacity', '1');
     }
 }
 
@@ -479,7 +475,7 @@ $(document).ready(function(){
                                 noResultInSearch();
                             }
                         },
-                    });
+                    });                            
                 }
                 $(this).trigger("enterKey");
             }
