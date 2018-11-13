@@ -241,18 +241,14 @@ function generatePeopleResult(userId, user, country, userImage, invite, top){
         object[0].onload = (event)=>{
             flexImage(event.target);
         };
-        setTimeout(() => {
-            $('.search-people-result-container').find('.people-result-container').first().css('opacity', '1');
-        }, 10);
+        $('.search-people-result-container').find('.people-result-container').first().css('opacity', '1');
     }else{
         object.append(rows);
         object = object.find('.people-result-container').last().find('.flex-image').find('img');
         object[0].onload = (event)=>{
             flexImage(event.target);
         };
-        setTimeout(() => {
-            $('.search-people-result-container').find('.people-result-container').last().css('opacity', '1');
-        }, 10);
+        $('.search-people-result-container').find('.people-result-container').last().css('opacity', '1');
     }
 }
 
@@ -479,14 +475,6 @@ $(document).ready(function(){
                             }
                         },
                     });                            
-
-                    //EXAMPLE: ejemplo para agregar resultados de una búsqueda en otro lado que no sea wall.
-                    /*clearPeopleSearch();
-                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/profile.png', false, true);
-                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face4.png', false, true);
-                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face3.png', false, true);
-                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face5.png', false, true);
-                    generatePeopleResult('Vilma Yolanda Ogáldez Estrada', 'El Salvador', '../../assets/img/users/face6.png', false, true);*/
                 }
                 $(this).trigger("enterKey");
             }
