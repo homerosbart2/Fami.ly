@@ -694,7 +694,9 @@
 
                 isfollow = false;
                 if(obj[0].isfollow == 1)  isfollow = true;
-                generateUserProfile(type, obj[0].correo, obj[0].usuario, obj[0].nombres,obj[0].apellidos, obj[0].fecha_nacimiento, 'Hombre', obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,isfollow,wishes, ()=>{
+                if(obj[0].genero != undefined && obj[0].genero != null) genero = obj[0].genero;
+                else genero = "";
+                generateUserProfile(type, obj[0].correo, obj[0].usuario, obj[0].nombres,obj[0].apellidos, obj[0].fecha_nacimiento, genero, obj[0].pais, '../../assets/img/users/' + obj[0].name_img+"."+obj[0].formato_img, groups,groupNames,isfollow,wishes, ()=>{
                     for(i = 1; i < (obj.length - 1); i++){
                         for(var j = 0; j < obj[i][1].length; j++){
                             generateUserCard(obj[i][1][j].usuario_id, obj[i][1][j].nombres.split(" ")[0], obj[i][0].grupo_id,'../../assets/img/users/' + obj[i][1][j].name_img+"."+obj[i][1][j].formato_img, false);

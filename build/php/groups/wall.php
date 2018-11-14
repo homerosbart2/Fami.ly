@@ -836,7 +836,6 @@ function initWallListeners(){
                         confirmedPeopleNames = [];
                         confirmedPeopleImages = [];
                         day = $('.day').val();
-                        alert(day);
                         month = months[(parseInt($('.month').val()) - 1)];
                         year = $('.year').val();
                         description = $('.event-description').val();

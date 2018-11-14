@@ -30,8 +30,7 @@ CREATE TABLE Usuarios(
 	usuario_password varchar(255),
 	genero integer,
 	fecha_nacimiento date,
-	PRIMARY KEY(usuario_id),
-	UNIQUE (correo)
+	PRIMARY KEY(usuario_id)
 );
 
 

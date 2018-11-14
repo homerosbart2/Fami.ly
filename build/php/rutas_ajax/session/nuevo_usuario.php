@@ -11,7 +11,7 @@
     $fecha = $_POST["fecha"];
     $link = pg_connect("host=localhost dbname=FAMILY user=social password=%SocialAdmin18%");
     //buscamos existencia
-    $query = "SELECT * FROM Usuarios AS U WHERE (usuario = '$username') OR (correo = '$email')";
+    $query = "SELECT * FROM Usuarios AS U WHERE (usuario = '$username')";
     $result = pg_query($link, $query);
     $rows = pg_num_rows($result);
     $create = 0;
@@ -23,12 +23,14 @@
             session_start();
             //creamos las variables de sesion
             $row = pg_fetch_assoc($result);
+            $_SESSION['recordatorio'] = 1;
             $_SESSION['usuario_actual_nombre'] = $name;
             $_SESSION['usuario_actual'] = $username;
-            $_SESSION['correo_actual'] = $email;
             $_SESSION['usuario_actual_id'] = $row["usuario_id"];
             pg_close($link);
         }
-    }  
-    echo $create
+    }else{
+        $create = -1;
+    }
+    echo $create;
 ?>

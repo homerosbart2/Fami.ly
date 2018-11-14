@@ -24,8 +24,8 @@ CREATE DATABASE FAMILY;
 --USUARIOS
 CREATE TABLE Usuarios( 
 	usuario_id SERIAL,
-	usuario varchar(25),
-	correo varchar(50),
+	usuario text,
+	correo text,
 	nombres text,
     apellidos text,
     pais varchar(25),

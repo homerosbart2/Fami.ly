@@ -61,9 +61,9 @@
 <style>
 .ui-pnotify{
     /*CSS PARA PNOTIFY EDITADO*/
-    top:0px;
+    top:10px;
     right:66px;
-    left:0px;
+    left:66px;
 }
 </style>
 <script>
@@ -74,7 +74,7 @@
 
     function showMessage(type,title,text){
         var opts = {
-            width: "100%"
+            width: "90%"
         };
         opts.title = title;
         opts.text = text;
@@ -96,12 +96,12 @@
                         showMessage("success","Sesión inciada exitosamente","Bienvenido " + username + ".");
                         setTimeout("renderProfile()",1000); 
                     }else{
-                        showMessage("error","Error al iniciar sesión","Verifique sus datos porfavor!.");
+                        showMessage("error","Error al iniciar sesión","Verifique sus datos por favor.");
                     }
                 }
             });
         }else{
-            showMessage("warning","Login","Complete todos los campos porfavor.");      
+            showMessage("warning","Login","Complete todos los campos por favor.");      
         }    
     }
 
@@ -120,15 +120,17 @@
                     type: 'POST',
                     success: function(r){
                         if(r == 1){
-                            showMessage("success","Nuevo usuario","Usuario registrado correctamente.");
+                            showMessage("success","Nuevo usuario.","Usuario registrado correctamente.");
                             setTimeout("renderProfile()",1000);   
+                        }else if(r == -1){
+                            showMessage("error","Nuevo usuario.","Error al crear usuario, el usuario ya ha sido tomado.");
                         }else{
-                            showMessage("error","Nuevo usuario","Error al crear usuario, verifique sus datos!.");
+                            showMessage("error","Nuevo usuario.","Error al crear usuario, verifique sus datos.");
                         }
                     }
                 });
             }else{
-                showMessage("warning","Nuevo usuario","Complete todos los campos porfavor.");         
+                showMessage("warning","Nuevo usuario","Complete todos los campos por favor.");         
             }         
         }else{
             showMessage("warning","Nuevo usuario","Ambas contraseñas deben coincidir.");       
